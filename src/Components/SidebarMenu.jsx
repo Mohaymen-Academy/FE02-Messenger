@@ -5,7 +5,7 @@ export default function SidebarMenu({ profileImage, username, open, divref }) {
     <div className="h-screen w-[190px]">
       <div
         ref={divref}
-        className={`fixed top-0 flex h-screen flex-col bg-blue-700 px-5 transition-all duration-1000 ease-in-out ${
+        className={`fixed top-0 flex h-screen flex-col bg-[#1e7889] px-5 transition-all duration-1000 ease-in-out ${
           open ? 'right-0' : 'right-[-250px]'
         }`}>
         <div className="flex flex-col gap-3 pt-5 pb-3 pr-3 pl-[5.75rem] border-b-2 border-b-gray-400 w-fit">
