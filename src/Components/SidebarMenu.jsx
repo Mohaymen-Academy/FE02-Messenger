@@ -3,7 +3,8 @@ import SidebarCard from './SidebarCard';
 import { useRef } from 'react';
 
 export default function SidebarMenu({ profileImage, username }) {
-    const [open, setopen] = useState(true);
+    const [open, setopen] = useState(false);
+    const [popupComp, setpopupComp] = useState(0);
     const divref = useRef(null);
     useEffect(() => {
         if (open)
