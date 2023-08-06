@@ -1,11 +1,13 @@
-import LeftSide from './Components/LeftSide.jsx'
+import LeftSide from './Components/LeftSide.jsx';
+import SidebarMenu from './Components/SidebarMenu.jsx';
 
 function App() {
   return (
-    <div className="h-screen w-screen">
+    <>
       <LeftSide />
-    </div>
-  )
+      <SidebarMenu profileImage={'images/profile.jpg'} username={'Zahra'} />
+    </>
+  );
 }
 
-export default App
+export default App;
