@@ -9,7 +9,7 @@ import {
 import { useState } from 'react';
 import Settings from './Menues/Settings.jsx';
 export default function SidebarMenu({ profileImage, username, open, divref }) {
-  const [menu, setmenu] = useState(NUM_SIDEBAR_SETTINGS);
+  const [menu, setmenu] = useState(NUM_SIDEBAR_DEFAULT);
   const Menues = {
     [NUM_SIDEBAR_DEFAULT]: <Default menuSetter={setmenu} />,
     [NUM_SIDEBAR_SETTINGS]: <Settings />,
