@@ -6,9 +6,12 @@ export default function SidebarCard({ icon, title, setsection }) {
             onClick={(e) => setsection(title)}
         >
             <div
-                className='flex items-center justify-evenly'>
+                className='flex items-center gap-2 my-1'>
                 <img src={icon} className='w-[40px] h-[40px]' alt="" />
-                <p>{title}</p>
+                <p
+                    className='cardP'>
+                    {title}
+                </p>
             </div>
         </button>
     )
