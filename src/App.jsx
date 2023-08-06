@@ -1,13 +1,10 @@
-import { useState } from 'react'
-
+import LeftSide from './Components/LeftSide.jsx'
 
 function App() {
   return (
-    <>
-      <p>
-        Hi
-      </p>
-    </>
+    <div className="h-screen w-screen">
+      <LeftSide />
+    </div>
   )
 }
 
