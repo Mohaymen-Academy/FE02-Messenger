@@ -4,19 +4,18 @@ import SidebarCard from './SidebarCard.jsx';
 export default function SidebarMenu({ profileImage, username }) {
   const [open, setopen] = useState(true);
   const divref = useRef(null);
-  function handleOutsideClick(event) {
-    if (divref.current && !divref.current.contains(event.target)) {
-      console.log('zrap');
-      setopen(false);
-    }
-  }
   useEffect(() => {
     if (open) {
       document.addEventListener('mousedown', handleOutsideClick);
     }
     return () => document.addEventListener('mousedown', handleOutsideClick);
   }, [open]);
-
+  function handleOutsideClick(event) {
+    if (divref.current && !divref.current.contains(event.target)) {
+      console.log('zrap');
+      setopen(false);
+    }
+  }
   return (
     <div className="h-screen w-[190px]">
       <button className="fixed" onClick={(e) => setopen((prev) => !prev)}>

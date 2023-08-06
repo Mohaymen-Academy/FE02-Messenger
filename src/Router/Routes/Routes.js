@@ -1,17 +1,23 @@
-import App from '../../App.jsx'
-import Register from '../../Pages/Register.jsx'
+import App from '../../App';
+import Register from '../../Pages/Register';
+import Login from '../../Pages/Login';
 
 const routes = [
   {
     path: '/App',
     component: App,
-    Private: false,
+    Private: false
   },
   {
     path: '/Register',
     component: Register,
-    Private: false,
+    Private: false
   },
-]
+  {
+    path: '/Login',
+    component: Login,
+    Private: false
+  }
+];
 
-export default routes
+export default routes;
