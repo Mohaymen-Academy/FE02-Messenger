@@ -17,14 +17,14 @@ export default function LeftSide() {
     return () => document.addEventListener('mousedown', handleOutsideClick);
   }, [open]);
   return (
-    <div className="fixed right-0 top-0 h-full w-[380px] bg-slate-600 shadow-md">
+    <div className="fixed right-0 top-0 h-screen w-[380px] bg-slate-600 shadow-md">
       <div className="flex justify-between px-2 py-1 ">
         <div>
           <button className="fixed" onClick={(e) => setopen((prev) => !prev)}>
             <img src="images/menuIcon.png" className={'h-[25px] w-[25px]'} alt="" />
           </button>
         </div>
-        <div className="flex flex-row-reverse px-5 w-[340px] ">
+        <div className="flex w-[340px] flex-row-reverse px-5 ">
           <input type="text" className={'w-[100%] rounded-lg'} />
         </div>
       </div>
