@@ -1,9 +1,9 @@
 import React from 'react'
 
-export default function SidebarCard({ icon, title, setsection }) {
+export default function SidebarCard({ icon, title, setsection ,menuId }) {
     return (
         <button
-            onClick={(e) => setsection(title)}
+            onClick={(e) => setsection(menuId)}
         >
             <div
                 className='flex items-center gap-2 my-1'>
