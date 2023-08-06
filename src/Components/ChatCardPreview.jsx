@@ -1,3 +1,3 @@
-const ChatCardPreview = () => <div className=""></div>;
+const ChatCardPreview = () => <div className="">ChatCardPreview</div>;
 
 export default ChatCardPreview;

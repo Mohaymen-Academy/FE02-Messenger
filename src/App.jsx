@@ -3,10 +3,10 @@ import SidebarMenu from './Components/SidebarMenu.jsx';
 
 function App() {
   return (
-    <>
-      <LeftSide />
+    <div className="h-screen w-full">
       <SidebarMenu profileImage={'images/profile.jpg'} username={'Zahra'} />
-    </>
+      <LeftSide />
+    </div>
   );
 }
 

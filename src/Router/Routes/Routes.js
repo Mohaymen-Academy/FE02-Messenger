@@ -1,6 +1,6 @@
-import App from '../../App';
-import Register from '../../Pages/Register';
-import Login from '../../Pages/Login';
+import App from '../../App.jsx';
+import Register from '../../Pages/Register.jsx';
+import Login from '../../Pages/Login.jsx';
 
 const routes = [
   {
