@@ -17,7 +17,7 @@ export default function LeftSide() {
     return () => document.addEventListener('mousedown', handleOutsideClick);
   }, [open]);
   return (
-    <div className="fixed right-0 top-0 h-screen w-[380px] bg-slate-600 shadow-md">
+    <div className=" h-screen w-[380px] bg-slate-600 shadow-md">
       <div className="flex justify-between px-2 py-1 ">
         <div>
           <button className="fixed" onClick={(e) => setopen((prev) => !prev)}>
