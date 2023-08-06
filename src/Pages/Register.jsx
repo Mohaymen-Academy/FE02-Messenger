@@ -22,7 +22,7 @@ export default function Register() {
             alert("لطفاً همه فیلدها را پر کنید.");
             return;
         }
-        else if (!validateEmailFormat(values.email)) {
+        if (!validateEmailFormat(values.email)) {
             setEmailError("فرمت ایمیل وارد شده صحیح نیست.");
         }
         else if (values.password !== values.password_confirmation) {
@@ -142,7 +142,7 @@ export default function Register() {
                     <div className="mt-4 text-grey-600">
                         قبلا اکانت داشته اید؟{" "}
                         <span>
-                            <a className="text-[#1e7889] hover:underline" href="#">
+                            <a className="text-[#1e7889] hover:underline" href="/Login">
                                 وارد شوید
                             </a>
                         </span>
