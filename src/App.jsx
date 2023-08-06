@@ -5,7 +5,7 @@ import SidebarMenu from './Components/SidebarMenu'
 function App() {
   return (
     <>
-      <SidebarMenu />
+      <SidebarMenu profileImage={'images/profile.jpg'} username={'Zahra'} />
     </>
   )
 }
