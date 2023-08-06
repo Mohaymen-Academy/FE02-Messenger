@@ -1,8 +1,8 @@
 import { useState } from 'react'
 import SidebarMenu from './Components/SidebarMenu'
 
-function App() {
 
+function App() {
   return (
     <>
       <SidebarMenu />
