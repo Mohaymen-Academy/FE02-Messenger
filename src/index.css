@@ -2,9 +2,29 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+    :root {
+      --color-color1: 20 35 60;
+      --color-color2: 38 56 89;
+      --color-color3: 107 119 141;
+      --color-color4: 30 120 137;
+      --color-text1: 244 244 242;
+    }
+    :root[data-theme="light"] {
+        --color-color1: 244 244 242;
+        --color-color2: 232 232 232;
+        --color-color3: 187 191 202;
+        --color-color4: 30 120 137;
+        --color-text1: 20 35 60;
+
+    }
+  }
+
+
+
 @layer components{
     .bg-complete{
-        @apply  fixed top-0 left-0 w-screen h-screen flex items-center justify-center bg-[#ffffff];
+        @apply  fixed top-0 left-0 w-screen h-screen flex items-center justify-center bg-color1;
     }
     .main-div{
         @apply   absolute w-[450px] h-[800px]   flex flex-col vsmmobile:w-[300px] smmobile:w-[350px];
@@ -19,10 +39,10 @@
         @apply flex flex-col  w-[400px] h-[260px] vsmmobile:w-[280px] smmobile:w-[300px];
     }
     .input-text{
-        @apply block text-gray-700  font-bold mb-2 px-1;
+        @apply block text-gray-700  font-bold mb-2 px-1 ;
     }
     .input-div{
-        @apply block w-full h-10 my-2 border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50  ;
+        @apply block w-full h-10 my-2 border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 border  ;
     }
     .input-detail{
         @apply text-gray-700 text-[10px] m-2 mb-5;

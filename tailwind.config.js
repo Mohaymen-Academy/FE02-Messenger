@@ -5,6 +5,7 @@ export default {
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
+
     screens: {
       'vsmmobile': { 'max': '580px' },
       'smmobile': { 'min': '581px', 'max': '903px' },
@@ -13,7 +14,15 @@ export default {
       'laptop':   { 'min': '1024px', 'max': '1239px' },
       'desktop': { 'min': '1240px' },
     },
-    extend: {},
+    extend: {
+      colors:{
+        color1: 'rgb(var(--color-color1) / <alpha-value>)',
+        color2: 'rgb(var(--color-color2) / <alpha-value>)',
+        color3: 'rgb(var(--color-color3) / <alpha-value>)',
+        color4: 'rgb(var(--color-color4) / <alpha-value>)',
+        text1: 'rgb(var(--color-text1) / <alpha-value>)',
+      },
+    },
   },
   plugins: [],
 }
