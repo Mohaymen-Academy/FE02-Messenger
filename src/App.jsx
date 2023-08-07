@@ -6,6 +6,8 @@ function App() {
   return (
     <Layout>
       <ChatHeader />
+      <div className="flex w-full h-[88%]">
+      </div>
       <ChatFooter/>
     </Layout>
   );

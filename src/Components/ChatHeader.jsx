@@ -1,5 +1,5 @@
 const ChatHeader = () => (
-  <div className=" flex w-full justify-between bg-slate-500 px-1">
+  <div className=" flex w-full h-[6%] justify-between bg-slate-500 px-1">
     <div id="header-account" className="flex h-full items-center gap-2">
       <div className="w-10 py-3">
         <div className="flex h-full w-full justify-center rounded-full bg-orange-500 text-center text-4xl font-normal text-white">
