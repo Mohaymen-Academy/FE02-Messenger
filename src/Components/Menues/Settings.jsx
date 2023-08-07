@@ -1,11 +1,12 @@
-import PersonalMenu from '../../utility/PersonalMenu.jsx';
-import Notifs from '../../utility/Notifs.jsx';
+import PersonalMenu from '../../utility/Settings/PersonalMenu.jsx';
+import Notifs from '../../utility/Settings/Notifs.jsx';
+import Privacy from '../../utility/Settings/Privacy.jsx';
 export default function Settings() {
   return (
     <div>
       <PersonalMenu />
       <Notifs />
-      <PersonalMenu />
+      <Privacy />
     </div>
   );
 }

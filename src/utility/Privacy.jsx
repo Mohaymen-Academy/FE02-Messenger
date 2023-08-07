@@ -1,8 +1,8 @@
 import React, { useState, useRef } from 'react';
 import CheckBoxParag from './CheckBoxParag';
-import InputSlider from './InputSlider';
+import InputSlider from './Settings/InputSlider';
 
-export default function Notifs() {
+export default function Privacy() {
   const [open, setopen] = useState(false);
   const inputslider = useRef(null);
   return (
@@ -12,7 +12,7 @@ export default function Notifs() {
         className={'flex w-full h-10 items-center justify-between  bg-color3 p-2 '}>
         <div className="flex items-center gap-2">
           <img src="images/person.png" className="rounded-lg" alt="" />
-          <span className="text-[12px] font-extrabold text-text1 ">صدا و اعلانات</span>
+          <span className="text-[12px] font-extrabold text-text1 ">حریم خصوصی و امنیت</span>
         </div>
         <svg
           className={`w-2.5 h-2.5 ml-2.5 ${open ? 'transform rotate-180' : ''}`}
@@ -34,7 +34,10 @@ export default function Notifs() {
           open ? 'h-[545px]' : 'h-[0px]'
         }`}>
         <div className={'notifsdiv pt-3'}>
-          <label htmlFor="" className=''> اعلان ها و صدا ها</label>
+          <label htmlFor="" className="">
+            {' '}
+            اعلان ها و صدا ها
+          </label>
           {<CheckBoxParag title={'اعلان ها و صداها'} />}
           {<InputSlider />}
         </div>
@@ -53,7 +56,6 @@ export default function Notifs() {
           <p className="text-gray-500">سایر</p>
           {<CheckBoxParag title={'مخاطب به مسجر پیوست'} />}
         </div>
-
       </div>
     </div>
   );
