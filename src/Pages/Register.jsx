@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { getTheme } from '../utility/useLoclStorage';
 
 export default function Register() {
   useEffect(() => {
