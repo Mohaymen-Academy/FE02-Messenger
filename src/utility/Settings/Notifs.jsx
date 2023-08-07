@@ -1,6 +1,6 @@
 import React, { useState, useRef } from 'react';
 import CheckBoxParag from '../CheckBoxParag';
-import InputSlider from './InputSlider';
+import InputSlider from '../InputSlider';
 
 export default function Notifs() {
   const [open, setopen] = useState(false);
@@ -39,7 +39,7 @@ export default function Notifs() {
             اعلان ها و صدا ها
           </label>
           {<CheckBoxParag title={'اعلان ها و صداها'} />}
-          {<InputSlider />}
+          {<InputSlider title={'بلندی صدا'} />}
         </div>
         <div className="notifsdiv border-t-2 pt-3">
           <p className="text-gray-500">گفت و گوهای اختصاصی</p>

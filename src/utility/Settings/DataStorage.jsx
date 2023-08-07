@@ -1,6 +1,6 @@
 import React, { useState, useRef } from 'react';
 import CheckBoxData from '../CheckBoxData';
-import InputSlider from './InputSlider';
+import InputSlider from '../InputSlider';
 
 export default function DataStorage() {
   const [open, setopen] = useState(false);

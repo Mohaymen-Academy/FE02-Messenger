@@ -66,6 +66,9 @@
         @apply w-[90%] h-fit flex flex-row hover:bg-slate-200 bg-opacity-5 rounded-lg items-center ;
     }
     
+    .sliderwithtext{
+        @apply hover:text-gray-500 hover:cursor-pointer;
+    }
 }
 
 @media screen and (-webkit-min-device-pixel-ratio: 0) {

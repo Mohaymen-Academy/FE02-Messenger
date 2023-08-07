@@ -1,12 +1,12 @@
 import React, { useRef, useState } from 'react';
 
-export default function InputSlider() {
+export default function InputSlider({title}) {
   const inputslider = useRef(null);
   const [value, setvalue] = useState(5);
   return (
     <div>
       <div className="flex flex-row justify-between">
-        <h2>بلندی صدا</h2>
+        <h2>{title}</h2>
         <p>{value}</p>
       </div>
       <input

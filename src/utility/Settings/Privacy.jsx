@@ -1,6 +1,6 @@
 import React, { useState, useRef } from 'react';
 import CheckBoxParag from '../CheckBoxParag';
-import InputSlider from './InputSlider';
+import InputSlider from '../InputSlider';
 
 export default function Privacy() {
   const [open, setopen] = useState(false);

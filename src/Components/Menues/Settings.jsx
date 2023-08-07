@@ -1,11 +1,12 @@
-import { PersonalMenu, Notifs, Privacy, DataStorage } from '../../utility/Settings';
+import { PersonalMenu, Notifs, Privacy, DataStorage, ChatSetting } from '../../utility/Settings';
 export default function Settings() {
   return (
     <div>
       <PersonalMenu />
-      <DataStorage/>
+      <DataStorage />
       <Notifs />
       <Privacy />
+      <ChatSetting />
     </div>
   );
 }
