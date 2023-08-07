@@ -1,12 +1,11 @@
-import LeftSide from './Components/LeftSide.jsx';
-import SidebarMenu from './Components/SidebarMenu.jsx';
+import ChatHeader from './Components/ChatHeader.jsx';
+import Layout from './Components/Layout.jsx';
 
 function App() {
   return (
-    <div className="h-full w-full">
-      <SidebarMenu profileImage={'images/profile.jpg'} username={'Zahra'} />
-      <LeftSide />
-    </div>
+    <Layout>
+      <ChatHeader />
+    </Layout>
   );
 }
 
