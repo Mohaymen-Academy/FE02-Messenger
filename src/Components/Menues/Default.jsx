@@ -5,14 +5,14 @@ import {
   NUM_SIDEBAR_SETTINGS,
   NUM_SIDEBAR_CALL
 } from '../../utility/Constants.js';
+import { setTheme } from '../../utility/useLoclStorage.jsx';
 import SidebarCard from '../SidebarCard.jsx';
 
 export default function Default({ menuSetter }) {
-  function handleonchange(){
-    const divs=document.querySelectorAll('div');
-    divs.forEach(div=>{
-      div.dataset.theme==='dark'?div.dataset.theme='light':div.dataset.theme='dark';
-    });
+  function handleonchange() {
+    const div = document.getElementById('zarp');
+    div.dataset.theme === 'dark' ? (div.dataset.theme = 'light') : (div.dataset.theme = 'dark');
+    setTheme(div.dataset.theme);
   }
 
   return (

@@ -22,7 +22,7 @@ export default function SidebarMenu({ profileImage, username, open, divref }) {
     <div className="h-screen w-[190px]">
       <div
         ref={divref}
-        className={`w-[250px] fixed top-0 flex h-screen flex-col bg-[#1e7889] transition-all duration-1000 ease-in-out ${
+        className={`w-[250px] fixed top-0 flex h-screen flex-col bg-color1 transition-all duration-1000 ease-in-out ${
           open ? 'right-0' : 'right-[-255px]'
         }`}>
         <div className=" w-[100%] h-[170px] flex flex-col gap-6 pt-0 items-center">
@@ -32,7 +32,7 @@ export default function SidebarMenu({ profileImage, username, open, divref }) {
             style={{ background: `url(${'images/wall.webp'})` }}>
             <img
               src={profileImage}
-              className="w-[70px] h-[70px] rounded-full p-1 bg-[#1e7889] relative bottom-[-70px]"
+              className="w-[70px] h-[70px] rounded-full p-1  bg-color4 relative bottom-[-70px]"
               alt=""
             />
           </div>
