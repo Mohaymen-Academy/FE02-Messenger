@@ -11,7 +11,7 @@ function App() {
     <Layout>
       <ChatHeader />
       <ChatBody  />
-      <ChatFooter />
+      {/* <ChatFooter /> */}
     </Layout>
   );
 }
