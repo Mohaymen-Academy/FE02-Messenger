@@ -1,14 +1,14 @@
+import Avatar from './Avatar.jsx';
+
 const ChatHeader = () => (
-  <div className=" flex w-full h-[6%] justify-between bg-slate-500 px-1">
+  <div className=" flex h-[11%] w-full items-center justify-between bg-slate-500 px-1 font-iRANSans">
     <div id="header-account" className="flex h-full items-center gap-2">
-      <div className="w-10 py-3">
-        <div className="flex h-full w-full justify-center rounded-full bg-orange-500 text-center text-4xl font-normal text-white">
-          ن
-        </div>
+      <div className="flex-1 py-4">
+        <Avatar />
       </div>
       <div className="">
-        <p className="text-lg font-semibold text-color2">یوزر نیم </p>
-        <p className="text-sm text-color1 "></p>
+        <h3 className="text-lg font-semibold text-color2">یوزر نیم </h3>
+        <div className="text-sm text-slate-400">آخرین بازدید به تازگی</div>
       </div>
     </div>
     <div>setting</div>
