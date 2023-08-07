@@ -24,7 +24,7 @@
 
 @layer components{
     .input-text-div{
-        @apply w-[90%] flex items-center justify-center rounded-lg bg-color2 focus:outline-none px-1 mx-1 h-full ;
+        @apply w-[90%] flex rounded-lg bg-color2 focus:outline-none h-full top-0 placeholder:p-2 placeholder:top-0 ;
     }
     .bg-complete{
         @apply  fixed top-0 left-0 w-screen h-screen flex items-center justify-center bg-color1;
