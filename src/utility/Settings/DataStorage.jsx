@@ -1,8 +1,8 @@
 import React, { useState, useRef } from 'react';
-import CheckBoxParag from '../CheckBoxParag';
-import InputSlider from './InputSlider';
+import CheckBoxData from '../CheckBoxData';
+import InputSlider from '../InputSlider';
 
-export default function Notifs() {
+export default function DataStorage() {
   const [open, setopen] = useState(false);
   const inputslider = useRef(null);
   return (
@@ -12,7 +12,7 @@ export default function Notifs() {
         className={'flex w-full h-10 items-center justify-between  bg-color3 p-2 '}>
         <div className="flex items-center gap-2">
           <img src="images/person.png" className="rounded-lg" alt="" />
-          <span className="text-[12px] font-extrabold text-text1 ">صدا و اعلانات</span>
+          <span className="text-[12px] font-extrabold text-text1 "> داده ها و ذخیره سازی </span>
         </div>
         <svg
           className={`w-2.5 h-2.5 ml-2.5 ${open ? 'transform rotate-180' : ''}`}
@@ -31,30 +31,33 @@ export default function Notifs() {
       </button>
       <div
         className={`transition-all ease-in-out duration-300 flex flex-wrap gap-[20px] overflow-x-hidden overflow-y-auto pr-2 w-[100%] ${
-          open ? 'h-[545px]' : 'h-[0px]'
+          open ? 'h-[345px]' : 'h-[0px]'
         }`}>
         <div className={'notifsdiv pt-3'}>
-          <label htmlFor="" className="">
-            {' '}
-            اعلان ها و صدا ها
-          </label>
-          {<CheckBoxParag title={'اعلان ها و صداها'} />}
-          {<InputSlider />}
+          <p className="text-gray-500">دانلود خودکار عکس ها</p>
+          {<CheckBoxData title={'مخاطبین'} />}
+          {<CheckBoxData title={'گفتگوهای اختصاصی'} />}
+          {<CheckBoxData title={'گفتگوهای گروهی'} />}
+          {<CheckBoxData title={'کانال ها'} />}
         </div>
         <div className="notifsdiv border-t-2 pt-3">
-          <p className="text-gray-500">گفت و گوهای اختصاصی</p>
-          {<CheckBoxParag title={'اعلان گفتگوهای اختصاصی'} />}
-          {<CheckBoxParag title={'پیش نمایش پیام'} />}
+          <p className="text-gray-500">دانلود خودکار ویدیو ها و گیف ها </p>
+          {<CheckBoxData title={'مخاطبین'} />}
+          {<CheckBoxData title={'گفتگوهای اختصاصی'} />}
+          {<CheckBoxData title={'گفتگوهای گروهی'} />}
+          {<CheckBoxData title={'کانال ها'} />}
         </div>
         <div className="notifsdiv border-t-2 pt-3">
-          <p className="text-gray-500">گروه ها</p>
-          {<CheckBoxParag title={'اعلان های گروه'} />}
-          {<CheckBoxParag title={'پیش نمایش پیام'} />}
+          <p className="text-gray-500">دانلود خودکار فایل ها و موسیقی </p>
+          {<CheckBoxData title={'مخاطبین'} />}
+          {<CheckBoxData title={'گفتگوهای اختصاصی'} />}
+          {<CheckBoxData title={'گفتگوهای گروهی'} />}
+          {<CheckBoxData title={'کانال ها'} />}
         </div>
-
         <div className="notifsdiv border-t-2 pt-3">
-          <p className="text-gray-500">سایر</p>
-          {<CheckBoxParag title={'مخاطب به مسجر پیوست'} />}
+          <p className="text-gray-500">پخش خودکار رسانه ها</p>
+          {<CheckBoxData title={'گیف ها'} />}
+          {<CheckBoxData title={'ویدیو ها '} />}
         </div>
       </div>
     </div>

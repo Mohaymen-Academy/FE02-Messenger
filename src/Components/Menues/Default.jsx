@@ -57,6 +57,12 @@ export default function Default({ menuSetter }) {
           menuId={NUM_SIDEBAR_CALL}
         />
       }
+      <button className="hover:bg-gray-200 rounded-lg">
+        <div className="flex items-center gap-2 my-1">
+          <img src={'images/v.png'} className="w-[40px] h-[40px]" alt="" />
+          <p className="cardP">ویترین</p>
+        </div>
+      </button>
       <div className="flex items-center  gap-2 my-1">
         <img src={'images/darktheme.png'} className="w-[40px] h-[40px]" alt="" />
         <p

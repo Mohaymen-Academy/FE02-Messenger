@@ -6,9 +6,8 @@ function App() {
   return (
     <Layout>
       <ChatHeader />
-      <div className="flex w-full h-[88%]">
-      </div>
-      <ChatFooter/>
+      <div className="flex h-[84%] w-full flex-col"></div>
+      <ChatFooter />
     </Layout>
   );
 }
