@@ -4,18 +4,18 @@
 
 @layer base {
     :root {
-      --color-color1: 20 35 60;
-      --color-color2: 38 56 89;
-      --color-color3: 107 119 141;
-      --color-color4: 30 120 137;
-      --color-text1: 244 244 242;
+      --color-color1: 20 35 60;  /* rgb(20 ,35 ,60) */
+      --color-color2: 38 56 89; /* rgb(38 ,56, 89) */
+      --color-color3: 107 119 141;  /* rgb(107 ,119, 141) */
+      --color-color4: 30 120 137;  /* rgb(30 ,120, 137) */
+      --color-text1: 244 244 242;  /* rgb(244 , 244 , 242) */
     }
     :root[data-theme="light"] {
-        --color-color1: 244 244 242;
-        --color-color2: 232 232 232;
-        --color-color3: 187 191 202;
-        --color-color4: 30 120 137;
-        --color-text1: 20 35 60;
+        --color-color1: 244 244 242; /* rgb(244 , 244 , 242) */
+        --color-color2: 232 232 232; /* rgb(244 , 232 , 232) */
+        --color-color3: 187 191 202; /* rgb(187 , 191 , 202) */
+        --color-color4: 30 120 137; /* rgb(30 , 120 , 137) */
+        --color-text1: 20 35 60; /* rgb(20 , 35 , 60) */
 
     }
   }

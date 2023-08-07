@@ -4,6 +4,8 @@ export default function Settings() {
   return (
     <div>
       <PersonalMenu/>
+      <PersonalMenu/>
+      <PersonalMenu/>
     </div>
   );
 }

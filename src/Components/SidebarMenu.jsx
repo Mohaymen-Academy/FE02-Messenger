@@ -32,7 +32,7 @@ export default function SidebarMenu({ profileImage, username, open, divref }) {
             style={{ background: `url(${'images/wall.webp'})` }}>
             <img
               src={profileImage}
-              className="w-[70px] h-[70px] rounded-full p-1  bg-color4 relative bottom-[-70px]"
+              className="w-[70px] h-[70px] rounded-full p-1  bg-color1 relative bottom-[-70px]"
               alt=""
             />
           </div>
