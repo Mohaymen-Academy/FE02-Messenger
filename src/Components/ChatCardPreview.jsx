@@ -1,5 +1,3 @@
-import profileDemo from '../../public/images/profile.jpg';
-
 const ChatCardPreview = ({ profilePicture, unreadmessage }) => (
   <div className=" flex h-16 w-full cursor-pointer flex-row py-1 hover:bg-slate-500">
     <div className="w-1/5 px-2">
