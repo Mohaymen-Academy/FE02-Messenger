@@ -30,31 +30,21 @@ export default function Privacy() {
         </svg>
       </button>
       <div
-        className={`transition-all ease-in-out duration-300 flex flex-wrap gap-[20px] overflow-x-hidden overflow-y-auto pr-2 w-[100%] ${
-          open ? 'h-[545px]' : 'h-[0px]'
+        className={`transition-all ease-in-out duration-300 flex flex-wrap gap-[5px] overflow-x-hidden overflow-y-auto w-[100%] ${
+          open ? 'h-[195px]' : 'h-[0px]'
         }`}>
-        <div className={'notifsdiv pt-3'}>
-          <label htmlFor="" className="">
-            {' '}
-            اعلان ها و صدا ها
-          </label>
-          {<CheckBoxParag title={'اعلان ها و صداها'} />}
-          {<InputSlider />}
+        <div className=" pb-3 px-3 gap-2 w-[87%] justify-center flex flex-col">
+          <button className={'pricaybutton'}>
+            <img src="images/person.png" alt="" />
+            <p>کاربران مسدود</p>
+          </button>
+          <button className={'pricaybutton'}>
+            <img src="images/person.png" alt="" />
+            <p>نشست های فعال</p>
+          </button>
         </div>
         <div className="notifsdiv border-t-2 pt-3">
           <p className="text-gray-500">گفت و گوهای اختصاصی</p>
-          {<CheckBoxParag title={'اعلان گفتگوهای اختصاصی'} />}
-          {<CheckBoxParag title={'پیش نمایش پیام'} />}
-        </div>
-        <div className="notifsdiv border-t-2 pt-3">
-          <p className="text-gray-500">گروه ها</p>
-          {<CheckBoxParag title={'اعلان های گروه'} />}
-          {<CheckBoxParag title={'پیش نمایش پیام'} />}
-        </div>
-
-        <div className="notifsdiv border-t-2 pt-3">
-          <p className="text-gray-500">سایر</p>
-          {<CheckBoxParag title={'مخاطب به مسجر پیوست'} />}
         </div>
       </div>
     </div>

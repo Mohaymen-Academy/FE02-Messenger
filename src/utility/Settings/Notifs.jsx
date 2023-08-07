@@ -31,7 +31,7 @@ export default function Notifs() {
       </button>
       <div
         className={`transition-all ease-in-out duration-300 flex flex-wrap gap-[20px] overflow-x-hidden overflow-y-auto pr-2 w-[100%] ${
-          open ? 'h-[545px]' : 'h-[0px]'
+          open ? 'h-[345px]' : 'h-[0px]'
         }`}>
         <div className={'notifsdiv pt-3'}>
           <label htmlFor="" className="">

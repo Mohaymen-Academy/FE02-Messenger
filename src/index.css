@@ -62,6 +62,9 @@
     .notifsdiv{
         @apply flex flex-col w-[100%];
     }
+    .pricaybutton{
+        @apply w-[90%] h-fit flex flex-row hover:bg-slate-200 bg-opacity-5 rounded-lg items-center ;
+    }
     
 }
 

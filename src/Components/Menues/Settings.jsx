@@ -1,10 +1,9 @@
-import PersonalMenu from '../../utility/Settings/PersonalMenu.jsx';
-import Notifs from '../../utility/Settings/Notifs.jsx';
-import Privacy from '../../utility/Settings/Privacy.jsx';
+import { PersonalMenu, Notifs, Privacy, DataStorage } from '../../utility/Settings';
 export default function Settings() {
   return (
     <div>
       <PersonalMenu />
+      <DataStorage/>
       <Notifs />
       <Privacy />
     </div>
