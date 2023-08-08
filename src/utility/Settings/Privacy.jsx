@@ -1,6 +1,7 @@
 import React, { useState, useRef } from 'react';
 import CheckBoxParag from '../CheckBoxParag';
 import InputSlider from '../InputSlider';
+import { UilLock, UilBan ,UilDesktop   } from '@iconscout/react-unicons'
 
 export default function Privacy() {
   const [open, setopen] = useState(false);
@@ -11,7 +12,7 @@ export default function Privacy() {
         onClick={() => setopen((prevestate) => !prevestate)}
         className={'flex w-full h-10 items-center justify-between  bg-color3 p-2 '}>
         <div className="flex items-center gap-2">
-          <img src="images/person.png" className="rounded-lg" alt="" />
+        <UilLock className="text-text1 w-8 h-8 mx-1 " />
           <span className="text-[12px] font-extrabold text-text1 ">حریم خصوصی و امنیت</span>
         </div>
         <svg
@@ -35,11 +36,11 @@ export default function Privacy() {
         }`}>
         <div className=" pb-3 px-3 gap-2 w-[87%] justify-center flex flex-col">
           <button className={'pricaybutton'}>
-            <img src="images/person.png" alt="" />
+          <UilBan className="text-text1 w-8 h-8 mx-1 " />
             <p>کاربران مسدود</p>
           </button>
           <button className={'pricaybutton'}>
-            <img src="images/person.png" alt="" />
+          <UilDesktop className="text-text1 w-8 h-8 mx-1 " />
             <p>نشست های فعال</p>
           </button>
         </div>

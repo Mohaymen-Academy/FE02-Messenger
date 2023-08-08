@@ -1,6 +1,7 @@
 import React, { useState, useRef } from 'react';
 import CheckBoxParag from '../CheckBoxParag';
 import InputSlider from '../InputSlider';
+import { UilBell } from '@iconscout/react-unicons'
 
 export default function Notifs() {
   const [open, setopen] = useState(false);
@@ -11,7 +12,7 @@ export default function Notifs() {
         onClick={() => setopen((prevestate) => !prevestate)}
         className={'flex w-full h-10 items-center justify-between  bg-color3 p-2 '}>
         <div className="flex items-center gap-2">
-          <img src="images/person.png" className="rounded-lg" alt="" />
+        <UilBell className="text-text1 w-8 h-8 mx-1 " />
           <span className="text-[12px] font-extrabold text-text1 ">صدا و اعلانات</span>
         </div>
         <svg

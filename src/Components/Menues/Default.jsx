@@ -7,6 +7,7 @@ import {
 } from '../../utility/Constants.js';
 import { setTheme } from '../../utility/useLoclStorage.jsx';
 import SidebarCard from '../SidebarCard.jsx';
+import { UilSetting ,UilUser ,UilUsersAlt,UilMegaphone ,UilPhone ,UilVuejs ,UilMoon     } from '@iconscout/react-unicons'
 
 export default function Default({ menuSetter }) {
   function handleonchange() {
@@ -20,7 +21,7 @@ export default function Default({ menuSetter }) {
       {
         <SidebarCard
           setsection={menuSetter}
-          icon={'images/setting.png'}
+          icon={<UilSetting className="text-text1 w-8 h-8 mx-1 "/>}
           title={'Settings'}
           menuId={NUM_SIDEBAR_SETTINGS}
         />
@@ -28,7 +29,7 @@ export default function Default({ menuSetter }) {
       {
         <SidebarCard
           setsection={menuSetter}
-          icon={'images/contacts.png'}
+          icon={<UilUser className="text-text1 w-8 h-8 mx-1 "/>}
           title={'Contacts'}
           menuId={NUM_SIDEBAR_CONTACTS}
         />
@@ -36,7 +37,7 @@ export default function Default({ menuSetter }) {
       {
         <SidebarCard
           setsection={menuSetter}
-          icon={'images/setting.png'}
+          icon={<UilUsersAlt className="text-text1 w-8 h-8 mx-1 " />}
           title={'Group'}
           menuId={NUM_SIDEBAR_GROUP}
         />
@@ -44,7 +45,7 @@ export default function Default({ menuSetter }) {
       {
         <SidebarCard
           setsection={menuSetter}
-          icon={'images/setting.png'}
+          icon={<UilMegaphone className="text-text1 w-8 h-8 mx-1 " />}
           title={'Channel'}
           menuId={NUM_SIDEBAR_CHANNEL}
         />
@@ -52,28 +53,32 @@ export default function Default({ menuSetter }) {
       {
         <SidebarCard
           setsection={menuSetter}
-          icon={'images/call.png'}
+          icon={<UilPhone className="text-text1 w-8 h-8 mx-1 " />}
           title={'Call'}
           menuId={NUM_SIDEBAR_CALL}
         />
       }
-      <button className="hover:bg-gray-200 rounded-lg">
-        <div className="flex items-center gap-2 my-1">
-          <img src={'images/v.png'} className="w-[40px] h-[40px]" alt="" />
+      <button className="hover:bg-color2 rounded-lg">
+        <div className="flex items-center gap-2 my-1 p-2">
+          {/* <img src={'images/v.png'} className="w-[40px] h-[40px]" alt="" /> */}
+          <UilVuejs className="text-text1 w-8 h-8 mx-1 " />
           <p className="cardP">ویترین</p>
         </div>
       </button>
-      <div className="flex items-center  gap-2 my-1">
-        <img src={'images/darktheme.png'} className="w-[40px] h-[40px]" alt="" />
-        <p
-          className="cardP
-                        whitespace-nowrap">
-          Dark Theme
-        </p>
-        <label className="relative inline-flex items-center cursor-pointer">
-          <input id="1" className="sr-only peer" type="checkbox" onChange={handleonchange} />
-          <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
-        </label>
+      <div className="flex items-center  gap-2 my-1 p-2">
+        {/* <img src={'images/darktheme.png'} className="w-[40px] h-[40px]" alt="" /> */}
+        <UilMoon className="text-text1 w-8 h-8 mx-1 " />
+        <div className='flex flec-col justify-between w-full'>
+          <p
+            className="cardP
+                          whitespace-nowrap">
+            Dark Theme
+          </p>
+          <label className="relative inline-flex items-center cursor-pointer">
+            <input id="1" className="sr-only peer" type="checkbox" onChange={handleonchange} />
+            <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
+          </label>
+        </div>
       </div>
     </div>
   );

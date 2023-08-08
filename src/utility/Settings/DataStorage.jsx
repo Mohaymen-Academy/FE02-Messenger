@@ -1,7 +1,7 @@
 import React, { useState, useRef } from 'react';
 import CheckBoxData from '../CheckBoxData';
 import InputSlider from '../InputSlider';
-
+import { UilCloudCheck } from '@iconscout/react-unicons'
 export default function DataStorage() {
   const [open, setopen] = useState(false);
   const inputslider = useRef(null);
@@ -11,7 +11,7 @@ export default function DataStorage() {
         onClick={() => setopen((prevestate) => !prevestate)}
         className={'flex w-full h-10 items-center justify-between  bg-color3 p-2 '}>
         <div className="flex items-center gap-2">
-          <img src="images/person.png" className="rounded-lg" alt="" />
+          <UilCloudCheck className="text-text1 w-8 h-8 mx-1 " />
           <span className="text-[12px] font-extrabold text-text1 "> داده ها و ذخیره سازی </span>
         </div>
         <svg

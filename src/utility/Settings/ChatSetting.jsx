@@ -2,6 +2,7 @@ import React, { useState, useRef } from 'react';
 import CheckBoxChatSetting from '../CheckBoxChatSetting';
 import InputSlider from '../InputSlider';
 import InpuSliderTextStep from '../InpuSliderTextStep';
+import { UilComment } from '@iconscout/react-unicons'
 
 export default function ChatSetting() {
   const [open, setopen] = useState(false);
@@ -12,7 +13,7 @@ export default function ChatSetting() {
         onClick={() => setopen((prevestate) => !prevestate)}
         className={'flex w-full h-10 items-center justify-between  bg-color3 p-2 '}>
         <div className="flex items-center gap-2">
-          <img src="images/person.png" className="rounded-lg" alt="" />
+        <UilComment className="text-text1 w-8 h-8 mx-1 " />
           <span className="text-[12px] font-extrabold text-text1 "> تنظیمات گفتگو</span>
         </div>
         <svg
