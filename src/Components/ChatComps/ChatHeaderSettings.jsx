@@ -7,7 +7,8 @@ export default function ChatHeaderSettings({ icon, title, setsection, menuId }) 
   const [isopen, setisopen] = useState(false);
   return (
     <>
-      <div>
+      <div
+      className='z-10'>
         <div className="text-text1 flex flex-row-reverse  ">
           <button
             style={{ direction: 'rtl' }}
