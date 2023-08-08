@@ -6,7 +6,7 @@ const ChatHeader = ({ setActive }) => (
     onClick={(e) => {
       setActive((prev) => !prev);
     }}
-    className=" flex h-fit w-full items-center justify-between bg-color4 px-1 font-iRANSans">
+    className=" flex h-[70px] w-full items-center justify-between bg-color4 px-1 font-iRANSans">
     <div id="header-account" className="flex h-full items-center gap-2">
       <div className="flex-1 ">
         <Avatar isOnline={false} image={'a'} />

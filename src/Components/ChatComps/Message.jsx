@@ -36,7 +36,7 @@ function Message({ content, isSeen, id }) {
           <div>{id === 'you' && isSeen ? <UilCheck /> : null}</div>
         </div>
       </div>
-      {rightClicked ? <MessageMenu /> : null}
+      {/* {rightClicked ? <MessageMenu /> : null} */}
     </div>
   );
 }

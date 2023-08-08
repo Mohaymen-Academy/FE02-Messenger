@@ -31,12 +31,13 @@ export default function Medias() {
             
 
   return (
-    <div className='flex flex-row flex-wrap '>
+    <div className='flex flex-row flex-wrap py-2'>
         {medias.map(media => (
-            <div className='flex flex-col items-center justify-center m-0.5'>
-                <img src={media.url} alt={media.name} width="100" height="100" className='' />
+            <div className='flex flex-col items-center justify-center m-0.5' key={media.name}>
+                <img src={media.url} alt={media.name} className='w-[100px] h-[100px] object-cover' />
             </div>   
-        ))}             
+        ))}
     </div>
+
   )
 }

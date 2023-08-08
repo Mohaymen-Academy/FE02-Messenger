@@ -26,7 +26,7 @@ export default function LeftSide({ isActive, profile }) {
       className={`flex flex-col h-screen transition-all duration-200 ease-in ${
         isActive ? 'w-[500px]' : 'w-0'
       } bg-color2 shadow-md`}>
-      <div className="flex flex-row w-full h-[8.1%] bg-color4 p-2.5">
+      <div className="flex flex-row w-full h-[72px] bg-color4 place-items-center">
         <UilTimes className="w-8 h-8 text-text1 cursor-pointer" />
         <div className="p-1 cardP">اطلاعات پروفایل</div>
       </div>
@@ -84,6 +84,9 @@ export default function LeftSide({ isActive, profile }) {
           )}
         </div>
       </div>
+
+
+
     </div>
   );
 }

@@ -1,15 +1,59 @@
-const items = ['delete', 'pin', 'forward'];
+import { UilTrash,UilCornerUpLeftAlt,UilPen,UilCopy,UilCornerUpRightAlt,UilCheckCircle    } from '@iconscout/react-unicons';
+import React , {useState} from 'react';
 
-function MessageMenu({ top = 0, left = 0 }) {
+const MessageMenu = ({ message, position }) => {
+  const [items,setitem] = useState([
+      {
+      icon: <UilCornerUpLeftAlt  />,
+      title: 'پاسخ',
+      color: 'text-text1'
+      },
+      {
+      icon: <UilPen  />,
+      title: 'ویرایش',
+      color: 'text-text1'
+
+      },
+      {
+      icon: <UilCopy  />,
+      title: 'کپی ',
+      color: 'text-text1'
+
+      }, 
+      {
+      icon: <UilCornerUpRightAlt  />,
+      title: 'هدایت ',
+      color: 'text-text1'
+
+      },
+      {
+      icon: <UilCheckCircle  />,
+      title: 'انتخاب ',
+      color: 'text-text1'
+
+      },
+      {
+      icon: <UilTrash  />,
+      title: 'حذف ',
+      color: 'text-red-500'
+      },
+    ])
+  
   return (
-    <ul className="absolute left-1/3 top-3/4 z-10 w-52 rounded-sm bg-white opacity-70">
-      {items.map((item, index) => (
-        <li
-          className="flex h-10 w-full cursor-pointer items-center justify-center text-center hover:bg-slate-500"
-          key={index}>
-          {item}
-        </li>
-      ))}
+    <ul className="absolute left-1/3 top-3/4 z-10 shadow-2xl w-[150px] bg-color1 text-color4 rounded-lg opacity-90">
+        {items.map((item, index) => 
+          {
+            console.log('srewr');
+            return   (<button
+            className="flex flex-row items-center gap-2 px-5 my-1 w-full hover:bg-gray-200 rounded-lg"
+            // onClick={(e) => setsection(menuId)}
+            >
+            <div className={`flex items-center gap-2 my-1 ${item.color}` }>
+                {item.icon}
+            </div>
+            <p className= {`text-xs px-2 ${item.color}`}>{item.title}</p>
+            </button>)
+          })}
     </ul>
   );
 }

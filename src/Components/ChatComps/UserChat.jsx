@@ -13,8 +13,8 @@ export default function UserChat() {
           <ChatHeader setActive={setActive} />
           <ChatBody />
         </div>
-        {/* <LeftSide isActive={active} /> */}
-        <ProfileEdit isActive={active} />
+        <LeftSide isActive={active} />
+        {/* <ProfileEdit isActive={active} /> */}
 
       </div>
       {/* {active ?  : <></>} */}
