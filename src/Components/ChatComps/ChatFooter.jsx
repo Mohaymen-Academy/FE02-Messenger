@@ -7,7 +7,9 @@ export default function ChatFooter() {
   const [openEmoji, setOpenEmoji] = useState(false);
   const [openAttach, setOpenAttach] = useState(false);
   const emoji = useState('');
-  const textref = useRef(null);
+  const textref = useRef({
+    textcontent: 0
+  });
   const divref = useRef(null);
   function handleonInput() {
     const selection = window.getSelection();
@@ -15,14 +17,20 @@ export default function ChatFooter() {
     const clonedRange = range.cloneRange();
     clonedRange.selectNodeContents(divref.current);
     clonedRange.setEnd(range.endContainer, range.endOffset); // this set the position of the cursor
-    console.log(clonedRange)
     const caretPosition = clonedRange.toString().length;
-    console.log('here', caretPosition);
-    console.log(clonedRange)
+    console.log(caretPosition);
     textref.current.textcontent = caretPosition;
   }
-
-  function handleEmojiAdd() {}
+  function handleclick(e) {
+    const selection = window.getSelection();
+    const range = selection.getRangeAt(0);
+    const clonedRange = range.cloneRange();
+    clonedRange.selectNodeContents(divref.current);
+    clonedRange.setEnd(range.endContainer, range.endOffset); // this set the position of the cursor
+    const caretPosition = clonedRange.toString().length;
+    console.log(caretPosition);
+    textref.current.textcontent = caretPosition;
+  }
 
   function handleEmojiPicker(e) {
     const emoji = e.emoji;
@@ -58,25 +66,15 @@ export default function ChatFooter() {
       <button className="mx-1 h-8 w-8 text-text1 ">
         <UilPaperclip />
       </button>
-      {/* <textarea
-                  type="text"
-                  name="useername"
-                  className="input-text-div"
-                  autocomplete="off"
-                  placeholder='پیام خود را وارد کنید'
-                  defaultValue={text}
-                  onChange={(e) => {
-                    setText(e.target.value);
-                  }}
-                /> */}
       <div
+        onClick={handleclick}
         style={{ direction: 'rtl' }}
         ref={divref}
         onInput={handleonInput}
         contentEditable
         onChange={(e) => console.log()}
         className=" w-[90%] max-h-[50px] outline-none h-auto overflow-hidden shadow-none border-none break-all focus:shadow-none active:shadow-none">
-        <span ref={textref} role="textbox" contentEditable></span>
+        {/* <span ref={textref} role="textbox" contentEditable></span> */}
       </div>
       <div>
         <button onClick={() => setOpenEmoji(!openEmoji)} className="mx-1 h-8 w-8 text-text1 ">
