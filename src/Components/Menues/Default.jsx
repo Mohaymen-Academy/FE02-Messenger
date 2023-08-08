@@ -17,12 +17,12 @@ export default function Default({ menuSetter }) {
   }
 
   return (
-    <div className="flex flex-col w-[100%] px-5">
+    <div className="flex flex-col w-[100%] ">
       {
         <SidebarCard
           setsection={menuSetter}
           icon={<UilSetting className="text-text1 w-8 h-8 mx-1 "/>}
-          title={'Settings'}
+          title={'تنظیمات'}
           menuId={NUM_SIDEBAR_SETTINGS}
         />
       }
@@ -30,7 +30,7 @@ export default function Default({ menuSetter }) {
         <SidebarCard
           setsection={menuSetter}
           icon={<UilUser className="text-text1 w-8 h-8 mx-1 "/>}
-          title={'Contacts'}
+          title={'مخاطبین'}
           menuId={NUM_SIDEBAR_CONTACTS}
         />
       }
@@ -38,7 +38,7 @@ export default function Default({ menuSetter }) {
         <SidebarCard
           setsection={menuSetter}
           icon={<UilUsersAlt className="text-text1 w-8 h-8 mx-1 " />}
-          title={'Group'}
+          title={'ساخت گروه جدید'}
           menuId={NUM_SIDEBAR_GROUP}
         />
       }
@@ -46,7 +46,7 @@ export default function Default({ menuSetter }) {
         <SidebarCard
           setsection={menuSetter}
           icon={<UilMegaphone className="text-text1 w-8 h-8 mx-1 " />}
-          title={'Channel'}
+          title={'ساخت کانال جدید'}
           menuId={NUM_SIDEBAR_CHANNEL}
         />
       }
@@ -54,7 +54,7 @@ export default function Default({ menuSetter }) {
         <SidebarCard
           setsection={menuSetter}
           icon={<UilPhone className="text-text1 w-8 h-8 mx-1 " />}
-          title={'Call'}
+          title={'تماس'}
           menuId={NUM_SIDEBAR_CALL}
         />
       }
@@ -72,7 +72,7 @@ export default function Default({ menuSetter }) {
           <p
             className="cardP
                           whitespace-nowrap">
-            Dark Theme
+            حالت شب
           </p>
           <label className="relative inline-flex items-center cursor-pointer">
             <input id="1" className="sr-only peer" type="checkbox" onChange={handleonchange} />

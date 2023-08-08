@@ -8,10 +8,10 @@ export default function ChatSetting() {
   const [open, setopen] = useState(false);
   const inputslider = useRef(null);
   return (
-    <div className="flex flex-col w-[100%] border-[1px] border-gray-400">
+    <div className="flex flex-col w-[100%] border-[1px] px-5">
       <button
         onClick={() => setopen((prevestate) => !prevestate)}
-        className={'flex w-full h-10 items-center justify-between  bg-color3 p-2 '}>
+        className={'flex w-full h-10 items-center justify-between  p-2 '}>
         <div className="flex items-center gap-2">
         <UilComment className="text-text1 w-8 h-8 mx-1 " />
           <span className="text-[12px] font-extrabold text-text1 "> تنظیمات گفتگو</span>
