@@ -2,7 +2,7 @@ import { UilCheck } from '@iconscout/react-unicons';
 import { useEffect, useState } from 'react';
 import MessageMenu from './MessageMenu';
 
-function Message({ content, isSeen, id }) {
+function Message({ content, isSeen, id, forewardedFrom }) {
   const [rightClicked, setRightClicked] = useState(false);
   const [points, setPoints] = useState({
     x: 0,
@@ -29,7 +29,14 @@ function Message({ content, isSeen, id }) {
       <div
         className={` my-3 max-w-[50%] justify-end rounded-md bg-gradient-to-r ${
           id === 'you' ? ' from-blue-500 to-cyan-400' : 'from-indigo-500 via-purple-500 to-pink-500'
-        } p-2 text-white`}>
+        } p-2 text-white `}>
+        <div>
+          {forewardedFrom ? (
+            <div>
+              message forwarded from <span className="font-semibold">{forewardedFrom}</span>
+            </div>
+          ) : null}
+        </div>
         <p>{content}</p>
         <div className=" flex w-full items-end justify-between text-sm text-zinc-400">
           <p>23:00</p>
