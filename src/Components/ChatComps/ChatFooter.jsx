@@ -18,7 +18,7 @@ export default function ChatFooter() {
       <button className="text-text1 w-8 h-8 mx-1 ">
         <UilMessage />
       </button>
-      <button className="text-text1 w-8 h-8 mx-1 ">
+      <button className="mx-1 h-8 w-8 text-text1 ">
         <UilPaperclip />
       </button>
       {/* <textarea
@@ -43,11 +43,11 @@ export default function ChatFooter() {
           onInput={(e) => (textref.current = e.target.innerText)}></span>
       </div>
       <div>
-        <button onClick={() => setOpenEmoji(!openEmoji)} className="text-text1 w-8 h-8 mx-1 ">
+        <button onClick={() => setOpenEmoji(!openEmoji)} className="mx-1 h-8 w-8 text-text1 ">
           <UilSmile />
         </button>
         {openEmoji && (
-          <div className="z-10 absolute bottom-[60px] left-[20px]">
+          <div className="absolute bottom-[60px] left-[20px] z-10">
             <EmojiPicker
               theme={localStorage.getItem('theme')}
               onEmojiClick={(e) => {
@@ -57,7 +57,7 @@ export default function ChatFooter() {
             />
           </div>
         )}
-        {/* {openAttach && 
+        {/* {openAttach &&
 
         } */}
       </div>
