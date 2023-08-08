@@ -7,15 +7,15 @@ export default function ChatHeaderSettings({ icon, title, setsection, menuId }) 
   return (
     <>
       <div>
-        <div className="text-text1 flex flex-row-reverse ">
+        <div className="text-text1 flex flex-row-reverse  ">
           <button
             style={{ direction: 'rtl' }}
-            className={'hover:bg-slate-400 rounded-full relative top-[10px]'}
+            className={'hover:bg-slate-400 rounded-full relative'}
             onClick={(e) => {
               e.stopPropagation();
               setisopen((prev) => !prev);
             }}>
-            <UilEllipsisV className={'w-[25px] p-0 m-0'} />
+            <UilEllipsisV className='w-[25px] p-0 m-0' />
           </button>
           {isopen ? (
             <div className="fixed top-[60px]  shadow-2xl w-[150px] bg-color1 text-color4 rounded-lg">
