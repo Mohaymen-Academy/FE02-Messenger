@@ -1,5 +1,5 @@
 import { useState } from 'react';
-
+import { UilUser } from '@iconscout/react-unicons';
 export default function PersonalMenu() {
   const [open, setopen] = useState(false);
   return (
@@ -8,7 +8,7 @@ export default function PersonalMenu() {
         onClick={() => setopen((prevestate) => !prevestate)}
         className={'flex w-full h-10 items-center justify-between  bg-color3 p-2 '}>
         <div className="flex items-center gap-2">
-          <img src="images/person.png" className="rounded-lg" alt="" />
+          <UilUser className="text-text1 w-8 h-8 mx-1 " />
           <span className="text-[12px] font-extrabold text-text1 ">اطلاعات شخصی</span>
         </div>
         <svg

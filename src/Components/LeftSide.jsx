@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { Chatlist } from './ChatComps';
 import SidebarMenu from './SidebarMenu.jsx';
+import { UilBars } from '@iconscout/react-unicons'
 
 export default function LeftSide() {
   const [open, setopen] = useState(true);
@@ -21,7 +22,7 @@ export default function LeftSide() {
       <div className="flex justify-between px-2 py-1 ">
         <div>
           <button className="fixed" onClick={(e) => setopen((prev) => !prev)}>
-            <img src="images/menuIcon.png" className={'h-[25px] w-[25px]'} alt="" />
+            <UilBars className="text-text1 w-8 h-8 mx-1 "  />
           </button>
         </div>
         <div className="flex w-[340px] flex-row-reverse px-5 ">

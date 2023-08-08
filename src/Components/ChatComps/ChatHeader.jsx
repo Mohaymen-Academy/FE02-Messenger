@@ -1,5 +1,5 @@
 import Avatar from './Avatar.jsx';
-
+import { UilEllipsisV } from '@iconscout/react-unicons'
 const ChatHeader = () => (
   <div className=" flex h-[11%] w-full items-center justify-between bg-slate-500 px-1 font-iRANSans">
     <div id="header-account" className="flex h-full items-center gap-2">
@@ -11,7 +11,9 @@ const ChatHeader = () => (
         <div className="text-sm text-slate-400">آخرین بازدید به تازگی</div>
       </div>
     </div>
-    <div>setting</div>
+    <div className="text-text1 w-8 h-8 mx-1 ">
+      <UilEllipsisV/>
+    </div>
   </div>
 );
 

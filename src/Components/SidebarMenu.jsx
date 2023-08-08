@@ -25,9 +25,9 @@ export default function SidebarMenu({ profileImage, username, open, divref }) {
         className={`w-[350px] fixed top-0 flex h-screen flex-col bg-color1 transition-all duration-1000 ease-in-out font-estedad ${
           open ? 'right-0' : 'right-[-80%]'
         }`}>
-        <div className=" w-[100%] h-[170px] flex flex-col gap-6 pt-0 items-center">
+        <div className=" w-[100%] h-[270px] flex flex-col gap-6 pt-0 items-center">
           <div
-            className="flex justify-center mb-[10%] w-[100%] object-cover h-[100%]"
+            className="flex justify-center  w-[100%] object-cover h-[100%]"
             style={{ background: `url(${'images/wall.webp'})` }}>
             <img
               src={profileImage}
@@ -35,7 +35,7 @@ export default function SidebarMenu({ profileImage, username, open, divref }) {
               alt=""
             />
           </div>
-          <p className={''}>{username}</p>
+          <p className="text-text1">{username}</p>
         </div>
         {Menues[menu]}
         {menu == NUM_SIDEBAR_DEFAULT ? (

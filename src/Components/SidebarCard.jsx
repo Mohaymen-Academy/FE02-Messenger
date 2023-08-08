@@ -1,14 +1,13 @@
 import React from 'react';
-
 export default function SidebarCard({ icon, title, setsection, menuId }) {
   return (
     <button
-    className='hover:bg-gray-200 rounded-lg'
+    className='hover:bg-color2 rounded-lg flex flex-row p-2 items-center gap-2 my-1 w-full'
     onClick={(e) => setsection(menuId)}>
       <div className="flex items-center gap-2 my-1">
-        <img src={icon} className="w-[40px] h-[40px]" alt="" />
-        <p className="cardP">{title}</p>
+        {icon}
       </div>
+        <p className="cardP">{title}</p>
     </button>
   );
 }
