@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import Chatlist from './Chatlist.jsx';
+import { Chatlist } from './ChatComps';
 import SidebarMenu from './SidebarMenu.jsx';
 
 export default function LeftSide() {
