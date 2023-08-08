@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { ChatBody, ChatHeader } from './';
-import Rightside from '../Rightside.jsx';
+import LeftSide from '../Leftside';
 
 export default function UserChat() {
   const [active, setActive] = useState(false);
@@ -13,7 +13,7 @@ export default function UserChat() {
           <ChatHeader setActive={setActive} />
           <ChatBody />
         </div>
-        <Rightside isActive={active} />
+        <LeftSide isActive={active} />
       </div>
       {/* {active ?  : <></>} */}
     </>
