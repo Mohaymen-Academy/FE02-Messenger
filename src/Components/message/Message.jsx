@@ -2,7 +2,7 @@ import { UilCheck } from '@iconscout/react-unicons';
 import { useEffect, useState } from 'react';
 import MessageMenu from './MessageMenu';
 
-function Message({ content, isSeen, id, forewardedFrom }) {
+function Message({ content, isSeen, id, forewardedFrom , openContextMenu }) {
   const [rightClicked, setRightClicked] = useState(false);
   const [points, setPoints] = useState({
     x: 0,

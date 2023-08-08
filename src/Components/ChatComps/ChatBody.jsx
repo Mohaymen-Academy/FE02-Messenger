@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import EmojiPicker from 'emoji-picker-react';
 import ChatFooter from './ChatFooter';
 import Message from '../message/Message';
@@ -17,34 +17,46 @@ const messages = [
   }
 ];
 
+
 export default function ChatBody() {
-  const [openContextMenu, setOpenContextMenu] = React.useState(false);
-  function handleRightClick(event, index) {
+  const [openContextMenu, setOpenContextMenu] = useState(false);
+  const [contextMenuPosition, setContextMenuPosition] = useState({ x: 0, y: 0 });
+
+  useEffect(() => {
+    const handleDocumentClick = (event) => {
+      if (!event.target.closest('.context-menu')) {
+        setOpenContextMenu(false);
+      }
+    };
+
+    document.addEventListener('click', handleDocumentClick);
+
+    return () => {
+      document.removeEventListener('click', handleDocumentClick);
+    };
+  }, []);
+
+  const handleContextMenu = (event) => {
     event.preventDefault();
-    
-    const x = event.clientX;
-    const y = event.clientY;
-    
+    const clickX = event.clientX;
+    const clickY = event.clientY;
+    setContextMenuPosition({ x: clickX, y: clickY });
     setOpenContextMenu(true);
-    setSelectedMessageIndex(index);
-    setContextMenuPosition({ x, y });
-    }
-    
+    console.log('context menu opened')
+  };
+
   return (
-    <div dir="rtl" className="flex h-[100%] w-full flex-col">
-      <div className="flex h-[80%] w-full flex-col items-center overflow-hidden">
-        <div className="mb-3 h-[80vh] w-full overflow-auto px-5 pt-3">
-            {messages.map((message, index) => (
-              <div key={index} onContextMenu={(e) => handleRightClick(e, index)}>
-                <Message content={message.content} isSeen={message.seen} id={message.id} />
-              </div>
-            ))}
+    <>
+    <div className="mb-3 h-[80vh] w-full overflow-auto px-5 pt-3  ">
+      {messages.map((message, index) => (
+        <div key={index} onContextMenu={handleContextMenu} >
+          <Message openContextMenu={openContextMenu} content={message.content} isSeen={message.seen} id={message.id} />
         </div>
-        {openContextMenu ? <MessageMenu /> : <></>}
-      </div>
-      <div className="mb-2 h-16">
-        <ChatFooter />
-      </div>
+      ))}
     </div>
+
+    {openContextMenu ? <MessageMenu position={contextMenuPosition} /> : <></>}
+    <ChatFooter />
+    </>
   );
 }
