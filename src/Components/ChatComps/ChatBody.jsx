@@ -25,25 +25,10 @@ export default function ChatBody() {
     const x = event.clientX;
     const y = event.clientY;
     
-    setOpenContextMenu(false); // Close any existing context menu
     setOpenContextMenu(true);
     setSelectedMessageIndex(index);
     setContextMenuPosition({ x, y });
-  }
-  React.useEffect(() => {
-    function handleClickOutside(event) {
-      if (openContextMenu) {
-        setOpenContextMenu(false);
-      }
     }
-  
-    document.body.addEventListener("click", handleClickOutside);
-  
-    return () => {
-      document.body.removeEventListener("click", handleClickOutside);
-    };
-  }, [openContextMenu]);
-    
     
   return (
     <div dir="rtl" className="flex h-[100%] w-full flex-col">
