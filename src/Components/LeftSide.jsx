@@ -1,8 +1,9 @@
 import React from 'react'
 import { UilTimes } from '@iconscout/react-unicons'
+import {Files , Links , Medias , Musics, Voices} from './ProfileParts'
 export default function LeftSide({isActive , profile}) {
   const [filepart , setfilepart] = React.useState({
-    0 : 0,
+    0 : 1,
     1 : 0,
     2 : 0,
     3 : 0,
@@ -39,7 +40,16 @@ export default function LeftSide({isActive , profile}) {
           <div className={`category-part ${filepart[4]==1 ? 'bg-color1' : 'bg-color2'}`} onClick={()=>changesetpat(4)}>صدا</div>
 
         </div>
-        <div>type</div>
+        <div>
+          {
+            filepart[0] == 1 ? <Medias /> :
+            filepart[1] == 1 ? <Files /> :
+            filepart[2] == 1 ? <Links /> :
+            filepart[3] == 1 ? <Musics /> :
+            filepart[4] == 1 ? <Voices /> :
+            <></>
+          }
+        </div>
       </div>
     </div>
   );
