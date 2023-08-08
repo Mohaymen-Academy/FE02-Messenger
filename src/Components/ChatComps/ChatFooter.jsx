@@ -21,6 +21,7 @@ export default function ChatFooter() {
     console.log(caretPosition);
     textref.current.textcontent = caretPosition;
   }
+  
   function handleclick(e) {
     const selection = window.getSelection();
     const range = selection.getRangeAt(0);
