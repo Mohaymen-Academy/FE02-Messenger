@@ -3,14 +3,12 @@ import LeftSide from './LeftSide.jsx';
 import Rightside from './Rightside.jsx';
 
 const Layout = ({ children }) => {
-  const [active, setActive] = useState(true);
   return (
     <div className="flex h-screen w-screen overflow-hidden  ">
       <LeftSide />
-      <div className="h-full flex-1 bg-slate-800 flex-row pb-6" onClick={() => setActive(!active)}>
+      <div className="h-full flex-1 bg-slate-800 flex-row pb-6">
         {children}
       </div>
-      <Rightside isActive={active} />
     </div>
   );
 };
