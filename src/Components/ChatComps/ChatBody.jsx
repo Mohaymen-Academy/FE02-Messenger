@@ -6,7 +6,7 @@ import Message from './Message';
 export default function ChatBody() {
   return (
     <div dir="rtl" className="flex h-[100%] w-full flex-col">
-      <div className="flex h-[80%] w-full flex-col items-center overflow-hidden">
+      <div className="flex h-[560px] w-full flex-col items-center overflow-hidden">
         <div className="mb-3 w-full overflow-auto px-5 pt-3">
           <Message />
           <Message />
