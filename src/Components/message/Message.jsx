@@ -31,7 +31,6 @@ function Message({ content, isSeen, id, forewardedFrom }) {
     event.stopPropagation();
     x_mouse = event.clientX;
     y_mouse = event.clientY;
-    // console.log(x_mouse, y_mouse);
     setmousepositoin({ x_mouse, y_mouse });
   }
 
@@ -45,19 +44,35 @@ function Message({ content, isSeen, id, forewardedFrom }) {
         } p-2 text-white `}>
         <div>
           {forewardedFrom ? (
-            <div>
-              message forwarded from <span className="font-semibold">{forewardedFrom}</span>
+            <div className="text-left flex flex-row-reverse">
+              <p className="opacity-30 italic">Forwarded from</p>
+              &nbsp;&nbsp;&nbsp;
+              <span className="font-semibold italic opacity-100">zarp</span>
             </div>
           ) : null}
         </div>
         <p>{content}</p>
         <div className=" flex w-full items-end justify-between text-sm text-zinc-400">
-          <p>23:00</p>
-          <div>{id === 'you' && isSeen ? <UilCheck /> : null}</div>
+          <p className="text-color1">23:00</p>
+          <div className="text-color1">
+            {id === 'you' && isSeen ? (
+              <div className="flex flex-row">
+                <UilCheck className={'relative left-[-18px]'} />
+                <UilCheck />
+              </div>
+            ) : (
+              <UilCheck />
+            )}
+          </div>
         </div>
       </div>
       {mousepositoin.x != 0 ? (
-        <MessageMenu x_pos={x_mouse.current} y_pos={y_mouse.current} positions={mousepositoin} />
+        <MessageMenu
+          x_pos={x_mouse.current}
+          y_pos={y_mouse.current}
+          positions={mousepositoin}
+          setposition={setmousepositoin}
+        />
       ) : (
         <></>
       )}

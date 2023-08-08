@@ -1,7 +1,8 @@
 import React from 'react';
-import { UilTimes } from '@iconscout/react-unicons';
+import { UilTimes, UilPen } from '@iconscout/react-unicons';
+// import { UilPen } from '@iconscout/react-unicons'
 import { Files, Links, Medias, Musics, Voices } from './ProfileParts';
-export default function LeftSide({ isActive, profile }) {
+export default function LeftSide({ isActive, profile, setActive, setlayout }) {
   const [filepart, setfilepart] = React.useState({
     0: 1,
     1: 0,
@@ -26,11 +27,24 @@ export default function LeftSide({ isActive, profile }) {
       className={`flex flex-col h-screen transition-all duration-200 ease-in ${
         isActive ? 'w-[500px]' : 'w-0'
       } bg-color2 shadow-md`}>
-      <div className="flex flex-row w-full h-[72px] bg-color4 place-items-center">
-        <UilTimes className="w-8 h-8 text-text1 cursor-pointer" />
-        <div className="p-1 cardP">اطلاعات پروفایل</div>
+      <div className="flex bg-color4 items-center justify-between px-4">
+        <div className="flex flex-row w-fit h-[72px] place-items-center">
+          <button
+            onClick={(e) => {
+              setActive(false);
+            }}>
+            <UilTimes className="w-8 h-8 text-text1 cursor-pointer" />
+          </button>
+          <div className="p-1 cardP">اطلاعات پروفایل</div>
+        </div>
+        <div>
+          <button
+          onClick={()=>setlayout(1)}>
+            <UilPen />
+          </button>
+        </div>
       </div>
-      <div class="flex flex-col justify-end place-items-end bg-[url('images/profile.jpg')] w-full h-[350px] bg-cover bg-center bg-no-repeat mb-0 md:h-[350px]">
+      <div className="flex flex-col justify-end place-items-end bg-[url('images/profile.jpg')] w-full h-[350px] bg-cover bg-center bg-no-repeat mb-0 md:h-[350px]">
         {isActive ? (
           <>
             <div className="p-7 pb-0 text-white font-bold text-[25px] ">Zahra</div>
@@ -84,9 +98,6 @@ export default function LeftSide({ isActive, profile }) {
           )}
         </div>
       </div>
-
-
-
     </div>
   );
 }
