@@ -1,12 +1,12 @@
-import React, { useEffect } from 'react';
+import React, { useRef } from 'react';
 import { UilSmile, UilMessage, UilPaperclip } from '@iconscout/react-unicons';
 import EmojiPicker from 'emoji-picker-react';
 
 export default function ChatFooter() {
-  const [text, setText] = React.useState('');
+  // const [text, setText] = React.useState('');
   const [openEmoji, setOpenEmoji] = React.useState(false);
   const [openAttach, setOpenAttach] = React.useState(false);
-
+  const textref = useRef(null);
   return (
     <div
       dir="rtl"
@@ -28,7 +28,13 @@ export default function ChatFooter() {
                     setText(e.target.value);
                   }}
                 /> */}
-      <span className=" w-[90%] max-h-[50px] outline-none h-auto overflow-hidden shadow-none border-none break-all focus:shadow-none active:shadow-none" role="textbox"  contentEditable></span>
+      <span
+        className=" w-[90%] max-h-[50px] outline-none h-auto overflow-hidden shadow-none border-none break-all focus:shadow-none active:shadow-none"
+        role="textbox"
+        contentEditable
+        onInput={(e)=>console.log()}>
+        {textref.current}
+      </span>
       <div>
         <button onClick={() => setOpenEmoji(!openEmoji)} className="text-text1 w-8 h-8 mx-1 ">
           <UilSmile />
