@@ -1,7 +1,7 @@
 import React from 'react';
 import EmojiPicker from 'emoji-picker-react';
 import ChatFooter from './ChatFooter';
-import Message from './Message';
+import Message from '../message/Message';
 
 const messages = [
   {
