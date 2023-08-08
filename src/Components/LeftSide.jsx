@@ -24,11 +24,9 @@ export default function LeftSide({ isActive, profile, setActive, setlayout }) {
   };
   return (
     <div
-      className={`flex flex-col h-screen transition-all duration-200 ease-in ${
-        isActive ? 'w-[500px]' : 'w-0'
-      } bg-color2 shadow-md`}>
+      className={`flex flex-col h-screen transition-all duration-200 ease-in bg-color2 shadow-md`}>
       <div className="flex bg-color4 items-center justify-between px-4">
-        <div className="flex flex-row w-fit h-[72px] place-items-center">
+        <div className="flex flex-row w-fit h-[70px] place-items-center">
           <button
             onClick={(e) => {
               setActive(false);
@@ -38,8 +36,7 @@ export default function LeftSide({ isActive, profile, setActive, setlayout }) {
           <div className="p-1 cardP">اطلاعات پروفایل</div>
         </div>
         <div>
-          <button
-          onClick={()=>setlayout(1)}>
+          <button onClick={() => setlayout(1)}>
             <UilPen />
           </button>
         </div>

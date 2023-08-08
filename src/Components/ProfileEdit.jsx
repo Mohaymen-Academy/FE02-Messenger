@@ -3,15 +3,16 @@ import { UilArrowRight, UilCameraPlus } from '@iconscout/react-unicons';
 // import {Check}
 import CheckBoxParag from '../utility/CheckBoxParag';
 
-export default function ProfileEdit({isActive, setActive, setlayout}) {
+export default function ProfileEdit({ setlayout }) {
   return (
     <div
-      className={`flex flex-col h-screen transition-all duration-200 ease-in w-[500px] bg-color2 shadow-md`}>
-      <div className="flex flex-row w-full h-[8.1%] p-2.5">
+      className={`flex flex-col h-screen transition-all  duration-200 ease-in w-[300px] bg-color4 shadow-md`}>
+      <div className="flex flex-row w-full h-[8%] p-2.3">
         <button
-        onClick={(e)=>{
-          console.log(setlayout)
-          setlayout(0)}}>
+          onClick={(e) => {
+            console.log(setlayout);
+            setlayout(0);
+          }}>
           <UilArrowRight className="w-8 h-8 text-text1 cursor-pointer" />
         </button>
         <div className="p-1 cardP">ویرایش</div>
