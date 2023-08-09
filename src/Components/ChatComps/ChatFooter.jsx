@@ -84,7 +84,7 @@ export default function ChatFooter() {
   return (
     <div
       dir="rtl"
-      className="flex flex-row justify-between items-center bg-color1 text-color4  w-[90%] p-2  m-auto rounded-xl">
+      className="flex flex-row justify-between items-center bg-color2 text-color4  w-[90%] p-2  m-auto rounded-xl">
       <button className="text-text1 w-8 h-8 mx-1 ">
         <UilMessage />
       </button>
