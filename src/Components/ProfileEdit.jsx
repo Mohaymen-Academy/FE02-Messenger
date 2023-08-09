@@ -6,7 +6,7 @@ import CheckBoxParag from '../utility/CheckBoxParag';
 export default function ProfileEdit({ setlayout }) {
   return (
     <div
-      className={`flex flex-col h-screen transition-all  duration-200 ease-in w-full bg-color2 border-r border-bghovor shadow-md`}>
+      className={`flex flex-col h-screen transition-all  duration-100 ease-in  bg-color2 border-r border-bghovor shadow-md`}>
       <div className="flex flex-row w-fit h-[70px] place-items-center">
         <button
           onClick={(e) => {

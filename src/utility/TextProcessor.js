@@ -1,7 +1,7 @@
 const containers = [
     { id: 1, lower: 1, upper: 8, style: ['bold'] },
     { id: 2, lower: 3, upper: 12, style: ['highlihgt'] },
-    { id: 3, lower: 6, upper: 14, style: ['strike'] }
+    { id: 3, lower: 6, upper: 14, style: ['strike'] },
   //   { id: 4, lower: 9, upper: 18, style: ['underline'] },
   //   { id: 5, lower: 10, upper: 16, style: ['italic'] }
 ];
@@ -43,6 +43,8 @@ function TextProcessor(containers) {
     // there are two ways
 
     if (selectedContainer.upper < HeadContainer.upper) {
+        // TODO
+        // ! NEED TO CHNAGE THE SELECTEDCONTAINER
       // if the whole of body is in the head
       //   console.log('khsewlkhr')
     }
