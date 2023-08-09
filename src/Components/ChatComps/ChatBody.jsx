@@ -65,7 +65,7 @@ export default function ChatBody() {
           ))}
         </div>
       </div>
-      <div className="mb-2 h-16">
+      <div className="mb-2 h-16 vsmmobile:mb-[-7rem]">
         <ChatFooter />
       </div>
       {preview

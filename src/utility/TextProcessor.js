@@ -100,26 +100,38 @@ function TextProcessor(containers) {
     }
   }
   let index = 0;
-  while (index < sorted.length) {
-    const HeadContainer = sorted[index];
-    const containersConflict = Conflicts(HeadContainer, sorted.slice(index + 1));
-    // console.log(containersConflict)
-    // console.log(HeadContainer,'\nzarp\n',container/sConflict);
-    // console.log(HeadContainer, '\n---------------------\n', containersConflict);
-    if (containersConflict.length) {
-      //   console.log('beforechange', HeadContainer, containersConflict[0]);
-      ChnageTheContainers(HeadContainer, containersConflict[0]);
-      index = 0;
-      //   break;
-      //   console.log('zarp', sorted, '\n--------------------------------\n');
-    } else {
-      index++;
-    }
-    sorted = sorted.sort(customSort);
-    // console.log(sorted, '\n---------------------\n');
-  }
+  // while (index < sorted.length) {
+  //   const HeadContainer = sorted[index];
+  //   const containersConflict = Conflicts(HeadContainer, sorted.slice(index + 1));
+  //   // console.log(containersConflict)
+  //   // console.log(HeadContainer,'\nzarp\n',container/sConflict);
+  //   // console.log(HeadContainer, '\n---------------------\n', containersConflict);
+  //   if (containersConflict.length) {
+  //     //   console.log('beforechange', HeadContainer, containersConflict[0]);
+  //     ChnageTheContainers(HeadContainer, containersConflict[0]);
+  //     index = 0;
+  //     //   break;
+  //     //   console.log('zarp', sorted, '\n--------------------------------\n');
+  //   } else {
+  //     index++;
+  //   }
+  //   sorted = sorted.sort(customSort);
+  //   // console.log(sorted, '\n---------------------\n');
+  // }
   //   console.log(index);
   console.log(sorted);
+  function removeChar(divID, charindex) {
+    console.log();
+    let entetiyindex = 0;
+    sorted.forEach((element, index) => {
+      if (element.id == divID) {
+        entetiyindex = index;
+      }
+    });
+    console.log(entetiyindex);
+  }
+  function addChar() {}
+  removeChar(3, 3);
 }
 
 const customSort = (a, b) => {

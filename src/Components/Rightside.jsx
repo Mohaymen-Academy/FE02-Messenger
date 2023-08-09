@@ -3,7 +3,7 @@ import { Chatlist } from './ChatComps';
 import SidebarMenu from './SidebarMenu.jsx';
 import { UilBars, UilSearch } from '@iconscout/react-unicons';
 
-export default function RightSide() {
+export default function RightSide({ setChatId }) {
   const [open, setopen] = useState(false);
   const divref = useRef(null);
   function handleOutsideClick(event) {
@@ -18,7 +18,7 @@ export default function RightSide() {
     return () => document.addEventListener('mousedown', handleOutsideClick);
   }, [open]);
   return (
-    <div className=" h-screen w-[380px] bg-color1 border-l-2 border-bghovor shadow-md vsmmobile:w-full">
+    <div className=" h-screen w-[380px] bg-color1 border-l-2 border-bghovor shadow-md vsmmobile:w-0">
       <div className="flex justify-between px-2 py-1 ">
         <div>
           <button className="fixed" onClick={(e) => setopen((prev) => !prev)}>
@@ -42,7 +42,7 @@ export default function RightSide() {
           </div>
         </form>
       </div>
-      <Chatlist />
+      <Chatlist setChatId={setChatId} />
       <SidebarMenu
         profileImage={'images/profile.jpg'}
         username={'Zahra'}

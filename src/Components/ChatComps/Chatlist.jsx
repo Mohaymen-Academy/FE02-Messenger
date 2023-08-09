@@ -1,47 +1,47 @@
 import ChatCardPreview from './ChatCardPreview.jsx';
 
-const Chatlist = () => (
+const Chatlist = ({ setChatId }) => (
   <div className=" mt-4 w-full h-full overflow-y-auto">
-    <ChatCardPreview unreadmessage={5} />
-    <ChatCardPreview />
-    <ChatCardPreview />
-    <ChatCardPreview />
-    <ChatCardPreview />
-    <ChatCardPreview />
-    <ChatCardPreview />
-    <ChatCardPreview />
-    <ChatCardPreview />
-    <ChatCardPreview />
-    <ChatCardPreview />
-    <ChatCardPreview />
-    <ChatCardPreview />
-    <ChatCardPreview />
-    <ChatCardPreview />
-    <ChatCardPreview />
-    <ChatCardPreview />
-    <ChatCardPreview />
-    <ChatCardPreview />
-    <ChatCardPreview />
-    <ChatCardPreview />
-    <ChatCardPreview />
-    <ChatCardPreview />
-    <ChatCardPreview />
-    <ChatCardPreview />
-    <ChatCardPreview />
-    <ChatCardPreview />
-    <ChatCardPreview />
-    <ChatCardPreview />
-    <ChatCardPreview />
-    <ChatCardPreview />
-    <ChatCardPreview />
-    <ChatCardPreview />
-    <ChatCardPreview />
-    <ChatCardPreview />
-    <ChatCardPreview />
-    <ChatCardPreview />
-    <ChatCardPreview />
-    <ChatCardPreview />
-    <ChatCardPreview />
+    <ChatCardPreview chatid={1} setter={setChatId} unreadmessage={5} />
+    <ChatCardPreview  />
+    <ChatCardPreview  />
+    <ChatCardPreview  />
+    <ChatCardPreview  />
+    <ChatCardPreview  />
+    <ChatCardPreview  />
+    <ChatCardPreview  />
+    <ChatCardPreview  />
+    <ChatCardPreview  />
+    <ChatCardPreview  />
+    <ChatCardPreview  />
+    <ChatCardPreview  />
+    <ChatCardPreview  />
+    <ChatCardPreview  />
+    <ChatCardPreview  />
+    <ChatCardPreview  />
+    <ChatCardPreview  />
+    <ChatCardPreview  />
+    <ChatCardPreview  />
+    <ChatCardPreview  />
+    <ChatCardPreview  />
+    <ChatCardPreview  />
+    <ChatCardPreview  />
+    <ChatCardPreview  />
+    <ChatCardPreview  />
+    <ChatCardPreview  />
+    <ChatCardPreview  />
+    <ChatCardPreview  />
+    <ChatCardPreview  />
+    <ChatCardPreview  />
+    <ChatCardPreview  />
+    <ChatCardPreview  />
+    <ChatCardPreview  />
+    <ChatCardPreview  />
+    <ChatCardPreview  />
+    <ChatCardPreview  />
+    <ChatCardPreview  />
+    <ChatCardPreview  />
+    <ChatCardPreview  />
   </div>
 );
 

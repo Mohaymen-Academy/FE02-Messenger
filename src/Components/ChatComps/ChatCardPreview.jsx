@@ -1,9 +1,15 @@
 import Avatar from './Avatar';
 
-const ChatCardPreview = ({ profilePicture, unreadmessage }) => (
-  <div className=" flex h-18 w-0.9 mx-2 cursor-pointer flex-row items-center justify-center rounded-lg px-1 py-1 hover:bg-bghovor">
+const ChatCardPreview = ({ profilePicture, unreadmessage, chatid, setter }) => (
+  <div
+    onClick={(e) => setter(chatid)}
+    className=" flex h-18 w-0.9 mx-2 cursor-pointer flex-row items-center justify-center rounded-lg px-1 py-1 hover:bg-bghovor">
     <div className="w-1/5 px-2">
-      {profilePicture ? <img src={profilePicture} className="h-full rounded-full" /> : <Avatar image={'s'} isOnline={true} />}
+      {profilePicture ? (
+        <img src={profilePicture} className="h-full rounded-full" />
+      ) : (
+        <Avatar image={'s'} isOnline={true} />
+      )}
     </div>
     <div className="flex flex-1 flex-col px-1">
       <div className="font-semibold text-text1">زهرا</div>
