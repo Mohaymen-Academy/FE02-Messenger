@@ -40,7 +40,7 @@ export default function ChatBody() {
   }
 
   return (
-    <div dir="rtl" className="flex h-[100%] w-full flex-col">
+    <div dir="rtl" className="flex h-[100%] w-full flex-col ">
       <div className="flex h-[80%] w-full flex-col items-center overflow-hidden">
         <div className="mb-3 h-[70vh] w-full overflow-auto px-5 pt-3">
           {messages.map((message, index) => (

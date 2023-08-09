@@ -10,7 +10,7 @@ const MessageHeader = ({ isReciver, forewardedFrom, repliedTo }) => (
       </div>
     ) : null}
     {repliedTo ? (
-      <div className="line-clamp-1 border-x border-white bg-black px-1  opacity-60">
+      <div className="line-clamp-1 border-x border-white bg-color3  px-1  opacity-60">
         {repliedTo}
       </div>
     ) : null}
