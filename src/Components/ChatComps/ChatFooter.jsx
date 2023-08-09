@@ -11,17 +11,18 @@ export default function ChatFooter() {
     textcontent: 0
   });
   const divref = useRef(null);
-  function handleonInput() {
+  function handleonInput(e) {
+    e.stopPropagation();
     const selection = window.getSelection();
     const range = selection.getRangeAt(0);
     const clonedRange = range.cloneRange();
     clonedRange.selectNodeContents(divref.current);
     clonedRange.setEnd(range.endContainer, range.endOffset); // this set the position of the cursor
     const caretPosition = clonedRange.toString().length;
-    console.log(caretPosition);
+    // console.log(caretPosition);
     textref.current.textcontent = caretPosition;
   }
-  
+
   function handleclick(e) {
     const selection = window.getSelection();
     const range = selection.getRangeAt(0);
@@ -29,17 +30,17 @@ export default function ChatFooter() {
     clonedRange.selectNodeContents(divref.current);
     clonedRange.setEnd(range.endContainer, range.endOffset); // this set the position of the cursor
     const caretPosition = clonedRange.toString().length;
-    console.log(caretPosition);
+    // console.log(caretPosition);
     textref.current.textcontent = caretPosition;
   }
 
   function handleEmojiPicker(e) {
     const emoji = e.emoji;
     const careposition = textref.current.textcontent;
-    console.log(careposition);
+    // console.log(careposition);
     // console.log(Array.from(divref.current.innerText).splice(2, 0, emoji).join(''));
     divref.current.innerText = insertCharAtIndex(divref.current.innerText, emoji, careposition);
-    console.log(divref.current.innerText);
+    // console.log(divref.current.innerText);
     setOpenEmoji(false);
   }
   function insertCharAtIndex(originalString, charToAdd, index) {
@@ -47,7 +48,7 @@ export default function ChatFooter() {
       throw new Error('Index out of bounds');
     }
     if (index == originalString.length) {
-      console.log('sdfewr');
+      // console.log('sdfewr');
       return originalString + charToAdd;
     }
     console.log(index);
@@ -56,6 +57,24 @@ export default function ChatFooter() {
     const rightPart = originalString.substring(index);
 
     return leftPart + charToAdd + rightPart;
+  }
+  function handleSelect(e) {
+    const selection=window.getSelection()
+    const selectedText=
+    console.log(selectedText.toString());
+    if (selectedText.toString()!='') {
+      const range = selection.getRangeAt(0);
+      const startContainer = range.startContainer;
+      const startOffset = range.startOffset;
+      const endContainer = range.endContainer;
+      const endOffset = range.endOffset;
+
+      console.log('Selected Text:', selectedText);
+      console.log('Start Container:', startContainer);
+      console.log('Start Offset:', startOffset);
+      console.log('End Container:', endContainer);
+      console.log('End Offset:', endOffset);
+    }
   }
   return (
     <div
@@ -68,12 +87,13 @@ export default function ChatFooter() {
         <UilPaperclip />
       </button>
       <div
+        onSelectCapture={handleSelect}
         onClick={handleclick}
         style={{ direction: 'rtl' }}
         ref={divref}
         onInput={handleonInput}
         contentEditable
-        onChange={(e) => console.log()}
+        // onChange={(e) => console.log()}
         className=" w-[90%] max-h-[50px] outline-none h-auto overflow-hidden shadow-none border-none break-all focus:shadow-none active:shadow-none">
         {/* <span ref={textref} role="textbox" contentEditable></span> */}
       </div>
