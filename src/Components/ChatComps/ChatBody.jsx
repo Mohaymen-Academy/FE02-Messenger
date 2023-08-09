@@ -46,7 +46,8 @@ export default function ChatBody() {
     <div
       dir="rtl"
       className={
-        'flex h-[100%] w-full flex-col bg-chatbackground  bg-cover bg-center bg-no-repeat'
+        `flex h-[100%] flex-col bg-chatbackground  bg-cover bg-center bg-no-repeat
+        `
       }>
       <div className="flex h-[70%] w-full flex-col items-center overflow-hidden">
         <div className="mb-3 h-[105vh] w-full overflow-auto px-5 pt-3">
