@@ -49,7 +49,7 @@ export default function ChatBody() {
         'flex h-[100%] w-full flex-col bg-chatbackground  bg-cover bg-center bg-no-repeat'
       }>
       <div className="flex h-[70%] w-full flex-col items-center overflow-hidden">
-        <div className="mb-3 h-[70vh] w-full overflow-auto px-5 pt-3">
+        <div className="mb-3 h-[105vh] w-full overflow-auto px-5 pt-3">
           {messages.map((message, index) => (
             <div key={index} onContextMenu={(e) => handleRightClick(e, index)}>
               <Message
