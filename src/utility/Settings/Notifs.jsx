@@ -7,7 +7,7 @@ export default function Notifs() {
   const [open, setopen] = useState(false);
   const inputslider = useRef(null);
   return (
-    <div className="flex flex-col w-[100%] border-[1px] px-5">
+    <div className="flex flex-col w-[100%]  px-5 p-3">
       <button
         onClick={() => setopen((prevestate) => !prevestate)}
         className={'flex w-full h-10 items-center justify-between p-2 '}>
@@ -16,7 +16,7 @@ export default function Notifs() {
           <span className="text-[12px] font-extrabold text-text1 ">صدا و اعلانات</span>
         </div>
         <svg
-          className={`w-2.5 h-2.5 ml-2.5 ${open ? 'transform rotate-180' : ''}`}
+          className={`w-2.5 h-2.5 ml-2.5 text-text1 ${open ? 'transform rotate-180' : ''}`}
           aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
