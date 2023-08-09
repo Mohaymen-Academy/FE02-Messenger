@@ -55,7 +55,7 @@ const MessageMenu = ({ positions, setposition }) => {
     }
   ]);
   // console.log(positions);
-  console.log(positions);
+  // console.log(positions);
   return (
     <ul
       ref={divref}

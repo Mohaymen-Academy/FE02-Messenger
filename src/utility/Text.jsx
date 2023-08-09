@@ -7,18 +7,16 @@ export default function Text() {
   }, []);
   return (
     <div ref={divref} dir="auto">
-      {/* <b> */}
+      <b>
         <span className="blur-sm">Te</span>
-        {/* <b> */}
-            <b>
+        <b>
+          <b>
             Te
-            <span>
-                sdf
-            </span>
-                </b>xt
-
-        {/* </b> */}
-      {/* </b> */}
+            <span>sdf</span>
+          </b>
+          xt
+        </b>
+      </b>
     </div>
   );
 }

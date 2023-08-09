@@ -80,7 +80,7 @@ const TextProcessorMenu = ({x_pos, y_pos, positions ,setPosotion }) => {
     }
     return () => document.addEventListener('mousedown', handleOutsideClick);
   }, [positions]);
-  console.log(choice);
+  // console.log(choice);
   return (
     <div 
     dir='ltr'

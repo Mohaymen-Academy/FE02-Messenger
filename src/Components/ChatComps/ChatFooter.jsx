@@ -17,7 +17,7 @@ export default function ChatFooter() {
   function closeTextProcessor() {
     serOpenTextProcessor(false);
   }
-  
+
   useEffect(() => {
     function handleDocumentClick(event) {
       const clickedElement = event.target;
@@ -25,14 +25,14 @@ export default function ChatFooter() {
         closeTextProcessor();
       }
     }
-  
+
     document.addEventListener('click', handleDocumentClick);
-  
+
     return () => {
       document.removeEventListener('click', handleDocumentClick);
     };
   }, []);
-  
+
   function handleonInput(e) {
     e.stopPropagation();
     const selection = window.getSelection();
@@ -86,33 +86,50 @@ export default function ChatFooter() {
   function handleSelect(e) {
     serOpenTextProcessor(true);
     const selection = window.getSelection();
+    // console.log(selection);
+    // console.log(selection);
     const selectedText = selection.toString();
-    console.log(selection);
+    // console.log(selection);
     // clonedRange.selectNodeContents(divref.current);
     // clonedRange.setEnd(range.endContainer, range.endOffset); // this set the position of the cursor
 
-    console.log(selectedText);
+    // console.log(selectedText);
     if (selectedText.toString() != '') {
-      console.log(window.getSelection().anchorOffset);
-      console.log(window.getSelection().focusOffset);
+      console.log(selection);
+      console.log(selection.anchorNode.parentNode.dataset);
+      console.log(selection.anchorOffset,' anchor offset');
+      console.log(selection.focusNode.parentNode.dataset);
+      console.log(selection.focusOffset,' focus offset');
       e.preventDefault();
       e.stopPropagation();
       x_mouse = e.clientX;
       y_mouse = e.clientY;
       setmousepositoin({ x_mouse, y_mouse });
       const range = selection.getRangeAt(0);
+      const ref = divref.current;
+
+      const rangerect = range.getBoundingClientRect();
+      // console.log(ref.textContent.indexOf(selectedText));
+      // console.log(range)
       // range.deleteContents();
       const startContainer = range.startContainer;
       const startOffset = range.startOffset;
       const endContainer = range.endContainer;
       const endOffset = range.endOffset;
-
-      console.log('Selected Text:', selectedText);
-      console.log('Start Container:', startContainer);
-      console.log('Start Offset:', startOffset);
-      console.log('End Container:', endContainer);
-      console.log('End Offset:', endOffset);
+      // console.log('Selected Text:', selectedText);
+      // console.log('Start Container:', startContainer);
+      // console.log('Start Offset:', startOffset);
+      // console.log('End Container:', endContainer);
+      // console.log('End Offset:', endOffset);
     }
+  }
+  function handleKeyDown(e){
+    console.log(e.key)
+    console.log(e)
+    const selection = window.getSelection();
+    const range = selection.getRangeAt(0);
+    const clonedRange = range.cloneRange();
+console.log(clonedRange)
   }
   return (
     <div
@@ -126,6 +143,8 @@ export default function ChatFooter() {
       </button>
       {/* <input type="text" dir='auto' /> */}
       <div
+        dir="auto"
+        onKeyDown={handleKeyDown}
         onSelectCapture={handleSelect}
         onClick={handleclick}
         // style={{ direction: 'auto' }}
@@ -133,10 +152,11 @@ export default function ChatFooter() {
         onInput={handleonInput}
         contentEditable
         // onChange={(e) => console.log()}
-        className=" w-[90%] max-h-[50px] outline-none h-auto overflow-hidden shadow-none border-none break-all focus:shadow-none active:shadow-none">
-        {/* <span ref={textref} dir='auto' role="textbox" contentEditable>TEXT</span> */}
-        <Text />
-      </div>
+        className=" w-[90%] max-h-[50px] flex outline-none h-auto overflow-hidden shadow-none border-none break-all focus:shadow-none active:shadow-none">
+          <div data-lower="0" data-upper='2' >012</div>
+          <div data-lower="3" data-upper='8' >345678</div>
+          <div data-lower="9" data-upper='10' >91</div>
+        </div>
       <div>
         <button onClick={() => setOpenEmoji(!openEmoji)} className="mx-1 h-8 w-8 text-text1 ">
           <UilSmile />
