@@ -5,7 +5,6 @@ import MessageHeader from './MessageHeader';
 import MessageImageMedia from './MessageImageMedia';
 
 function Message({ content, isSeen, id, forewardedFrom, repliedTo, media }) {
-  const [openContextMenu, setOpenContextMenu] = useState(false);
   const [mousepositoin, setmousepositoin] = useState({ x: 0, y: 0 });
   let y_mouse = useRef(0);
   let x_mouse = useRef(0);
