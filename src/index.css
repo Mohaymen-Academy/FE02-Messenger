@@ -2,7 +2,16 @@
 @tailwind components;
 @tailwind utilities;
 
+  
+
+@font-face {
+    font-family: 'Vazir';
+    src: url('../fonts/Vazir/Vazirmatn-FD-ExtraLight.ttf');
+}
 @layer base {
+    *{
+        font-family: 'Vazir';
+      }
     :root {
       --color-color1: 17 27 33;  /* rgb(17,27,33) */
       --color-color2: 32 44 51; /* rgb(32,44,51) */
