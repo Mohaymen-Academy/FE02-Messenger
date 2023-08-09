@@ -28,7 +28,11 @@ export default {
         bgyoumassage: 'rgb(var(--color-bgyoumassage) / <alpha-value>)',
         textcolor: 'rgb(var(--color-textcolor) / <alpha-value>)',
         bluetext1:'rgb(var(--color-bluetext1) / <alpha-value>)'
-      }
+      },
+      backgroundImage: {
+        chatbackground: "var(--chatbackground)",
+      },
+      
     }
   },
   plugins: []
