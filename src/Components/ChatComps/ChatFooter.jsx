@@ -4,12 +4,11 @@ import EmojiPicker from 'emoji-picker-react';
 import Text from '../../utility/Text';
 import TextProcessorMenu from '../../utility/TextProcessorMenu';
 
-
 export default function ChatFooter() {
   // const [text, setText] = React.useState('');
   const [openEmoji, setOpenEmoji] = useState(false);
   const [openAttach, setOpenAttach] = useState(false);
-  const [openTextProcessor , serOpenTextProcessor] = useState(false);
+  const [openTextProcessor, serOpenTextProcessor] = useState(false);
   const emoji = useState('');
   const textref = useRef({
     textcontent: 0
@@ -66,17 +65,17 @@ export default function ChatFooter() {
   let y_mouse = useRef(0);
   let x_mouse = useRef(0);
   function handleSelect(e) {
-    serOpenTextProcessor(true)
-    const selection=window.getSelection()
-    const selectedText=selection.toString();
-    console.log(selection)
+    serOpenTextProcessor(true);
+    const selection = window.getSelection();
+    const selectedText = selection.toString();
+    console.log(selection);
     // clonedRange.selectNodeContents(divref.current);
     // clonedRange.setEnd(range.endContainer, range.endOffset); // this set the position of the cursor
-    
+
     console.log(selectedText);
-    if (selectedText.toString()!='') {
-      console.log(window.getSelection().anchorOffset)
-      console.log(window.getSelection().focusOffset)
+    if (selectedText.toString() != '') {
+      console.log(window.getSelection().anchorOffset);
+      console.log(window.getSelection().focusOffset);
       e.preventDefault();
       e.stopPropagation();
       x_mouse = e.clientX;
@@ -117,7 +116,7 @@ export default function ChatFooter() {
         // onChange={(e) => console.log()}
         className=" w-[90%] max-h-[50px] outline-none h-auto overflow-hidden shadow-none border-none break-all focus:shadow-none active:shadow-none">
         {/* <span ref={textref} dir='auto' role="textbox" contentEditable>TEXT</span> */}
-      <Text/>
+        <Text />
       </div>
       <div>
         <button onClick={() => setOpenEmoji(!openEmoji)} className="mx-1 h-8 w-8 text-text1 ">
@@ -128,10 +127,7 @@ export default function ChatFooter() {
             <EmojiPicker theme={localStorage.getItem('theme')} onEmojiClick={handleEmojiPicker} />
           </div>
         )}
-        {
-          openTextProcessor &&
-          <TextProcessorMenu />
-        }
+        {openTextProcessor && <TextProcessorMenu />}
         {/* {openAttach &&
 
         } */}
