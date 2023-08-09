@@ -6,7 +6,7 @@ import React from 'react';
 export default function LinkPreview({ link }) {
   const baseurl = 'Youtube.com';
   return (
-    <div className="pr-5 flex flex-row gap-3">
+    <div className="pr-5 flex flex-row gap-3 my-2">
       <div className="flex bg-color2 w-[70px] h-[70px] cursor-default text-center items-center text-text1 justify-center text-lg rounded-lg">
         <p>Y</p>
       </div>

@@ -14,6 +14,25 @@ export default function ChatFooter() {
     textcontent: 0
   });
   const divref = useRef(null);
+  function closeTextProcessor() {
+    serOpenTextProcessor(false);
+  }
+  
+  useEffect(() => {
+    function handleDocumentClick(event) {
+      const clickedElement = event.target;
+      if (divref.current && !divref.current.contains(clickedElement)) {
+        closeTextProcessor();
+      }
+    }
+  
+    document.addEventListener('click', handleDocumentClick);
+  
+    return () => {
+      document.removeEventListener('click', handleDocumentClick);
+    };
+  }, []);
+  
   function handleonInput(e) {
     e.stopPropagation();
     const selection = window.getSelection();

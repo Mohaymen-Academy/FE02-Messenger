@@ -51,7 +51,7 @@ export default function LeftSide({ isActive, profile, setActive, setlayout }) {
           <></>
         )}
       </div>
-      <div className="flex flex-col w-full h-[calc(100%-400px)] bg-color1">
+      <div className="flex flex-col w-full h-[calc(100%-420px)] bg-color1">
         <div className="w-full h-[50px] bg-color2 flex flex-row  place-items-center border-b-1">
           <div
             className={`category-part ${filepart[0] == 1 ? 'bg-color1' : 'bg-color2'}`}

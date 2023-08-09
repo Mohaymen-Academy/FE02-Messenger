@@ -4,7 +4,7 @@ import SidebarMenu from './SidebarMenu.jsx';
 import { UilBars, UilSearch } from '@iconscout/react-unicons';
 
 export default function RightSide() {
-  const [open, setopen] = useState(true);
+  const [open, setopen] = useState(false);
   const divref = useRef(null);
   function handleOutsideClick(event) {
     if (divref.current && !divref.current.contains(event.target)) {
