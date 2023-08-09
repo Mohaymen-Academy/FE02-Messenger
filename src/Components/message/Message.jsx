@@ -1,8 +1,9 @@
 import { UilCheck } from '@iconscout/react-unicons';
 import { useEffect, useState } from 'react';
 import MessageMenu from './MessageMenu';
+import MessageHeader from './MessageHeader';
 
-function Message({ content, isSeen, id, forewardedFrom }) {
+function Message({ content, isSeen, id, forewardedFrom, repliedTo, isReciver }) {
   const [rightClicked, setRightClicked] = useState(false);
   const [points, setPoints] = useState({
     x: 0,
@@ -20,7 +21,7 @@ function Message({ content, isSeen, id, forewardedFrom }) {
   function handleContex(e) {
     e.preventDefault();
     setRightClicked(true);
-    setPoints({ x: e.pageX, y: e.pageY });
+    // setPoints({ x: e.pageX, y: e.pageY });
   }
   return (
     <div
@@ -30,13 +31,11 @@ function Message({ content, isSeen, id, forewardedFrom }) {
         className={` my-3 max-w-[50%] justify-end rounded-md bg-gradient-to-r ${
           id === 'you' ? ' from-blue-500 to-cyan-400' : 'from-indigo-500 via-purple-500 to-pink-500'
         } p-2 text-white `}>
-        <div>
-          {forewardedFrom ? (
-            <div>
-              message forwarded from <span className="font-semibold">{forewardedFrom}</span>
-            </div>
-          ) : null}
-        </div>
+        <MessageHeader
+          isReciver={isReciver}
+          forewardedFrom={forewardedFrom}
+          repliedTo={repliedTo}
+        />
         <p>{content}</p>
         <div className=" flex w-full items-end justify-between text-sm text-zinc-400">
           <p>23:00</p>
