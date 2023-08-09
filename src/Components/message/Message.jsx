@@ -1,27 +1,9 @@
 import { UilCheck } from '@iconscout/react-unicons';
 import { useEffect, useState, useRef } from 'react';
 import MessageMenu from './MessageMenu';
+import MessageHeader from './MessageHeader';
 
-function Message({ content, isSeen, id, forewardedFrom }) {
-  // const [rightClicked, setRightClicked] = useState(false);
-  // const [points, setPoints] = useState({
-  //   x: 0,
-  //   y: 0
-  // });
-  // useEffect(() => {
-  //   if (rightClicked) {
-  //     const handleClick = () => setRightClicked(false);
-  //     window.addEventListener('click', handleClick);
-  //     return () => {
-  //       window.removeEventListener('click', handleClick);
-  //     };
-  //   }
-  // }, [rightClicked]);
-  // function handleContex(e) {
-  //   e.preventDefault();
-  //   setRightClicked(true);
-  //   setPoints({ x: e.pageX, y: e.pageY });
-  // }
+function Message({ content, isSeen, id, forewardedFrom, repliedTo }) {
   const [openContextMenu, setOpenContextMenu] = useState(false);
   const [mousepositoin, setmousepositoin] = useState({ x: 0, y: 0 });
   let y_mouse = useRef(0);
@@ -43,13 +25,7 @@ function Message({ content, isSeen, id, forewardedFrom }) {
           id === 'you' ? ' from-blue-500 to-cyan-400' : 'from-indigo-500 via-purple-500 to-pink-500'
         } p-2 text-white `}>
         <div>
-          {forewardedFrom ? (
-            <div className="text-left flex flex-row-reverse">
-              <p className="opacity-30 italic">Forwarded from</p>
-              &nbsp;&nbsp;&nbsp;
-              <span className="font-semibold italic opacity-100">zarp</span>
-            </div>
-          ) : null}
+          <MessageHeader forewardedFrom={forewardedFrom} repliedTo={repliedTo} />
         </div>
         <p>{content}</p>
         <div className=" flex w-full items-end justify-between text-sm text-zinc-400">

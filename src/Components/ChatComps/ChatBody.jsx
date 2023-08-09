@@ -1,52 +1,59 @@
 import React, { useRef } from 'react';
 import EmojiPicker from 'emoji-picker-react';
-import ChatFooter from './ChatFooter';
-import Message from '../message/Message';
-import MessageMenu from '../message/MessageMenu';
+import ChatFooter from './ChatFooter.jsx';
+import Message from '../message/Message.jsx';
+import MessageMenu from '../message/MessageMenu.jsx';
 
 const messages = [
   {
     id: 'else',
     seen: true,
     content: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis, ex',
-    forewardedFrom: true
+    repliedMessage: 'zendegito be atish mikesham'
   },
   {
     id: 'you',
     seen: true,
     content: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis, ex',
-    forewardedFrom: true
+    forwarded: 'Mahmoud'
+  },
+  {
+    id: 'you',
+    seen: true,
+    content: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis, ex',
+    forwarded: 'Mahmoud',
+    media: '../../../public/images/profile.jpg'
   }
 ];
 
 export default function ChatBody() {
+  const [openContextMenu, setOpenContextMenu] = React.useState(false);
+  function handleRightClick(event, index) {
+    event.preventDefault();
+
+    const x = event.clientX;
+    const y = event.clientY;
+
+    setOpenContextMenu(true);
+    setSelectedMessageIndex(index);
+    setContextMenuPosition({ x, y });
+  }
+
   return (
     <div dir="rtl" className="flex h-[100%] w-full flex-col">
       <div className="flex h-[80%] w-full flex-col items-center overflow-hidden">
-        <div className="mb-3 h-[80vh] w-full overflow-auto px-5 pt-3">
+        <div className="mb-3 h-[70vh] w-full overflow-auto px-5 pt-3">
           {messages.map((message, index) => (
-            // <div
-            //   className="flex flex-col"
-            //   key={index}
-            //   // onContextMenu={(e) => handleRightClick(e, index)}
-            //   >
+            <div key={index} onContextMenu={(e) => handleRightClick(e, index)}>
               <Message
-              key={index}
                 content={message.content}
                 isSeen={message.seen}
                 id={message.id}
-                forewardedFrom={message.forewardedFrom}
+                forewardedFrom={message.forwarded}
+                repliedTo={message.repliedMessage}
+                media={message.media}
               />
-            //   {/* {mousepositoin.x != 0 ? (
-            //     <MessageMenu
-            //       x_pos={x_mouse.current}
-            //       y_pos={y_mouse.current}
-            //       positions={mousepositoin}
-            //     />
-            //   ) : (
-            //     <></>
-            //   )} */}
-            // // </div>
+            </div>
           ))}
         </div>
       </div>
