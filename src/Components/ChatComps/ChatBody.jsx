@@ -28,6 +28,7 @@ const messages = [
 
 export default function ChatBody() {
   const [openContextMenu, setOpenContextMenu] = React.useState(false);
+  
   function handleRightClick(event, index) {
     event.preventDefault();
 
