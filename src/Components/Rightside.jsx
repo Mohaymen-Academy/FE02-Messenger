@@ -18,7 +18,7 @@ export default function RightSide() {
     return () => document.addEventListener('mousedown', handleOutsideClick);
   }, [open]);
   return (
-    <div className=" h-screen w-[380px] bg-color1 shadow-md vsmmobile:w-full">
+    <div className=" h-screen w-[380px] bg-color1 border-l-2 border-bghovor shadow-md vsmmobile:w-full">
       <div className="flex justify-between px-2 py-1 ">
         <div>
           <button className="fixed" onClick={(e) => setopen((prev) => !prev)}>

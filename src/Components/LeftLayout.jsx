@@ -15,7 +15,7 @@ export default function LeftLayout({ active, setActive }) {
   return (
     <div
       className={`flex flex-col h-screen transition-all duration-200 ease-in ${
-        active ? 'w-[400px]' : 'w-0'
+        active ? 'w-[500px]' : 'w-0'
       }`}>
       {Pages[layout]}
     </div>
