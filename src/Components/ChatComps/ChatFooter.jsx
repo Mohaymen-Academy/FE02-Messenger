@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { UilSmile, UilMessage, UilPaperclip } from '@iconscout/react-unicons';
 import EmojiPicker from 'emoji-picker-react';
-
+import Text from '../../utility/Text';
 export default function ChatFooter() {
   // const [text, setText] = React.useState('');
   const [openEmoji, setOpenEmoji] = useState(false);
@@ -60,10 +60,15 @@ export default function ChatFooter() {
   }
   function handleSelect(e) {
     const selection=window.getSelection()
-    const selectedText=
-    console.log(selectedText.toString());
+    const selectedText=selection.toString();
+    console.log(selection)
+    // clonedRange.selectNodeContents(divref.current);
+    // clonedRange.setEnd(range.endContainer, range.endOffset); // this set the position of the cursor
+
+    console.log(selectedText);
     if (selectedText.toString()!='') {
       const range = selection.getRangeAt(0);
+      // range.deleteContents();
       const startContainer = range.startContainer;
       const startOffset = range.startOffset;
       const endContainer = range.endContainer;
@@ -86,16 +91,18 @@ export default function ChatFooter() {
       <button className="mx-1 h-8 w-8 text-text1 ">
         <UilPaperclip />
       </button>
+      {/* <input type="text" dir='auto' /> */}
       <div
         onSelectCapture={handleSelect}
         onClick={handleclick}
-        style={{ direction: 'rtl' }}
+        // style={{ direction: 'auto' }}
         ref={divref}
         onInput={handleonInput}
         contentEditable
         // onChange={(e) => console.log()}
         className=" w-[90%] max-h-[50px] outline-none h-auto overflow-hidden shadow-none border-none break-all focus:shadow-none active:shadow-none">
-        {/* <span ref={textref} role="textbox" contentEditable></span> */}
+        {/* <span ref={textref} dir='auto' role="textbox" contentEditable>TEXT</span> */}
+      <Text/>
       </div>
       <div>
         <button onClick={() => setOpenEmoji(!openEmoji)} className="mx-1 h-8 w-8 text-text1 ">
