@@ -22,15 +22,15 @@ function Message({ content, isSeen, id, forewardedFrom, repliedTo }) {
       onContextMenu={handleRightClick}>
       <div
         className={` my-3 max-w-[50%] justify-end rounded-md bg-gradient-to-r ${
-          id === 'you' ? ' from-blue-500 to-cyan-400' : 'from-indigo-500 via-purple-500 to-pink-500'
-        } p-2 text-white `}>
+          id === 'you' ? ' bg-bgmymassage' : 'bg-bgyoumassage'
+        } p-2 text-text1 `}>
         <div>
           <MessageHeader forewardedFrom={forewardedFrom} repliedTo={repliedTo} />
         </div>
         <p>{content}</p>
         <div className=" flex w-full items-end justify-between text-sm text-zinc-400">
-          <p className="text-color1">23:00</p>
-          <div className="text-color1">
+          <p className="text-color3">23:00</p>
+          <div className="text-bluetext1">
             {id === 'you' && isSeen ? (
               <div className="flex flex-row">
                 <UilCheck className={'relative left-[-18px]'} />

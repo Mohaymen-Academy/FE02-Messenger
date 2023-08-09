@@ -4,12 +4,16 @@
 
 @layer base {
     :root {
-      --color-color1: 20 35 60;  /* rgb(20 ,35 ,60) */
-      --color-color2: 38 56 89; /* rgb(38 ,56, 89) */
+      --color-color1: 17 27 33;  /* rgb(17,27,33) */
+      --color-color2: 32 44 51; /* rgb(32,44,51) */
       --color-color3: 107 119 141;  /* rgb(107 ,119, 141) */
       --color-color4: 30 120 137;  /* rgb(30 ,120, 137) */
-      /* --color-text1: 244 244 242;  rgb(244 , 244 , 242) */
-      --color-text1: 45, 85, 218; /* rgb(45, 85, 218) */
+      --color-text1: 244 244 242; /* rgb(244 , 244 , 242) */
+      --color-bgmymassage : 0 92 75; /*rgb(0,92,75)*/
+      --color-bgyoumassage : 32 44 51; /* rgb(32,44,51) */
+      --color-textcolor : 255 210 121 ; /*rgb(255,210,121)*/
+      --color-bghovor : 42 57 66 ; /*rgb(42,57,66)*/
+      --color-bluetext1: 45 120 200; /* rgb(45, 120, 158) */
 
     }
     :root[data-theme="light"] {
@@ -17,7 +21,8 @@
         --color-color2: 232 232 232; /* rgb(244 , 232 , 232) */
         --color-color3: 187 191 202; /* rgb(187 , 191 , 202) */
         --color-color4: 30 120 137; /* rgb(30 , 120 , 137) */
-        --color-text1: 46, 58, 100; /* rgb(20 , 35 , 60) */
+        --color-text1: 17 27 33; /* rgb(17,27,33) */
+        --color-bgmassage : 217 253 211 /*rgb(217,253,211)*/
 
     }
   }

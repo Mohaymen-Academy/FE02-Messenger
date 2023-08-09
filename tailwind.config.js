@@ -22,7 +22,12 @@ export default {
         color2: 'rgb(var(--color-color2) / <alpha-value>)',
         color3: 'rgb(var(--color-color3) / <alpha-value>)',
         color4: 'rgb(var(--color-color4) / <alpha-value>)',
-        text1: 'rgb(var(--color-text1) / <alpha-value>)'
+        text1: 'rgb(var(--color-text1) / <alpha-value>)',
+        bghovor: 'rgb(var(--color-bghovor) / <alpha-value>)',
+        bgmymassage: 'rgb(var(--color-bgmymassage) / <alpha-value>)',
+        bgyoumassage: 'rgb(var(--color-bgyoumassage) / <alpha-value>)',
+        textcolor: 'rgb(var(--color-textcolor) / <alpha-value>)',
+        bluetext1:'rgb(var(--color-bluetext1) / <alpha-value>)'
       }
     }
   },
