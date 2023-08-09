@@ -22,7 +22,7 @@ const messages = [
     seen: true,
     content: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis, ex',
     forwarded: 'Mahmoud',
-    media: '../../../public/images/profile.jpg'
+    media: '/images/profile.jpg'
   }
 ];
 
