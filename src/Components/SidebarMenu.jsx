@@ -10,7 +10,7 @@ import { useState } from 'react';
 import Settings from './Menues/Settings.jsx';
 import { UilArrowLeft } from '@iconscout/react-unicons'
 export default function SidebarMenu({ profileImage, username, open, divref }) {
-  const [menu, setmenu] = useState(NUM_SIDEBAR_SETTINGS);
+  const [menu, setmenu] = useState(NUM_SIDEBAR_DEFAULT);
   const Menues = {
     [NUM_SIDEBAR_DEFAULT]: ["Defualt",<Default menuSetter={setmenu} />],
     [NUM_SIDEBAR_SETTINGS]: ["تنظیمات",<Settings menuSetter={setmenu} />],

@@ -3,7 +3,7 @@ import LeftSide from './Leftside';
 import ProfileEdit from './ProfileEdit';
 
 export default function LeftLayout({ active, setActive }) {
-  const [layout, setlayout] = useState(1);
+  const [layout, setlayout] = useState(0);
   //   const [active, ] = useState(false);
   //   console.log(setlayout)
   const Pages = [

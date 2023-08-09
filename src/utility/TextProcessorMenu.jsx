@@ -95,8 +95,8 @@ const TextProcessorMenu = ({x_pos, y_pos, positions ,setPosotion }) => {
          <button
          key={index}
            className={`flex flex-col items-center px-2 m-0.5 w-full ${choice[index]===1 && "bg-blue-600"} hover:bg-blue-600 hover:text-white rounded-lg`}
-           onClick={(e) => setChoice({... choice , [index] : 1})}
-         >
+           onClick={(e) => setChoice({ ...choice, [index]: choice[index] === 1 ? 0 : 1 })}
+           >
            <div className={`flex items-center gap-2 my-1 ${item.color}`}>{item.icon}</div>
            <p className={`text-xs px-2 ${item.color}`}>{item.title}</p>
          </button>
