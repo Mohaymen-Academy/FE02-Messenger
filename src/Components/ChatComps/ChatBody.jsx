@@ -51,7 +51,7 @@ export default function ChatBody() {
                 id={message.id}
                 forewardedFrom={message.forwarded}
                 repliedTo={message.repliedMessage}
-                media
+                media={message.media}
               />
             </div>
           ))}
