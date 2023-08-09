@@ -1,8 +1,9 @@
 import React, { useRef } from 'react';
 import EmojiPicker from 'emoji-picker-react';
+import { createPortal } from 'react-dom';
 import ChatFooter from './ChatFooter.jsx';
 import Message from '../message/Message.jsx';
-import MessageMenu from '../message/MessageMenu.jsx';
+import ImagePreviewer from '../media-previewer/ImagePreviewer.jsx';
 
 const messages = [
   {
@@ -28,6 +29,8 @@ const messages = [
 
 export default function ChatBody() {
   const [openContextMenu, setOpenContextMenu] = React.useState(false);
+  const [preview, setPreview] = React.useState(false);
+
   function handleRightClick(event, index) {
     event.preventDefault();
 
@@ -40,8 +43,12 @@ export default function ChatBody() {
   }
 
   return (
-    <div dir="rtl" className={`flex h-[100%] w-full flex-col bg-chatbackground  bg-cover bg-center bg-no-repeat`}>
-      <div className="flex h-[80%] w-full flex-col items-center overflow-hidden">
+    <div
+      dir="rtl"
+      className={
+        'flex h-[100%] w-full flex-col bg-chatbackground  bg-cover bg-center bg-no-repeat'
+      }>
+      <div className="flex h-[70%] w-full flex-col items-center overflow-hidden">
         <div className="mb-3 h-[70vh] w-full overflow-auto px-5 pt-3">
           {messages.map((message, index) => (
             <div key={index} onContextMenu={(e) => handleRightClick(e, index)}>
@@ -52,6 +59,7 @@ export default function ChatBody() {
                 forewardedFrom={message.forwarded}
                 repliedTo={message.repliedMessage}
                 media={message.media}
+                handleMediaMessage={() => setPreview(!preview)}
               />
             </div>
           ))}
@@ -60,6 +68,12 @@ export default function ChatBody() {
       <div className="mb-2 h-16">
         <ChatFooter />
       </div>
+      {preview
+        ? createPortal(
+            <ImagePreviewer handleClose={() => setPreview(false)} />,
+            document.getElementById('app-holder')
+          )
+        : null}
     </div>
   );
 }
