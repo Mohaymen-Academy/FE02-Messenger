@@ -28,14 +28,15 @@ export default function SidebarMenu({ profileImage, username, open, divref }) {
         }`}>
         <div className=" w-[100%] h-[200px] flex flex-col justify-end gap-6 pt-0 ">
           <div
-            className="flex w-[100%] object-cover h-[100%] flex-col justify-end place-items-end px-5"
-            style={{ background: `url(${'images/wall.webp'})` }}>
+            className="flex w-[100%] object-cover h-[100%] flex-col justify-end place-items-end px-5 bg-chatbackground bg-cover bg-center bg-no-repeat"
+            // style={{ background: `url(${'images/wall.webp'})` }}
+            >
             <img
               src={profileImage}
               className="w-[90px] h-[90px] rounded-full p-1  bg-color1 my-0"
               alt=""
             />
-            <p className="text-text1 text-end mt-4 m-6">{username}</p>
+            <p className="text-white text-end mt-4 m-6">{username}</p>
           </div>
         </div>
         {menu == NUM_SIDEBAR_DEFAULT ? (

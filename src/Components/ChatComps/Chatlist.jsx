@@ -1,8 +1,8 @@
 import ChatCardPreview from './ChatCardPreview.jsx';
 
 const Chatlist = () => (
-  <div className=" mt-4 h-5/6 w-full overflow-y-auto">
-    <ChatCardPreview />
+  <div className=" mt-4 w-full h-full overflow-y-auto">
+    <ChatCardPreview unreadmessage={5} />
     <ChatCardPreview />
     <ChatCardPreview />
     <ChatCardPreview />

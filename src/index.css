@@ -24,6 +24,7 @@
         --color-color3: 187 191 202; /* rgb(187 , 191 , 202) */
         --color-color4: 30 120 137; /* rgb(30 , 120 , 137) */
         --color-text1: 17 27 33; /* rgb(17,27,33) */
+        --color-bghovor : 187 191 202; /* rgb(187 , 191 , 202) */
         --color-bgyoumassage: 232 232 232; /* rgb(244 , 232 , 232) */
         --color-bgmymassage : 217 253 211 ;/*rgb(217,253,211)*/
         --chatbackground: var(--background-image-light);
