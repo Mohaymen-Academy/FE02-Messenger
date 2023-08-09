@@ -2,10 +2,14 @@ import React, { useEffect, useRef, useState } from 'react';
 import { UilSmile, UilMessage, UilPaperclip } from '@iconscout/react-unicons';
 import EmojiPicker from 'emoji-picker-react';
 import Text from '../../utility/Text';
+import TextProcessorMenu from '../../utility/TextProcessorMenu';
+
+
 export default function ChatFooter() {
   // const [text, setText] = React.useState('');
   const [openEmoji, setOpenEmoji] = useState(false);
   const [openAttach, setOpenAttach] = useState(false);
+  const [openTextProcessor , serOpenTextProcessor] = useState(false);
   const emoji = useState('');
   const textref = useRef({
     textcontent: 0
@@ -58,15 +62,26 @@ export default function ChatFooter() {
 
     return leftPart + charToAdd + rightPart;
   }
+  const [mousepositoin, setmousepositoin] = useState({ x: 0, y: 0 });
+  let y_mouse = useRef(0);
+  let x_mouse = useRef(0);
   function handleSelect(e) {
+    serOpenTextProcessor(true)
     const selection=window.getSelection()
     const selectedText=selection.toString();
     console.log(selection)
     // clonedRange.selectNodeContents(divref.current);
     // clonedRange.setEnd(range.endContainer, range.endOffset); // this set the position of the cursor
-
+    
     console.log(selectedText);
     if (selectedText.toString()!='') {
+      console.log(window.getSelection().anchorOffset)
+      console.log(window.getSelection().focusOffset)
+      e.preventDefault();
+      e.stopPropagation();
+      x_mouse = e.clientX;
+      y_mouse = e.clientY;
+      setmousepositoin({ x_mouse, y_mouse });
       const range = selection.getRangeAt(0);
       // range.deleteContents();
       const startContainer = range.startContainer;
@@ -113,6 +128,10 @@ export default function ChatFooter() {
             <EmojiPicker theme={localStorage.getItem('theme')} onEmojiClick={handleEmojiPicker} />
           </div>
         )}
+        {
+          openTextProcessor &&
+          <TextProcessorMenu />
+        }
         {/* {openAttach &&
 
         } */}
