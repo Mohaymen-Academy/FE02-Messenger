@@ -2,8 +2,9 @@ import { UilCheck } from '@iconscout/react-unicons';
 import { useEffect, useState, useRef } from 'react';
 import MessageMenu from './MessageMenu';
 import MessageHeader from './MessageHeader';
+import MessageImageMedia from './MessageImageMedia';
 
-function Message({ content, isSeen, id, forewardedFrom, repliedTo }) {
+function Message({ content, isSeen, id, forewardedFrom, repliedTo, media }) {
   const [openContextMenu, setOpenContextMenu] = useState(false);
   const [mousepositoin, setmousepositoin] = useState({ x: 0, y: 0 });
   let y_mouse = useRef(0);
@@ -27,6 +28,7 @@ function Message({ content, isSeen, id, forewardedFrom, repliedTo }) {
         <div>
           <MessageHeader forewardedFrom={forewardedFrom} repliedTo={repliedTo} />
         </div>
+        <MessageImageMedia src={media} />
         <p>{content}</p>
         <div className=" flex w-full items-end justify-between text-sm text-zinc-400">
           <p className="text-color3">23:00</p>
