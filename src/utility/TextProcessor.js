@@ -1,7 +1,7 @@
 const containers = [
-    { id: 1, lower: 1, upper: 8, style: ['bold'] },
-    { id: 2, lower: 3, upper: 12, style: ['highlihgt'] },
-    { id: 3, lower: 6, upper: 14, style: ['strike'] },
+  { id: 1, lower: 1, upper: 8, style: ['bold'] },
+  { id: 2, lower: 3, upper: 12, style: ['highlihgt'] },
+  { id: 3, lower: 6, upper: 14, style: ['strike'] }
   //   { id: 4, lower: 9, upper: 18, style: ['underline'] },
   //   { id: 5, lower: 10, upper: 16, style: ['italic'] }
 ];
@@ -11,7 +11,6 @@ const containers = [
  * @param {Array} BodyContainer
  *
  * */
-
 /**
  * @param {Array} containers
  *
@@ -43,8 +42,8 @@ function TextProcessor(containers) {
     // there are two ways
 
     if (selectedContainer.upper < HeadContainer.upper) {
-        // TODO
-        // ! NEED TO CHNAGE THE SELECTEDCONTAINER
+      // TODO
+      // ! NEED TO ADD THE SECTION FOR
       // if the whole of body is in the head
       //   console.log('khsewlkhr')
     }
@@ -57,14 +56,14 @@ function TextProcessor(containers) {
       const IntersectionChildContainerUpper = HeadContainer.upper;
       const NewContainerLower = HeadContainer.upper + 1;
       const NewContainerUpper = selectedContainer.upper;
-    //   console.log(
-    //     HeaderDirectChildContainerLower,
-    //     HeaderDirectChildContainerUpper,
-    //     IntersectionChildContainerLower,
-    //     IntersectionChildContainerUpper,
-    //     NewContainerLower,
-    //     NewContainerUpper
-    //   );
+      //   console.log(
+      //     HeaderDirectChildContainerLower,
+      //     HeaderDirectChildContainerUpper,
+      //     IntersectionChildContainerLower,
+      //     IntersectionChildContainerUpper,
+      //     NewContainerLower,
+      //     NewContainerUpper
+      //   );
 
       HeadContainer.lower = HeaderDirectChildContainerLower;
       HeadContainer.upper = HeaderDirectChildContainerUpper;
@@ -86,18 +85,17 @@ function TextProcessor(containers) {
       if (selectedContainer.lower == HeadContainer.lower) {
         HeadContainer.style.concat(selectedContainer.style);
         const newObject = {
-            id: HeadContainer.id,
-            lower: HeadContainer.lower,
-            upper: HeadContainer.upper,
-            style: HeadContainer.style.concat(selectedContainer.style)
-          };
-    
+          id: HeadContainer.id,
+          lower: HeadContainer.lower,
+          upper: HeadContainer.upper,
+          style: HeadContainer.style.concat(selectedContainer.style)
+        };
+
         replaceInArray(newObject);
         const NewContainerLower = HeadContainer.upper + 1;
         const NewContainerUpper = selectedContainer.upper;
         selectedContainer.lower = NewContainerLower;
         selectedContainer.upper = NewContainerUpper;
-   
       }
     }
   }
@@ -112,7 +110,7 @@ function TextProcessor(containers) {
       //   console.log('beforechange', HeadContainer, containersConflict[0]);
       ChnageTheContainers(HeadContainer, containersConflict[0]);
       index = 0;
-    //   break;
+      //   break;
       //   console.log('zarp', sorted, '\n--------------------------------\n');
     } else {
       index++;

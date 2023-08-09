@@ -1,11 +1,15 @@
-import { UilCheck } from '@iconscout/react-unicons';
 import { useEffect, useState, useRef } from 'react';
-import MessageMenu from './MessageMenu';
-import MessageHeader from './MessageHeader';
-import MessageImageMedia from './MessageImageMedia';
+import MessageMenu from './MessageMenu.jsx';
+import MessageHeader from './MessageHeader.jsx';
+import MessageImageMedia from './MessageImageMedia.jsx';
+import MessageFooter from './MessageFooter.jsx';
+import ImagePreviewer from '../media-previewer/ImagePreviewer';
+import MessageBody from './MessageBody.jsx';
 
-function Message({ content, isSeen, id, forewardedFrom, repliedTo, media }) {
+function Message({ content, isSeen, id, forewardedFrom, repliedTo, media, handleMediaMessage }) {
+  const [openContextMenu, setOpenContextMenu] = useState(false);
   const [mousepositoin, setmousepositoin] = useState({ x: 0, y: 0 });
+
   let y_mouse = useRef(0);
   let x_mouse = useRef(0);
   function handleRightClick(event, index) {
@@ -15,34 +19,18 @@ function Message({ content, isSeen, id, forewardedFrom, repliedTo, media }) {
     y_mouse = event.clientY;
     setmousepositoin({ x_mouse, y_mouse });
   }
-
   return (
     <div
-      className={`relative flex w-full ${id === 'you' ? 'justify-start' : 'justify-end'} `}
+      className={`relative flex w-full ${id === 'you' ? 'justify-start' : 'justify-end'} px-5`}
       onContextMenu={handleRightClick}>
-      <div
-        className={` my-3 max-w-[50%] justify-end rounded-md bg-gradient-to-r ${
-          id === 'you' ? ' bg-bgmymassage' : 'bg-bgyoumassage'
-        } p-2 text-text1 `}>
+      <MessageBody id={id}>
         <div>
           <MessageHeader forewardedFrom={forewardedFrom} repliedTo={repliedTo} />
         </div>
-        <MessageImageMedia src={media} />
+        <MessageImageMedia src={media} handleClick={handleMediaMessage} />
         <p>{content}</p>
-        <div className=" flex w-full items-end justify-between text-sm text-zinc-400">
-          <p className="text-color3">23:00</p>
-          <div className="text-bluetext1">
-            {id === 'you' && isSeen ? (
-              <div className="flex flex-row">
-                <UilCheck className={'relative left-[-18px]'} />
-                <UilCheck />
-              </div>
-            ) : (
-              <UilCheck />
-            )}
-          </div>
-        </div>
-      </div>
+        <MessageFooter id={id} isSeen={isSeen} />
+      </MessageBody>
       {mousepositoin.x != 0 ? (
         <MessageMenu
           x_pos={x_mouse.current}

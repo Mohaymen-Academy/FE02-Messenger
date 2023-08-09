@@ -5,7 +5,7 @@ const MessageHeader = ({ isReciver, forewardedFrom, repliedTo }) => (
     {forewardedFrom ? (
       <div className={`flex  ${isReciver ? 'justify-start' : 'justify-end'} text-opacity-80`}>
         <span className="font-semibold italic opacity-100">{forewardedFrom}</span> message forwarded
-        from &nbsp;&nbsp;&nbsp;
+        from
         <UilCornerUpRightAlt />
       </div>
     ) : null}

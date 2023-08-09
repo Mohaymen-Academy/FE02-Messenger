@@ -1,6 +1,6 @@
-function MessageImageMedia({ src }) {
+function MessageImageMedia({ src, handleClick }) {
   return (
-    <div className="w-full rounded-md">
+    <div className="w-full rounded-md" onClick={handleClick}>
       <img src={src} className="cursor-pointer" />
     </div>
   );
