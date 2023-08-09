@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import EmojiPicker from 'emoji-picker-react';
 import ChatFooter from './ChatFooter.jsx';
 import Message from '../message/Message.jsx';
@@ -56,7 +56,6 @@ export default function ChatBody() {
             </div>
           ))}
         </div>
-        {openContextMenu ? <MessageMenu /> : <></>}
       </div>
       <div className="mb-2 h-16">
         <ChatFooter />
