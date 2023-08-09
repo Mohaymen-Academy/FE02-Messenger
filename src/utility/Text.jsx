@@ -14,8 +14,8 @@ export default function Text() {
             Te
             <span>
                 sdf
-                </b>xt
             </span>
+                </b>xt
 
         {/* </b> */}
       {/* </b> */}
