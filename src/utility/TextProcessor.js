@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 const containers = [
   { id: 1, lower: 1, upper: 8, style: ['bold'] },
   { id: 2, lower: 3, upper: 12, style: ['highlihgt'] },
@@ -17,7 +17,9 @@ const containers = [
  *
  * */
 export default function TextProcessorObj(containers) {
+  console.log(containers);
   const customSort = (a, b) => {
+    // console.log(a,b)
     if (a.lower != b.lower) {
       return a.lower - b.lower;
     } else {
@@ -25,20 +27,25 @@ export default function TextProcessorObj(containers) {
       return a.upper - b.upper;
     }
   };
-  const inputcontainers = useRef({
-    sorted: containers.sort(customSort)
+  const ProcessorValues = useRef({
+    sorted: containers.sort(customSort),
+    caretPosition: null,
+    counter: 0
   });
-  let counter = inputcontainers.current.sorted.length;
+  const divref = useRef(null);
+  const [openTextProcessor, setOpenTextProcessor] = useState(false);
+
+  let counter = ProcessorValues.current.sorted.length;
   function replaceInArray(modifiedobject) {
-    const Originalindex = inputcontainers.current.sorted.findIndex(
+    const Originalindex = ProcessorValues.current.sorted.findIndex(
       (obj) => obj.id == modifiedobject.id
     );
     if (Originalindex != -1) {
-      //   console.log('before', inputcontainers.current.sorted[Originalindex]);
-      inputcontainers.current.sorted[Originalindex] = modifiedobject;
-      //   console.log('after', inputcontainers.current.sorted[Originalindex]);
+      //   console.log('before', ProcessorValues.current.sorted[Originalindex]);
+      ProcessorValues.current.sorted[Originalindex] = modifiedobject;
+      //   console.log('after', ProcessorValues.current.sorted[Originalindex]);
     } else {
-      inputcontainers.current.sorted.push(modifiedobject);
+      ProcessorValues.current.sorted.push(modifiedobject);
     }
   }
   function Conflicts(HeadContainer, BodyContainer) {
@@ -69,14 +76,6 @@ export default function TextProcessorObj(containers) {
       const IntersectionChildContainerUpper = HeadContainer.upper;
       const NewContainerLower = HeadContainer.upper + 1;
       const NewContainerUpper = selectedContainer.upper;
-      //   console.log(
-      //     HeaderDirectChildContainerLower,
-      //     HeaderDirectChildContainerUpper,
-      //     IntersectionChildContainerLower,
-      //     IntersectionChildContainerUpper,
-      //     NewContainerLower,
-      //     NewContainerUpper
-      //   );
 
       HeadContainer.lower = HeaderDirectChildContainerLower;
       HeadContainer.upper = HeaderDirectChildContainerUpper;
@@ -113,9 +112,9 @@ export default function TextProcessorObj(containers) {
     }
   }
   let index = 0;
-  // while (index < inputcontainers.current.sorted.length) {
-  //   const HeadContainer = inputcontainers.current.sorted[index];
-  //   const containersConflict = Conflicts(HeadContainer, inputcontainers.current.sorted.slice(index + 1));
+  // while (index < ProcessorValues.current.sorted.length) {
+  //   const HeadContainer = ProcessorValues.current.sorted[index];
+  //   const containersConflict = Conflicts(HeadContainer, ProcessorValues.current.sorted.slice(index + 1));
   //   // console.log(containersConflict)
   //   // console.log(HeadContainer,'\nzarp\n',container/sConflict);
   //   // console.log(HeadContainer, '\n---------------------\n', containersConflict);
@@ -124,19 +123,18 @@ export default function TextProcessorObj(containers) {
   //     ChnageTheContainers(HeadContainer, containersConflict[0]);
   //     index = 0;
   //     //   break;
-  //     //   console.log('zarp', inputcontainers.current.sorted, '\n--------------------------------\n');
+  //     //   console.log('zarp', ProcessorValues.current.sorted, '\n--------------------------------\n');
   //   } else {
   //     index++;
   //   }
-  //   inputcontainers.current.sorted = inputcontainers.current.sorted.sort(customSort);
-  //   // console.log(inputcontainers.current.sorted, '\n---------------------\n');
+  //   ProcessorValues.current.sorted = ProcessorValues.current.sorted.sort(customSort);
+  //   // console.log(ProcessorValues.current.sorted, '\n---------------------\n');
   // }
   //   console.log(index);
-  console.log(inputcontainers.current.sorted);
   function removeChar(divID, charindex) {
     console.log();
     let entetiyindex = 0;
-    inputcontainers.current.sorted.forEach((element, index) => {
+    ProcessorValues.current.sorted.forEach((element, index) => {
       if (element.id == divID) {
         entetiyindex = index;
       }
@@ -144,35 +142,64 @@ export default function TextProcessorObj(containers) {
     console.log(entetiyindex);
   }
   function addChar() {}
-  removeChar(3, 3);
 
   function handleonInput(e) {
     e.stopPropagation();
-    // console.log('zarp')
+    console.log('zarp');
     const selection = window.getSelection();
     const range = selection.getRangeAt(0);
     const clonedRange = range.cloneRange();
     clonedRange.selectNodeContents(divref.current);
     clonedRange.setEnd(range.endContainer, range.endOffset); // this set the position of the cursor
-    const caretPosition = clonedRange.toString().length;
-    textref.current.textcontent = caretPosition;
-    console.log(clonedRange.toString());
+    ProcessorValues.current.caretPosition = clonedRange.toString().length;
+    let charcounter = 0;
+    console.log(divref.current.childNodes);
+
+    if (divref.current.childNodes.length == 0) {
+      ProcessorValues.current.sorted = [];
+    }
+    divref.current.childNodes.forEach((child) => {
+      if (child.data) {
+        charcounter = charcounter + child.data.length;
+      } // if there is only text
+      else {
+        const id = child.dataset.id;
+        const newlower = charcounter;
+        if (child.innerText == '\n') {
+          ProcessorValues.current.sorted = ProcessorValues.current.sorted.filter(
+            (obj) => obj.id != id
+          );
+          return;
+        }
+        charcounter = charcounter + child.innerText.length;
+        const newupper = charcounter;
+        ProcessorValues.current.sorted = ProcessorValues.current.sorted.map((obj) => {
+          if (obj.id == id) {
+            return { ...obj, lower: newlower, upper: newupper, content: child.innerText };
+          }
+          return obj;
+        });
+      }
+    });
+    console.log(ProcessorValues.current.sorted);
+    // ProcessorValues.current.sorted = customSort(ProcessorValues.current.sorted);
   }
 
   function handleclick(e) {
+    console.log(e);
     const selection = window.getSelection();
     const range = selection.getRangeAt(0);
     const clonedRange = range.cloneRange();
     clonedRange.selectNodeContents(divref.current);
     clonedRange.setEnd(range.endContainer, range.endOffset); // this set the position of the cursor
-    const caretPosition = clonedRange.toString().length;
-    // console.log(caretPosition);
-    textref.current.textcontent = caretPosition;
+    ProcessorValues.current.caretPosition = clonedRange.toString().length;
+    // console.log(ProcessorValues.current.caretPosition);
+    // textref.current.textcontent = caretPosition;
   }
 
   function handleEmojiPicker(e) {
     const emoji = e.emoji;
-    const careposition = textref.current.textcontent;
+    // const careposition = textref.current.textcontent;
     divref.current.innerText = insertCharAtIndex(divref.current.innerText, emoji, careposition);
     setOpenEmoji(false);
   }
@@ -183,7 +210,7 @@ export default function TextProcessorObj(containers) {
     if (index == originalString.length) {
       return originalString + charToAdd;
     }
-    console.log(index);
+    // console.log(index);
 
     const leftPart = originalString.substring(0, index);
     const rightPart = originalString.substring(index);
@@ -191,16 +218,16 @@ export default function TextProcessorObj(containers) {
     return leftPart + charToAdd + rightPart;
   }
   function handleSelect(e) {
-    serOpenTextProcessor(true);
+    setOpenTextProcessor(true);
     const selection = window.getSelection();
     const selectedText = selection.toString();
 
     if (selectedText.toString() != '') {
-      console.log(selection);
-      console.log(selection.anchorNode.parentNode.dataset);
-      console.log(selection.anchorOffset, ' anchor offset');
-      console.log(selection.focusNode.parentNode.dataset);
-      console.log(selection.focusOffset, ' focus offset');
+      // console.log(selection);
+      // console.log(selection.anchorNode.parentNode.dataset);
+      // console.log(selection.anchorOffset, ' anchor offset');
+      // console.log(selection.focusNode.parentNode.dataset);
+      // console.log(selection.focusOffset, ' focus offset');
       e.preventDefault();
       e.stopPropagation();
       x_mouse = e.clientX;
@@ -208,7 +235,6 @@ export default function TextProcessorObj(containers) {
       setmousepositoin({ x_mouse, y_mouse });
       const range = selection.getRangeAt(0);
       const ref = divref.current;
-
       const rangerect = range.getBoundingClientRect();
       const startContainer = range.startContainer;
       const startOffset = range.startOffset;
@@ -217,12 +243,18 @@ export default function TextProcessorObj(containers) {
     }
   }
   function handleKeyDown(e) {
-    console.log(e.key);
-    console.log(e);
     const selection = window.getSelection();
     const range = selection.getRangeAt(0);
     const clonedRange = range.cloneRange();
-    console.log(clonedRange);
   }
-  return [handleEmojiPicker, handleKeyDown, handleSelect, handleonInput, handleclick];
+  return [
+    handleEmojiPicker,
+    handleKeyDown,
+    handleSelect,
+    handleonInput,
+    handleclick,
+    openTextProcessor,
+    divref,
+    setOpenTextProcessor
+  ];
 }

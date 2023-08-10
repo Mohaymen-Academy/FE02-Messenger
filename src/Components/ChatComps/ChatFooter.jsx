@@ -6,18 +6,26 @@ import TextProcessorMenu from '../../utility/TextProcessorMenu';
 import TextProcessor from '../../utility/TextProcessor';
 
 export default function ChatFooter() {
-  const [handleEmojiPicker,handleKeyDown,handleSelect,handleonInput,handleclick]= TextProcessor([]);
+  const [
+    handleEmojiPicker,
+    handleKeyDown,
+    handleSelect,
+    handleonInput,
+    handleclick,
+    openTextProcessor,
+    divref,
+    setOpenTextProcessor
+  ] = TextProcessor([
+    { id: 1, lower: 0, upper: 2, content: '012' },
+    { id: 2, lower: 3, upper: 8, content: '345678' },
+    { id: 3, lower: 9, upper: 10, content: '91' }
+  ]);
   const [openEmoji, setOpenEmoji] = useState(false);
   const [openAttach, setOpenAttach] = useState(false);
-  const [openTextProcessor, serOpenTextProcessor] = useState(false);
   const emoji = useState('');
-  const textref = useRef({
-    textcontent: 0,
-    containerslsit: []
-  });
-  const divref = useRef(null);
+
   function closeTextProcessor() {
-    serOpenTextProcessor(false);
+    setOpenTextProcessor(false);
   }
 
   useEffect(() => {
@@ -59,9 +67,10 @@ export default function ChatFooter() {
         contentEditable
         // onChange={(e) => console.log()}
         className=" w-[90%] max-h-[50px] flex outline-none h-auto overflow-hidden shadow-none border-none break-all focus:shadow-none active:shadow-none">
-        <Text lower={0} upper={2} content={'012'} />
-        <Text lower={3} upper={8} content={'345678'} />
-        <Text lower={9} upper={10} content={'91'} />
+        000-1
+        <Text id={1} lower={0} upper={2} content={'012'} />
+        <Text id={2} lower={3} upper={8} content={'345678'} />
+        <Text id={3} lower={9} upper={10} content={'91'} />
       </div>
       <div>
         <button onClick={() => setOpenEmoji(!openEmoji)} className="mx-1 h-8 w-8 text-text1 ">
