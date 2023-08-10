@@ -14,6 +14,9 @@ export default function UserChat() {
             <div
               className={`
             relative
+            desktop:w-[100%]
+            laptop:w-[100%]
+            smmobile:w-[100%]
             ${active ? 'vsmmobile:w-0' : 'vsmmobile:w-full'}
             `}>
               <ChatHeader chatsetter={chatTools.setChatId} setActive={setActive} />

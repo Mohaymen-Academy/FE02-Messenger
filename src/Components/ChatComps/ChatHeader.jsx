@@ -9,7 +9,12 @@ const ChatHeader = ({ setActive, chatsetter }) => (
     }}
     className=" flex h-[70px] w-full cursor-pointer items-center justify-between bg-color2 px-1 font-iRANSans">
     <div id="header-account" className="flex h-full items-center gap-2">
-      <button className=" desktop:hidden tablet:hidden mobile:hidden laptop:hidden  smmobile:hidden vsmmobile:visible" onClick={(e) => chatsetter(null)}>
+      <button
+        className=" desktop:hidden tablet:hidden mobile:hidden laptop:hidden  smmobile:hidden vsmmobile:visible"
+        onClick={(e) => {
+          e.stopPropagation();
+          chatsetter(null);
+        }}>
         <UilArrowRight className="w-8 h-8 text-text1 cursor-pointer" />
       </button>
       <div className="flex-1 ">
