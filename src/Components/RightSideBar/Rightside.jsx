@@ -1,11 +1,29 @@
 import { useEffect, useRef, useState } from 'react';
 import { Chatlist } from '../ChatComps';
 import SidebarMenu from './SidebarMenu.jsx';
-import { UilBars, UilSearch } from '@iconscout/react-unicons';
+import ContactsList from './ContactsList';
+import Settings from './Menues/Settings';
+import { UilBars, UilSearch,UilArrowRight } from '@iconscout/react-unicons';
+import {
+  NUM_SIDEBAR_CHANNEL,
+  NUM_SIDEBAR_CONTACTS,
+  NUM_SIDEBAR_GROUP,
+  NUM_SIDEBAR_SETTINGS,
+  NUM_SIDEBAR_CHAT,
+} from '../../utility/Constants.js';
 
 export default function RightSide({ setChatId, chatId }) {
   const [open, setopen] = useState(false);
   const divref = useRef(null);
+  const [item, setItem] = useState(NUM_SIDEBAR_CHAT);
+  const Items = {
+    [NUM_SIDEBAR_CHAT]: [<Chatlist setChatId={setChatId} />],
+    [NUM_SIDEBAR_CONTACTS]: [<ContactsList setChatId={setChatId} />],
+    [NUM_SIDEBAR_SETTINGS] : [<Settings menuSetter={setItem} setopen={setopen} />],
+    [NUM_SIDEBAR_GROUP]: [],
+    [NUM_SIDEBAR_CHANNEL]: [],
+    
+  };
   function handleOutsideClick(event) {
     if (divref.current && !divref.current.contains(event.target)) {
       setopen(false);
@@ -17,18 +35,26 @@ export default function RightSide({ setChatId, chatId }) {
     }
     return () => document.addEventListener('mousedown', handleOutsideClick);
   }, [open]);
+  
   return (
     <div
-      className={` h-screen bg-color1 border-l-2 border-bghovor shadow-md vsmmobile:z-0 vsmmobile:relative ${
+      className={` h-screen bg-color1 w-[450px] border-l-2 border-bghovor shadow-md vsmmobile:z-0 vsmmobile:relative ${
         chatId
-          ? 'mobile:w-[30%] tablet:w-[30%] smmobile:w-[30%] vsmmobile:w-0'
+          ? 'mobile:w-[30%] tablet:w-[30%] smmobile:w-[30%] vsmmobile:w-0 '
           : 'mobile:w-fit tablet:w-fit smmobile:w-fit vsmmobile:w-[100%]'
       } `}>
       <div className="flex justify-between px-2 py-1 ">
         <div>
+        {item == NUM_SIDEBAR_CHAT ? (
           <button className="relative" onClick={(e) => setopen((prev) => !prev)}>
-            <UilBars className="text-text1 w-10 h-10 mx-1 m-1  " />
-          </button>
+          <UilBars className="text-text1 w-10 h-10 mx-1 m-1  " />
+        </button>
+          ) : (
+            <button onClick={(e) => setItem(NUM_SIDEBAR_CHAT)}>
+              <UilArrowRight className="text-text1 w-10 h-10 mx-1 m-1    " />
+            </button>
+        )}
+
         </div>
 
         <form dir="rtl" className="w-[85%] m-1">
@@ -47,11 +73,15 @@ export default function RightSide({ setChatId, chatId }) {
           </div>
         </form>
       </div>
-      <Chatlist setChatId={setChatId} />
+
+      {Items[item]}
       <SidebarMenu
         profileImage={'images/profile.jpg'}
+        item = {item}
+        setItem = {setItem}
         username={'Zahra'}
         open={open}
+        setopen={setopen}
         divref={divref}
       />
     </div>
