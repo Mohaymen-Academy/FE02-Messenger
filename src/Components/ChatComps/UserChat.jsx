@@ -1,11 +1,17 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { ChatBody, ChatHeader } from '.';
 import LeftLayout from '../LeftSideBar/LeftLayout';
 import { LayoutContext } from '../Layout';
 export default function UserChat() {
   const [active, setActive] = useState(false);
   const chatTools = useContext(LayoutContext);
-  console.log(chatTools);
+  useEffect(() => {
+    document.addEventListener('keydown', (e) => {
+      if (e.key == 'Escape') {
+        chatTools.setChatId(null);
+      }
+    });
+  }, []);
   return (
     <>
       <div className="flex flex-row">
