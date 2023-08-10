@@ -1,6 +1,6 @@
 import React, { useState, useContext } from 'react';
 import { ChatBody, ChatHeader } from '.';
-import LeftLayout from '../LeftLayout';
+import LeftLayout from '../LeftSideBar/LeftLayout';
 import { LayoutContext } from '../Layout';
 export default function UserChat() {
   const [active, setActive] = useState(false);

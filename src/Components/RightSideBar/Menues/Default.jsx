@@ -4,8 +4,8 @@ import {
   NUM_SIDEBAR_GROUP,
   NUM_SIDEBAR_SETTINGS,
   NUM_SIDEBAR_CALL
-} from '../../utility/Constants.js';
-import { setTheme } from '../../utility/useLoclStorage.jsx';
+} from '../../../utility/Constants.js';
+import { setTheme } from '../../../utility/useLoclStorage.jsx';
 import SidebarCard from '../SidebarCard.jsx';
 import { UilSetting ,UilUser ,UilUsersAlt,UilMegaphone ,UilPhone ,UilVuejs ,UilMoon     } from '@iconscout/react-unicons'
 

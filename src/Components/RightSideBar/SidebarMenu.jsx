@@ -5,7 +5,7 @@ import {
   NUM_SIDEBAR_DEFAULT,
   NUM_SIDEBAR_GROUP,
   NUM_SIDEBAR_SETTINGS
-} from '../utility/Constants.js';
+} from '../../utility/Constants.js';
 import { useState } from 'react';
 import Settings from './Menues/Settings.jsx';
 import { UilArrowLeft } from '@iconscout/react-unicons'

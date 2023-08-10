@@ -1,5 +1,5 @@
 import React from 'react';
-import LinkPreview from '../media-previewer/LinkPreview';
+import LinkPreview from '../../media-previewer/LinkPreview';
 export default function Links() {
   return (
     <div

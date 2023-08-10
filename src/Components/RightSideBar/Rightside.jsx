@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { Chatlist } from './ChatComps';
+import { Chatlist } from '../ChatComps';
 import SidebarMenu from './SidebarMenu.jsx';
 import { UilBars, UilSearch } from '@iconscout/react-unicons';
 

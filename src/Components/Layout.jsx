@@ -1,6 +1,6 @@
 import { useState, createContext } from 'react';
 // import LeftSide from './LeftSide.jsx';
-import RightSide from './Rightside';
+import RightSide from './RightSideBar/Rightside';
 const LayoutContext = createContext(null);
 
 const Layout = ({ children }) => {

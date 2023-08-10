@@ -1,7 +1,7 @@
 import React from 'react';
 import { UilArrowRight, UilCameraPlus,UilTrashAlt } from '@iconscout/react-unicons';
 // import {Check}
-import CheckBoxParag from '../utility/CheckBoxParag';
+import CheckBoxParag from '../../utility/CheckBoxParag';
 
 export default function ProfileEdit({ setlayout }) {
   return (
