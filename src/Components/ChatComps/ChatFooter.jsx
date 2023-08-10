@@ -6,6 +6,7 @@ import TextProcessorMenu from '../../utility/TextProcessorMenu';
 import TextProcessor from '../../utility/TextProcessor';
 
 export default function ChatFooter() {
+  const [handleEmojiPicker,handleKeyDown,handleSelect,handleonInput,handleclick]= TextProcessor([]);
   const [openEmoji, setOpenEmoji] = useState(false);
   const [openAttach, setOpenAttach] = useState(false);
   const [openTextProcessor, serOpenTextProcessor] = useState(false);

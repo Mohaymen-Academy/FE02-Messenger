@@ -1,3 +1,4 @@
+import { useRef } from 'react';
 const containers = [
   { id: 1, lower: 1, upper: 8, style: ['bold'] },
   { id: 2, lower: 3, upper: 12, style: ['highlihgt'] },
@@ -15,17 +16,29 @@ const containers = [
  * @param {Array} containers
  *
  * */
-export function TextProcessor(containers) {
-  let sorted = containers.sort(customSort);
-  let counter = sorted.length;
-  function replaceInArray(modifiedobject) {
-    const Originalindex = sorted.findIndex((obj) => obj.id == modifiedobject.id);
-    if (Originalindex != -1) {
-      //   console.log('before', sorted[Originalindex]);
-      sorted[Originalindex] = modifiedobject;
-      //   console.log('after', sorted[Originalindex]);
+export default function TextProcessorObj(containers) {
+  const customSort = (a, b) => {
+    if (a.lower != b.lower) {
+      return a.lower - b.lower;
     } else {
-      sorted.push(modifiedobject);
+      // console.log(a.upper, b.upper);
+      return a.upper - b.upper;
+    }
+  };
+  const inputcontainers = useRef({
+    sorted: containers.sort(customSort)
+  });
+  let counter = inputcontainers.current.sorted.length;
+  function replaceInArray(modifiedobject) {
+    const Originalindex = inputcontainers.current.sorted.findIndex(
+      (obj) => obj.id == modifiedobject.id
+    );
+    if (Originalindex != -1) {
+      //   console.log('before', inputcontainers.current.sorted[Originalindex]);
+      inputcontainers.current.sorted[Originalindex] = modifiedobject;
+      //   console.log('after', inputcontainers.current.sorted[Originalindex]);
+    } else {
+      inputcontainers.current.sorted.push(modifiedobject);
     }
   }
   function Conflicts(HeadContainer, BodyContainer) {
@@ -100,9 +113,9 @@ export function TextProcessor(containers) {
     }
   }
   let index = 0;
-  // while (index < sorted.length) {
-  //   const HeadContainer = sorted[index];
-  //   const containersConflict = Conflicts(HeadContainer, sorted.slice(index + 1));
+  // while (index < inputcontainers.current.sorted.length) {
+  //   const HeadContainer = inputcontainers.current.sorted[index];
+  //   const containersConflict = Conflicts(HeadContainer, inputcontainers.current.sorted.slice(index + 1));
   //   // console.log(containersConflict)
   //   // console.log(HeadContainer,'\nzarp\n',container/sConflict);
   //   // console.log(HeadContainer, '\n---------------------\n', containersConflict);
@@ -111,19 +124,19 @@ export function TextProcessor(containers) {
   //     ChnageTheContainers(HeadContainer, containersConflict[0]);
   //     index = 0;
   //     //   break;
-  //     //   console.log('zarp', sorted, '\n--------------------------------\n');
+  //     //   console.log('zarp', inputcontainers.current.sorted, '\n--------------------------------\n');
   //   } else {
   //     index++;
   //   }
-  //   sorted = sorted.sort(customSort);
-  //   // console.log(sorted, '\n---------------------\n');
+  //   inputcontainers.current.sorted = inputcontainers.current.sorted.sort(customSort);
+  //   // console.log(inputcontainers.current.sorted, '\n---------------------\n');
   // }
   //   console.log(index);
-  console.log(sorted);
+  console.log(inputcontainers.current.sorted);
   function removeChar(divID, charindex) {
     console.log();
     let entetiyindex = 0;
-    sorted.forEach((element, index) => {
+    inputcontainers.current.sorted.forEach((element, index) => {
       if (element.id == divID) {
         entetiyindex = index;
       }
@@ -132,94 +145,84 @@ export function TextProcessor(containers) {
   }
   function addChar() {}
   removeChar(3, 3);
-}
 
-const customSort = (a, b) => {
-  if (a.lower != b.lower) {
-    return a.lower - b.lower;
-  } else {
-    // console.log(a.upper, b.upper);
-    return a.upper - b.upper;
-  }
-};
-TextProcessor(containers);
-
-function handleonInput(e) {
-  e.stopPropagation();
-  // console.log('zarp')
-  const selection = window.getSelection();
-  const range = selection.getRangeAt(0);
-  const clonedRange = range.cloneRange();
-  clonedRange.selectNodeContents(divref.current);
-  clonedRange.setEnd(range.endContainer, range.endOffset); // this set the position of the cursor
-  const caretPosition = clonedRange.toString().length;
-  textref.current.textcontent = caretPosition;
-  console.log(clonedRange.toString());
-}
-
-function handleclick(e) {
-  const selection = window.getSelection();
-  const range = selection.getRangeAt(0);
-  const clonedRange = range.cloneRange();
-  clonedRange.selectNodeContents(divref.current);
-  clonedRange.setEnd(range.endContainer, range.endOffset); // this set the position of the cursor
-  const caretPosition = clonedRange.toString().length;
-  // console.log(caretPosition);
-  textref.current.textcontent = caretPosition;
-}
-
-function handleEmojiPicker(e) {
-  const emoji = e.emoji;
-  const careposition = textref.current.textcontent;
-  divref.current.innerText = insertCharAtIndex(divref.current.innerText, emoji, careposition);
-  setOpenEmoji(false);
-}
-function insertCharAtIndex(originalString, charToAdd, index) {
-  if (index < 0 || index > originalString.length) {
-    throw new Error('Index out of bounds');
-  }
-  if (index == originalString.length) {
-    return originalString + charToAdd;
-  }
-  console.log(index);
-
-  const leftPart = originalString.substring(0, index);
-  const rightPart = originalString.substring(index);
-
-  return leftPart + charToAdd + rightPart;
-}
-function handleSelect(e) {
-  serOpenTextProcessor(true);
-  const selection = window.getSelection();
-  const selectedText = selection.toString();
-
-  if (selectedText.toString() != '') {
-    console.log(selection);
-    console.log(selection.anchorNode.parentNode.dataset);
-    console.log(selection.anchorOffset, ' anchor offset');
-    console.log(selection.focusNode.parentNode.dataset);
-    console.log(selection.focusOffset, ' focus offset');
-    e.preventDefault();
+  function handleonInput(e) {
     e.stopPropagation();
-    x_mouse = e.clientX;
-    y_mouse = e.clientY;
-    setmousepositoin({ x_mouse, y_mouse });
+    // console.log('zarp')
+    const selection = window.getSelection();
     const range = selection.getRangeAt(0);
-    const ref = divref.current;
-
-    const rangerect = range.getBoundingClientRect();
-    const startContainer = range.startContainer;
-    const startOffset = range.startOffset;
-    const endContainer = range.endContainer;
-    const endOffset = range.endOffset;
+    const clonedRange = range.cloneRange();
+    clonedRange.selectNodeContents(divref.current);
+    clonedRange.setEnd(range.endContainer, range.endOffset); // this set the position of the cursor
+    const caretPosition = clonedRange.toString().length;
+    textref.current.textcontent = caretPosition;
+    console.log(clonedRange.toString());
   }
-}
-function handleKeyDown(e) {
-  console.log(e.key);
-  console.log(e);
-  const selection = window.getSelection();
-  const range = selection.getRangeAt(0);
-  const clonedRange = range.cloneRange();
-  console.log(clonedRange);
-}
 
+  function handleclick(e) {
+    const selection = window.getSelection();
+    const range = selection.getRangeAt(0);
+    const clonedRange = range.cloneRange();
+    clonedRange.selectNodeContents(divref.current);
+    clonedRange.setEnd(range.endContainer, range.endOffset); // this set the position of the cursor
+    const caretPosition = clonedRange.toString().length;
+    // console.log(caretPosition);
+    textref.current.textcontent = caretPosition;
+  }
+
+  function handleEmojiPicker(e) {
+    const emoji = e.emoji;
+    const careposition = textref.current.textcontent;
+    divref.current.innerText = insertCharAtIndex(divref.current.innerText, emoji, careposition);
+    setOpenEmoji(false);
+  }
+  function insertCharAtIndex(originalString, charToAdd, index) {
+    if (index < 0 || index > originalString.length) {
+      throw new Error('Index out of bounds');
+    }
+    if (index == originalString.length) {
+      return originalString + charToAdd;
+    }
+    console.log(index);
+
+    const leftPart = originalString.substring(0, index);
+    const rightPart = originalString.substring(index);
+
+    return leftPart + charToAdd + rightPart;
+  }
+  function handleSelect(e) {
+    serOpenTextProcessor(true);
+    const selection = window.getSelection();
+    const selectedText = selection.toString();
+
+    if (selectedText.toString() != '') {
+      console.log(selection);
+      console.log(selection.anchorNode.parentNode.dataset);
+      console.log(selection.anchorOffset, ' anchor offset');
+      console.log(selection.focusNode.parentNode.dataset);
+      console.log(selection.focusOffset, ' focus offset');
+      e.preventDefault();
+      e.stopPropagation();
+      x_mouse = e.clientX;
+      y_mouse = e.clientY;
+      setmousepositoin({ x_mouse, y_mouse });
+      const range = selection.getRangeAt(0);
+      const ref = divref.current;
+
+      const rangerect = range.getBoundingClientRect();
+      const startContainer = range.startContainer;
+      const startOffset = range.startOffset;
+      const endContainer = range.endContainer;
+      const endOffset = range.endOffset;
+    }
+  }
+  function handleKeyDown(e) {
+    console.log(e.key);
+    console.log(e);
+    const selection = window.getSelection();
+    const range = selection.getRangeAt(0);
+    const clonedRange = range.cloneRange();
+    console.log(clonedRange);
+  }
+  return [handleEmojiPicker, handleKeyDown, handleSelect, handleonInput, handleclick];
+}
