@@ -15,7 +15,7 @@ const containers = [
  * @param {Array} containers
  *
  * */
-function TextProcessor(containers) {
+export function TextProcessor(containers) {
   let sorted = containers.sort(customSort);
   let counter = sorted.length;
   function replaceInArray(modifiedobject) {
@@ -143,3 +143,83 @@ const customSort = (a, b) => {
   }
 };
 TextProcessor(containers);
+
+function handleonInput(e) {
+  e.stopPropagation();
+  // console.log('zarp')
+  const selection = window.getSelection();
+  const range = selection.getRangeAt(0);
+  const clonedRange = range.cloneRange();
+  clonedRange.selectNodeContents(divref.current);
+  clonedRange.setEnd(range.endContainer, range.endOffset); // this set the position of the cursor
+  const caretPosition = clonedRange.toString().length;
+  textref.current.textcontent = caretPosition;
+  console.log(clonedRange.toString());
+}
+
+function handleclick(e) {
+  const selection = window.getSelection();
+  const range = selection.getRangeAt(0);
+  const clonedRange = range.cloneRange();
+  clonedRange.selectNodeContents(divref.current);
+  clonedRange.setEnd(range.endContainer, range.endOffset); // this set the position of the cursor
+  const caretPosition = clonedRange.toString().length;
+  // console.log(caretPosition);
+  textref.current.textcontent = caretPosition;
+}
+
+function handleEmojiPicker(e) {
+  const emoji = e.emoji;
+  const careposition = textref.current.textcontent;
+  divref.current.innerText = insertCharAtIndex(divref.current.innerText, emoji, careposition);
+  setOpenEmoji(false);
+}
+function insertCharAtIndex(originalString, charToAdd, index) {
+  if (index < 0 || index > originalString.length) {
+    throw new Error('Index out of bounds');
+  }
+  if (index == originalString.length) {
+    return originalString + charToAdd;
+  }
+  console.log(index);
+
+  const leftPart = originalString.substring(0, index);
+  const rightPart = originalString.substring(index);
+
+  return leftPart + charToAdd + rightPart;
+}
+function handleSelect(e) {
+  serOpenTextProcessor(true);
+  const selection = window.getSelection();
+  const selectedText = selection.toString();
+
+  if (selectedText.toString() != '') {
+    console.log(selection);
+    console.log(selection.anchorNode.parentNode.dataset);
+    console.log(selection.anchorOffset, ' anchor offset');
+    console.log(selection.focusNode.parentNode.dataset);
+    console.log(selection.focusOffset, ' focus offset');
+    e.preventDefault();
+    e.stopPropagation();
+    x_mouse = e.clientX;
+    y_mouse = e.clientY;
+    setmousepositoin({ x_mouse, y_mouse });
+    const range = selection.getRangeAt(0);
+    const ref = divref.current;
+
+    const rangerect = range.getBoundingClientRect();
+    const startContainer = range.startContainer;
+    const startOffset = range.startOffset;
+    const endContainer = range.endContainer;
+    const endOffset = range.endOffset;
+  }
+}
+function handleKeyDown(e) {
+  console.log(e.key);
+  console.log(e);
+  const selection = window.getSelection();
+  const range = selection.getRangeAt(0);
+  const clonedRange = range.cloneRange();
+  console.log(clonedRange);
+}
+

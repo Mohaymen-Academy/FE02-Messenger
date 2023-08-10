@@ -1,22 +1,13 @@
 import React, { useEffect, useRef, useState } from 'react';
 
-export default function Text() {
-  const divref = useRef(null);
+export default function Text({ content ,lower,upper}) {
+  const textref = useRef(null);
   useEffect(() => {
     console.log();
   }, []);
   return (
-    <div ref={divref} dir="auto">
-      <b>
-        <span className="blur-sm">Te</span>
-        <b>
-          <b>
-            Te
-            <span>sdf</span>
-          </b>
-          xt
-        </b>
-      </b>
-    </div>
+    <span ref={textref} data-lower={lower} data-upper={upper}>
+      {content}
+    </span>
   );
 }

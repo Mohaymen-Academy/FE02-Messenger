@@ -19,8 +19,7 @@ export default function UserChat() {
           <>
             <div
               className={`
-
-              relative
+            relative
             desktop:w-[100%]
             laptop:w-[100%]
             smmobile:w-[100%]
