@@ -102,6 +102,19 @@
     .sliderwithtext{
         @apply hover:text-gray-500 hover:cursor-pointer;
     }
+    .strike{
+        @apply line-through;
+    }
+    .bold{
+        @apply font-bold;
+    }
+    /* .monospace{
+        @apply monos
+    } */
+
+    .spoiler{
+        @apply blur-sm;
+    }
 }
 
 @media screen and (-webkit-min-device-pixel-ratio: 0) {

@@ -1,23 +1,7 @@
 import { useRef, useState } from 'react';
-const containers = [
-  { id: 1, lower: 1, upper: 8, style: ['bold'] },
-  { id: 2, lower: 3, upper: 12, style: ['highlihgt'] },
-  { id: 3, lower: 6, upper: 14, style: ['strike'] }
-  //   { id: 4, lower: 9, upper: 18, style: ['underline'] },
-  //   { id: 5, lower: 10, upper: 16, style: ['italic'] }
-];
-
-/**
- * @param {Object} HeadContainer
- * @param {Array} BodyContainer
- *
- * */
-/**
- * @param {Array} containers
- *
- * */
+import { TEXT_STYLES } from './Constants';
 export default function TextProcessorObj(containers) {
-  console.log(containers);
+  // console.log(containers);
   const customSort = (a, b) => {
     // console.log(a,b)
     if (a.lower != b.lower) {
@@ -30,11 +14,13 @@ export default function TextProcessorObj(containers) {
   const ProcessorValues = useRef({
     sorted: containers.sort(customSort),
     caretPosition: null,
-    counter: 0
+    counter: 3,
+    selectedlower: 0,
+    selectedupper: 0
   });
   const divref = useRef(null);
   const [openTextProcessor, setOpenTextProcessor] = useState(false);
-
+  const [entitycontainers, setentitycontainers] = useState([]);
   let counter = ProcessorValues.current.sorted.length;
   function replaceInArray(modifiedobject) {
     const Originalindex = ProcessorValues.current.sorted.findIndex(
@@ -59,8 +45,6 @@ export default function TextProcessorObj(containers) {
     );
   }
   function ChnageTheContainers(HeadContainer, selectedContainer) {
-    // there are two ways
-
     if (selectedContainer.upper < HeadContainer.upper) {
       // TODO
       // ! NEED TO ADD THE SECTION FOR
@@ -112,24 +96,6 @@ export default function TextProcessorObj(containers) {
     }
   }
   let index = 0;
-  // while (index < ProcessorValues.current.sorted.length) {
-  //   const HeadContainer = ProcessorValues.current.sorted[index];
-  //   const containersConflict = Conflicts(HeadContainer, ProcessorValues.current.sorted.slice(index + 1));
-  //   // console.log(containersConflict)
-  //   // console.log(HeadContainer,'\nzarp\n',container/sConflict);
-  //   // console.log(HeadContainer, '\n---------------------\n', containersConflict);
-  //   if (containersConflict.length) {
-  //     //   console.log('beforechange', HeadContainer, containersConflict[0]);
-  //     ChnageTheContainers(HeadContainer, containersConflict[0]);
-  //     index = 0;
-  //     //   break;
-  //     //   console.log('zarp', ProcessorValues.current.sorted, '\n--------------------------------\n');
-  //   } else {
-  //     index++;
-  //   }
-  //   ProcessorValues.current.sorted = ProcessorValues.current.sorted.sort(customSort);
-  //   // console.log(ProcessorValues.current.sorted, '\n---------------------\n');
-  // }
   //   console.log(index);
   function removeChar(divID, charindex) {
     console.log();
@@ -145,7 +111,7 @@ export default function TextProcessorObj(containers) {
 
   function handleonInput(e) {
     e.stopPropagation();
-    console.log('zarp');
+    // console.log('zarp');
     const selection = window.getSelection();
     const range = selection.getRangeAt(0);
     const clonedRange = range.cloneRange();
@@ -153,7 +119,7 @@ export default function TextProcessorObj(containers) {
     clonedRange.setEnd(range.endContainer, range.endOffset); // this set the position of the cursor
     ProcessorValues.current.caretPosition = clonedRange.toString().length;
     let charcounter = 0;
-    console.log(divref.current.childNodes);
+    // console.log(divref.current.childNodes);
 
     if (divref.current.childNodes.length == 0) {
       ProcessorValues.current.sorted = [];
@@ -181,7 +147,7 @@ export default function TextProcessorObj(containers) {
         });
       }
     });
-    console.log(ProcessorValues.current.sorted);
+    // console.log(ProcessorValues.current.sorted);
     // ProcessorValues.current.sorted = customSort(ProcessorValues.current.sorted);
   }
 
@@ -217,30 +183,74 @@ export default function TextProcessorObj(containers) {
 
     return leftPart + charToAdd + rightPart;
   }
-  function handleSelect(e) {
-    setOpenTextProcessor(true);
-    const selection = window.getSelection();
-    const selectedText = selection.toString();
 
-    if (selectedText.toString() != '') {
-      // console.log(selection);
-      // console.log(selection.anchorNode.parentNode.dataset);
-      // console.log(selection.anchorOffset, ' anchor offset');
-      // console.log(selection.focusNode.parentNode.dataset);
-      // console.log(selection.focusOffset, ' focus offset');
-      e.preventDefault();
-      e.stopPropagation();
-      x_mouse = e.clientX;
-      y_mouse = e.clientY;
-      setmousepositoin({ x_mouse, y_mouse });
-      const range = selection.getRangeAt(0);
-      const ref = divref.current;
-      const rangerect = range.getBoundingClientRect();
-      const startContainer = range.startContainer;
-      const startOffset = range.startOffset;
-      const endContainer = range.endContainer;
-      const endOffset = range.endOffset;
+  function rangefun() {
+    var selection = window.getSelection();
+    let range = window.getSelection().getRangeAt(0);
+    let length = selection.toString().length;
+    if (length != 0) {
+      setOpenTextProcessor(true);
+      const preSelectionRange = range.cloneRange();
+      preSelectionRange.selectNodeContents(divref.current);
+      preSelectionRange.setEnd(range.startContainer, range.startOffset);
+      const startIndex = preSelectionRange.toString().length;
+      length += startIndex-1;
+      console.log('Start Index:', startIndex, length);
+      ProcessorValues.current.selectedlower = startIndex;
+      ProcessorValues.current.selectedupper = length;
     }
+  }
+  function ChangeEntities(choice) {
+    ProcessorValues.current.counter = ProcessorValues.current.counter + 1;
+    const NewEntity = {
+      id: ProcessorValues.current.counter,
+      lower: ProcessorValues.current.selectedlower,
+      upper: ProcessorValues.current.selectedupper,
+      style: [TEXT_STYLES[choice]]
+    };
+    console.log(NewEntity);
+    ProcessorValues.current.sorted.push(NewEntity);
+    ProcessorValues.current.sorted = ProcessorValues.current.sorted.sort(customSort);
+
+    while (index < ProcessorValues.current.sorted.length) {
+      const HeadContainer = ProcessorValues.current.sorted[index];
+      const containersConflict = Conflicts(
+        HeadContainer,
+        ProcessorValues.current.sorted.slice(index + 1)
+      );
+      if (containersConflict.length) {
+        ChnageTheContainers(HeadContainer, containersConflict[0]);
+        index = 0;
+      } else {
+        index++;
+      }
+    }
+    ProcessorValues.current.sorted = ProcessorValues.current.sorted.sort(customSort);
+    console.log(ProcessorValues.current.sorted, '\n---------------------\n');
+  }
+
+  function calculateOffset(child, relativeOffset) {
+    var parent = child.parentElement;
+
+    // verify whether or not the correct parent element is selected, modify if necessary
+    if (parent.tagName != 'P') {
+      parent = parent.closest('p');
+      child = child.parentElement;
+    }
+    var children = [];
+
+    // add the child's preceding siblings to an array
+    for (var c of parent.childNodes) {
+      if (c === child) break;
+      children.push(c);
+    }
+
+    // calculate the total text length of all the preceding siblings and increment with the relative offset
+    return relativeOffset + children.reduce((a, c) => a + c.textContent.length, 0);
+  }
+
+  function handleSelect(e) {
+    rangefun();
   }
   function handleKeyDown(e) {
     const selection = window.getSelection();
@@ -255,6 +265,9 @@ export default function TextProcessorObj(containers) {
     handleclick,
     openTextProcessor,
     divref,
-    setOpenTextProcessor
+    setOpenTextProcessor,
+    entitycontainers,
+    setentitycontainers,
+    ChangeEntities
   ];
 }

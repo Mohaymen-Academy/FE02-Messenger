@@ -1,8 +1,17 @@
 import React from 'react';
-import { UilTimes, UilPen } from '@iconscout/react-unicons';
+// import { UilLink } from '@iconscout/react-unicons'
+// import { UilBell } from '@iconscout/react-unicons'
+import { UilTimes, UilPen, UilLink, UilBell, UilBellSlash } from '@iconscout/react-unicons';
 // import { UilPen } from '@iconscout/react-unicons'
 import { Files, Links, Medias, Musics, Voices } from './ProfileParts';
-export default function LeftSide({ isActive, profile, setActive, setlayout }) {
+export default function LeftSide({
+  isActive,
+  profile,
+  setActive,
+  setlayout,
+  isGroupOrChannel,
+  isgroup
+}) {
   const [filepart, setfilepart] = React.useState({
     0: 1,
     1: 0,
@@ -42,17 +51,49 @@ export default function LeftSide({ isActive, profile, setActive, setlayout }) {
         </div>
       </div>
       <div className="flex flex-col justify-end place-items-end bg-[url('images/profile.jpg')] w-full h-[350px] bg-cover bg-center bg-no-repeat mb-0 md:h-[350px]">
-        {isActive ? (
-          <>
-            <div className="p-7 pb-0 text-white font-bold text-[25px] ">Zahra</div>
-            <div className="p-7 pt-0 text-white text-[15px] ">Last Seen recently</div>
-          </>
+        <div className="p-7 pb-0 text-white font-bold text-[25px] ">Zahra</div>
+        <div className="p-7 pt-0 text-white text-[15px] ">Last Seen recently</div>
+        {/* //should change with the member or subs number */}
+      </div>
+      <div>
+        {isgroup ? (
+          <div className="w-[100%] flex flex-col gap-1 my-3">
+            <button className="flex w-[95%] justify-evenly  mx-auto items-center hover:bg-opacity-5 rounded-lg hover:bg-color3">
+              <UilLink className={''} />
+              <div className="overflow-hidden flex flex-col text-right">
+                <p className="text-text1">https://splus.ir/joingroup/AG3_T_fw3E7bqinWv6nnlg</p>
+                <p className="text-opacity-30 text-text1">لینک</p>
+              </div>
+            </button>
+            <button className="flex w-[90%] justify-between mt-3 mx-auto items-center hover:bg-opacity-5 rounded-lg hover:bg-color3">
+              <div
+                className="flex w-[100%] 
+                justify-evenly
+              items-center">
+                {false ? (
+                  <UilBell className={'w-[50px] h-[50px] text-color3'}></UilBell>
+                ) : (
+                  <UilBellSlash className={'w-[50px] h-[50px] text-color3'}></UilBellSlash>
+                )}
+                <p className="w-fit text-text1">اعلان ها</p>
+              </div>
+            </button>
+          </div>
         ) : (
           <></>
         )}
       </div>
       <div className="flex flex-col w-full h-[calc(100%-420px)] bg-color1">
         <div className="w-full h-[50px] bg-color2 flex flex-row  place-items-center border-b-1">
+          {isgroup ? (
+            <div
+              className={`category-part ${filepart[0] == 1 ? 'bg-color1' : 'bg-color2'}`}
+              onClick={() => changesetpat(0)}>
+              اعضا
+            </div>
+          ) : (
+            <></>
+          )}
           <div
             className={`category-part ${filepart[0] == 1 ? 'bg-color1' : 'bg-color2'}`}
             onClick={() => changesetpat(0)}>

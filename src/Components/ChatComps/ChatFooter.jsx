@@ -14,11 +14,14 @@ export default function ChatFooter() {
     handleclick,
     openTextProcessor,
     divref,
-    setOpenTextProcessor
+    setOpenTextProcessor,
+    entitycontainers,
+    setentitycontainers,
+    ChangeEntities
   ] = TextProcessor([
-    { id: 1, lower: 0, upper: 2, content: '012' },
-    { id: 2, lower: 3, upper: 8, content: '345678' },
-    { id: 3, lower: 9, upper: 10, content: '91' }
+    { id: 1, lower: 0, upper: 2, content: '012', style: ['bold,strike'] },
+    { id: 2, lower: 3, upper: 8, content: '345678', style: ['strike'] },
+    { id: 3, lower: 9, upper: 10, content: '91', style: ['italic ', 'spoiler'] }
   ]);
   const [openEmoji, setOpenEmoji] = useState(false);
   const [openAttach, setOpenAttach] = useState(false);
@@ -58,19 +61,16 @@ export default function ChatFooter() {
       {/* <input type="text" dir='auto' /> */}
       <div
         dir="auto"
-        onKeyDown={handleKeyDown}
         onSelectCapture={handleSelect}
         onClick={handleclick}
-        // style={{ direction: 'auto' }}
         ref={divref}
         onInput={handleonInput}
         contentEditable
-        // onChange={(e) => console.log()}
         className=" w-[90%] max-h-[50px] flex outline-none h-auto overflow-hidden shadow-none border-none break-all focus:shadow-none active:shadow-none">
-        000-1
-        <Text id={1} lower={0} upper={2} content={'012'} />
-        <Text id={2} lower={3} upper={8} content={'345678'} />
-        <Text id={3} lower={9} upper={10} content={'91'} />
+        <Text id={1} lower={0} upper={2} content={'012'}    style={['bold ', 'strike']} />
+        <Text id={2} lower={3} upper={8} content={'345678'} style={['strike']} />
+        <Text id={3} lower={9} upper={10} content={'91'}    style={['italic ', 'spoiler']} />
+        <del className="underline">000-1</del>
       </div>
       <div>
         <button onClick={() => setOpenEmoji(!openEmoji)} className="mx-1 h-8 w-8 text-text1 ">
@@ -81,7 +81,7 @@ export default function ChatFooter() {
             <EmojiPicker theme={localStorage.getItem('theme')} onEmojiClick={handleEmojiPicker} />
           </div>
         )}
-        {openTextProcessor && <TextProcessorMenu />}
+        {openTextProcessor && <TextProcessorMenu ChangeEntities={ChangeEntities} />}
         {/* {openAttach &&
 
         } */}

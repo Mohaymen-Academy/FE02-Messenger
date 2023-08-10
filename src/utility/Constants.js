@@ -1,11 +1,9 @@
-const 
-  NUM_SIDEBAR_DEFAULT = 0,
+const NUM_SIDEBAR_DEFAULT = 0,
   NUM_SIDEBAR_SETTINGS = 1,
   NUM_SIDEBAR_CONTACTS = 2,
   NUM_SIDEBAR_CHANNEL = 3,
   NUM_SIDEBAR_GROUP = 4,
   NUM_SIDEBAR_CALL = 5;
-
 
 export {
   NUM_SIDEBAR_CHANNEL,
@@ -13,5 +11,15 @@ export {
   NUM_SIDEBAR_DEFAULT,
   NUM_SIDEBAR_GROUP,
   NUM_SIDEBAR_SETTINGS,
-  NUM_SIDEBAR_CALL,
+  NUM_SIDEBAR_CALL
 };
+
+const TEXT_STYLES = {
+  1: 'Monolotic',
+  2: 'Strike',
+  3: 'underline',
+  4: 'italic',
+  5: 'bold',
+  6: 'spoil'
+};
+export { TEXT_STYLES };
