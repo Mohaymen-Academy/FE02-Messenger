@@ -65,7 +65,7 @@ const MessageMenu = ({ positions, setposition }) => {
         return (
           <button
             key={index}
-            className="flex flex-row items-center gap-2 px-5 my-1 w-full hover:bg-gray-200 rounded-lg"
+            className="flex flex-row items-center gap-2 px-5 my-1 w-full hover:bg-bghovor rounded-lg"
             // onClick={(e) => setsection(menuId)}
           >
             <div className={`flex items-center gap-2 my-1 ${item.color}`}>{item.icon}</div>
