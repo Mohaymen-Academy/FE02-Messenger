@@ -20,11 +20,13 @@ export default function RightSide({ setChatId, chatId }) {
   return (
     <div
       className={` h-screen bg-color1 border-l-2 border-bghovor shadow-md vsmmobile:z-0 vsmmobile:relative ${
-        chatId ? 'vsmmobile:w-0' : 'vsmmobile:w-100%'
+        chatId
+          ? 'mobile:w-[30%] tablet:w-[30%] smmobile:w-[30%] vsmmobile:w-0'
+          : 'mobile:w-fit tablet:w-fit smmobile:w-fit vsmmobile:w-[100%]'
       } `}>
       <div className="flex justify-between px-2 py-1 ">
         <div>
-          <button className="fixed" onClick={(e) => setopen((prev) => !prev)}>
+          <button className="relative" onClick={(e) => setopen((prev) => !prev)}>
             <UilBars className="text-text1 w-10 h-10 mx-1 m-1  " />
           </button>
         </div>

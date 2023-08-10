@@ -10,7 +10,7 @@ const ChatHeader = ({ setActive, chatsetter }) => (
     className=" flex h-[70px] w-full cursor-pointer items-center justify-between bg-color2 px-1 font-iRANSans">
     <div id="header-account" className="flex h-full items-center gap-2">
       <button
-        className=" desktop:hidden tablet:hidden mobile:hidden laptop:hidden  smmobile:hidden vsmmobile:visible"
+        className=" desktop:hidden laptop:hidden vsmmobile:visible"
         onClick={(e) => {
           e.stopPropagation();
           chatsetter(null);
