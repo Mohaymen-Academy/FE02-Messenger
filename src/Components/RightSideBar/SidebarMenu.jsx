@@ -5,12 +5,12 @@ import {
   NUM_SIDEBAR_DEFAULT,
   NUM_SIDEBAR_GROUP,
   NUM_SIDEBAR_SETTINGS
-} from '../utility/Constants.js';
+} from '../../utility/Constants.js';
 import { useState } from 'react';
 import Settings from './Menues/Settings.jsx';
 import { UilArrowLeft } from '@iconscout/react-unicons'
 export default function SidebarMenu({ profileImage, username, open, divref }) {
-  const [menu, setmenu] = useState(NUM_SIDEBAR_SETTINGS);
+  const [menu, setmenu] = useState(NUM_SIDEBAR_DEFAULT);
   const Menues = {
     [NUM_SIDEBAR_DEFAULT]: ["Defualt",<Default menuSetter={setmenu} />],
     [NUM_SIDEBAR_SETTINGS]: ["تنظیمات",<Settings menuSetter={setmenu} />],
@@ -24,7 +24,7 @@ export default function SidebarMenu({ profileImage, username, open, divref }) {
       <div
         ref={divref}
         className={`w-[350px] fixed top-0 flex h-screen flex-col bg-color2 transition-all duration-1000 ease-in-out font-estedad ${
-          open ? 'right-0' : 'right-[-80%]'
+          open ? 'right-0' : 'right-[-150%]'
         }`}>
         <div className=" w-[100%] h-[200px] flex flex-col justify-end gap-6 pt-0 ">
           <div

@@ -85,15 +85,20 @@
         @apply w-full text-right text-text1;
     }
     .notifsbutton{
-        @apply flex items-center gap-3 w-[100%];
+        @apply flex  gap-3 w-[100%];
     }
     .notifsdiv{
-        @apply flex flex-col w-[100%];
+        @apply flex flex-col w-[100%] p-3 pb-0 border-gray-500;
     }
     .pricaybutton{
-        @apply w-[90%] h-fit flex flex-row hover:bg-slate-200 bg-opacity-5 rounded-lg items-center ;
+        @apply  h-fit flex flex-row hover:bg-bghovor p-2 w-full bg-opacity-5 rounded-lg items-center ;
     }
-    
+    .labeltext{
+        @apply text-text1 text-[12px] font-bold py-2;
+    }
+    .beautyinput{
+        @apply rounded-lg p-2 bg-color1 text-text1 text-[12px]  font-bold;
+    }
     .sliderwithtext{
         @apply hover:text-gray-500 hover:cursor-pointer;
     }

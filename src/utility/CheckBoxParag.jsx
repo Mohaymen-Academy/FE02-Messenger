@@ -6,7 +6,7 @@ export default function CheckBoxParag({ title }) {
     <div>
       <button className={'notifsbutton'}>
         <input
-          className={'beautyinput'}
+          className={'w-5 h-5'}
           type="checkbox"
           onChange={(e) => setisActive((prev) => !prev)}
         />

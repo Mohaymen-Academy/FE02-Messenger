@@ -3,7 +3,7 @@ import LeftSide from './Leftside';
 import ProfileEdit from './ProfileEdit';
 
 export default function LeftLayout({ active, setActive }) {
-  const [layout, setlayout] = useState(1);
+  const [layout, setlayout] = useState(0);
   //   const [active, ] = useState(false);
   //   console.log(setlayout)
   const Pages = [
@@ -14,8 +14,8 @@ export default function LeftLayout({ active, setActive }) {
 
   return (
     <div
-      className={`flex flex-col h-screen transition-all duration-200 ease-in ${
-        active ? 'w-[400px]' : 'w-0'
+      className={`flex flex-col relative h-screen transition-all duration-200 ease-in ${
+        active ? 'desktop:w-[60%] laptop:w-[100%] left-0 mobile:w-[150%] tablet:w-[150%] smmobile:w-[150%] vsmmobile:w-[100%]' : 'w-0 left-[-150%]'
       }`}>
       {Pages[layout]}
     </div>

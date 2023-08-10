@@ -1,7 +1,7 @@
-import { PersonalMenu, Notifs, Privacy, DataStorage, ChatSetting } from '../../utility/Settings';
+import { PersonalMenu, Notifs, Privacy, DataStorage, ChatSetting } from '../../../utility/Settings';
 export default function Settings() {
   return (
-    <div>
+    <div className=''>
       <PersonalMenu />
       <DataStorage />
       <Notifs />

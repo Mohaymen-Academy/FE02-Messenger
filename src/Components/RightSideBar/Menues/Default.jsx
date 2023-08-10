@@ -4,8 +4,8 @@ import {
   NUM_SIDEBAR_GROUP,
   NUM_SIDEBAR_SETTINGS,
   NUM_SIDEBAR_CALL
-} from '../../utility/Constants.js';
-import { setTheme } from '../../utility/useLoclStorage.jsx';
+} from '../../../utility/Constants.js';
+import { setTheme } from '../../../utility/useLoclStorage.jsx';
 import SidebarCard from '../SidebarCard.jsx';
 import { UilSetting ,UilUser ,UilUsersAlt,UilMegaphone ,UilPhone ,UilVuejs ,UilMoon     } from '@iconscout/react-unicons'
 
@@ -58,7 +58,7 @@ export default function Default({ menuSetter }) {
           menuId={NUM_SIDEBAR_CALL}
         />
       }
-      <button className="hover:bg-color2 rounded-lg">
+      <button className="hover:bg-color1 ">
         <div className="flex items-center gap-2 my-1 p-2">
           {/* <img src={'images/v.png'} className="w-[40px] h-[40px]" alt="" /> */}
           <UilVuejs className="text-text1 w-8 h-8 mx-1 " />

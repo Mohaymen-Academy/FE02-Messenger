@@ -3,7 +3,7 @@ import { UilUser } from '@iconscout/react-unicons';
 export default function PersonalMenu() {
   const [open, setopen] = useState(false);
   return (
-    <div className="flex flex-col w-[100%] border-[1px] px-5">
+    <div className="flex flex-col w-[100%]  px-5 p-3">
       <button
         onClick={() => setopen((prevestate) => !prevestate)}
         className={'flex w-full h-10 items-center justify-between p-2 '}>
@@ -12,7 +12,7 @@ export default function PersonalMenu() {
           <span className="text-[12px] font-extrabold text-text1 ">اطلاعات شخصی</span>
         </div>
         <svg
-          className={`w-2.5 h-2.5 ml-2.5 ${open ? 'transform rotate-180' : ''}`}
+          className={`w-2.5 h-2.5 ml-2.5 text-text1 ${open ? 'transform rotate-180' : ''}`}
           aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
@@ -27,10 +27,10 @@ export default function PersonalMenu() {
         </svg>
       </button>
       <div
-        className={`transition-all ease-in-out duration-300 flex flex-wrap gap-[20px] overflow-hidden ${
-          open ? 'h-[245px]' : 'h-[0px]'
+        className={`transition-all ease-in-out duration-300  flex flex-wrap overflow-hidden w-full ${
+          open ? 'h-[275px]' : 'h-[0px]'
         }`}>
-        <div className={'flex flex-col px-3'}>
+        <div className={'flex flex-col px-7 w-full'}>
           <label className={'labeltext'} htmlFor="">
             اسم
           </label>

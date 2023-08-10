@@ -46,9 +46,9 @@ export default function ChatBody() {
   return (
     <div
       dir="rtl"
-      className={
-        'flex h-[100%] w-full flex-col bg-chatbackground  bg-cover bg-center bg-no-repeat'
-      }>
+      className={`flex h-[100%] flex-col
+        mb-[-30px]
+        `}>
       <div className="flex h-[70%] w-full flex-col items-center overflow-hidden">
         <div className="mb-2 h-[80vh] w-full overflow-auto px-5 pt-3">
           {messages.map((message, index) => (
@@ -67,9 +67,9 @@ export default function ChatBody() {
             </MessageDateGroup>
           ))}
         </div>
-      </div>
-      <div className="mb-2 h-16">
-        <ChatFooter />
+        <div className=" h-16 w-[80%] vsmmobile:mb-[7rem] smmobile:mb-[7rem]">
+          <ChatFooter />
+        </div>
       </div>
       {preview
         ? createPortal(

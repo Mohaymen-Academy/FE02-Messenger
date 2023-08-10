@@ -24,7 +24,8 @@ function Message({ content, isSeen, id, forewardedFrom, repliedTo, media, handle
       className={`relative flex w-full ${id === 'you' ? 'justify-start' : 'justify-end'} px-5`}
       onContextMenu={handleRightClick}>
       <MessageBody id={id}>
-        <div>
+        <div
+        className='vsmmobile:text-xs'>
           <MessageHeader forewardedFrom={forewardedFrom} repliedTo={repliedTo} />
         </div>
         <MessageImageMedia src={media} handleClick={handleMediaMessage} />

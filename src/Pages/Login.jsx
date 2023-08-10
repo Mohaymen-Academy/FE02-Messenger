@@ -6,7 +6,6 @@ export default function Login() {
     password: ''
   });
   useEffect(() => {
-    console.log('skldjf')
     const div = document.getElementById('zarp');
     div.dataset.theme = getTheme() ? getTheme() : 'light';
     // console.log(div.dataset.theme)
