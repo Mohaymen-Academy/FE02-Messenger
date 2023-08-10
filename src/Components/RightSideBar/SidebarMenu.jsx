@@ -9,11 +9,11 @@ import {
 import { useState } from 'react';
 import Settings from './Menues/Settings.jsx';
 import { UilArrowLeft } from '@iconscout/react-unicons'
-export default function SidebarMenu({ profileImage, username, open, divref }) {
+export default function SidebarMenu({ profileImage, username, open, setopen, divref,item, setItem}) {
   const [menu, setmenu] = useState(NUM_SIDEBAR_DEFAULT);
   const Menues = {
-    [NUM_SIDEBAR_DEFAULT]: ["Defualt",<Default menuSetter={setmenu} />],
-    [NUM_SIDEBAR_SETTINGS]: ["تنظیمات",<Settings menuSetter={setmenu} />],
+    [NUM_SIDEBAR_DEFAULT]: ["Defualt",<Default menuSetter={setItem} setopen={setopen} />],
+    [NUM_SIDEBAR_SETTINGS]: ["تنظیمات",<Settings menuSetter={setItem} setopen={setopen} />],
     //  , [NUM_SIDEBAR_CONTACTS]:
     //  , [NUM_SIDEBAR_CHANNEL]:
     //  , [NUM_SIDEBAR_GROUP]:

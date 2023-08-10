@@ -9,7 +9,7 @@ import { setTheme } from '../../../utility/useLoclStorage.jsx';
 import SidebarCard from '../SidebarCard.jsx';
 import { UilSetting ,UilUser ,UilUsersAlt,UilMegaphone ,UilPhone ,UilVuejs ,UilMoon     } from '@iconscout/react-unicons'
 
-export default function Default({ menuSetter }) {
+export default function Default({ menuSetter ,setopen }) {
   function handleonchange() {
     const div = document.getElementById('zarp');
     div.dataset.theme === 'dark' ? (div.dataset.theme = 'light') : (div.dataset.theme = 'dark');
@@ -17,10 +17,11 @@ export default function Default({ menuSetter }) {
   }
 
   return (
-    <div className="flex flex-col w-[100%] ">
+    <div className="flex flex-col w-[100%]  ">
       {
         <SidebarCard
           setsection={menuSetter}
+          setopen={setopen}
           icon={<UilSetting className="text-text1 w-8 h-8 mx-1 "/>}
           title={'تنظیمات'}
           menuId={NUM_SIDEBAR_SETTINGS}
@@ -29,6 +30,7 @@ export default function Default({ menuSetter }) {
       {
         <SidebarCard
           setsection={menuSetter}
+          setopen={setopen}
           icon={<UilUser className="text-text1 w-8 h-8 mx-1 "/>}
           title={'مخاطبین'}
           menuId={NUM_SIDEBAR_CONTACTS}
@@ -59,16 +61,16 @@ export default function Default({ menuSetter }) {
         />
       }
       <button className="hover:bg-color1 ">
-        <div className="flex items-center gap-2 my-1 p-2">
+        <div className="flex items-center gap-2 p-4 px-5">
           {/* <img src={'images/v.png'} className="w-[40px] h-[40px]" alt="" /> */}
           <UilVuejs className="text-text1 w-8 h-8 mx-1 " />
           <p className="cardP">ویترین</p>
         </div>
       </button>
-      <div className="flex items-center  gap-2 my-1 p-2">
+      <div className="flex items-center  gap-2 my-1 p-3 px-5">
         {/* <img src={'images/darktheme.png'} className="w-[40px] h-[40px]" alt="" /> */}
         <UilMoon className="text-text1 w-8 h-8 mx-1 " />
-        <div className='flex flec-col justify-between w-full'>
+        <div className='flex flec-col justify-between w-full '>
           <p
             className="cardP
                           whitespace-nowrap">
