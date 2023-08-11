@@ -107,7 +107,7 @@ const emojiCodes = [
 const EmojiPicker = () => {
   return (
     <div
-      className="flex flex-row relative  w-[90%] h-[120px] top-[-195px] bg-color1 rounded-lg  flex-wrap
+    className="flex flex-row relative  w-[90%] h-[120px] top-[-195px] bg-color1 rounded-lg  flex-wrap
     overflow-y-scroll overflow-x-hidden
     vsmmobile:sticky vsmmobile:w-[100%]">
       {emojiCodes.map((code, index) => {

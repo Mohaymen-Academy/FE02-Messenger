@@ -1,7 +1,7 @@
 import ChatHeaderSettings from './ChatHeaderSettings.jsx';
 import Avatar from './Avatar.jsx';
 import { UilArrowRight } from '@iconscout/react-unicons';
-
+import { UilSearch } from '@iconscout/react-unicons';
 const ChatHeader = ({ setActive, chatsetter }) => (
   <div
     onClick={(e) => {
@@ -25,7 +25,12 @@ const ChatHeader = ({ setActive, chatsetter }) => (
         <div className="text-sm text-slate-400">آخرین بازدید به تازگی</div>
       </div>
     </div>
-    {<ChatHeaderSettings />}
+    <div className="flex flex-row">
+      <button>
+        <UilSearch />
+      </button>
+      {<ChatHeaderSettings />}
+    </div>
   </div>
 );
 

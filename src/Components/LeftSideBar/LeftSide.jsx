@@ -33,8 +33,8 @@ export default function LeftSide({
   };
   return (
     <div
-      className={`flex flex-col h-screen transition-all duration-200 ease-in bg-color2 shadow-md border-r-2 border-bghovor`}>
-      <div className="flex bg-color2 items-center justify-between px-4 border border-bghovor">
+      className={`flex flex-col h-screen transition-all duration-200 ease-in bg-color2 shadow-md border-r-2`}>
+      <div className="flex bg-color2 items-center justify-between px-4 border ">
         <div className="flex flex-row w-fit h-[70px] place-items-center">
           <button
             onClick={(e) => {

@@ -115,6 +115,13 @@
     .spoiler{
         @apply blur-sm;
     }
+    .hover-trigger .hover-target {
+        @apply   hidden;
+    }
+    
+    .hover-trigger:hover .hover-target {
+     @apply   block;
+    }
 }
 
 @media screen and (-webkit-min-device-pixel-ratio: 0) {
