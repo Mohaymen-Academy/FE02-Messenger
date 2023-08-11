@@ -20,7 +20,7 @@ export default function Radioinput({ headers, subtitles, setters }) {
                 name="default-radio"
                 className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 before:ring-none focus:ring-blue-500 "
               />
-              <label className="cursor-pointer flex flex-col  ml-2 text-sm text-right font-medium text-gray-900 ">
+              <label className="cursor-pointer flex flex-col  ml-2 text-sm text-right font-medium text-text1 ">
                 <h3>{header}</h3>
                 <p className="opacity-70" style={{ fontSize: '10px' }}>
                   {subtitles[index]}

@@ -41,8 +41,8 @@ export default function ChatSetting() {
           <p className="text-gray-500">تنظیمات</p>
           {<InputSlider title={'اندازه متن پیام'} />}
           <button className={'pricaybutton'}>
-            <img src="images/person.png" alt="" />
-            <p>پس زمینه گفتگو</p>
+            <img  src="images/person.png" alt="" />
+            <p className='text-text1'>پس زمینه گفتگو</p>
           </button>
         </div>
 

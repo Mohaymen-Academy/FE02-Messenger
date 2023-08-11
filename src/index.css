@@ -97,7 +97,7 @@
         @apply text-text1 text-[12px] font-bold py-2;
     }
     .beautyinput{
-        @apply rounded-lg p-2 bg-color1 text-text1 text-[12px]  font-bold;
+        @apply rounded-lg p-2 bg-color2 text-text1 text-[12px]  font-bold;
     }
     .sliderwithtext{
         @apply hover:text-gray-500 hover:cursor-pointer;

@@ -3,6 +3,7 @@ import { Chatlist } from '../ChatComps';
 import SidebarMenu from './SidebarMenu.jsx';
 import ContactsList from './ContactsList';
 import Settings from './Menues/Settings';
+import GroupAdd from './GroupAdd';
 import { UilBars, UilSearch,UilArrowRight } from '@iconscout/react-unicons';
 import {
   NUM_SIDEBAR_CHANNEL,
@@ -20,8 +21,8 @@ export default function RightSide({ setChatId, chatId }) {
     [NUM_SIDEBAR_CHAT]: [<Chatlist setChatId={setChatId} />],
     [NUM_SIDEBAR_CONTACTS]: [<ContactsList setChatId={setChatId} />],
     [NUM_SIDEBAR_SETTINGS] : [<Settings menuSetter={setItem} setopen={setopen} />],
-    [NUM_SIDEBAR_GROUP]: [],
-    [NUM_SIDEBAR_CHANNEL]: [],
+    [NUM_SIDEBAR_GROUP]: [<GroupAdd/>],
+    [NUM_SIDEBAR_CHANNEL]: [<GroupAdd/>],
     
   };
   function handleOutsideClick(event) {
