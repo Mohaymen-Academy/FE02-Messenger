@@ -8,7 +8,7 @@ export default function ChannelChat({ chatid, setChatId }) {
   return (
     <>
       <div className="flex flex-row">
-        {chatTools.chatid ? (
+        {chatid ? (
           <>
             <div
               className={`
@@ -18,10 +18,10 @@ export default function ChannelChat({ chatid, setChatId }) {
               smmobile:w-[100%]
               ${active ? 'vsmmobile:w-0' : 'vsmmobile:w-full'}
               `}>
-              <ChatHeader chatsetter={setChatId} setActive={setActive} />
+              <ChatHeader chattype={TYPE_CHANNEL} chatsetter={setChatId} setActive={setActive} />
               <ChatBody chattype={TYPE_CHANNEL} />
             </div>
-            <LeftLayout CHATTYPE={TYPE_GROUP} id={1} active={active} setActive={setActive} />
+            <LeftLayout CHATTYPE={TYPE_CHANNEL} id={1} active={active} setActive={setActive} />
           </>
         ) : (
           <></>

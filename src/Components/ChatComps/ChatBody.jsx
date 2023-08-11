@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React from 'react';
 import { createPortal } from 'react-dom';
 import ChatFooter from './ChatFooter.jsx';
 import Message from '../message/Message.jsx';

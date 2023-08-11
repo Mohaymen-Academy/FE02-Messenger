@@ -5,5 +5,5 @@ import ChatHeader from './ChatHeader';
 import Chatlist from './Chatlist';
 // import UserChat from '../User/UserChat';
 import ChatLayout from './ChatLayout';
-
-export { ChatBody, ChatCardPreview, ChatFooter, Chatlist, ChatHeader,ChatLayout};
+import Avatar from './Avatar';
+export { ChatBody, ChatCardPreview, ChatFooter, Chatlist, ChatHeader,ChatLayout,Avatar};
