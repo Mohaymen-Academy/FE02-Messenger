@@ -50,10 +50,12 @@ export default function ChatBody() {
         mb-[-30px]
         `}>
       <div className="flex h-[70%] w-full flex-col items-center overflow-hidden">
-        <div className="mb-2 h-[80vh] w-full overflow-auto px-5 pt-3">
-          {messages.map((message, index) => (
-            <MessageDateGroup key={index}>
-              <div onContextMenu={(e) => handleRightClick(e, index)}>
+        <div
+          className="mb-2 h-[105vh] w-full overflow-auto px-5 pt-3"
+          onScroll={() => console.log('hello')}>
+          <MessageDateGroup date={'2023-07-20'}>
+            {messages.map((message, index) => (
+              <div key={index} onContextMenu={(e) => handleRightClick(e, index)}>
                 <Message
                   content={message.content}
                   isSeen={message.seen}
@@ -64,8 +66,23 @@ export default function ChatBody() {
                   handleMediaMessage={() => setPreview(!preview)}
                 />
               </div>
-            </MessageDateGroup>
-          ))}
+            ))}
+          </MessageDateGroup>
+          <MessageDateGroup date={'2023-07-22'}>
+            {messages.map((message, index) => (
+              <div key={index} onContextMenu={(e) => handleRightClick(e, index)}>
+                <Message
+                  content={message.content}
+                  isSeen={message.seen}
+                  id={message.id}
+                  forewardedFrom={message.forwarded}
+                  repliedTo={message.repliedMessage}
+                  media={message.media}
+                  handleMediaMessage={() => setPreview(!preview)}
+                />
+              </div>
+            ))}
+          </MessageDateGroup>
         </div>
         <div className=" h-16 w-[80%] vsmmobile:mb-[7rem] smmobile:mb-[7rem]">
           <ChatFooter />
