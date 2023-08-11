@@ -140,52 +140,37 @@ export default function TextProcessorObj(containers) {
     rangeSet = [...rangeSet].sort();
     switch (rangeSet.size) {
       case 2:
-        ProcessorValues.current.counter += 1;
-        const newObj = {
-          id: ProcessorValues.current.counter,
-          lower: rangeSet[0],
-          upper: rangeSet[1],
-          style: HeadContainer.style.concat(selectedContainer.style)
-        };
-        replaceInArray(newObj);
+        // ProcessorValues.current.counter += 1;
+        // const newObj = {
+        //   id: ProcessorValues.current.counter,
+        //   lower: rangeSet[0],
+        //   upper: rangeSet[1],
+        //   style: HeadContainer.style.concat(selectedContainer.style)
+        // };
+        HeadContainer.style = HeadContainer.style.concat(selectedContainer.style);
+        replaceInArray(HeadContainer);
         break;
-
       case 3:
-        ProcessorValues.current.counter += 1;
         if (HeadContainer.lower == selectedContainer.lower) {
-          if (HeadContainer.upper < selectedContainer.upper) {
-            let firsObj = {
-              id: ProcessorValues.current.counter,
-              lower: rangeSet[0],
-              upper: rangeSet[1],
-              style: HeadContainer.style.concat(selectedContainer.style)
-            };
-            ProcessorValues.current.counter += 1;
-            let secObj = {
-              id: ProcessorValues.current.counter,
-              lower: rangeSet[1] + 1,
-              upper: rangeSet[2],
-              style: selectedContainer.style
-            };
-            replaceInArray(firsObj);
-            replaceInArray(secObj);
-          } else {
-            let firsObj = {
-              id: ProcessorValues.current.counter,
-              lower: rangeSet[0],
-              upper: rangeSet[1],
-              style: HeadContainer.style.concat(selectedContainer.style)
-            };
-            ProcessorValues.current.counter += 1;
-            let secObj = {
-              id: ProcessorValues.current.counter,
-              lower: rangeSet[1] + 1,
-              upper: rangeSet[2],
-              style: HeadContainer.style
-            };
-            replaceInArray(firsObj);
-            replaceInArray(secObj);
-          }
+          if (HeadContainer.upper > selectedContainer.upper) {
+            HeadContainer.lower = rangeSet[0];
+            HeadContainer.upper = rangeSet[1];
+            HeadContainer.style = HeadContainer.style.concat(selectedContainer.style);
+            replaceInArray(HeadContainer);
+            selectedContainer.lower = rangeSet[1] + 1;
+            selectedContainer.upper = rangeSet[2];
+            replaceInArray(selectedContainer);
+          } 
+            // HeadContainer.lower = rangeSet[0];
+            // HeadContainer.upper = rangeSet[1];
+            // HeadContainer.style = HeadContainer.style.concat(selectedContainer.style);
+            // replaceInArray(HeadContainer);
+            // selectedContainer.lower = rangeSet[1] + 1;
+            // selectedContainer.upper = rangeSet[2];
+            selectedContainer.style=HeadContainer.style
+            replaceInArray(selectedContainer);
+
+          
         } else {
           let firsObj = {
             id: ProcessorValues.current.counter,
@@ -233,7 +218,6 @@ export default function TextProcessorObj(containers) {
     ProcessorValues.current.sorted = ProcessorValues.current.sorted.filter(
       (obj) => obj.id != HeadContainer.id || obj.id != selectedContainer.id
     );
-
   }
   function ChangeEntities(choice) {
     console.log(choice);
