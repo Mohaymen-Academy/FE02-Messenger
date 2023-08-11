@@ -72,7 +72,6 @@ export default function ChatFooter() {
           contentEditable
           className=" w-[90%] max-h-[50px] flex outline-none h-auto overflow-hidden shadow-none border-none break-all focus:shadow-none active:shadow-none">
           {...[
-            '000-1',
             <Text id={1} lower={0} upper={2} content={'012'} style={['bold ', 'strike']} />,
             <Text id={2} lower={3} upper={8} content={'345678'} style={['strike']} />,
             <Text id={3} lower={9} upper={10} content={'91'} style={['italic ', 'spoiler']} />

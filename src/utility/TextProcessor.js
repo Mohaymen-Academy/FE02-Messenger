@@ -16,24 +16,23 @@ export default function TextProcessorObj(containers) {
     caretPosition: null,
     counter: 3,
     selectedlower: 0,
-    selectedupper: 0
+    selectedupper: 0,
+    selectedtext: null
   });
   const divref = useRef(null);
   const [openTextProcessor, setOpenTextProcessor] = useState(false);
   const [entitycontainers, setentitycontainers] = useState([]);
-  let counter = ProcessorValues.current.sorted.length;
   function replaceInArray(modifiedobject) {
     const Originalindex = ProcessorValues.current.sorted.findIndex(
       (obj) => obj.id == modifiedobject.id
     );
     if (Originalindex != -1) {
-      //   console.log('before', ProcessorValues.current.sorted[Originalindex]);
       ProcessorValues.current.sorted[Originalindex] = modifiedobject;
-      //   console.log('after', ProcessorValues.current.sorted[Originalindex]);
     } else {
       ProcessorValues.current.sorted.push(modifiedobject);
     }
   }
+
   function Conflicts(HeadContainer, BodyContainer) {
     // console.log(HeadContainer)
     return BodyContainer.filter((obj) => findConflict(HeadContainer, obj));
@@ -44,74 +43,9 @@ export default function TextProcessorObj(containers) {
       //   ||   (Head.lower == body.lower && Head.upper == body.upper)
     );
   }
-  function ChnageTheContainers(HeadContainer, selectedContainer) {
-    if (selectedContainer.upper < HeadContainer.upper) {
-      // TODO
-      // ! NEED TO ADD THE SECTION FOR
-      // if the whole of body is in the head
-      //   console.log('khsewlkhr')
-    }
-    // if the header and container are not in each other
-    else if (selectedContainer.lower > HeadContainer.lower) {
-      // find the HeaderChildRange
-      const HeaderDirectChildContainerLower = HeadContainer.lower;
-      const HeaderDirectChildContainerUpper = selectedContainer.lower - 1;
-      const IntersectionChildContainerLower = selectedContainer.lower;
-      const IntersectionChildContainerUpper = HeadContainer.upper;
-      const NewContainerLower = HeadContainer.upper + 1;
-      const NewContainerUpper = selectedContainer.upper;
-
-      HeadContainer.lower = HeaderDirectChildContainerLower;
-      HeadContainer.upper = HeaderDirectChildContainerUpper;
-      replaceInArray(HeadContainer);
-      counter++;
-      const newObject = {
-        id: counter,
-        lower: IntersectionChildContainerLower,
-        upper: IntersectionChildContainerUpper,
-        style: HeadContainer.style.concat(selectedContainer.style)
-      };
-      replaceInArray(newObject);
-      //   console.log(newObject.lower, newObject.lower);
-      //   changeSelectedRange
-      selectedContainer.lower = NewContainerLower;
-      selectedContainer.upper = NewContainerUpper;
-      replaceInArray(selectedContainer);
-    } else {
-      if (selectedContainer.lower == HeadContainer.lower) {
-        HeadContainer.style.concat(selectedContainer.style);
-        const newObject = {
-          id: HeadContainer.id,
-          lower: HeadContainer.lower,
-          upper: HeadContainer.upper,
-          style: HeadContainer.style.concat(selectedContainer.style)
-        };
-
-        replaceInArray(newObject);
-        const NewContainerLower = HeadContainer.upper + 1;
-        const NewContainerUpper = selectedContainer.upper;
-        selectedContainer.lower = NewContainerLower;
-        selectedContainer.upper = NewContainerUpper;
-      }
-    }
-  }
-  let index = 0;
-  //   console.log(index);
-  function removeChar(divID, charindex) {
-    console.log();
-    let entetiyindex = 0;
-    ProcessorValues.current.sorted.forEach((element, index) => {
-      if (element.id == divID) {
-        entetiyindex = index;
-      }
-    });
-    console.log(entetiyindex);
-  }
-  function addChar() {}
 
   function handleonInput(e) {
     e.stopPropagation();
-    // console.log('zarp');
     const selection = window.getSelection();
     const range = selection.getRangeAt(0);
     const clonedRange = range.cloneRange();
@@ -119,7 +53,6 @@ export default function TextProcessorObj(containers) {
     clonedRange.setEnd(range.endContainer, range.endOffset); // this set the position of the cursor
     ProcessorValues.current.caretPosition = clonedRange.toString().length;
     let charcounter = 0;
-    // console.log(divref.current.childNodes);
 
     if (divref.current.childNodes.length == 0) {
       ProcessorValues.current.sorted = [];
@@ -147,12 +80,9 @@ export default function TextProcessorObj(containers) {
         });
       }
     });
-    // console.log(ProcessorValues.current.sorted);
-    // ProcessorValues.current.sorted = customSort(ProcessorValues.current.sorted);
   }
 
   function handleclick(e) {
-    console.log(e);
     const selection = window.getSelection();
     const range = selection.getRangeAt(0);
     const clonedRange = range.cloneRange();
@@ -177,10 +107,8 @@ export default function TextProcessorObj(containers) {
       return originalString + charToAdd;
     }
     // console.log(index);
-
     const leftPart = originalString.substring(0, index);
     const rightPart = originalString.substring(index);
-
     return leftPart + charToAdd + rightPart;
   }
 
@@ -194,11 +122,117 @@ export default function TextProcessorObj(containers) {
       preSelectionRange.selectNodeContents(divref.current);
       preSelectionRange.setEnd(range.startContainer, range.startOffset);
       const startIndex = preSelectionRange.toString().length;
-      length += startIndex-1;
-      console.log('Start Index:', startIndex, length);
+      length += startIndex - 1;
       ProcessorValues.current.selectedlower = startIndex;
       ProcessorValues.current.selectedupper = length;
+      ProcessorValues.current.selectedtext = preSelectionRange.toString();
     }
+  }
+
+  function ChnageTheContainers(HeadContainer, selectedContainer) {
+    // the header and lower are overlap witheachother
+    console.log(HeadContainer.selectNodeContents)
+    let rangeSet = new Set();
+    rangeSet.add(HeadContainer.lower);
+    rangeSet.add(HeadContainer.upper);
+    rangeSet.add(selectedContainer.upper);
+    rangeSet.add(selectedContainer.upper);
+    rangeSet = [...rangeSet].sort();
+    switch (rangeSet.size) {
+      case 2:
+        ProcessorValues.current.counter += 1;
+        const newObj = {
+          id: ProcessorValues.current.counter,
+          lower: rangeSet[0],
+          upper: rangeSet[1],
+          style: HeadContainer.style.concat(selectedContainer.style)
+        };
+        replaceInArray(newObj);
+        break;
+
+      case 3:
+        ProcessorValues.current.counter += 1;
+        if (HeadContainer.lower == selectedContainer.lower) {
+          if (HeadContainer.upper < selectedContainer.upper) {
+            let firsObj = {
+              id: ProcessorValues.current.counter,
+              lower: rangeSet[0],
+              upper: rangeSet[1],
+              style: HeadContainer.style.concat(selectedContainer.style)
+            };
+            ProcessorValues.current.counter += 1;
+            let secObj = {
+              id: ProcessorValues.current.counter,
+              lower: rangeSet[1] + 1,
+              upper: rangeSet[2],
+              style: selectedContainer.style
+            };
+            replaceInArray(firsObj);
+            replaceInArray(secObj);
+          } else {
+            let firsObj = {
+              id: ProcessorValues.current.counter,
+              lower: rangeSet[0],
+              upper: rangeSet[1],
+              style: HeadContainer.style.concat(selectedContainer.style)
+            };
+            ProcessorValues.current.counter += 1;
+            let secObj = {
+              id: ProcessorValues.current.counter,
+              lower: rangeSet[1] + 1,
+              upper: rangeSet[2],
+              style: HeadContainer.style
+            };
+            replaceInArray(firsObj);
+            replaceInArray(secObj);
+          }
+        } else {
+          let firsObj = {
+            id: ProcessorValues.current.counter,
+            lower: rangeSet[0],
+            upper: rangeSet[1],
+            style: HeadContainer.style
+          };
+          ProcessorValues.current.counter += 1;
+          let secObj = {
+            id: ProcessorValues.current.counter,
+            lower: rangeSet[1] + 1,
+            upper: rangeSet[2],
+            style: HeadContainer.style.concat(selectedContainer.style)
+          };
+          replaceInArray(firsObj);
+          replaceInArray(secObj);
+        }
+        break;
+      case 4:
+        let objlower = {
+          id: ProcessorValues.current.counter,
+          lower: rangeSet[0],
+          upper: rangeSet[1],
+          style: HeadContainer.style
+          // content: HeadContainer.content
+        };
+        ProcessorValues.current.counter += 1;
+        let objmiddle = {
+          id: ProcessorValues.current.counter,
+          lower: rangeSet[1] + 1,
+          upper: rangeSet[2],
+          style: HeadContainer.style.concat(selectedContainer.style)
+        };
+        ProcessorValues.current.counter += 1;
+        let high = {
+          id: ProcessorValues.current.counter,
+          lower: rangeSet[2] + 1,
+          upper: rangeSet[3],
+          style: selectedContainer.style
+        };
+        replaceInArray(objlower);
+        replaceInArray(objmiddle);
+        replaceInArray(high);
+    }
+    ProcessorValues.current.sorted = ProcessorValues.current.sorted.filter(
+      (obj) => obj.id != HeadContainer.id || obj.id != selectedContainer.id
+    );
   }
   function ChangeEntities(choice) {
     ProcessorValues.current.counter = ProcessorValues.current.counter + 1;
@@ -206,12 +240,13 @@ export default function TextProcessorObj(containers) {
       id: ProcessorValues.current.counter,
       lower: ProcessorValues.current.selectedlower,
       upper: ProcessorValues.current.selectedupper,
-      style: [TEXT_STYLES[choice]]
+      style: [TEXT_STYLES[choice]],
     };
     console.log(NewEntity);
+
     ProcessorValues.current.sorted.push(NewEntity);
     ProcessorValues.current.sorted = ProcessorValues.current.sorted.sort(customSort);
-
+    let index = 0;
     while (index < ProcessorValues.current.sorted.length) {
       const HeadContainer = ProcessorValues.current.sorted[index];
       const containersConflict = Conflicts(
@@ -221,12 +256,13 @@ export default function TextProcessorObj(containers) {
       if (containersConflict.length) {
         ChnageTheContainers(HeadContainer, containersConflict[0]);
         index = 0;
+        // break;
       } else {
         index++;
       }
+      ProcessorValues.current.sorted = ProcessorValues.current.sorted.sort(customSort);
     }
-    ProcessorValues.current.sorted = ProcessorValues.current.sorted.sort(customSort);
-    console.log(ProcessorValues.current.sorted, '\n---------------------\n');
+    console.log(ProcessorValues.current.sorted);
   }
 
   function calculateOffset(child, relativeOffset) {
