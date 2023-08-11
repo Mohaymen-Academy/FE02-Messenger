@@ -27,12 +27,16 @@ export default {
         bgmymassage: 'rgb(var(--color-bgmymassage) / <alpha-value>)',
         bgyoumassage: 'rgb(var(--color-bgyoumassage) / <alpha-value>)',
         textcolor: 'rgb(var(--color-textcolor) / <alpha-value>)',
-        bluetext1:'rgb(var(--color-bluetext1) / <alpha-value>)'
+        bluetext1: 'rgb(var(--color-bluetext1) / <alpha-value>)'
       },
       backgroundImage: {
-        chatbackground: "var(--chatbackground)",
-      },
-      
+        chatbackground: 'var(--chatbackground)'
+      }
+    }
+  },
+  variants: {
+    extend: {
+      display: ['group-hover']
     }
   },
   plugins: []

@@ -37,11 +37,11 @@ export default function Privacy() {
         <div className=" pb-3 px-5 gap-2 w-[100%] justify-center flex flex-col">
           <button className={'pricaybutton'}>
           <UilBan className="text-text1 w-5 h-5 mx-1 " />
-            <p className='text-sm'>کاربران مسدود</p>
+            <p className='text-sm text-text1'>کاربران مسدود</p>
           </button>
           <button className={'pricaybutton'}>
           <UilDesktop className="text-text1 w-5 h-5 mx-1 " />
-            <p className='text-sm'>نشست های فعال</p>
+            <p className='text-sm text-text1'>نشست های فعال</p>
           </button>
         </div>
         <div className="notifsdiv border-t-2 p-3 m-2 pb-0 nb-0">

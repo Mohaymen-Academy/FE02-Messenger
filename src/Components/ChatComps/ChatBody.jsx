@@ -1,13 +1,42 @@
-import React, { useRef } from 'react';
-import EmojiPicker from 'emoji-picker-react';
+import React from 'react';
 import { createPortal } from 'react-dom';
 import ChatFooter from './ChatFooter.jsx';
 import Message from '../message/Message.jsx';
 import ImagePreviewer from '../media-previewer/ImagePreviewer.jsx';
+import { TYPE_CHANNEL, TYPE_GROUP } from '../../utility/Constants.js';
 import MessageDateGroup from '../message/MessageDateGroup.jsx';
 import MessageVoice from '../message/MessageVoice.jsx';
 
 const messages = [
+  {
+    messageID: 2,
+    text: ' 2 سلام',
+    time: '21:06',
+    media: null,
+    viewCount: 0,
+    sender: {
+      profileID: 1,
+      profileName: 'Ali',
+      defaultProfileColor: {}
+    },
+    isPinned: false,
+    isEdited: false
+  },
+  {
+    profile: {
+      profileID: 1,
+      profileName: 'Ali',
+      type: 'USER',
+      defaultProfileColor: {}
+    },
+    lastMessage: {
+      messageID: 1,
+      text: 'سلام',
+      time: '2023-08-09T19:57:36.18063',
+      viewCount: 0
+    },
+    unreadMessageCount: 1
+  },
   {
     id: 'else',
     seen: true,
@@ -29,19 +58,12 @@ const messages = [
   }
 ];
 
-export default function ChatBody() {
-  const [openContextMenu, setOpenContextMenu] = React.useState(false);
+export default function ChatBody({ chattype }) {
+  const footerallowed = chattype == TYPE_CHANNEL ? false : chattype == TYPE_GROUP ? true : true;
+  //Todo FOR USER and Group must be modifed
   const [preview, setPreview] = React.useState(false);
-
   function handleRightClick(event, index) {
     event.preventDefault();
-
-    const x = event.clientX;
-    const y = event.clientY;
-
-    setOpenContextMenu(true);
-    setSelectedMessageIndex(index);
-    setContextMenuPosition({ x, y });
   }
 
   return (
@@ -53,7 +75,8 @@ export default function ChatBody() {
       <div className="flex h-[70%] w-full flex-col items-center overflow-hidden">
         <div
           className="mb-2 h-[105vh] w-full overflow-auto px-5 pt-3"
-          onScroll={() => console.log('hello')}>
+          // onScroll={() => console.log('hello')}
+          >
           <MessageDateGroup date={'2023-07-20'}>
             {messages.map((message, index) => (
               <div key={index} onContextMenu={(e) => handleRightClick(e, index)}>
@@ -90,9 +113,11 @@ export default function ChatBody() {
             />
           </MessageDateGroup>
         </div>
-        <div className=" h-16 w-[80%] vsmmobile:mb-[7rem] smmobile:mb-[7rem]">
-          <ChatFooter />
-        </div>
+        {footerallowed && (
+          <div className=" h-16 smmobile:mb-[7rem] vsmmobile:mb-[7rem] w-[80%]">
+            <ChatFooter />
+          </div>
+        )}
       </div>
       {preview
         ? createPortal(

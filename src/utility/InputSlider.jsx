@@ -5,7 +5,7 @@ export default function InputSlider({title}) {
   const [value, setvalue] = useState(5);
   return (
     <div>
-      <div className="flex flex-row justify-between">
+      <div className="flex flex-row justify-between text-text1">
         <h2>{title}</h2>
         <p>{value}</p>
       </div>

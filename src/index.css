@@ -90,10 +90,30 @@
     @apply text-text1 text-[12px] font-bold py-2;
   }
   .beautyinput {
-    @apply rounded-lg p-2 bg-color1 text-text1 text-[12px]  font-bold;
+    @apply rounded-lg p-2 bg-color2 text-text1 text-[12px]  font-bold;
   }
   .sliderwithtext {
     @apply hover:text-gray-500 hover:cursor-pointer;
+  }
+  .strike {
+    @apply line-through;
+  }
+  .bold {
+    @apply font-bold;
+  }
+  /* .monospace{
+        @apply monos
+    } */
+
+  .spoiler {
+    @apply blur-sm;
+  }
+  .hover-trigger .hover-target {
+    @apply hidden;
+  }
+
+  .hover-trigger:hover .hover-target {
+    @apply block;
   }
   .AudioSlider {
     @apply absolute right-0 z-[1] h-[5px] w-full appearance-none rounded-sm bg-[#00000030] focus:outline-none;

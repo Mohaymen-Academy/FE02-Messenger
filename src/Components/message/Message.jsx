@@ -5,8 +5,17 @@ import MessageImageMedia from './MessageImageMedia.jsx';
 import MessageFooter from './MessageFooter.jsx';
 import ImagePreviewer from '../media-previewer/ImagePreviewer';
 import MessageBody from './MessageBody.jsx';
-
-function Message({ content, isSeen, id, forewardedFrom, repliedTo, media, handleMediaMessage }) {
+import { Avatar } from '../ChatComps';
+function Message({
+  avatar,
+  content,
+  isSeen,
+  id,
+  forewardedFrom,
+  repliedTo,
+  media,
+  handleMediaMessage
+}) {
   const [openContextMenu, setOpenContextMenu] = useState(false);
   const [mousepositoin, setmousepositoin] = useState({ x: 0, y: 0 });
 
@@ -24,14 +33,16 @@ function Message({ content, isSeen, id, forewardedFrom, repliedTo, media, handle
       className={`relative flex w-full ${id === 'you' ? 'justify-start' : 'justify-end'} px-5`}
       onContextMenu={handleRightClick}>
       <MessageBody id={id}>
-        <div
-        className='vsmmobile:text-xs'>
+        <div className="vsmmobile:text-xs">
           <MessageHeader forewardedFrom={forewardedFrom} repliedTo={repliedTo} />
         </div>
         <MessageImageMedia src={media} handleClick={handleMediaMessage} />
         <p>{content}</p>
         <MessageFooter id={id} isSeen={isSeen} />
       </MessageBody>
+      <div className="pt-[70px]">
+        <Avatar />
+      </div>
       {mousepositoin.x != 0 ? (
         <MessageMenu
           x_pos={x_mouse.current}
