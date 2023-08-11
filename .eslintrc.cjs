@@ -20,6 +20,7 @@ module.exports = {
     'no-extra-semi': 'error',
     'no-shadow': 'off',
     allowTemplateLiterals: 'off',
-    'linebreak-style': 'off'
+    'linebreak-style': 'off',
+    'react/prop-types': 'off'
   }
 };
