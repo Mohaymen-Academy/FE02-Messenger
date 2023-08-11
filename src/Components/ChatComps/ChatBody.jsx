@@ -3,8 +3,38 @@ import { createPortal } from 'react-dom';
 import ChatFooter from './ChatFooter.jsx';
 import Message from '../message/Message.jsx';
 import ImagePreviewer from '../media-previewer/ImagePreviewer.jsx';
+import { TYPE_CHANNEL, TYPE_GROUP } from '../../utility/Constants.js';
 
 const messages = [
+  {
+    messageID: 2,
+    text: ' 2 سلام',
+    time: '21:06',
+    media: null,
+    viewCount: 0,
+    sender: {
+      profileID: 1,
+      profileName: 'Ali',
+      defaultProfileColor: {}
+    },
+    isPinned: false,
+    isEdited: false
+  },
+  {
+    profile: {
+      profileID: 1,
+      profileName: 'Ali',
+      type: 'USER',
+      defaultProfileColor: {}
+    },
+    lastMessage: {
+      messageID: 1,
+      text: 'سلام',
+      time: '2023-08-09T19:57:36.18063',
+      viewCount: 0
+    },
+    unreadMessageCount: 1
+  },
   {
     id: 'else',
     seen: true,
@@ -26,11 +56,12 @@ const messages = [
   }
 ];
 
-export default function ChatBody() {
+export default function ChatBody({ chattype }) {
+  const footerallowed = chattype == TYPE_CHANNEL ? false : chattype == TYPE_GROUP ? true : true;
+  //Todo FOR USER and Group must be modifed
   const [preview, setPreview] = React.useState(false);
   function handleRightClick(event, index) {
     event.preventDefault();
-    // setOpenContextMenu(true);
   }
 
   return (
@@ -55,9 +86,11 @@ export default function ChatBody() {
             </div>
           ))}
         </div>
-        <div className=" h-16 smmobile:mb-[7rem] vsmmobile:mb-[7rem] w-[80%]">
-          <ChatFooter />
-        </div>
+        {footerallowed && (
+          <div className=" h-16 smmobile:mb-[7rem] vsmmobile:mb-[7rem] w-[80%]">
+            <ChatFooter />
+          </div>
+        )}
       </div>
       {preview
         ? createPortal(

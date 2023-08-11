@@ -12,13 +12,13 @@ import {
   NUM_SIDEBAR_CHAT,
 } from '../../utility/Constants.js';
 
-export default function RightSide({ setChatId, chatId }) {
+export default function RightSide({ dispatch, chatId }) {
   const [open, setopen] = useState(false);
   const divref = useRef(null);
   const [item, setItem] = useState(NUM_SIDEBAR_CHAT);
   const Items = {
-    [NUM_SIDEBAR_CHAT]: [<Chatlist setChatId={setChatId} />],
-    [NUM_SIDEBAR_CONTACTS]: [<ContactsList setChatId={setChatId} />],
+    [NUM_SIDEBAR_CHAT]: [<Chatlist dispatch={dispatch} />],
+    [NUM_SIDEBAR_CONTACTS]: [<ContactsList dispatch={dispatch} />],
     [NUM_SIDEBAR_SETTINGS] : [<Settings menuSetter={setItem} setopen={setopen} />],
     [NUM_SIDEBAR_GROUP]: [],
     [NUM_SIDEBAR_CHANNEL]: [],

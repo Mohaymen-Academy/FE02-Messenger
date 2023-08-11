@@ -1,22 +1,14 @@
-import React, { useState, useContext, useEffect } from 'react';
-import { ChatBody, ChatHeader } from '.';
+import React, { useState } from 'react';
+import { ChatBody, ChatHeader } from '../ChatComps';
 import LeftLayout from '../LeftSideBar/LeftLayout';
-import { LayoutContext } from '../Layout';
 import { TYPE_USER } from '../../utility/Constants';
-export default function UserChat() {
+
+export default function UserChat({ chatid, setChatId }) {
   const [active, setActive] = useState(false);
-  const chatTools = useContext(LayoutContext);
-  useEffect(() => {
-    document.addEventListener('keydown', (e) => {
-      if (e.key == 'Escape') {
-        chatTools.setChatId(null);
-      }
-    });
-  }, []);
   return (
     <>
       <div className="flex flex-row">
-        {chatTools.chatid ? (
+        {chatid ? (
           <>
             <div
               className={`
@@ -26,8 +18,8 @@ export default function UserChat() {
             smmobile:w-[100%]
             ${active ? 'vsmmobile:w-0' : 'vsmmobile:w-full'}
             `}>
-              <ChatHeader chatsetter={chatTools.setChatId} setActive={setActive} />
-              <ChatBody />
+              <ChatHeader chattype={TYPE_USER} chatsetter={setChatId} setActive={setActive} />
+              <ChatBody chattype={TYPE_USER} />
             </div>
             <LeftLayout CHATTYPE={TYPE_USER} id={1} active={active} setActive={setActive} />
           </>

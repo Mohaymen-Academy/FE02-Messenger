@@ -1,18 +1,10 @@
 import React, { useState, useContext, useEffect } from 'react';
-import GroupBody from './GroupBody';
 import LeftLayout from '../LeftSideBar/LeftLayout';
 import { LayoutContext } from '../Layout';
 import { TYPE_GROUP } from '../../utility/Constants';
-export default function GroupChat() {
+import { ChatBody } from '../ChatComps';
+export default function GroupChat({chatid}) {
   const [active, setActive] = useState(false);
-  const chatTools = useContext(LayoutContext);
-  useEffect(() => {
-    document.addEventListener('keydown', (e) => {
-      if (e.key == 'Escape') {
-        chatTools.setChatId(null);
-      }
-    });
-  }, []);
   return (
     <>
       <div className="flex flex-row">
@@ -26,8 +18,8 @@ export default function GroupChat() {
             smmobile:w-[100%]
             ${active ? 'vsmmobile:w-0' : 'vsmmobile:w-full'}
             `}>
-              <GroupHeader chatsetter={chatTools.setChatId} setActive={setActive} />
-              <GroupBody />
+              <ChatBody chatsetter={chatTools.setChatId} setActive={setActive} />
+              <ChatBody chattype={TYPE_GROUP} />
             </div>
             <LeftLayout CHATTYPE={TYPE_GROUP} id={1} active={active} setActive={setActive} />
           </>

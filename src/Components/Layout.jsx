@@ -1,21 +1,29 @@
-import { useState, createContext, useEffect } from 'react';
+import { useState, createContext, useEffect, useReducer } from 'react';
 import { getTheme } from '../utility/useLoclStorage';
 // import LeftSide from './LeftSide.jsx';
 import RightSide from './RightSideBar/Rightside';
 const LayoutContext = createContext(null);
-
+function reducer(state, action) {
+  switch (action.type) {
+    case 'null':
+      return { ...state, chatid: null };
+    case 'change':
+      // console.log(action)
+      return { ...state, chatid: action.chatid, chattype: action.chattype };
+  }
+}
 const Layout = ({ children }) => {
   useEffect(() => {
     const div = document.getElementById('zarp');
     div.dataset.theme = getTheme() ? getTheme() : 'light';
-    // console.log(div.dataset.theme)
   }, []);
 
-  const [chatid, setChatId] = useState(null);
+  // const [chatid, setChatId] = useState(null);
+  const [chat, dispatch] = useReducer(reducer, { chatid: null, chattype: null });
   return (
     <div className={`flex h-screen w-screen overflow-hidden vsmmobile:relative `} id="app-holder">
-      <RightSide chatId={chatid} setChatId={setChatId} />
-      <LayoutContext.Provider value={{ chatid, setChatId }}>
+      <RightSide chatId={chat.chatid} dispatch={dispatch} />
+      <LayoutContext.Provider value={{ chat, dispatch }}>
         <div className="h-full flex-1 flex-row bg-slate-800 pb-6 bg-chatbackground  bg-cover bg-center bg-no-repeat">
           {children}
         </div>
