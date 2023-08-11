@@ -39,6 +39,7 @@ export default function Default({ menuSetter ,setopen }) {
       {
         <SidebarCard
           setsection={menuSetter}
+          setopen={setopen}
           icon={<UilUsersAlt className="text-text1 w-8 h-8 mx-1 " />}
           title={'ساخت گروه جدید'}
           menuId={NUM_SIDEBAR_GROUP}
@@ -47,6 +48,7 @@ export default function Default({ menuSetter ,setopen }) {
       {
         <SidebarCard
           setsection={menuSetter}
+          setopen={setopen}
           icon={<UilMegaphone className="text-text1 w-8 h-8 mx-1 " />}
           title={'ساخت کانال جدید'}
           menuId={NUM_SIDEBAR_CHANNEL}
@@ -55,6 +57,7 @@ export default function Default({ menuSetter ,setopen }) {
       {
         <SidebarCard
           setsection={menuSetter}
+          setopen={setopen}
           icon={<UilPhone className="text-text1 w-8 h-8 mx-1 " />}
           title={'تماس'}
           menuId={NUM_SIDEBAR_CALL}

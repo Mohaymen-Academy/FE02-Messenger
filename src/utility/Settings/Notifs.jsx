@@ -35,10 +35,9 @@ export default function Notifs() {
           open ? 'h-[345px]' : 'h-[0px]'
         }`}>
         <div className={'notifsdiv pt-3'}>
-          <label htmlFor="" className="">
-            {' '}
+          <p htmlFor="" className="text-gray-500">
             اعلان ها و صدا ها
-          </label>
+          </p>
           {<CheckBoxParag title={'اعلان ها و صداها'} />}
           {<InputSlider title={'بلندی صدا'} />}
         </div>
