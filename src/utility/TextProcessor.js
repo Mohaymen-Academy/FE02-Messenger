@@ -131,7 +131,7 @@ export default function TextProcessorObj(containers) {
 
   function ChnageTheContainers(HeadContainer, selectedContainer) {
     // the header and lower are overlap witheachother
-    console.log(HeadContainer.selectNodeContents)
+    // console.log(HeadContainer,selectedContainer)
     let rangeSet = new Set();
     rangeSet.add(HeadContainer.lower);
     rangeSet.add(HeadContainer.upper);
@@ -233,36 +233,25 @@ export default function TextProcessorObj(containers) {
     ProcessorValues.current.sorted = ProcessorValues.current.sorted.filter(
       (obj) => obj.id != HeadContainer.id || obj.id != selectedContainer.id
     );
+
   }
   function ChangeEntities(choice) {
-    ProcessorValues.current.counter = ProcessorValues.current.counter + 1;
-    const NewEntity = {
-      id: ProcessorValues.current.counter,
-      lower: ProcessorValues.current.selectedlower,
-      upper: ProcessorValues.current.selectedupper,
-      style: [TEXT_STYLES[choice]],
-    };
-    console.log(NewEntity);
+    console.log(choice);
+    // ProcessorValues.current.counter = ProcessorValues.current.counter + 1;
+    // const NewEntity = {
+    //   id: ProcessorValues.current.counter,
+    //   lower: ProcessorValues.current.selectedlower,
+    //   upper: ProcessorValues.current.selectedupper,
+    //   style: [TEXT_STYLES[choice]]
+    // };
+    // console.log(NewEntity);
 
-    ProcessorValues.current.sorted.push(NewEntity);
-    ProcessorValues.current.sorted = ProcessorValues.current.sorted.sort(customSort);
-    let index = 0;
-    while (index < ProcessorValues.current.sorted.length) {
-      const HeadContainer = ProcessorValues.current.sorted[index];
-      const containersConflict = Conflicts(
-        HeadContainer,
-        ProcessorValues.current.sorted.slice(index + 1)
-      );
-      if (containersConflict.length) {
-        ChnageTheContainers(HeadContainer, containersConflict[0]);
-        index = 0;
-        // break;
-      } else {
-        index++;
-      }
-      ProcessorValues.current.sorted = ProcessorValues.current.sorted.sort(customSort);
-    }
-    console.log(ProcessorValues.current.sorted);
+    // ProcessorValues.current.sorted.push(NewEntity);
+    // ProcessorValues.current.sorted = ProcessorValues.current.sorted.sort(customSort);
+    // let countloop = 0;
+    // let index = 0;
+    // // console.clear();
+    // console.log(ProcessorValues.current.sorted)
   }
 
   function calculateOffset(child, relativeOffset) {

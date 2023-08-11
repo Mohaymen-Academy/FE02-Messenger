@@ -70,6 +70,7 @@ export default function ChatFooter() {
           ref={divref}
           onInput={handleonInput}
           contentEditable
+          suppressContentEditableWarning={true}
           className=" w-[90%] max-h-[50px] flex outline-none h-auto overflow-hidden shadow-none border-none break-all focus:shadow-none active:shadow-none">
           {...[
             <Text id={1} lower={0} upper={2} content={'012'} style={['bold ', 'strike']} />,

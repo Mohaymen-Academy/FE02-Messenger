@@ -74,7 +74,8 @@ export default function ChatBody({ chattype }) {
       <div className="flex h-[70%] w-full flex-col items-center overflow-hidden">
         <div
           className="mb-2 h-[105vh] w-full overflow-auto px-5 pt-3"
-          onScroll={() => console.log('hello')}>
+          // onScroll={() => console.log('hello')}
+          >
           <MessageDateGroup date={'2023-07-20'}>
             {messages.map((message, index) => (
               <div key={index} onContextMenu={(e) => handleRightClick(e, index)}>
