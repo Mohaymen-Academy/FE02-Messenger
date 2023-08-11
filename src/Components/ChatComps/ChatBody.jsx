@@ -5,6 +5,7 @@ import ChatFooter from './ChatFooter.jsx';
 import Message from '../message/Message.jsx';
 import ImagePreviewer from '../media-previewer/ImagePreviewer.jsx';
 import MessageDateGroup from '../message/MessageDateGroup.jsx';
+import MessageVoice from '../message/MessageVoice.jsx';
 
 const messages = [
   {
@@ -82,6 +83,11 @@ export default function ChatBody() {
                 />
               </div>
             ))}
+            <MessageVoice
+              id="you"
+              audioUrl="https://interactive-examples.mdn.mozilla.net/media/cc0-audio/t-rex-roar.mp3"
+              audioID="you"
+            />
           </MessageDateGroup>
         </div>
         <div className=" h-16 w-[80%] vsmmobile:mb-[7rem] smmobile:mb-[7rem]">
