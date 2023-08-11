@@ -1,36 +1,22 @@
-import React, { useRef } from 'react';
-import { createPortal } from 'react-dom';
-import ChatFooter from './ChatFooter.jsx';
+import React from 'react';
+import { TYPE_GROUP } from '../../utility/Constants';
 import Message from '../message/Message.jsx';
+import { createPortal } from 'react-dom';
 import ImagePreviewer from '../media-previewer/ImagePreviewer.jsx';
 
-const messages = [
-  {
-    id: 'else',
-    seen: true,
-    content: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis, ex',
-    repliedMessage: 'zendegito be atish mikesham'
-  },
-  {
-    id: 'you',
-    seen: true,
-    content: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis, ex',
-    forwarded: 'Mahmoud'
-  },
-  {
-    id: 'you',
-    seen: true,
-    content: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis, ex',
-    forwarded: 'Mahmoud',
-    media: '/images/profile.jpg'
-  }
-];
-
-export default function ChatBody() {
+export default function GroupBody() {
+  const [openContextMenu, setOpenContextMenu] = React.useState(false);
   const [preview, setPreview] = React.useState(false);
+
   function handleRightClick(event, index) {
     event.preventDefault();
-    // setOpenContextMenu(true);
+
+    const x = event.clientX;
+    const y = event.clientY;
+
+    setOpenContextMenu(true);
+    setSelectedMessageIndex(index);
+    setContextMenuPosition({ x, y });
   }
 
   return (
@@ -44,6 +30,7 @@ export default function ChatBody() {
           {messages.map((message, index) => (
             <div key={index} onContextMenu={(e) => handleRightClick(e, index)}>
               <Message
+                type={TYPE_GROUP}
                 content={message.content}
                 isSeen={message.seen}
                 id={message.id}

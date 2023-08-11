@@ -1,9 +1,9 @@
 import React, { useState, useContext, useEffect } from 'react';
-import { ChatBody, ChatHeader } from '.';
+import GroupBody from './GroupBody';
 import LeftLayout from '../LeftSideBar/LeftLayout';
 import { LayoutContext } from '../Layout';
-import { TYPE_USER } from '../../utility/Constants';
-export default function UserChat() {
+import { TYPE_GROUP } from '../../utility/Constants';
+export default function GroupChat() {
   const [active, setActive] = useState(false);
   const chatTools = useContext(LayoutContext);
   useEffect(() => {
@@ -26,10 +26,10 @@ export default function UserChat() {
             smmobile:w-[100%]
             ${active ? 'vsmmobile:w-0' : 'vsmmobile:w-full'}
             `}>
-              <ChatHeader chatsetter={chatTools.setChatId} setActive={setActive} />
-              <ChatBody />
+              <GroupHeader chatsetter={chatTools.setChatId} setActive={setActive} />
+              <GroupBody />
             </div>
-            <LeftLayout CHATTYPE={TYPE_USER} id={1} active={active} setActive={setActive} />
+            <LeftLayout CHATTYPE={TYPE_GROUP} id={1} active={active} setActive={setActive} />
           </>
         ) : (
           <></>
