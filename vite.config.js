@@ -8,13 +8,5 @@ export default defineConfig({
   plugins: [react()],
   build: {
     outDir: './build'
-  },
-  server: {
-    watch: {
-      usePolling: true,
-    },
-    host: "0.0.0.0",
-    port:80,
-  },
-  
+  }
 })
