@@ -1,5 +1,6 @@
 import { useRef, useState } from 'react';
 import { TEXT_STYLES } from './Constants';
+import Text from './Text';
 export default function TextProcessorObj(containers) {
   // console.log(containers);
   const customSort = (a, b) => {
@@ -193,17 +194,6 @@ export default function TextProcessorObj(containers) {
     }
   }
   function ChangeEntities(choice) {
-    let text = '';
-    divref.current.childNodes.forEach((element) => {
-      console.log();
-      if (element.data) {
-        text = text + element.data;
-      } else {
-        text = text + element.innerText;
-      }
-    });
-    divref.current.innerText = text;
-    console.log(divref.current.innerText);
     ProcessorValues.current.counter = ProcessorValues.current.counter + 1;
     const NewEntity = {
       id: ProcessorValues.current.counter,
@@ -237,12 +227,22 @@ export default function TextProcessorObj(containers) {
       // setTimeout(() => {}, 500000);
     }
     // console.log(ProcessorValues.current.sorted);
+    // divref.current.innerText = '';
     generateEntity();
   }
 
   function generateEntity() {
+    let text = '';
+    divref.current.childNodes.forEach((element) => {
+      if (element.data) {
+        text = text + element.data;
+      } else {
+        text = text + element.innerText;
+      }
+    });
+    divref.current.innerText = text;
+
     let list_of_renderableentities = [];
-    // ProcessorValues.current.sorted(ent=>)
     let prevEnd;
     for (let i = 0; i < ProcessorValues.current.sorted.length; i++) {
       if (i == 0 && ProcessorValues.current.sorted[0].lower > 0) {
@@ -274,9 +274,24 @@ export default function TextProcessorObj(containers) {
       ...ent,
       content: divref.current.innerText.substring(ent.lower, ent.upper + 1)
     }));
+
+    // console.log(divref.current.innerText);
+    // const enteites = list_of_renderableentities.map((element) =>
+    //   element.style ? <Text style={element.style} content={element.content} /> : element.content
+    // );
+    
     divref.current.innerText = '';
+    list_of_renderableentities.forEach((element) => {
+      if (element.style) {
+        const ptag = document.createElement('p');
+        element.style.forEach((stl) => ptag.classList.add(stl));
+        ptag.textContent = element.content;
+        divref.current.appendChild(ptag);
+      } else {
+        divref.current.appendChild(document.createTextNode(element.content));
+      }
+    });
     setentitycontainers(list_of_renderableentities);
-    // console.log(list_of_renderableentities);
   }
 
   function calculateOffset(child, relativeOffset) {

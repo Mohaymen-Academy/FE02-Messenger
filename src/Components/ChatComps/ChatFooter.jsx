@@ -28,11 +28,7 @@ export default function ChatFooter() {
   const [openEmoji, setOpenEmoji] = useState(false);
   const [openAttach, setOpenAttach] = useState(false);
   const emoji = useState('');
-  useEffect(() => {
-    if (entitycontainers.length != 0) {
-      console.log(entitycontainers);
-    }
-  });
+  
   function closeTextProcessor() {
     setOpenTextProcessor(false);
   }
@@ -51,13 +47,11 @@ export default function ChatFooter() {
   }, []);
 
   const [mousepositoin, setmousepositoin] = useState({ x: 0, y: 0 });
-  let y_mouse = useRef(0);
-  let x_mouse = useRef(0);
 
   return (
     <div
       dir="rtl"
-      className={`flex flex-col vsmmobile:relative transition-all duration-100 ease-in top-0 gap-3 ${
+      className={`flex flex-col vsmmobile:relative transition-all duration-100 ease-in top-[50px] gap-3 ${
         openEmoji ? 'top-[-130px]' : ''
       }`}>
       <div className="flex flex-row  justify-between items-center bg-color2 text-color4  w-[100%] p-2  m-auto rounded-xl">
@@ -76,18 +70,6 @@ export default function ChatFooter() {
           onInput={handleonInput}
           suppressContentEditableWarning={true}
           className=" w-[90%] max-h-[50px] flex flex-row outline-none h-auto overflow-hidden shadow-none border-none break-all focus:shadow-none active:shadow-none">
-          {entitycontainers.map((enti) => {
-            return enti.style ? (
-              <Text
-                lower={enti.lower}
-                upper={enti.upper}
-                content={enti.content}
-                style={enti.style}
-              />
-            ) : (
-              enti.content
-            );
-          })}
         </div>
         <div>
           <button onClick={() => setOpenEmoji(!openEmoji)} className="mx-1 h-8 w-8 text-text1 ">

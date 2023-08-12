@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { getTheme } from '../utility/useLoclStorage';
+import axios from 'axios';
+import CheckBoxData from '../utility/CheckBoxData';
 
 export default function Register() {
   useEffect(() => {
@@ -23,7 +25,7 @@ export default function Register() {
     return emailRegex.test(email);
   };
 
-  const handleRegisterClick = (event) => {
+  async function handleRegisterClick (event) {
     event.preventDefault();
     // Check for empty fields
     if (!values.username || !values.email || !values.password || !values.password_confirmation) {
@@ -35,11 +37,65 @@ export default function Register() {
     } else if (values.password !== values.password_confirmation) {
       setPasswordError('رمز عبور و تایید رمز عبور باید یکسان باشند.');
     } else {
-      setPasswordError('');
-      console.log(values);
+      try{
+        const res = await axios.post(`http://192.168.70.223:8080/access/signup`,{
+          name : values.username,
+          email : values.email,
+          password : values.password
+        }
+        ,
+        {
+          headers: {
+            'Content-Type': 'application/json' ,// Set content type to JSON
+            'Access-Control-Allow-Origin': '*',
+
+          }
+        });
+        console.log(res);
+      }
+      catch(err){
+        console.log(err);
+      }
+      
+      
     }
   };
-
+  async function CheckDuplicateEmail(email) {
+    console.log("vhgvbv")
+    if (!validateEmailFormat(values.email)) {
+      setEmailError('فرمت ایمیل وارد شده صحیح نیست.');
+    }
+    else {
+      try {
+        console.log("Sending request to check duplicate email...");
+  
+        const requestData = {
+          email: values.email // Use the email value from state
+        };
+        
+        const res = await axios.get(
+          `http://192.168.70.223:8080/access/signup`,
+          
+          {
+            params: requestData,
+            headers: {
+              'Content-Type': 'application/json' ,// Set content type to JSON
+              'Access-Control-Allow-Origin': '*',
+            }
+          }
+        );
+  
+        console.log(res);
+  
+        if (res.data.status === 'fail') {
+          setEmailError('ایمیل وارد شده تکراری است.');
+        }
+      } catch (err) {
+        console.log(err);
+      }
+     
+    }
+  }
   const changeinput = (name, value) => {
     setValues({
       ...values,
@@ -81,6 +137,7 @@ export default function Register() {
                   type="email"
                   name="email"
                   className="input-div"
+                  onBlur={CheckDuplicateEmail}
                   onChange={(e) => {
                     changeinput('email', e.target.value);
                     setEmailError(''); // Clear the email error on input change
