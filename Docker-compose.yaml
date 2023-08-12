@@ -1,11 +1,8 @@
 version: '3'
 services:
-  messangerclient:
+  web:
     build:
-      context: ./
-      dockerfile: Dockerfile
-    volumes:
-      - /app/node_modules
-      - ./:/app
+      context: .
+      dockerfile: Dockerfile.dev
     ports:
-      - '4173:4173'
+      - '3000:80'
