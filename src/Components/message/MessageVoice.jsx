@@ -161,7 +161,9 @@ function MessageVoice({ audioUrl, id, audioID, animState }) {
   return (
     <MessageBody id={id}>
       <div className="flex h-10 w-full items-center justify-between gap-3">
-        <div className="rounded-full bg-blue-500 p-3 text-white">{buttonStateComponent}</div>
+        <div className="cursor-pointer rounded-full bg-blue-500 p-3 text-white">
+          {buttonStateComponent}
+        </div>
         <div className="relative flex h-4 w-full items-center">
           <span
             style={{
