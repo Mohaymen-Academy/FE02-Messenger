@@ -66,12 +66,15 @@ export default function ChatBody({ chattype }) {
     if (bodyref.current?.scrollTop == bodyref.current.scrollHeight - bodyref.current.clientHeight) {
       console.log('zarp');
       setbuttonhidden(true);
+      console.log('1');
     } else {
       if (buttonhidden) {
+        console.log('2');
         setbuttonhidden(false);
       }
     }
   }
+  // TODO
   const footerallowed = chattype == TYPE_CHANNEL ? false : chattype == TYPE_GROUP ? true : true;
   const [preview, setPreview] = useState(false);
   // function handleRightClick(event, index) {
@@ -133,8 +136,9 @@ export default function ChatBody({ chattype }) {
           </button>
           <MessageDateGroup date={'2023-07-20'}>
             {messages.map((message, index) => (
-              <div key={index} 
-              // onContextMenu={(e) => handleRightClick(e, index)}
+              <div
+                key={index}
+                // onContextMenu={(e) => handleRightClick(e, index)}
               >
                 <Message
                   content={message.content}
@@ -150,8 +154,9 @@ export default function ChatBody({ chattype }) {
           </MessageDateGroup>
           <MessageDateGroup date={'2023-07-22'}>
             {messages.map((message, index) => (
-              <div key={index} 
-              // onContextMenu={(e) => handleRightClick(e, index)}
+              <div
+                key={index}
+                // onContextMenu={(e) => handleRightClick(e, index)}
               >
                 <Message
                   content={message.content}
@@ -180,10 +185,10 @@ export default function ChatBody({ chattype }) {
       {preview
         ? createPortal(
             <ImagePreviewer handleClose={() => setPreview(false)} />,
-            document.getElementById('app-holder') 
+            document.getElementById('app-holder')
             // ||
             // document.getElementById('root')
-             )
+          )
         : null}
     </div>
   );
