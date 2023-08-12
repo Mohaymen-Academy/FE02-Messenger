@@ -8,7 +8,7 @@ import { TYPE_CHANNEL, TYPE_GROUP, TYPE_USER } from '../../utility/Constants';
 export default function ChatLayout() {
   const chatTools = useContext(LayoutContext);
   const Chats = {
-    [TYPE_USER]: <UserChat chatid={chatTools.chat.chatid} />,
+    [TYPE_USER]: <UserChat setChatId={chatTools.dispatch} chatid={chatTools.chat.chatid} />,
     [TYPE_GROUP]: <GroupChat chatid={chatTools.chat.chatid} />,
     [TYPE_CHANNEL]: <ChannelChat chatid={chatTools.chat.chatid} />
   };
