@@ -3,7 +3,7 @@ import Register from '../../Pages/Register';
 import Login from '../../Pages/Login';
 const routes = [
     {
-        path: '/App',
+        path: '',
         component: App,
         Private: false,
     },

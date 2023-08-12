@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import LeftSide from './';
-import ProfileEdit from './';
+import {LeftSide ,ProfileEdit} from './';
 
 export default function LeftLayout({ active, setActive }) {
   const [layout, setlayout] = useState(0);
