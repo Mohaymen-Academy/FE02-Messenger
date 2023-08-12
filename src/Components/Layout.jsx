@@ -1,6 +1,5 @@
 import { useState, createContext, useEffect, useReducer } from 'react';
 import { getTheme } from '../utility/useLoclStorage';
-// import LeftSide from './LeftSide.jsx';
 import RightSide from './RightSideBar/Rightside';
 import { TYPE_USER } from '../utility/Constants';
 const LayoutContext = createContext(null);

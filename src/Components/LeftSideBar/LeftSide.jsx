@@ -1,8 +1,5 @@
 import React from 'react';
-// import { UilLink } from '@iconscout/react-unicons'
-// import { UilBell } from '@iconscout/react-unicons'
 import { UilTimes, UilPen, UilLink, UilBell, UilBellSlash } from '@iconscout/react-unicons';
-// import { UilPen } from '@iconscout/react-unicons'
 import { Files, Links, Medias, Musics, Voices } from './ProfileParts';
 export default function LeftSide({
   isActive,
