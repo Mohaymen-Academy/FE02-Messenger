@@ -5,7 +5,7 @@ export default function GroupAdd() {
     const [selected, setselected] = useState([])
   return (
     <div className='w-full h-full overflow-y-auto bg-color1'>
-        <div className='text-text1 flex flex-row flex-wrap'>
+        <div className='text-text1 flex flex-row flex-wrap max-h-[200px] overflow-y-scroll'>
         {
             //for over selected and show contactsmall for each
             selected.map((x,i)=>
