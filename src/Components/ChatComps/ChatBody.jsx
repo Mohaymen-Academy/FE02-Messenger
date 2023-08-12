@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import ChatFooter from './ChatFooter.jsx';
 import Message from '../message/Message.jsx';
@@ -58,24 +58,34 @@ const messages = [
 ];
 
 export default function ChatBody({ chattype }) {
+  const bodyref = useRef(null);
   const footerallowed = chattype == TYPE_CHANNEL ? false : chattype == TYPE_GROUP ? true : true;
   //Todo FOR USER and Group must be modifed
   const [preview, setPreview] = React.useState(false);
   function handleRightClick(event, index) {
     event.preventDefault();
   }
+  function scrolltobottom() {
+    bodyref.current.scrollTo({ bottom: 0, behavior: 'smooth' });
+    // console.log(bodyref.current)
+    // bodyref.current.scrollIntoView({ behavior: 'smooth' });
+  }
 
   return (
     <div
       dir="rtl"
-      className={`flex h-[100%] flex-col
-        mb-[-30px]
-        `}>
+      className={
+        `flex h-[100%] flex-col
+      
+      // mb-[-30px]
+      `
+        // mb-[-150px]
+      }>
       <div className="flex h-[70%] w-full flex-col items-center overflow-hidden">
         <div
           className="mb-2 h-[105vh] w-full overflow-auto px-5 pt-3"
           // onScroll={() => console.log('hello')}
-          >
+          ref={bodyref}>
           <MessageDateGroup date={'2023-07-20'}>
             {messages.map((message, index) => (
               <div key={index} onContextMenu={(e) => handleRightClick(e, index)}>
@@ -107,6 +117,7 @@ export default function ChatBody({ chattype }) {
             ))}
           </MessageDateGroup>
         </div>
+        <button onClick={scrolltobottom}>bottom</button>
         {footerallowed && (
           <div className=" h-16 smmobile:mb-[7rem] vsmmobile:mb-[7rem] w-[80%]">
             <ChatFooter />
