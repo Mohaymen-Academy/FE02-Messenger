@@ -196,6 +196,7 @@ export default function TextProcessorObj(containers) {
   }
   function ChangeEntities(choice) {
     console.log(divref.current.innerText);
+    console.log(divref.current)
     ProcessorValues.current.counter = ProcessorValues.current.counter + 1;
     const NewEntity = {
       id: ProcessorValues.current.counter,
