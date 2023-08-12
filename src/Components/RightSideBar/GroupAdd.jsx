@@ -1,5 +1,5 @@
 import React ,{useState} from 'react'
-import ContactCardPreview from './ContactCardPreview'
+import ContactAddTo from './ContactAddTo'
 import ContactSmall from './ContactSmall'
 export default function GroupAdd() {
     const [selected, setselected] = useState([])
@@ -26,7 +26,7 @@ export default function GroupAdd() {
 
         <div className=''>
             {[...Array(15)].map((x, i) =>
-                <ContactCardPreview chatid={i} addicon={true} selected={selected} setselected={setselected}/>
+                <ContactAddTo chatid={i} addicon={true} selected={selected} setselected={setselected}/>
             )}
         </div>
 
