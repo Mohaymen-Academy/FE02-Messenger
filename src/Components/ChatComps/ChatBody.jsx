@@ -66,7 +66,19 @@ export default function ChatBody({ chattype }) {
     event.preventDefault();
   }
   function scrolltobottom() {
-    bodyref.current.scrollTo({ bottom: 0, behavior: 'smooth' });
+    // bodyref.current.scrollTop = bodyref.current.scrollHeight;
+    const scrollHeight = bodyref.current.scrollHeight;
+    const scrollStep = Math.PI / (scrollHeight / 2);
+    let count = 0;
+    function scrollAnimation() {
+      if (bodyref.current.scrollTop + bodyref.current.clientHeight < scrollHeight) {
+        bodyref.current.scrollTop = scrollHeight * 50 * (1 - Math.cos(scrollStep * count));
+        count++;
+        requestAnimationFrame(scrollAnimation);
+      }
+    }
+
+    scrollAnimation();
     // console.log(bodyref.current)
     // bodyref.current.scrollIntoView({ behavior: 'smooth' });
   }
