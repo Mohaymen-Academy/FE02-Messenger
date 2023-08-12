@@ -1,12 +1,16 @@
 import React from 'react';
 import Avatar from '../ChatComps/Avatar';
 
-export default function ContactCardPreview({
+export default function ContactAddTo({
   profilePicture,
   unreadmessage,
   chatid,
-  setter
+  setter,
+  addicon,
+  selected,
+  setselected,
 }) {
+  const isChecked = selected.includes(chatid);
 
   return (
     <div>
@@ -14,6 +18,20 @@ export default function ContactCardPreview({
         onClick={() => setter(chatid)}
         className="flex h-18 w-[97%] cursor-pointer m-1 mx-2 flex-row items-center justify-start rounded-lg hover:bg-bghovor"
       >
+        {addicon && (
+          <input
+            className={'beautyinput rounded-full mr-5 w-5 h-5'}
+            onChange={() => {
+              if (isChecked) {
+                setselected(selected.filter(id => id !== chatid)); // Remove the chatid from the array
+              } else {
+                setselected([...selected, chatid]); // Add the new chatid to the array
+              }
+            }}
+            type="checkbox"
+            checked={isChecked}
+          />
+        )}
         <div className="w-fit px-2 flex">
           {profilePicture ? (
             <img src={profilePicture} className="h-full rounded-full" />

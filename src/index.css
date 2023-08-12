@@ -23,6 +23,7 @@
       --color-textcolor : 255 210 121 ; /*rgb(255,210,121)*/
       --color-bghovor : 42 57 66 ; /*rgb(42,57,66)*/
       --color-bluetext1: 45 120 200; /* rgb(45, 120, 158) */
+      --color-background: 17 27 33;  /* rgb(17,27,33) */
         --chatbackground: var(--background-image-dark);
 
 
@@ -36,12 +37,14 @@
         --color-bghovor : 187 191 202; /* rgb(187 , 191 , 202) */
         --color-bgyoumassage: 232 232 232; /* rgb(244 , 232 , 232) */
         --color-bgmymassage : 217 253 211 ;/*rgb(217,253,211)*/
+        --color-background :30 120 137; /* rgb(182,258,150)*/
         --chatbackground: var(--background-image-light);
 
     }
     :root {
         --background-image-light: url('images/images.jpg');
         --background-image-dark: url('images/DarkBackground.png');
+        --backgroundPattern : url('images/pattern.png')
       }
   }
 
