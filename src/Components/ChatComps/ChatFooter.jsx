@@ -30,9 +30,7 @@ export default function ChatFooter() {
   const emoji = useState('');
   useEffect(() => {
     if (entitycontainers.length != 0) {
-      // divref.current = document.getElementById('textref');
       console.log(entitycontainers);
-      console.log('kwerewr');
     }
   });
   function closeTextProcessor() {

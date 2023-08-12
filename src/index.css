@@ -134,6 +134,17 @@
     box-shadow: -405px 0 0 400px #605e5c;
     border-radius: 50%;
   }
+
+  input.settingsrange::-webkit-slider-thumb {
+    width: 15px;
+    -webkit-appearance: none;
+    appearance: none;
+    height: 15px;
+    cursor: ew-resize;
+    background: #fff;
+    box-shadow: -405px 0 0 400px #605e5c;
+    border-radius: 50%;
+  }
 }
 /* width */
 ::-webkit-scrollbar {
