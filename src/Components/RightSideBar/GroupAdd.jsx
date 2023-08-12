@@ -1,8 +1,11 @@
 import React ,{useState} from 'react'
 import ContactAddTo from './ContactAddTo'
 import ContactSmall from './ContactSmall'
+import PopUp from "../../utility/PopUp"
+import GroupSettings from './GroupSettings'
 export default function GroupAdd() {
-    const [selected, setselected] = useState([])
+    const [selected, setselected] = useState([]);
+    const [openModel , setOpenModel] = useState(false);
   return (
     <div className='w-full h-full overflow-y-auto bg-color1'>
         <div className='text-text1 flex flex-row flex-wrap max-h-[200px] overflow-y-scroll'>
@@ -18,7 +21,7 @@ export default function GroupAdd() {
             //if selected is empty show nothing
             selected.length==0?null:
             <div>
-                <button className='w-[90%] h-12 rounded-xl bg-blue-400 text-white text-xl font-semibold'>ایجاد گروه</button>
+                <button className='w-[90%] h-12 rounded-xl bg-blue-400 text-white text-xl font-semibold' onClick={()=> setOpenModel(true)}>ایجاد گروه</button>
             </div>
 
         }
@@ -29,7 +32,14 @@ export default function GroupAdd() {
                 <ContactAddTo chatid={i} addicon={true} selected={selected} setselected={setselected}/>
             )}
         </div>
-
+        {
+            openModel&&
+            <PopUp title='ایجاد گروه' setIsModalOpen={setOpenModel}
+            >
+                <GroupSettings selected={selected}/>
+               
+            </PopUp>
+        }
     </div>
   )
 }
