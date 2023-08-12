@@ -2,6 +2,7 @@ import { useState, createContext, useEffect, useReducer } from 'react';
 import { getTheme } from '../utility/useLoclStorage';
 // import LeftSide from './LeftSide.jsx';
 import RightSide from './RightSideBar/Rightside';
+import { TYPE_USER } from '../utility/Constants';
 const LayoutContext = createContext(null);
 function reducer(state, action) {
   switch (action.type) {
@@ -19,7 +20,7 @@ const Layout = ({ children }) => {
   }, []);
 
   // const [chatid, setChatId] = useState(null);
-  const [chat, dispatch] = useReducer(reducer, { chatid: null, chattype: null });
+  const [chat, dispatch] = useReducer(reducer, { chatid: 1, chattype: TYPE_USER });
   return (
     <div className={`flex h-screen w-screen overflow-hidden vsmmobile:relative `} id="app-holder">
       <RightSide chatId={chat.chatid} dispatch={dispatch} />

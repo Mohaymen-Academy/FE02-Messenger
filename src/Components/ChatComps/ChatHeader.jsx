@@ -22,7 +22,7 @@ const ChatHeader = ({ setActive, chatsetter, chattype }) => {
           className=" desktop:hidden laptop:hidden vsmmobile:visible"
           onClick={(e) => {
             e.stopPropagation();
-            chatsetter(null);
+            chatsetter({type:'null'});
           }}>
           <UilArrowRight className="w-8 h-8 text-text1 cursor-pointer" />
         </button>

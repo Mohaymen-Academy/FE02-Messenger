@@ -21,14 +21,20 @@ export default function ChatFooter() {
     setentitycontainers,
     ChangeEntities
   ] = TextProcessor([
-    { id: 1, lower: 0, upper: 2, content: '012', style: ['bold,strike'] },
-    { id: 2, lower: 3, upper: 8, content: '345678', style: ['strike'] },
-    { id: 3, lower: 9, upper: 10, content: '91', style: ['italic ', 'spoiler'] }
+    // { id: 1, lower: 0, upper: 2, content: '012', style: ['bold', 'strike'] },
+    // { id: 2, lower: 3, upper: 8, content: '345678', style: ['strike'] },
+    // { id: 3, lower: 9, upper: 10, content: '91', style: ['italic ', 'spoiler'] }
   ]);
   const [openEmoji, setOpenEmoji] = useState(false);
   const [openAttach, setOpenAttach] = useState(false);
   const emoji = useState('');
-
+  useEffect(() => {
+    if (entitycontainers.length != 0) {
+      // divref.current = document.getElementById('textref');
+      console.log(entitycontainers);
+      console.log('kwerewr');
+    }
+  });
   function closeTextProcessor() {
     setOpenTextProcessor(false);
   }
@@ -60,24 +66,30 @@ export default function ChatFooter() {
         <button className="text-text1 w-8 h-8 mx-1 ">
           <UilMessage />
         </button>
-          {/* </UilPaperclip> */}
-          <FileUploader />
+        {/* </UilPaperclip> */}
+        <FileUploader />
         {/* <input type="text" dir='auto' /> */}
         <div
-          dir="auto"
-          onSelectCapture={handleSelect}
-          onClick={handleclick}
           ref={divref}
-          onInput={handleonInput}
+          dir="auto"
           contentEditable
+          onClick={handleclick}
+          onSelectCapture={handleSelect}
+          onInput={handleonInput}
           suppressContentEditableWarning={true}
-          className=" w-[90%] max-h-[50px] flex outline-none h-auto overflow-hidden shadow-none border-none break-all focus:shadow-none active:shadow-none">
-          {...[
-            <Text id={1} lower={0} upper={2} content={'012'} style={['bold ', 'strike']} />,
-            <Text id={2} lower={3} upper={8} content={'345678'} style={['strike']} />,
-            <Text id={3} lower={9} upper={10} content={'91'} style={['italic ', 'spoiler']} />
-          ]}
-          {/* <del className="underline"></del> */}
+          className=" w-[90%] max-h-[50px] flex flex-row outline-none h-auto overflow-hidden shadow-none border-none break-all focus:shadow-none active:shadow-none">
+          {entitycontainers.map((enti) => {
+            return enti.style ? (
+              <Text
+                lower={enti.lower}
+                upper={enti.upper}
+                content={enti.content}
+                style={enti.style}
+              />
+            ) : (
+              enti.content
+            );
+          })}
         </div>
         <div>
           <button onClick={() => setOpenEmoji(!openEmoji)} className="mx-1 h-8 w-8 text-text1 ">

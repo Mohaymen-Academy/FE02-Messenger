@@ -19,11 +19,11 @@ export {
 };
 const TEXT_STYLES = {
   1: 'Monolotic',
-  2: 'Strike',
+  2: 'strike',
   3: 'underline',
   4: 'italic',
   5: 'bold',
-  6: 'spoil'
+  6: 'spoiler'
 };
 export { TEXT_STYLES };
 const TYPE_USER = 1,
