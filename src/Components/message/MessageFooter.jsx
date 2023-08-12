@@ -1,4 +1,3 @@
-import React from 'react';
 import { UilCheck } from '@iconscout/react-unicons';
 
 function MessageFooter({ id, isSeen }) {

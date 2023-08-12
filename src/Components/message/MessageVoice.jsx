@@ -147,13 +147,22 @@ function MessageVoice({ audioUrl, id, audioID, animState }) {
   }, [audioID]);
   return (
     <MessageBody id={id}>
+      {!mediaLoaded && !error ? (
+        <div>loading...</div>
+      ) : isPlaying && !error ? (
+        <UilPause className="pause" onClick={pause} />
+      ) : !isPlaying && !error ? (
+        <UilPlay onClick={play} />
+      ) : (
+        <UilRedo onClick={loadAudioAgain} />
+      )}
       <div className="flex h-10 w-full items-center justify-between">
         <div className="relative flex h-4 items-center">
           <span
             style={{
               width: sliderPlayedWidth
             }}
-            className="absolute left-0 z-[2] h-1 rounded-sm rounded-r-none bg-neutral-800"></span>
+            className="absolute left-0 z-[2] h-1 rounded-sm rounded-r-none bg-blue-700"></span>
           <input
             type="range"
             min="1"
@@ -161,6 +170,10 @@ function MessageVoice({ audioUrl, id, audioID, animState }) {
             value={sliderValue}
             onChange={inputChange}
             className="AudioSlider"
+            style={{
+              background: 'linear-gradiant(to right ,blue, blue ) no-repeat center',
+              backgroundSize: `calc((var(--value, ${sliderValue}) / 100) * 100%) 100%`
+            }}
           />
         </div>
       </div>

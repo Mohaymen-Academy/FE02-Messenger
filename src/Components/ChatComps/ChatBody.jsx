@@ -60,7 +60,7 @@ const messages = [
 
 export default function ChatBody({ chattype }) {
   const footerallowed = chattype == TYPE_CHANNEL ? false : chattype == TYPE_GROUP ? true : true;
-  //Todo FOR USER and Group must be modifed
+  // Todo FOR USER and Group must be modifed
   const [preview, setPreview] = React.useState(false);
   function handleRightClick(event, index) {
     event.preventDefault();
@@ -76,7 +76,7 @@ export default function ChatBody({ chattype }) {
         <div
           className="mb-2 h-[105vh] w-full overflow-auto px-5 pt-3"
           // onScroll={() => console.log('hello')}
-          >
+        >
           <MessageDateGroup date={'2023-07-20'}>
             {messages.map((message, index) => (
               <div key={index} onContextMenu={(e) => handleRightClick(e, index)}>
@@ -108,13 +108,13 @@ export default function ChatBody({ chattype }) {
             ))}
             <MessageVoice
               id="you"
-              audioUrl="https://interactive-examples.mdn.mozilla.net/media/cc0-audio/t-rex-roar.mp3"
+              audioUrl="audios/12 Peaceful With Nature (1).mp3"
               audioID="you"
             />
           </MessageDateGroup>
         </div>
         {footerallowed && (
-          <div className=" h-16 smmobile:mb-[7rem] vsmmobile:mb-[7rem] w-[80%]">
+          <div className=" h-16 w-[80%] vsmmobile:mb-[7rem] smmobile:mb-[7rem]">
             <ChatFooter />
           </div>
         )}

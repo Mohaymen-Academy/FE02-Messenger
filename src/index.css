@@ -116,15 +116,18 @@
     @apply block;
   }
   .AudioSlider {
-    @apply absolute right-0 z-[1] h-[5px] w-full appearance-none rounded-sm bg-[#00000030] focus:outline-none;
+    @apply relative right-0 z-[1] h-[5px] w-full appearance-none rounded-sm bg-zinc-700 focus:outline-none;
   }
   .AudioSlider::-webkit-slider-thumb {
-    @apply appearance-none w-4 h-4 bg-neutral-700 cursor-pointer rounded-full border-none relative z-[5];
+    @apply appearance-none w-4 h-4 bg-blue-500 cursor-pointer rounded-full border-none absolute -top-1 z-[5];
+  }
+  .AudioSlider::-webkit-slider-runnable-track {
+    @apply w-full h-1 bg-neutral-600 rounded-md;
   }
 }
 
 @media screen and (-webkit-min-device-pixel-ratio: 0) {
-  input[type='range']::-webkit-slider-thumb {
+  input .class::-webkit-slider-thumb {
     width: 15px;
     -webkit-appearance: none;
     appearance: none;
