@@ -1,4 +1,4 @@
-import LeftSide from "./Leftside.jsx";
+import LeftSide from "./LeftSide.jsx";
 import LeftLayout from "./LeftLayout.jsx";
 import ProfileEdit from "./ProfileEdit.jsx";
 export  {
