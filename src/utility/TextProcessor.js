@@ -46,7 +46,7 @@ export default function TextProcessorObj(containers) {
   }
 
   function handleonInput(e) {
-    console.log(divref.current.innerText  )
+    console.log(divref.current.innerText)
     e.stopPropagation();
     const selection = window.getSelection();
     const range = selection.getRangeAt(0);
