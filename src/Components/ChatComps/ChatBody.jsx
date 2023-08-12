@@ -5,6 +5,7 @@ import Message from '../message/Message.jsx';
 import ImagePreviewer from '../media-previewer/ImagePreviewer.jsx';
 import { TYPE_CHANNEL, TYPE_GROUP } from '../../utility/Constants.js';
 import MessageDateGroup from '../message/MessageDateGroup.jsx';
+import MessageVoice from '../message/MessageVoice.jsx';
 
 const messages = [
   {
@@ -60,7 +61,7 @@ const messages = [
 export default function ChatBody({ chattype }) {
   const bodyref = useRef(null);
   const footerallowed = chattype == TYPE_CHANNEL ? false : chattype == TYPE_GROUP ? true : true;
-  //Todo FOR USER and Group must be modifed
+  // Todo FOR USER and Group must be modifed
   const [preview, setPreview] = React.useState(false);
   function handleRightClick(event, index) {
     event.preventDefault();
@@ -127,11 +128,16 @@ export default function ChatBody({ chattype }) {
                 />
               </div>
             ))}
+            <MessageVoice
+              id="you"
+              audioUrl="audios/12 Peaceful With Nature (1).mp3"
+              audioID="you"
+            />
           </MessageDateGroup>
         </div>
         <button onClick={scrolltobottom}>bottom</button>
         {footerallowed && (
-          <div className=" h-16 smmobile:mb-[7rem] vsmmobile:mb-[7rem] w-[80%]">
+          <div className=" h-16 w-[80%] vsmmobile:mb-[7rem] smmobile:mb-[7rem]">
             <ChatFooter />
           </div>
         )}
