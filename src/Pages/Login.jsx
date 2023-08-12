@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { getTheme } from '../utility/useLoclStorage';
+import axios from 'axios';
 export default function Login() {
   const [values, setValues] = useState({
-    username: '',
+    email: '',
     password: ''
   });
   useEffect(() => {
@@ -11,14 +12,31 @@ export default function Login() {
     // console.log(div.dataset.theme)
   }, []);
 
-  const handleRegisterClick = (event) => {
+  async function handleRegisterClick(event) {
     event.preventDefault();
     // Check for empty fields
-    if (!values.username || !values.password) {
+    if (!values.email || !values.password) {
       alert('لطفاً همه فیلدها را پر کنید.');
       return;
     } else {
-      console.log(values);
+      try{
+        const res = await axios.post(`http://192.168.70.223:8080/access/login`,{
+          email : values.email,
+          password : values.password
+        }
+        ,
+        {
+          headers: {
+            'Content-Type': 'application/json' ,// Set content type to JSON
+            'Access-Control-Allow-Origin': '*',
+
+          }
+        });
+        console.log(res);
+      }
+      catch(err){
+        console.log(err);
+      }
     }
   };
 
@@ -40,16 +58,16 @@ export default function Login() {
         <div className="w-full px-6 py-4  overflow-hidden bg-color1 shadow-md  border rounded sm:max-w-lg sm:rounded-lg ">
           <form>
             <div>
+                ایمیل
               <label htmlFor="name" className="block text-sm font-medium text-text1 undefined mt-3">
-                نام کاربری
               </label>
               <div className="flex flex-col items-start">
                 <input
-                  type="text"
-                  name="useername"
+                  type="email"
+                  name="email"
                   className="input-div"
                   onChange={(e) => {
-                    changeinput('username', e.target.value);
+                    changeinput('email', e.target.value);
                   }}
                 />
               </div>
