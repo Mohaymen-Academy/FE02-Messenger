@@ -104,7 +104,7 @@ const emojiCodes = [
   '🤖'
 ];
 
-const EmojiPicker = ({ handler }) => {
+const EmojiPicker = ({ handler, openemoji }) => {
   return (
     <div
       className="flex flex-row relative  w-[90%] h-[120px] top-[-195px] bg-color1 rounded-lg  flex-wrap

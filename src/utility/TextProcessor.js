@@ -20,6 +20,7 @@ export default function TextProcessorObj(containers) {
     selectedupper: 0,
     selectedtext: null
   });
+  const [openemoji, setopenemoji] = useState(false);
   const divref = useRef(null);
   const textref = useRef(null);
   const [openTextProcessor, setOpenTextProcessor] = useState(false);
@@ -47,7 +48,6 @@ export default function TextProcessorObj(containers) {
   }
 
   function updateEnteties() {
-    ProcessorValues.current.caretPosition = clonedRange.toString().length;
     let charcounter = 0;
     if (divref.current.childNodes.length == 0) {
       ProcessorValues.current.sorted = [];
@@ -82,8 +82,9 @@ export default function TextProcessorObj(containers) {
     const range = selection.getRangeAt(0);
     const clonedRange = range.cloneRange();
     clonedRange.selectNodeContents(divref.current);
-    clonedRange.setEnd(range.endContainer, range.endOffset); // this set the position of the cursor
-    updateEnteties();
+    clonedRange.setEnd(range.endContainer, range.endOffset);
+    ProcessorValues.current.caretPosition = clonedRange.toString().length;
+    updateEnteties(clonedRange);
   }
 
   function handleclick(e) {
@@ -93,15 +94,14 @@ export default function TextProcessorObj(containers) {
     clonedRange.selectNodeContents(divref.current);
     clonedRange.setEnd(range.endContainer, range.endOffset); // this set the position of the cursor
     ProcessorValues.current.caretPosition = clonedRange.toString().length;
-    // console.log(ProcessorValues.current.caretPosition);
-    // textref.current.textcontent = caretPosition;
   }
 
   function handleEmojiPicker(e) {
     const emoji = e;
-    // const careposition = textref.current.textcontent;
+    const careposition = ProcessorValues.current.caretPosition;
     divref.current.innerText = insertCharAtIndex(divref.current.innerText, emoji, careposition);
-    setOpenEmoji(false);
+    updateEnteties();
+    setopenemoji(false);
   }
   function insertCharAtIndex(originalString, charToAdd, index) {
     if (index < 0 || index > originalString.length) {
@@ -227,20 +227,21 @@ export default function TextProcessorObj(containers) {
 
   function generateEntity() {
     let text = '';
-    console.log(divref.current.childNodes);
+    // console.log(divref.current.childNodes);
     divref.current.childNodes.forEach((element) => {
+      console.log(element);
       if (element.innerText) {
-        console.log('innertext', element.innerText);
         text = text + element.innerText;
       } else {
-        console.log('data', element.data);
         text = text + element.data;
       }
     });
+
     console.log('here1', divref.current.innerText);
     divref.current.innerText = text;
-    console.log(text);
     console.log('here2', divref.current.innerText);
+    console.log(text);
+    // console.log('here2', divref.current.innerText);
     let list_of_renderableentities = [];
     let prevEnd;
     for (let i = 0; i < ProcessorValues.current.sorted.length; i++) {
@@ -328,6 +329,8 @@ export default function TextProcessorObj(containers) {
     setOpenTextProcessor,
     entitycontainers,
     setentitycontainers,
-    ChangeEntities
+    ChangeEntities,
+    openemoji,
+    setopenemoji
   };
 }
