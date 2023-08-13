@@ -4,6 +4,7 @@ import { useDispatch } from 'react-redux';
 import { getTheme } from '../utility/useLoclStorage';
 import CheckBoxData from '../utility/CheckBoxData';
 import Requests from '../API/Requests';
+import { redirect } from 'react-router-dom';
 import { registerUserProfile } from '../features/profileSlice';
 
 export default function Register() {
@@ -44,13 +45,15 @@ export default function Register() {
       console.log(values);
       try {
         // const res = await requesHnalder.Register(values.username, values.email, values.password);
-        dispatch(
+       await dispatch(
           registerUserProfile({
             name: values.username,
             email: values.email,
             password: values.password
           })
         );
+        window.location.href='/login'
+
       } catch (err) {
         console.log(err);
       }
