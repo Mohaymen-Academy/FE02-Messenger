@@ -3,12 +3,10 @@ import ContactCardPreview from "./ContactCardPreview";
 import { UilArrowRight, UilCameraPlus, UilTrashAlt } from '@iconscout/react-unicons';
 
 export default function GroupSettings({ selected }) {
-  const [grupname, setgrupname] = React.useState('');
+  const [groupname, setgroupname] = React.useState('');
 
   const handleGroupname = (e) => {
-    if (e.length > 0) {
-      setgrupname(e);
-    }
+      setgroupname(e);
   };
 
   return (
@@ -29,14 +27,14 @@ export default function GroupSettings({ selected }) {
             نام گروه
           </label>
         </div>
-        {grupname !== "" && (
-          <div className='flex justify-between items-center w-full'>
-            <p className='text-text1'>ایجاد گروه</p>
-          </div>
+        {groupname !== ""  && (
+        <div id={1}>
+            <button className='w-[100%] h-12 rounded-xl bg-blue-400 text-white text-xl font-semibold' >ایجاد گروه</button>
+        </div>
         )}
         <div className='h-0.5 w-full flex bg-bghovor m-5'></div>
         <p className='text-text1'>{selected.length} عضو</p>
-        {grupname !== "" &&
+        {
           selected.map((x, i) => (
             <ContactCardPreview chatid={i} key={i} />
           ))}

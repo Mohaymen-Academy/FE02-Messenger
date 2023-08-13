@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { getTheme } from '../utility/useLoclStorage';
 import axios from 'axios';
 import CheckBoxData from '../utility/CheckBoxData';
-
+import Requests from '../API/Requests';
 export default function Register() {
   useEffect(() => {
     console.log('skldjf');
@@ -19,7 +19,7 @@ export default function Register() {
   });
   const [passwordError, setPasswordError] = useState('');
   const [emailError, setEmailError] = useState('');
-
+  const requesHnalder=Requests();
   const validateEmailFormat = (email) => {
     const emailRegex = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$/;
     return emailRegex.test(email);
@@ -38,20 +38,7 @@ export default function Register() {
       setPasswordError('رمز عبور و تایید رمز عبور باید یکسان باشند.');
     } else {
       try{
-        const res = await axios.post(`http://192.168.70.223:8080/access/signup`,{
-          name : values.username,
-          email : values.email,
-          password : values.password
-        }
-        ,
-        {
-          headers: {
-            'Content-Type': 'application/json' ,// Set content type to JSON
-            'Access-Control-Allow-Origin': '*',
-
-          }
-        });
-        console.log(res);
+        const res = await requesHnalder.Register(values.username,values.email,values.password);
       }
       catch(err){
         console.log(err);
@@ -66,34 +53,13 @@ export default function Register() {
       setEmailError('فرمت ایمیل وارد شده صحیح نیست.');
     }
     else {
-      try {
-        console.log("Sending request to check duplicate email...");
-  
-        const requestData = {
-          email: values.email // Use the email value from state
-        };
-        
-        const res = await axios.get(
-          `http://192.168.70.223:8080/access/signup`,
-          
-          {
-            params: requestData,
-            headers: {
-              'Content-Type': 'application/json' ,// Set content type to JSON
-              'Access-Control-Allow-Origin': '*',
-            }
-          }
-        );
-  
-        console.log(res);
-  
-        if (res.data.status === 'fail') {
-          setEmailError('ایمیل وارد شده تکراری است.');
-        }
-      } catch (err) {
-        console.log(err);
-      }
-     
+      // // console.log(Requests.CheckDuplicateEmail(email))
+      // const res = await requesHnalder.checkDuplicateEmail(values.email);
+      // console.log(res);
+      // if (!res) {
+      //   setEmailError('ایمیل وارد شده تکراری است.');
+      // }
+        // Requests.CheckDuplicateEmail(email)
     }
   }
   const changeinput = (name, value) => {

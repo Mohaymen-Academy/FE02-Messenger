@@ -3,7 +3,8 @@ import ContactAddTo from './ContactAddTo'
 import ContactSmall from './ContactSmall'
 import PopUp from "../../utility/PopUp"
 import GroupSettings from './GroupSettings'
-export default function GroupAdd() {
+import ChannelSettings from './ChannelSetting'
+export default function GroupChannelAdd({type}) {
     const [selected, setselected] = useState([]);
     const [openModel , setOpenModel] = useState(false);
   return (
@@ -21,7 +22,7 @@ export default function GroupAdd() {
             //if selected is empty show nothing
             selected.length==0?null:
             <div>
-                <button className='w-[90%] h-12 rounded-xl bg-blue-400 text-white text-xl font-semibold' onClick={()=> setOpenModel(true)}>ایجاد گروه</button>
+                <button className='w-[90%] h-12 rounded-xl bg-blue-400 text-white text-xl font-semibold' onClick={()=> setOpenModel(true)}>{type == "group" ? "ایجاد گروه" : "ایجاد کانال"}</button>
             </div>
 
         }
@@ -34,10 +35,13 @@ export default function GroupAdd() {
         </div>
         {
             openModel&&
-            <PopUp title='ایجاد گروه' setIsModalOpen={setOpenModel}
+            <PopUp title={type == "group" ? "ایجاد گروه" : "ایجاد کانال"} setIsModalOpen={setOpenModel}
             >
-                <GroupSettings selected={selected}/>
-               
+                {
+                    type == "group" ? <GroupSettings selected={selected}/>
+                    : <ChannelSettings selected={selected}/>
+
+                }
             </PopUp>
         }
     </div>
