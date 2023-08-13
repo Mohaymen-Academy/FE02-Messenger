@@ -1,9 +1,10 @@
-import { configureStore } from "@reduxjs/toolkit";
+import { configureStore } from '@reduxjs/toolkit';
+import profileReducer from '../features/profileSlice';
 
 const store = configureStore({
-    reducer:{
-        profile:
-    }
-})
+  reducer: {
+    profile: profileReducer
+  }
+});
 
-export default store    
+export default store;
