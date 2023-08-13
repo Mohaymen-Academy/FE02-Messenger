@@ -4,7 +4,7 @@ import SidebarMenu from './SidebarMenu.jsx';
 import ContactsList from './ContactsList';
 import Settings from './Menues/Settings';
 import GroupChannelAdd from './GroupChannelAdd';
-import { UilBars, UilSearch,UilArrowRight } from '@iconscout/react-unicons';
+import { UilBars, UilSearch, UilArrowRight } from '@iconscout/react-unicons';
 import {
   NUM_SIDEBAR_CHANNEL,
   NUM_SIDEBAR_CONTACTS,
@@ -21,9 +21,8 @@ export default function RightSide({ dispatch, chatId }) {
     [NUM_SIDEBAR_CHAT]: <Chatlist dispatch={dispatch} />,
     [NUM_SIDEBAR_CONTACTS]: <ContactsList dispatch={dispatch} />,
     [NUM_SIDEBAR_SETTINGS]: <Settings menuSetter={setItem} setopen={setopen} />,
-    [NUM_SIDEBAR_GROUP]: <GroupChannelAdd/>,
-    [NUM_SIDEBAR_CHANNEL]: <GroupChannelAdd/>,
-    
+    [NUM_SIDEBAR_GROUP]: <GroupChannelAdd type={'group'} />,
+    [NUM_SIDEBAR_CHANNEL]: <GroupChannelAdd type={'channel'} />
   };
   function handleOutsideClick(event) {
     if (divref.current && !divref.current.contains(event.target)) {
@@ -64,7 +63,7 @@ export default function RightSide({ dispatch, chatId }) {
               id="default-search"
               className="block w-full rounded-full p-2 pl-10 pr-5 text-sm border bg-color2 focus:ring-color1 text-text1
               placeholder-text1"
-              placeholder="جستجو"
+              placeholder={`جستجو ${item == NUM_SIDEBAR_CONTACTS ? 'مخاطبین' : ''}`}
               // required
             />
             <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">

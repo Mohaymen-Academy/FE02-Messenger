@@ -15,7 +15,9 @@ export default function ContactAddTo({
   return (
     <div>
       <div
-        onClick={() => setter(chatid)}
+      // ! delete this item
+       // onClick={() => setter(chatid)} 
+       
         className="flex h-18 w-[97%] cursor-pointer m-1 mx-2 flex-row items-center justify-start rounded-lg hover:bg-bghovor"
       >
         {addicon && (

@@ -2,7 +2,7 @@ import React from 'react'
 
 export default function PopUp({children , title , setIsModalOpen}) {
   return (
-    <div className=" fixed inset-0 z-20 m-[5%] flex items-center justify-center " id="modalOverlay">
+    <div className=" fixed inset-0 z-20 mx-auto my-4  w-fit flex items-center justify-center " id="modalOverlay">
         <div className="modal bg-color2 rounded-lg shadow-md p-4 w-[450px] h-[100%] relative border border-text1" role="dialog">
             <div className="modal-header flex justify-between items-center border-b border-bghovor pb-2 mb-4">
                 <h3 className="text-lg font-semibold text-text1">{title}</h3>

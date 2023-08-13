@@ -1,12 +1,12 @@
 import React from 'react';
-import ContactCardPreview from "./ContactCardPreview";
+import ContactCardPreview from './ContactCardPreview';
 import { UilArrowRight, UilCameraPlus, UilTrashAlt } from '@iconscout/react-unicons';
 
 export default function GroupSettings({ selected }) {
   const [groupname, setgroupname] = React.useState('');
 
   const handleGroupname = (e) => {
-      setgroupname(e);
+    setgroupname(e);
   };
 
   return (
@@ -14,7 +14,7 @@ export default function GroupSettings({ selected }) {
       <div className="w-[120px] h-[120px] my-7 flex justify-center items-center rounded-full cursor-pointer bg-blue-600">
         <UilCameraPlus className={'w-[50%] h-[50%] hover:w-[55%] hover:h-[55%] text-white'} />
       </div>
-      <div className='flex flex-col gap-3 w-full '>
+      <div className="flex flex-col gap-3 w-full ">
         <div className="relative w-full">
           <input
             type="text"
@@ -27,17 +27,21 @@ export default function GroupSettings({ selected }) {
             نام گروه
           </label>
         </div>
-        {groupname !== ""  && (
-        <div id={1}>
-            <button className='w-[100%] h-12 rounded-xl bg-blue-400 text-white text-xl font-semibold' >ایجاد گروه</button>
-        </div>
+        {groupname !== '' && (
+          <div id={1}>
+            <button className="w-[100%] h-12 rounded-xl bg-blue-400 text-white text-xl font-semibold">
+              ایجاد گروه
+            </button>
+          </div>
         )}
-        <div className='h-0.5 w-full flex bg-bghovor m-5'></div>
-        <p className='text-text1'>{selected.length} عضو</p>
-        {
-          selected.map((x, i) => (
+        <div className="h-0.5 w-full flex bg-bghovor m-5"></div>
+        <p className="text-text1">{selected.length} عضو</p>
+        <div
+        className='add_to_x_list'>
+          {selected.map((x, i) => (
             <ContactCardPreview chatid={i} key={i} />
           ))}
+        </div>
       </div>
     </div>
   );

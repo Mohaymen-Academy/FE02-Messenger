@@ -75,6 +75,9 @@
 }
 
 @layer components {
+  .add_to_x_list{
+    @apply w-[100%] flex flex-col gap-3 h-[390px] max-h-[300px] overflow-y-scroll;
+  }
   .category-part {
     @apply px-1 hover:bg-color1 h-full w-1/5 flex justify-center items-center text-text1 cursor-pointer;
   }
