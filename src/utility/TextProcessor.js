@@ -98,7 +98,7 @@ export default function TextProcessorObj(containers) {
   }
 
   function handleEmojiPicker(e) {
-    const emoji = e.emoji;
+    const emoji = e;
     // const careposition = textref.current.textcontent;
     divref.current.innerText = insertCharAtIndex(divref.current.innerText, emoji, careposition);
     setOpenEmoji(false);
@@ -317,7 +317,7 @@ export default function TextProcessorObj(containers) {
     const range = selection.getRangeAt(0);
     const clonedRange = range.cloneRange();
   }
-  return [
+  return {
     handleEmojiPicker,
     handleKeyDown,
     handleSelect,
@@ -329,5 +329,5 @@ export default function TextProcessorObj(containers) {
     entitycontainers,
     setentitycontainers,
     ChangeEntities
-  ];
+  };
 }
