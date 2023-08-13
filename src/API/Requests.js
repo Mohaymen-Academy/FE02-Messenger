@@ -37,27 +37,25 @@ export default function Requests(body) {
     } catch (err) {
       console.log(err);
     }
-
-    // Login - POST
-    async function Login(email, password) {
-        try {
-            const body = {
-                email: email,
-                password: password
-            };
-            console.log("Sending request to login...");
-            const res = await API().POST("http://192.168.70.223:8080/access/login", body);
-            return res;
-        }
-        catch (err) {
-            console.log(err);
-        }
+  }
+  // Login - POST
+  async function Login(email, password) {
+    try {
+      const body = {
+        email: email,
+        password: password
+      };
+      console.log('Sending request to login...');
+      const res = await API().POST('http://192.168.70.223:8080/access/login', body);
+      return res;
+    } catch (err) {
+      console.log(err);
     }
+  }
 
-    return {
-        checkDuplicateEmail,
-        Register,
-        Login
-    }
-
+  return {
+    checkDuplicateEmail,
+    Register,
+    Login
+  };
 }
