@@ -11,6 +11,7 @@ export default function API() {
             'Access-Control-Allow-Origin': '*',
           }
         });
+        console.log(res)
         return res;
   };
 
@@ -22,6 +23,7 @@ export default function API() {
           'Access-Control-Allow-Origin': '*',
         }
       })
+      console.log(res)
       return res;
   }
 

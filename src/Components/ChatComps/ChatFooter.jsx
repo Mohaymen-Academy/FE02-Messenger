@@ -8,7 +8,7 @@ import TextProcessor from '../../utility/TextProcessor';
 import FileUploader from '../../utility/FileUploader';
 
 export default function ChatFooter() {
-  const [
+  const {
     handleEmojiPicker,
     handleKeyDown,
     handleSelect,
@@ -20,7 +20,7 @@ export default function ChatFooter() {
     entitycontainers,
     setentitycontainers,
     ChangeEntities
-  ] = TextProcessor([
+  } = TextProcessor([
     // { id: 1, lower: 0, upper: 2, content: '012', style: ['bold', 'strike'] },
     // { id: 2, lower: 3, upper: 8, content: '345678', style: ['strike'] },
     // { id: 3, lower: 9, upper: 10, content: '91', style: ['italic ', 'spoiler'] }
@@ -28,7 +28,7 @@ export default function ChatFooter() {
   const [openEmoji, setOpenEmoji] = useState(false);
   const [openAttach, setOpenAttach] = useState(false);
   const emoji = useState('');
-  
+
   function closeTextProcessor() {
     setOpenTextProcessor(false);
   }
@@ -69,8 +69,7 @@ export default function ChatFooter() {
           onSelectCapture={handleSelect}
           onInput={handleonInput}
           suppressContentEditableWarning={true}
-          className=" w-[90%] max-h-[50px] flex flex-row outline-none h-auto overflow-hidden shadow-none border-none break-all focus:shadow-none active:shadow-none">
-        </div>
+          className=" w-[90%] max-h-[50px] flex flex-row outline-none h-auto overflow-hidden shadow-none border-none break-all focus:shadow-none active:shadow-none"></div>
         <div>
           <button onClick={() => setOpenEmoji(!openEmoji)} className="mx-1 h-8 w-8 text-text1 ">
             <UilSmile />
@@ -83,7 +82,7 @@ export default function ChatFooter() {
       </div>
       {openEmoji && (
         <>
-          <EmojiPicker />
+          <EmojiPicker handler={handleEmojiPicker} />
           {/* <EmojiPicker theme={localStorage.getItem('theme')} onEmojiClick={handleEmojiPicker} /> */}
         </>
       )}
