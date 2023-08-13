@@ -182,6 +182,9 @@ function MessageVoice({ audioUrl, id, audioID, animState }) {
               backgroundSize: `calc((var(--value, ${sliderValue}) / 100) * 100%) 100%`
             }}
           />
+          <span
+            className="absolute -top-0 left-0 z-[5] h-4 w-4 cursor-pointer rounded-full border-none bg-blue-300"
+            style={{ left: `${sliderPlayedWidth}` }}></span>
         </div>
       </div>
       <span className="ml-[2px] mr-2 inline-block min-w-[35px] text-sm">{duration}</span>
