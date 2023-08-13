@@ -29,33 +29,27 @@ export default function API() {
 
   // PUT function
   async function PUT(url, body) {
-    await axios.put(url, body, {
-        headers: {
-          'Content-Type': 'application/json',
-          'Access-Control-Allow-Origin': '*',
-        }
-      })
-      .then((response) => {
-        return response.data;
-      }, (error) => {
-        return error;
-      });
+    const res = await axios.put(url, body, {
+      headers: {
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*',
+      }
+    })
+    console.log(res)
+    return res;
   }
 
   // DELETE function
   async function DEL(url, params) {
-    await axios.delete(url, {
-        params: params,
-        headers: {
-          'Content-Type': 'application/json',
-          'Access-Control-Allow-Origin': '*',
-        }
-      })
-      .then((response) => {
-        return response.data;
-      }, (error) => {
-        return error;
-      });
+    const res = await axios.delete(url, {
+      params: params,
+      headers: {
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*',
+      }
+    });
+    console.log(res)
+    return res;
   }
 
 
