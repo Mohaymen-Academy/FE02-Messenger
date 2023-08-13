@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { getTheme } from '../utility/useLoclStorage';
 import axios from 'axios';
+import Requests from '../API/Requests';
 export default function Login() {
+  const RequestHandeler = Requests();
   const [values, setValues] = useState({
     email: '',
     password: ''
@@ -19,24 +21,9 @@ export default function Login() {
       alert('لطفاً همه فیلدها را پر کنید.');
       return;
     } else {
-      try{
-        const res = await axios.post(`http://192.168.70.223:8080/access/login`,{
-          email : values.email,
-          password : values.password
-        }
-        ,
-        {
-          headers: {
-            'Content-Type': 'application/json' ,// Set content type to JSON
-            'Access-Control-Allow-Origin': '*',
-
-          }
-        });
+        const res = await RequestHandeler.Login(values.email,values.password);
         console.log(res);
-      }
-      catch(err){
-        console.log(err);
-      }
+
     }
   };
 
