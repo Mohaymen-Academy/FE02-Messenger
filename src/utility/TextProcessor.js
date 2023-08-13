@@ -46,14 +46,7 @@ export default function TextProcessorObj(containers) {
     );
   }
 
-  function handleonInput(e) {
-    console.log(divref.current.innerText);
-    e.stopPropagation();
-    const selection = window.getSelection();
-    const range = selection.getRangeAt(0);
-    const clonedRange = range.cloneRange();
-    clonedRange.selectNodeContents(divref.current);
-    clonedRange.setEnd(range.endContainer, range.endOffset); // this set the position of the cursor
+  function updateEnteties() {
     ProcessorValues.current.caretPosition = clonedRange.toString().length;
     let charcounter = 0;
     if (divref.current.childNodes.length == 0) {
@@ -75,12 +68,22 @@ export default function TextProcessorObj(containers) {
         const newupper = charcounter;
         ProcessorValues.current.sorted = ProcessorValues.current.sorted.map((obj) => {
           if (obj.id == id) {
-            return { ...obj, lower: newlower, upper: newupper, content: child.innerText };
+            return { ...obj, lower: newlower, upper: newupper };
           }
           return obj;
         });
       }
     });
+  }
+
+  function handleonInput(e) {
+    e.stopPropagation();
+    const selection = window.getSelection();
+    const range = selection.getRangeAt(0);
+    const clonedRange = range.cloneRange();
+    clonedRange.selectNodeContents(divref.current);
+    clonedRange.setEnd(range.endContainer, range.endOffset); // this set the position of the cursor
+    updateEnteties();
   }
 
   function handleclick(e) {
@@ -136,17 +139,13 @@ export default function TextProcessorObj(containers) {
     );
   }
   function ChnageTheContainers(HeadContainer, selectedContainer) {
-    // the header and lower are overlap witheachother
-    // console.log(HeadContainer,selectedContainer)
     let rangeSet = new Set();
     rangeSet.add(HeadContainer.lower);
     rangeSet.add(HeadContainer.upper);
     rangeSet.add(selectedContainer.lower);
     rangeSet.add(selectedContainer.upper);
     rangeSet = [...rangeSet];
-    // console.log(rangeSet);
     rangeSet.sort((a, b) => a - b);
-    // console.log(rangeSet);
     switch (rangeSet.length) {
       case 2:
         HeadContainer.style = HeadContainer.style.concat(selectedContainer.style);
@@ -193,7 +192,9 @@ export default function TextProcessorObj(containers) {
         break;
     }
   }
+
   function ChangeEntities(choice) {
+    console.log(divref.current.innerText);
     ProcessorValues.current.counter = ProcessorValues.current.counter + 1;
     const NewEntity = {
       id: ProcessorValues.current.counter,
@@ -205,11 +206,7 @@ export default function TextProcessorObj(containers) {
     ProcessorValues.current.sorted.push(NewEntity);
     ProcessorValues.current.sorted = ProcessorValues.current.sorted.sort(customSort);
     let index = 0;
-    let loopcounter = 0;
     while (index < ProcessorValues.current.sorted.length) {
-      // if (loopcounter == 10) {
-      //   break;
-      // }
       const HeadContainer = ProcessorValues.current.sorted[index];
       const containersConflict = Conflicts(
         HeadContainer,
@@ -221,27 +218,29 @@ export default function TextProcessorObj(containers) {
       } else {
         index++;
       }
-      // loopcounter++;
       ProcessorValues.current.sorted = ProcessorValues.current.sorted.sort(customSort);
       // console.log(ProcessorValues.current.sorted);
       // setTimeout(() => {}, 500000);
     }
-    // console.log(ProcessorValues.current.sorted);
-    // divref.current.innerText = '';
     generateEntity();
   }
 
   function generateEntity() {
     let text = '';
+    console.log(divref.current.childNodes);
     divref.current.childNodes.forEach((element) => {
-      if (element.data) {
-        text = text + element.data;
-      } else {
+      if (element.innerText) {
+        console.log('innertext', element.innerText);
         text = text + element.innerText;
+      } else {
+        console.log('data', element.data);
+        text = text + element.data;
       }
     });
+    console.log('here1', divref.current.innerText);
     divref.current.innerText = text;
-
+    console.log(text);
+    console.log('here2', divref.current.innerText);
     let list_of_renderableentities = [];
     let prevEnd;
     for (let i = 0; i < ProcessorValues.current.sorted.length; i++) {
@@ -270,16 +269,12 @@ export default function TextProcessorObj(containers) {
     // console.log(list_of_renderableentities);
     list_of_renderableentities = list_of_renderableentities.concat(ProcessorValues.current.sorted);
     list_of_renderableentities.sort(customSort);
+    console.log(list_of_renderableentities);
     list_of_renderableentities = list_of_renderableentities.map((ent) => ({
       ...ent,
       content: divref.current.innerText.substring(ent.lower, ent.upper + 1)
     }));
 
-    // console.log(divref.current.innerText);
-    // const enteites = list_of_renderableentities.map((element) =>
-    //   element.style ? <Text style={element.style} content={element.content} /> : element.content
-    // );
-    
     divref.current.innerText = '';
     list_of_renderableentities.forEach((element) => {
       if (element.style) {
