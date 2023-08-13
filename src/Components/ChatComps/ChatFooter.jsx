@@ -92,7 +92,7 @@ export default function ChatFooter() {
       {
           openPoll&&
           <PopUp title="ایجاد نظرسنجی" setIsModalOpen={setopenPoll}>
-            <poll/>
+            <Poll/>
           </PopUp>
       }
     </div>
