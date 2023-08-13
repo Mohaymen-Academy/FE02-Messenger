@@ -3,7 +3,7 @@ import { UilSmile, UilMessage, UilPaperclip } from '@iconscout/react-unicons';
 import { UilCommentAltChartLines } from '@iconscout/react-unicons';
 import { UilFile } from '@iconscout/react-unicons';
 import { UilImagePlus } from '@iconscout/react-unicons';
-export default function FileUploader() {
+export default function FileUploader({setopenPoll}) {
   const [open, setopen] = useState(false);
   const fileinputer = useRef(null);
   const [inputedfile, setinputedfile] = useState(null);
@@ -57,11 +57,11 @@ export default function FileUploader() {
         </button>
         <button
           className=" flex flex-row items-center gap-2 px-4 my-1 w-full hover:bg-gray-200 rounded-lg"
-          onClick={(e) => setsection(menuId)}>
+          onClick={(e) => setopenPoll(true)}>
           <div className="flex items-center gap-2 my-1">
             <UilCommentAltChartLines />
           </div>
-          <p className=" text-xs">نظرسنجی</p>
+          <p className=" text-xs" >نظرسنجی</p>
         </button>
       </div>
     </button>

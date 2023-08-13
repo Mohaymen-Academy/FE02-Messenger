@@ -6,8 +6,10 @@ import Text from '../../utility/Text';
 import TextProcessorMenu from '../../utility/TextProcessorMenu';
 import TextProcessor from '../../utility/TextProcessor';
 import FileUploader from '../../utility/FileUploader';
-
+import PopUp from '../../utility/PopUp';
+import Poll from './Poll';
 export default function ChatFooter() {
+  const [openPoll , setopenPoll] = useState(false);
   const {
     handleEmojiPicker,
     handleKeyDown,
@@ -60,7 +62,7 @@ export default function ChatFooter() {
           <UilMessage />
         </button>
         {/* </UilPaperclip> */}
-        <FileUploader />
+        <FileUploader setopenPoll={setopenPoll} />
         {/* <input type="text" dir='auto' /> */}
         <div
           ref={divref}
@@ -87,6 +89,12 @@ export default function ChatFooter() {
           {/* <EmojiPicker theme={localStorage.getItem('theme')} onEmojiClick={handleEmojiPicker} /> */}
         </>
       )}
+      {
+          openPoll&&
+          <PopUp title="ایجاد نظرسنجی" setIsModalOpen={setopenPoll}>
+            <poll/>
+          </PopUp>
+      }
     </div>
   );
 }
