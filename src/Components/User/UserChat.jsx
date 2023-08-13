@@ -18,7 +18,7 @@ export default function UserChat({ chatid, setChatId }) {
             smmobile:w-[100%]
             ${active ? 'vsmmobile:w-0' : 'vsmmobile:w-full'}
             `}>
-              <ChatHeader chattype={TYPE_USER} chatsetter={setChatId} setActive={setActive} />
+              <ChatHeader active={active} chattype={TYPE_USER} chatsetter={setChatId} setActive={setActive} />
               <ChatBody chattype={TYPE_USER} />
             </div>
             <LeftLayout CHATTYPE={TYPE_USER} id={1} active={active} setActive={setActive} />

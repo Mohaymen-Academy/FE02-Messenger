@@ -4,7 +4,7 @@ import { UilArrowRight } from '@iconscout/react-unicons';
 import { UilSearch } from '@iconscout/react-unicons';
 import { TYPE_CHANNEL, TYPE_USER, TYPE_GROUP } from '../../utility/Constants.js';
 import Pin from './Pin.jsx';
-const ChatHeader = ({ setActive, chatsetter, chattype }) => {
+const ChatHeader = ({ active, setActive, chatsetter, chattype }) => {
   const ChatInfo =
     chattype == TYPE_USER
       ? '12:22' // ShouldChange
@@ -40,7 +40,7 @@ const ChatHeader = ({ setActive, chatsetter, chattype }) => {
           <button>
             <UilSearch />
           </button>
-          {<ChatHeaderSettings />}
+          {<ChatHeaderSettings active={active} />}
         </div>
       </div>
       {/*
