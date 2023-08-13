@@ -2,7 +2,7 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import Requests from '../API/Requests';
 
 const initialState = {};
-const fetchUserProfile = createAsyncThunk('profile/fetchProfileData', () => {
+const registerUserProfile = createAsyncThunk('profile/fetchProfileData', () => {
   const data = Requests();
 });
 const profileSlice = createSlice({
@@ -10,7 +10,7 @@ const profileSlice = createSlice({
   initialState,
 
   extraReducers: (builder) =>
-    builder.addCase(fetchUserProfile.fulfilled, (state, action) => {
+    builder.addCase(registerUserProfile.fulfilled, (state, action) => {
       console.log(action.payload);
     })
 });
