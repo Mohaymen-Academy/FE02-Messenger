@@ -85,7 +85,10 @@ const TextProcessorMenu = ({ x_pos, y_pos, positions, setPosotion, ChangeEntitie
       dir="ltr"
       className="flex flex-row absolute z-10 shadow-2xl bg-color1 text-color4 rounded-lg opacity-90 p-1 w-fit"
       ref={divref}
-      style={{ bottom: `${150}px`, left: '30%' }}>
+      style={{ 
+        // bottom: `${0}`, 
+      left: '30%' }}
+      >
       {items.map((item, index) => {
         return (
           <button

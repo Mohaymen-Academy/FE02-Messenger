@@ -1,20 +1,29 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { UilSmile, UilMessage, UilPaperclip } from '@iconscout/react-unicons';
 import { UilCommentAltChartLines } from '@iconscout/react-unicons';
 import { UilFile } from '@iconscout/react-unicons';
 import { UilImagePlus } from '@iconscout/react-unicons';
 export default function FileUploader() {
   const [open, setopen] = useState(false);
-  let timer;
-  function openthediv() {
-    // clearTimeout(timer);
-    setopen(true);
-    // timer = setTimeout(() => {
-    //   closediv();
-    // }, 1000);
+  const fileinputer = useRef(null);
+  const [inputedfile, setinputedfile] = useState(null);
+  function handlefileuploader(e) {
+    fileinputer.current.click();
   }
+  function openthediv() {
+    setopen(true);
+  }
+
   function closediv() {
     setopen(false);
+  }
+  function handlechangefile(e) {
+    // console.log(e)
+    const file = e.target.files[0];
+    console.log(file)
+    const formdata = new FormData();
+    formdata.append('image', file, file.name);
+    console.log(formdata);
   }
   return (
     <button
@@ -39,8 +48,9 @@ export default function FileUploader() {
         </button>
         <button
           className=" flex flex-row items-center gap-2 px-4 my-1 w-full hover:bg-gray-200 rounded-lg"
-          onClick={(e) => setsection(menuId)}>
+          onClick={handlefileuploader}>
           <div className="flex items-center gap-2 my-1">
+            <input onChange={handlechangefile} type="file" className="hidden" ref={fileinputer} />
             <UilFile />
           </div>
           <p className=" text-xs">فایل</p>

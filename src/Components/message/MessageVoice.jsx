@@ -47,6 +47,7 @@ function MessageVoice({ audioUrl, id, audioID, animState }) {
     audio.current.play();
     interval.current = setInterval(seekUpdate, 50);
     setIsPlaying(true);
+    console.log(sliderValue);
   }
 
   function pause() {
@@ -145,24 +146,30 @@ function MessageVoice({ audioUrl, id, audioID, animState }) {
       setIsPlaying(false);
     }
   }, [audioID]);
+
+  let buttonStateComponent;
+
+  if (!mediaLoaded && !error) {
+    buttonStateComponent = <div>loading...</div>;
+  } else if (isPlaying && !error) {
+    buttonStateComponent = <UilPause onClick={pause} />;
+  } else if (!isPlaying && !error) {
+    buttonStateComponent = <UilPlay onClick={play} />;
+  } else {
+    buttonStateComponent = <UilRedo onClick={loadAudioAgain} />;
+  }
   return (
     <MessageBody id={id}>
-      {!mediaLoaded && !error ? (
-        <div>loading...</div>
-      ) : isPlaying && !error ? (
-        <UilPause className="pause" onClick={pause} />
-      ) : !isPlaying && !error ? (
-        <UilPlay onClick={play} />
-      ) : (
-        <UilRedo onClick={loadAudioAgain} />
-      )}
-      <div className="flex h-10 w-full items-center justify-between">
-        <div className="relative flex h-4 items-center">
+      <div className="flex h-10 w-full items-center justify-between gap-3">
+        <div className="cursor-pointer rounded-full bg-blue-500 p-3 text-white">
+          {buttonStateComponent}
+        </div>
+        <div className="relative flex h-4 w-full items-center">
           <span
             style={{
               width: sliderPlayedWidth
             }}
-            className="absolute left-0 z-[2] h-1 rounded-sm rounded-r-none bg-blue-700"></span>
+            className="absolute left-0 z-[2] h-1 rounded-sm rounded-r-none bg-blue-500"></span>
           <input
             type="range"
             min="1"
@@ -175,6 +182,9 @@ function MessageVoice({ audioUrl, id, audioID, animState }) {
               backgroundSize: `calc((var(--value, ${sliderValue}) / 100) * 100%) 100%`
             }}
           />
+          <span
+            className="absolute -top-0 left-0 z-[5] h-4 w-4 cursor-pointer rounded-full border-none bg-blue-300"
+            style={{ left: `${sliderPlayedWidth}` }}></span>
         </div>
       </div>
       <span className="ml-[2px] mr-2 inline-block min-w-[35px] text-sm">{duration}</span>
