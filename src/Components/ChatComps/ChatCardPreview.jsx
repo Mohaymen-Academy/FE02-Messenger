@@ -2,7 +2,9 @@ import Avatar from './Avatar';
 
 const ChatCardPreview = ({ profilePicture, unreadmessage, chatid, chattype,setter }) => (
   <div
-    onClick={(e) => setter({ type: 'change', chatid: chatid, chattype: chattype })}
+    onClick={(e) => {
+      setter({ type: 'change', chatid: chatid, chattype: chattype })
+    }}
     className=" flex h-18 w-[100%] cursor-pointer flex-row items-center justify-start rounded-lg  hover:bg-bghovor">
     <div className="w-fit px-2 flex">
       {profilePicture ? (
@@ -11,14 +13,14 @@ const ChatCardPreview = ({ profilePicture, unreadmessage, chatid, chattype,sette
         <Avatar image={'s'} isOnline={true} />
       )}
       <div className="flex flex-row">
-        <div className="flex flex-col">
+        <div className="flex flex-col p-3">
           <p className="font-semibold text-text1">زهرا</p>
           <div className="line-clamp-1 text-base text-text1 opacity-[50%] pl-3">
             این متن تست برای اخرین پیام های ارسال شده است
           </div>
         </div>
         {unreadmessage ? (
-          <div>
+          <div className='mt-3 ml-3'>
             <div className="w-6 h-6 rounded-full bg-green-400  text-center text-white shadow-lg">
               {unreadmessage}
             </div>
