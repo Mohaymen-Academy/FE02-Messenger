@@ -1,4 +1,9 @@
 import Avatar from './Avatar';
+function bytesToBase64(bytes) {
+  const binString = Array.from(bytes, (x) => String.fromCodePoint(x)).join("");
+  return btoa(binString);
+}
+
 // TODO
 //  NEED TO ADD TIME TO IT
 const ChatCardPreview = ({ profile, chattype, lastMessage, setter, unreadMessageCount }) => (
@@ -8,7 +13,7 @@ const ChatCardPreview = ({ profile, chattype, lastMessage, setter, unreadMessage
     <div className="flex w-[100%] justify-between px-2">
       <div className="flex flex-row gap-2">
         {profile.lastProfilePicture ? (
-          <img src={profile.lastProfilePicture.preLoadingContent} className="h-full rounded-full" />
+          <img src={`data:image/jpeg;base64,${profile.lastProfilePicture.preLoadingContent}`} className="h-full rounded-full" />
         ) : (
           <Avatar
             imagecolor={profile.defaultProfileColor}
