@@ -13,7 +13,7 @@ export default function Requests(body) {
         email // Use the email value from state
       };
 
-      const res = await API().GET(`${BASE_URL}/access/signup`, requestData);
+      const res = await API().GET('access/signup', requestData);
       console.log(res);
       if (res.data === 'fail') {
         return false;
@@ -28,7 +28,7 @@ export default function Requests(body) {
   async function Register(body) {
     try {
       console.log('Sending request to sign up...');
-      const res = await API().POST(`${BASE_URL}/access/signup`, body);
+      const res = await API().POST('access/signup', body);
       return res;
     } catch (err) {
       console.log(err);
@@ -39,30 +39,41 @@ export default function Requests(body) {
     console.log(body);
     try {
       console.log('Sending request to login...');
-      const res = await API().POST(`${BASE_URL}/access/login`, body);
+      const res = await API().POST('access/login', body);
       // redirect('/');
       return res;
     } catch (err) {
       console.log(err);
     }
   }
-  async function getChat(body, receiverID) {
+  async function GetChat(body, receiverID) {
     console.log('Get chat messeages');
     try {
-      const res = await API().GET(`${BASE_URL}/${receiverID}`, body);
+      const res = await API().GET(receiverID, body);
       // .then((res) => res.json())
       // .then((data) => data)
       // .catch((err) => err);
-      
+
       // redirect('/');
       return res;
     } catch (err) {
       console.log(err);
+    }
+  }
+  async function GetChatList(body) {
+    try {
+      const res =
+        // await API().GET('chats', body);
+        axios.get('http://localhost:3000/pages');
+    } catch (err) {
+      console.error(err);
     }
   }
   return {
     checkDuplicateEmail,
     Register,
-    Login
+    Login,
+    GetChatList,
+    GetChat
   };
 }

@@ -1,58 +1,56 @@
-import axios from "axios";
+import axios from 'axios';
+import { BASE_URL } from './consts';
 
 export default function API() {
   // GET function
-  async function GET(url, params) {
-
-      const res = await axios.get(url, {
-          params: params,
-          headers: {
-            'Content-Type': 'application/json',
-            'Access-Control-Allow-Origin': '*',
-          }
-        });
-        console.log(res)
-        return res;
-  };
+  async function GET(endpoint, params) {
+    const res = await axios.get(`${BASE_URL}/${endpoint}`, {
+      params: params,
+      headers: {
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*'
+      }
+    });
+    console.log(res);
+    return res;
+  }
 
   // POST function
-  async function POST(url, body) {
-      const res = await axios.post(url, body, {
-        headers: {
-          'Content-Type': 'application/json',
-          'Access-Control-Allow-Origin': '*',
-        }
-      })
-      console.log(res)
-      return res;
+  async function POST(endpoint, body) {
+    const res = await axios.post(`${BASE_URL}/${endpoint}`, body, {
+      headers: {
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*'
+      }
+    });
+    console.log(res);
+    return res;
   }
 
   // PUT function
-  async function PUT(url, body) {
-    const res = await axios.put(url, body, {
+  async function PUT(endpoint, body) {
+    const res = await axios.put(`${BASE_URL}/${endpoint}`, body, {
       headers: {
         'Content-Type': 'application/json',
-        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Origin': '*'
       }
-    })
-    console.log(res)
+    });
+    console.log(res);
     return res;
   }
 
   // DELETE function
-  async function DEL(url, params) {
-    const res = await axios.delete(url, {
+  async function DEL(endpoint, params) {
+    const res = await axios.delete(`${BASE_URL}/${endpoint}`, {
       params: params,
       headers: {
         'Content-Type': 'application/json',
-        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Origin': '*'
       }
     });
-    console.log(res)
+    console.log(res);
     return res;
   }
-
-
 
   return {
     GET,
@@ -60,6 +58,4 @@ export default function API() {
     PUT,
     DEL
   };
-
-
 }
