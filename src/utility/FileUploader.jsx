@@ -1,67 +1,62 @@
-import React, { useRef, useState } from 'react';
-import { UilSmile, UilMessage, UilPaperclip } from '@iconscout/react-unicons';
-import { UilCommentAltChartLines } from '@iconscout/react-unicons';
-import { UilFile } from '@iconscout/react-unicons';
-import { UilImagePlus } from '@iconscout/react-unicons';
-export default function FileUploader({setopenPoll}) {
-  const [open, setopen] = useState(false);
-  const fileinputer = useRef(null);
-  const [inputedfile, setinputedfile] = useState(null);
-  function handlefileuploader(e) {
-    fileinputer.current.click();
-  }
-  function openthediv() {
-    setopen(true);
-  }
+import React, { useState } from 'react';
+import {
+  UilSmile,
+  UilMessage,
+  UilPaperclip,
+  UilCommentAltChartLines,
+  UilFile,
+  UilImagePlus
+} from '@iconscout/react-unicons';
 
+export default function FileUploader() {
+  const [open, setopen] = useState(false);
+  let timer;
+  function openthediv() {
+    // clearTimeout(timer);
+    setopen(true);
+    // timer = setTimeout(() => {
+    //   closediv();
+    // }, 1000);
+  }
   function closediv() {
     setopen(false);
-  }
-  function handlechangefile(e) {
-    // console.log(e)
-    const file = e.target.files[0];
-    console.log(file)
-    const formdata = new FormData();
-    formdata.append('image', file, file.name);
-    console.log(formdata);
   }
   return (
     <button
       onMouseOver={openthediv}
       //   onMouseLeave={closediv}
-      className="mx-1 h-8 w-8 text-text1 hover-trigger">
+      className="hover-trigger mx-1 h-8 w-8 text-text1">
       <UilPaperclip hover-trigger />
 
       <div
         onMouseLeave={closediv}
         className={`${
           open ? 'block' : 'hidden'
-        } relative  top-[-145px]  shadow-2xl w-[250px] bg-color1 text-color4 rounded-lg`}>
+        } relative  top-[-145px]  w-[250px] rounded-lg bg-color1 text-color4 shadow-2xl`}>
         <button
-          className="flex flex-row items-center gap-2 px-4 my-1 w-full hover:bg-gray-200 rounded-lg"
+          className="my-1 flex w-full flex-row items-center gap-2 rounded-lg px-4 hover:bg-gray-200"
           onClick={(e) => setsection(menuId)}>
-          <div className="flex items-center gap-2 my-1">
+          <div className="my-1 flex items-center gap-2">
             {/* <UilVolumeMute /> */}
             <UilImagePlus />
           </div>
           <p className=" text-xs">انتخاب عکس یا ویدیو</p>
         </button>
         <button
-          className=" flex flex-row items-center gap-2 px-4 my-1 w-full hover:bg-gray-200 rounded-lg"
-          onClick={handlefileuploader}>
-          <div className="flex items-center gap-2 my-1">
-            <input onChange={handlechangefile} type="file" className="hidden" ref={fileinputer} />
+          className=" my-1 flex w-full flex-row items-center gap-2 rounded-lg px-4 hover:bg-gray-200"
+          onClick={(e) => setsection(menuId)}>
+          <div className="my-1 flex items-center gap-2">
             <UilFile />
           </div>
           <p className=" text-xs">فایل</p>
         </button>
         <button
-          className=" flex flex-row items-center gap-2 px-4 my-1 w-full hover:bg-gray-200 rounded-lg"
-          onClick={(e) => setopenPoll(true)}>
-          <div className="flex items-center gap-2 my-1">
+          className=" my-1 flex w-full flex-row items-center gap-2 rounded-lg px-4 hover:bg-gray-200"
+          onClick={(e) => setsection(menuId)}>
+          <div className="my-1 flex items-center gap-2">
             <UilCommentAltChartLines />
           </div>
-          <p className=" text-xs" >نظرسنجی</p>
+          <p className=" text-xs">نظرسنجی</p>
         </button>
       </div>
     </button>
