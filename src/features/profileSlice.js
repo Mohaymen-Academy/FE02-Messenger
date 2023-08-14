@@ -1,6 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import Requests from '../API/Requests';
-import { redirect,useLocation,useNavigate } from 'react-router-dom';
 
 const initialState = {
   jwt: '',
@@ -34,11 +33,6 @@ const profileSlice = createSlice({
       .addCase(registerUserProfile.fulfilled, (state, action) => {
         state.jwt = action.payload.jwt;
         state.profileData = action.payload.profile;
-        // console.log('werewr');
-        // const nav=useNavigate();
-        // nav('/login')
-        // navigate('');
-        
       })
       .addCase(loginUserProfile.fulfilled, (state, action) => {
         state.jwt = action.payload.jwt;
