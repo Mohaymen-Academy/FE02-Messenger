@@ -7,7 +7,7 @@ import store from '../../Store/store.js';
 const Chatlist = ({ dispatch }) => {
   const listRef = useRef(null);
   const HandleScroller = HandleScroll();
-  const lists=useStore(store);
+  const lists=useSelector(store=>store.messages);
   console.log(lists)
 
 
