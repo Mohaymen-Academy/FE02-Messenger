@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
 import { getTheme } from '../utility/useLoclStorage';
@@ -8,7 +8,7 @@ import { loginUserProfile } from '../features/profileSlice';
 export default function Login() {
   const RequestHandeler = Requests();
   const dispatch = useDispatch();
-  const [values, setValues] = useState({
+  const values = useRef({
     email: '',
     password: ''
   });
@@ -21,18 +21,16 @@ export default function Login() {
   async function handleRegisterClick(event) {
     event.preventDefault();
     // Check for empty fields
-    if (!values.email || !values.password) {
+    if (!values.current.email || !values.current.password) {
       alert('لطفاً همه فیلدها را پر کنید.');
     } else {
-      dispatch(loginUserProfile(values));
+      await dispatch(loginUserProfile(values.current));
+      window.location.href = '/';
     }
   }
 
   const changeinput = (name, value) => {
-    setValues({
-      ...values,
-      [name]: value
-    });
+    values.current[name] = value;
   };
   return (
     <div dir="rtl" className="bg-complete">
