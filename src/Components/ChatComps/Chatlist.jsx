@@ -2,39 +2,14 @@ import React, { useState, useEffect, useRef } from 'react';
 import { TYPE_USER } from '../../utility/Constants.js';
 import ChatCardPreview from './ChatCardPreview.jsx';
 import HandleScroll from '../../utility/HandleScroll.js';
+import { connect, useSelector, useStore } from 'react-redux';
+import store from '../../Store/store.js';
 const Chatlist = ({ dispatch }) => {
   const listRef = useRef(null);
   const HandleScroller = HandleScroll();
-  const [chatPreviews, setChatPreviews] = useState(
-    [
-      {
-        profile: {
-          profileID: 2,
-          profileName: 'Sara',
-          type: 'USER',
-          defaultProfileColor: '#e68873',
-          lastProfilePicture: null
-        },
-        lastMessage: {
-          messageID: 2,
-          text: 'سلام. خوبم ممنون تو چطوری ؟',
-          time: '2023-08-14T09:17:50.23945',
-          viewCount: 1
-        },
-        unreadMessageCount: 1
-      }
-    ]
+  const lists=useStore(store);
+  console.log(lists)
 
-    //   [...Array(20)].map((_, i) => (
-    //   <ChatCardPreview
-    //     key={i}
-    //     chattype={TYPE_USER}
-    //     chatid={i}
-    //     setter={dispatch}
-    //     unreadmessage={5}
-    //   />
-    // )
-  );
 
   const handleScroll = (listRef) => {
     // const res = HandleScroller.ReachEnd(listRef);
@@ -57,7 +32,7 @@ const Chatlist = ({ dispatch }) => {
       ref={listRef}
       onScroll={() => handleScroll(listRef)}
       className=" mt-4 w-full h-full overflow-y-auto">
-      {chatPreviews.map((chatprev, index) => (
+      {/* {lists?.map((chatprev, index) => (
         <ChatCardPreview
           key={index}
           profile={chatprev.profile}
@@ -67,7 +42,7 @@ const Chatlist = ({ dispatch }) => {
           setter={dispatch}
           unreadMessageCount={chatprev.unreadMessageCount}
         />
-      ))}
+      ))} */}
     </div>
   );
 };

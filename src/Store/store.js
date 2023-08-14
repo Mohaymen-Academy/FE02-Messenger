@@ -3,6 +3,7 @@ import { persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import thunk from 'redux-thunk';
 import profileReducer from '../features/profileSlice';
+import MessgeListReducer from '../features/messageListSlice';
 
 const profilePersistConfig = {
   key: 'profile',
@@ -13,7 +14,8 @@ const persistedProfileReducer = persistReducer(profilePersistConfig, profileRedu
 
 export const store = configureStore({
   reducer: {
-    profile: persistedProfileReducer
+    profile: persistedProfileReducer,
+    messageList: MessgeListReducer
   },
   middleware: [thunk]
 });
