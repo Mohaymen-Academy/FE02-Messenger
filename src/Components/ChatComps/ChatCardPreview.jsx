@@ -4,7 +4,7 @@ import Avatar from './Avatar';
 const ChatCardPreview = ({ profile, chattype, lastMessage, setter, unreadMessageCount }) => (
   <div
     onClick={(e) => setter({ type: 'change', chatid: profile.profileID, chattype: profile.type })}
-    className=" h-18 flex w-[100%] cursor-pointer flex-row items-center justify-start rounded-lg  hover:bg-bghovor">
+    className=" h-18 p-3 mx-2 flex w-[97%] cursor-pointer flex-row items-center justify-start rounded-lg  hover:bg-bghovor">
     <div className="flex w-[100%] justify-between px-2">
       <div className="flex flex-row gap-2">
         {profile.lastProfilePicture ? (
