@@ -39,6 +39,7 @@ export default function Requests(body) {
     try {
       console.log('Sending request to login...');
       const res = await API().POST('access/login', body , HEADER);
+      localStorage.setItem('token', res.data.jwt);
       // redirect('/');
       return res;
     } catch (err) {
@@ -63,7 +64,7 @@ export default function Requests(body) {
   }
   async function GetChatList(limit) {
     const body = { limit };
-    const newHeader = { ... HEADER , 'Authorization': `Bearer ${body.token}` };
+    const newHeader = { ... HEADER , 'Authorization': `Bearer ` };
 
     try {
       const res = await API().GET('/', body , newHeader);
