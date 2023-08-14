@@ -8,11 +8,8 @@ import ChannelChat from '../Channel/ChannelChat';
 import WorkerBuilder from '../../Workers/web/WorkerBuilder';
 import Worker from '../../Workers/web/RequestHandler';
 // import Request from '../../API/Requests';
-import Requests from '../../API/Requests';
 // import Worker from ''
-
 import { TYPE_CHANNEL, TYPE_GROUP, TYPE_USER } from '../../utility/Constants';
-import { setMessages } from '../../features/messageListSlice';
 // import { getMessgeList } from '../../features/messageListSlice';
 
 export default function ChatLayout() {
@@ -34,17 +31,17 @@ export default function ChatLayout() {
         chatTools.dispatch({ type: 'null' });
       }
     });
-    const infinityInterval = setInterval(infinityRequest, 1000);
-    return () => {
-      clearInterval(infinityInterval);
-    };
+    // const infinityInterval = setInterval(infinityRequest, 1000);
+    // return () => {
+    //   clearInterval(infinityInterval);
+    // };
   }, []);
 
   function infinityRequest() {
-    worker.postMessage(token);
-    worker.onmessage = (msg) => {
-      dispatch(setMessages(msg.data));
-    };
+    // worker.postMessage(token);
+    // worker.onmessage = (msg) => {
+    //   dispatch(setMessages(msg.data));
+    // };
   }
 
   return Chats[chatTools.chat.chattype];

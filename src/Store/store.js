@@ -4,7 +4,7 @@ import storage from 'redux-persist/lib/storage';
 import thunk from 'redux-thunk';
 import profileReducer from '../features/profileSlice';
 import MessgeListReducer from '../features/messageListSlice';
-
+import RightSideReducer from '../features/rightSideSlice';
 const profilePersistConfig = {
   key: 'profile',
   storage
@@ -15,7 +15,8 @@ const persistedProfileReducer = persistReducer(profilePersistConfig, profileRedu
 export const store = configureStore({
   reducer: {
     profile: persistedProfileReducer,
-    messageList: MessgeListReducer
+    messageList: MessgeListReducer,
+    rightsideMenues: RightSideReducer
   },
   middleware: [thunk]
 });
