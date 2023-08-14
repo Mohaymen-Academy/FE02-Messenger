@@ -7,7 +7,7 @@ export default (e) => {
         headers: {
           'Content-Type': 'application/json',
           'Access-Control-Allow-Origin': '*',
-          'Authorization': `eyJ0eXAiOiJKV1QiLCJhbGciOiJub25lIn0.eyJpZCI6MSwiZXhwIjoxNjkyMDgwMzg0fQ.-zx98y_k_2X24LzzqWVfFBCvRg2GQ_TuztuhWC7D18s`,
+          'Authorization': `${msg.data.token}}`,
         }
       }).then(resp => resp.json())
       .then(data =>

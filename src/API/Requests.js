@@ -64,7 +64,7 @@ export default function Requests(body) {
   }
   async function GetChatList(limit) {
     const body = { limit };
-    const newHeader = { ... HEADER , 'Authorization': `Bearer ${localStorage.getItem(token)}` };
+    const newHeader = { ... HEADER , 'Authorization': `Bearer ` };
 
     try {
       const res = await API().GET('/', body , newHeader);

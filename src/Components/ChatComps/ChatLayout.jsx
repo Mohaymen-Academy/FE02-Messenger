@@ -36,7 +36,8 @@ export default function ChatLayout() {
 
   function infinityRequest() {
     // console.log('here');
-    // worker.postMessage('ewe');
+    const token=localStorage.getItem('token');
+    // worker.postMessage(token);
     // worker.onmessage = (msg) => console.log(msg);
   }
 
