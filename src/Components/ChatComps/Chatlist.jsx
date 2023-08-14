@@ -1,19 +1,40 @@
-import React, { useState, useEffect ,useRef} from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { TYPE_USER } from '../../utility/Constants.js';
 import ChatCardPreview from './ChatCardPreview.jsx';
 import HandleScroll from '../../utility/HandleScroll.js';
 const Chatlist = ({ dispatch }) => {
   const listRef = useRef(null);
   const HandleScroller = HandleScroll();
-  const [chatPreviews, setChatPreviews] = useState([...Array(20)].map((_, i) => (
-    <ChatCardPreview
-      key={i}
-      chattype={TYPE_USER}
-      chatid={i}
-      setter={dispatch}
-      unreadmessage={5}
-    />
-  )));
+  const [chatPreviews, setChatPreviews] = useState(
+    [
+      {
+        profile: {
+          profileID: 2,
+          profileName: 'Sara',
+          type: 'USER',
+          defaultProfileColor: '#e68873',
+          lastProfilePicture: null
+        },
+        lastMessage: {
+          messageID: 2,
+          text: 'سلام. خوبم ممنون تو چطوری ؟',
+          time: '2023-08-14T09:17:50.23945',
+          viewCount: 1
+        },
+        unreadMessageCount: 1
+      }
+    ]
+
+    //   [...Array(20)].map((_, i) => (
+    //   <ChatCardPreview
+    //     key={i}
+    //     chattype={TYPE_USER}
+    //     chatid={i}
+    //     setter={dispatch}
+    //     unreadmessage={5}
+    //   />
+    // )
+  );
 
   const handleScroll = (listRef) => {
     // const res = HandleScroller.ReachEnd(listRef);
@@ -32,7 +53,10 @@ const Chatlist = ({ dispatch }) => {
   };
 
   return (
-    <div ref={listRef} onScroll={()=>handleScroll(listRef)} className=" mt-4 w-full h-full overflow-y-auto">
+    <div
+      ref={listRef}
+      onScroll={() => handleScroll(listRef)}
+      className=" mt-4 w-full h-full overflow-y-auto">
       {chatPreviews}
     </div>
   );

@@ -24,8 +24,12 @@ export default function Login() {
     if (!values.current.email || !values.current.password) {
       alert('لطفاً همه فیلدها را پر کنید.');
     } else {
-      await dispatch(loginUserProfile(values.current));
-      window.location.href = '/';
+      try {
+        await dispatch(loginUserProfile(values.current));
+        window.location.href = '/';
+      } catch (err) {
+        console.log(err);
+      }
     }
   }
 
