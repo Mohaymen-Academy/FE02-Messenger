@@ -21,8 +21,9 @@ const messageListSlice = createSlice({
   initialState,
   reducers: {
     setMessages: (state, action) => {
-      state.messages = [];
-      state.messages.push(action.payload);
+      // console.log(action.payload.chatDisplayList)
+      state.messages = action.payload.chatDisplayList;
+      // state.messages.push(action.payload.chatDisplayList);
     }
   }
   //   extraReducers: (builder) =>

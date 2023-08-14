@@ -41,10 +41,8 @@ export default function ChatLayout() {
   }, []);
 
   function infinityRequest() {
-    console.log('here');
     worker.postMessage(token);
     worker.onmessage = (msg) => {
-      console.log(msg.data);
       dispatch(setMessages(msg.data));
     };
   }
