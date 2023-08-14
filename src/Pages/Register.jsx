@@ -58,7 +58,7 @@ export default function Register() {
             password: values.current.password
           })
         );
-        window.location.href = '/login';
+        window.location.href = '/';
       } catch (err) {
         console.log(err);
       }
