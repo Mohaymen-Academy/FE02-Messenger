@@ -50,7 +50,10 @@ export default function RightSide({ dispatch, chatId }) {
               <UilBars className="text-text1 w-10 h-10 mx-1 m-1  " />
             </button>
           ) : (
-            <button onClick={(e) => setItem(NUM_SIDEBAR_CHAT)}>
+            <button onClick={(e) => setItem(
+              NUM_SIDEBAR_CHAT
+              // item == NUM_SIDEBAR_SETTINGS ? NUM_SIDEBAR_CHAT:NUM_SIDEBAR_CHANNEL
+              )}>
               <UilArrowRight className="text-text1 w-10 h-10 mx-1 m-1    " />
             </button>
           )}

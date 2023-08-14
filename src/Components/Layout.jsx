@@ -24,7 +24,7 @@ const Layout = ({ children }) => {
     <div className={`flex h-screen w-screen overflow-hidden vsmmobile:relative font-estedad `} id="app-holder">
       <RightSide chatId={chat.chatid} dispatch={dispatch} />
       <LayoutContext.Provider value={{ chat, dispatch }}>
-      <div className="h-full flex-1 flex-row bg-background pb-6 bg-backgroundPattern bg-cover bg-opacity-70 bg-center " style={{ backgroundImage: 'var(backgroundPattern)', backgroundBlendMode: 'darken', backgroundRepeat: 'repeat',  backgroundSize: '600px', width: '600px' }}>
+      <div className="h-full flex-1 flex-row bg-background pb-6 bg-backgroundPattern bg-cover bg-opacity-90 bg-center " style={{ backgroundImage: 'var(backgroundPattern)', backgroundBlendMode:'soft-light', backgroundRepeat: 'repeat',  backgroundSize: '600px', width: '600px' }}>
           {children}
         </div>
       </LayoutContext.Provider>
