@@ -28,16 +28,16 @@ export default function ChatLayout() {
         chatTools.dispatch({ type: 'null' });
       }
     });
-    // const infinityInterval = setInterval(infinityRequest, 1000);
-    // return () => {
-    //   clearInterval(infinityInterval);
-    // };
+    const infinityInterval = setInterval(infinityRequest, 1000);
+    return () => {
+      clearInterval(infinityInterval);
+    };
   }, []);
 
   function infinityRequest() {
     // console.log('here');
-    // worker.postMessage('ewe');
-    // worker.onmessage = (msg) => console.log(msg);
+    worker.postMessage('ewe');
+    worker.onmessage = (msg) => console.log(msg);
   }
 
   return Chats[chatTools.chat.chattype];

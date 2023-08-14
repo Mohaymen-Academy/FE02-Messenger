@@ -16,19 +16,19 @@ const Chatlist = ({ dispatch }) => {
   )));
 
   const handleScroll = (listRef) => {
-    const res = HandleScroller.ReachEnd(listRef);
-    if (res===true) {
-      const additionalChatPreviews = [...Array(10)].map((_, i) => (
-        <ChatCardPreview
-          key={i + chatPreviews.length}
-          chattype={TYPE_USER}
-          chatid={i + chatPreviews.length}
-          setter={dispatch}
-          unreadmessage={5}
-        />
-      ));
-      setChatPreviews(prevPreviews => [...prevPreviews, ...additionalChatPreviews]);
-    }
+    // const res = HandleScroller.ReachEnd(listRef);
+    // if (res===true) {
+    //   const additionalChatPreviews = [...Array(10)].map((_, i) => (
+    //     <ChatCardPreview
+    //       key={i + chatPreviews.length}
+    //       chattype={TYPE_USER}
+    //       chatid={i + chatPreviews.length}
+    //       setter={dispatch}
+    //       unreadmessage={5}
+    //     />
+    //   ));
+    //   setChatPreviews(prevPreviews => [...prevPreviews, ...additionalChatPreviews]);
+    // }
   };
 
   return (

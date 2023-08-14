@@ -1,6 +1,6 @@
 import axios from 'axios';
 import API from './API';
-import { BASE_URL } from './consts';
+import { BASE_URL , HEADER } from './consts';
 
 export default function Requests(body) {
   // Register
@@ -13,8 +13,7 @@ export default function Requests(body) {
         email // Use the email value from state
       };
 
-      const res = await API().GET('access/signup', requestData);
-      console.log(res);
+      const res = await API().GET('access/signup', requestData , HEADER);
       if (res.data === 'fail') {
         return false;
       }
@@ -28,7 +27,7 @@ export default function Requests(body) {
   async function Register(body) {
     try {
       console.log('Sending request to sign up...');
-      const res = await API().POST('access/signup', body);
+      const res = await API().POST('access/signup', body, HEADER);
       return res;
     } catch (err) {
       console.log(err);
@@ -39,7 +38,7 @@ export default function Requests(body) {
     console.log(body);
     try {
       console.log('Sending request to login...');
-      const res = await API().POST('access/login', body);
+      const res = await API().POST('access/login', body , HEADER);
       // redirect('/');
       return res;
     } catch (err) {
@@ -47,9 +46,11 @@ export default function Requests(body) {
     }
   }
   async function GetChat(body, receiverID) {
+    const newHeader = { ... HEADER , 'Authorization': `Bearer ${body.token}` };
+
     console.log('Get chat messeages');
     try {
-      const res = await API().GET(receiverID, body);
+      const res = await API().GET(receiverID, body , newHeader);
       // .then((res) => res.json())
       // .then((data) => data)
       // .catch((err) => err);
@@ -60,11 +61,13 @@ export default function Requests(body) {
       console.log(err);
     }
   }
-  async function GetChatList(body) {
+  async function GetChatList(limit) {
+    const body = { limit };
+    const newHeader = { ... HEADER , 'Authorization': `Bearer ${body.token}` };
+
     try {
-      const res =
-        // await API().GET('chats', body);
-        axios.get('http://localhost:3000/pages');
+      const res = await API().GET('/', body , newHeader);
+      return res;
     } catch (err) {
       console.error(err);
     }
