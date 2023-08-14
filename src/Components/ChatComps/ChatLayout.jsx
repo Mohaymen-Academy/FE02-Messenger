@@ -36,8 +36,8 @@ export default function ChatLayout() {
 
   function infinityRequest() {
     // console.log('here');
-    worker.postMessage('ewe');
-    worker.onmessage = (msg) => console.log(msg);
+    // worker.postMessage('ewe');
+    // worker.onmessage = (msg) => console.log(msg);
   }
 
   return Chats[chatTools.chat.chattype];
