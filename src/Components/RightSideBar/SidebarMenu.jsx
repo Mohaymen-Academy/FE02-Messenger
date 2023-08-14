@@ -23,7 +23,7 @@ export default function SidebarMenu({ profileImage, username, open, setopen, div
     <div dir='rtl' className="h-screen w-[190px]">
       <div
         ref={divref}
-        className={`w-[350px] fixed top-0 flex h-screen flex-col bg-color2 transition-all duration-1000 ease-in-out font-estedad ${
+        className={`w-[350px] fixed top-0 flex h-screen flex-col bg-color2 transition-all duration-500 ease-in-out font-estedad ${
           open ? 'right-0' : 'right-[-150%]'
         }`}>
         <div className=" w-[100%] h-[200px] flex flex-col justify-end gap-6 pt-0 ">

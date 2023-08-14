@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
 import { getTheme } from '../utility/useLoclStorage';
@@ -8,15 +8,16 @@ import { redirect } from 'react-router-dom';
 import { registerUserProfile } from '../features/profileSlice';
 
 export default function Register() {
+  console.log('werp');
   const dispatch = useDispatch();
   useEffect(() => {
-    console.log('skldjf');
+    // console.log('skldjf');
     const div = document.getElementById('zarp');
     div.dataset.theme = getTheme() ? getTheme() : 'light';
     // console.log(div.dataset.theme)
   }, []);
 
-  const [values, setValues] = useState({
+  const values = useRef({
     username: '',
     email: '',
     password: '',
@@ -33,27 +34,31 @@ export default function Register() {
   async function handleRegisterClick(event) {
     event.preventDefault();
     // Check for empty fields
-    if (!values.username || !values.email || !values.password || !values.password_confirmation) {
+    if (
+      !values.current.username ||
+      !values.current.email ||
+      !values.current.password ||
+      !values.current.password_confirmation
+    ) {
       alert('لطفاً همه فیلدها را پر کنید.');
       return;
     }
-    if (!validateEmailFormat(values.email)) {
+    if (!validateEmailFormat(values.current.email)) {
       setEmailError('فرمت ایمیل وارد شده صحیح نیست.');
-    } else if (values.password !== values.password_confirmation) {
+    } else if (values.current.password !== values.current.password_confirmation) {
       setPasswordError('رمز عبور و تایید رمز عبور باید یکسان باشند.');
     } else {
       console.log(values);
       try {
-        // const res = await requesHnalder.Register(values.username, values.email, values.password);
-       await dispatch(
+        // const res = await requesHnalder.Register(values.current.username, values.current.email, values.current.password);
+        await dispatch(
           registerUserProfile({
-            name: values.username,
-            email: values.email,
-            password: values.password
+            name: values.current.username,
+            email: values.current.email,
+            password: values.current.password
           })
         );
-        window.location.href='/login'
-
+        window.location.href = '/login';
       } catch (err) {
         console.log(err);
       }
@@ -61,11 +66,11 @@ export default function Register() {
   }
   async function CheckDuplicateEmail(email) {
     console.log('vhgvbv');
-    if (!validateEmailFormat(values.email)) {
+    if (!validateEmailFormat(values.current.email)) {
       setEmailError('فرمت ایمیل وارد شده صحیح نیست.');
     } else {
       console.log(Requests());
-      const res = await Requests().checkDuplicateEmail(values.email);
+      const res = await Requests().checkDuplicateEmail(values.current.email);
       console.log(res);
       if (!res) {
         setEmailError('ایمیل وارد شده تکراری است.');
@@ -73,10 +78,7 @@ export default function Register() {
     }
   }
   const changeinput = (name, value) => {
-    setValues({
-      ...values,
-      [name]: value
-    });
+    values.current[name] = value;
   };
   return (
     <div dir="rtl" className="bg-complete">
