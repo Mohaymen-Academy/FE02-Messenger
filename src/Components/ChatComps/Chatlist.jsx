@@ -57,7 +57,17 @@ const Chatlist = ({ dispatch }) => {
       ref={listRef}
       onScroll={() => handleScroll(listRef)}
       className=" mt-4 w-full h-full overflow-y-auto">
-      {chatPreviews}
+      {chatPreviews.map((chatprev, index) => (
+        <ChatCardPreview
+          key={index}
+          profile={chatprev.profile}
+          chattype={TYPE_USER}
+          chatid={index}
+          lastMessage={chatprev.lastMessage}
+          setter={dispatch}
+          unreadMessageCount={chatprev.unreadMessageCount}
+        />
+      ))}
     </div>
   );
 };

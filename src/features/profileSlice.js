@@ -1,26 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import Requests from '../API/Requests';
-import { redirect, useLocation, useNavigate } from 'react-router-dom';
-/**
- * 
-    {
-        "profile": {
-            "profileID": 2,
-            "profileName": "Sara",
-            "type": "USER",
-            "defaultProfileColor": "#e68873",
-            "lastProfilePicture": null
-        },
-        "lastMessage": {
-            "messageID": 2,
-            "text": "سلام. خوبم ممنون تو چطوری ؟",
-            "time": "2023-08-14T09:17:50.23945",
-            "viewCount": 1
-        },
-        "unreadMessageCount": 1
-    }
- * 
- * */ 
 
 const initialState = {
   jwt: '',

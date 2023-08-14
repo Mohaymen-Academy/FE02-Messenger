@@ -26,7 +26,7 @@ const TEXT_STYLES = {
   6: 'spoiler'
 };
 export { TEXT_STYLES };
-const TYPE_USER = 1,
-  TYPE_GROUP = 2,
-  TYPE_CHANNEL = 3;
+const TYPE_USER = 0,
+  TYPE_GROUP = 1,
+  TYPE_CHANNEL = 2;
 export { TYPE_CHANNEL, TYPE_GROUP, TYPE_USER };
