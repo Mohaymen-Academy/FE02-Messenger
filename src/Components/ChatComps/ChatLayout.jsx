@@ -34,7 +34,7 @@ export default function ChatLayout() {
         chatTools.dispatch({ type: 'null' });
       }
     });
-    const infinityInterval = setInterval(infinityRequest, 1000);
+    const infinityInterval = setInterval(infinityRequest, 10000);
     return () => {
       clearInterval(infinityInterval);
     };

@@ -11,14 +11,14 @@ const Chatlist = ({ dispatch }) => {
         profile: {
           profileID: 2,
           profileName: 'Sara',
-          type: 'USER',
+          type: 0,
           defaultProfileColor: '#e68873',
           lastProfilePicture: null
         },
         lastMessage: {
           messageID: 2,
           text: 'سلام. خوبم ممنون تو چطوری ؟',
-          time: '2023-08-14T09:17:50.23945',
+          time: '9:17',
           viewCount: 1
         },
         unreadMessageCount: 1

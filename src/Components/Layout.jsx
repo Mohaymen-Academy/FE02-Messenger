@@ -19,7 +19,7 @@ const Layout = ({ children }) => {
   }, []);
 
   // const [chatid, setChatId] = useState(null);
-  const [chat, dispatch] = useReducer(reducer, { chatid: 1, chattype: TYPE_USER });
+  const [chat, dispatch] = useReducer(reducer, { chatid: null, chattype: null });
   return (
     <div className={`flex h-screen w-screen overflow-hidden vsmmobile:relative font-estedad `} id="app-holder">
       <RightSide chatId={chat.chatid} dispatch={dispatch} />
