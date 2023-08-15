@@ -6,7 +6,7 @@ const initialState = {
   Chatmessages: [],
   lastMessage: 0
 };
-const GetMessages=createAsyncThunk('selectedProf/getmessages',()=>{})
+const GetMessages = createAsyncThunk('selectedProf/getmessages', () => {});
 const SelectedProf = createSlice({
   name: 'selectedProf',
   initialState,
@@ -19,9 +19,11 @@ const SelectedProf = createSlice({
       state.selectedChatID = action.payload.ID;
     }
   },
-  extraReducers:(builder)=>
-  builder.addCase()
+  extraReducers: (builder) =>
+    builder.addCase(GetMessages.fulfilled, (state, action) => {
+      state.Chatmessages = action.payload.messages;
+    })
 });
-
+export {GetMessages};
 export const { setChat, setChatType } = SelectedProf.actions;
 export default SelectedProf.reducer;
