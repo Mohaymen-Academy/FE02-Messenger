@@ -6,19 +6,17 @@ const initialState = {
   profileData: {}
 };
 const registerUserProfile = createAsyncThunk('profile/sendRegisterData', async (body) => {
-  console.log(body);
   try {
     const data = await Requests().Register(body);
-    console.log(data.data);
     return data.data;
-  } catch (error) {}
+  } catch (error) {
+    console.log(error);
+  }
 });
 
 const loginUserProfile = createAsyncThunk('profile/sendLoginData', async (body) => {
-  console.log(body);
   try {
     const data = await Requests().Login(body);
-    console.log(data.data);
     return data.data;
   } catch (error) {
     console.log(error);
@@ -27,11 +25,10 @@ const loginUserProfile = createAsyncThunk('profile/sendLoginData', async (body) 
 const profileSlice = createSlice({
   name: 'profile',
   initialState,
-
   extraReducers: (builder) =>
     builder
       .addCase(registerUserProfile.fulfilled, (state, action) => {
-        if (action.payload != null) {
+        if (action.payload.jwt) {
           state.jwt = action.payload.jwt;
           state.profileData = action.payload.profile;
         } else {

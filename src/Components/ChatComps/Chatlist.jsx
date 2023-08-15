@@ -11,8 +11,24 @@ const Chatlist = () => {
   const dispatch = useDispatch();
   const HandleScroller = HandleScroll();
   const lists = useSelector((store) => store.messageList.messages);
-  console.log(lists);
-
+  /**
+ *
+ {
+        "profile": {
+            "profileID": 1,
+            "profileName": "Ali",
+            "type": "USER",
+            "defaultProfileColor": {}
+        },
+        "lastMessage": {
+            "messageID": 1,
+            "text": "سلام",
+            "time": "2023-08-09T19:57:36.18063",
+            "viewCount": 0
+        },
+        "unreadMessageCount": 1
+    }
+ */
   const handleScroll = (listRef) => {
     // const res = HandleScroller.ReachEnd(listRef);
     // if (res===true) {
@@ -38,10 +54,7 @@ const Chatlist = () => {
         <ChatCardPreview
           key={index}
           profile={chatprev.profile}
-          chattype={TYPE_USER}
-          chatid={index}
           lastMessage={chatprev.lastMessage}
-          setter={dispatch(setActiveMessage(index))}
           unreadMessageCount={chatprev.unreadMessageCount}
         />
       ))}

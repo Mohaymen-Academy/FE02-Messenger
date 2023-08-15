@@ -4,29 +4,42 @@ import SidebarMenu from './SidebarMenu.jsx';
 import ContactsList from './ContactsList';
 import Settings from './Menues/Settings';
 import GroupChannelAdd from './GroupChannelAdd';
+import Requests from '../../API/Requests';
 import { UilBars, UilSearch, UilArrowRight } from '@iconscout/react-unicons';
 import {
   NUM_SIDEBAR_CHANNEL,
   NUM_SIDEBAR_CONTACTS,
   NUM_SIDEBAR_GROUP,
   NUM_SIDEBAR_SETTINGS,
-  NUM_SIDEBAR_CHAT
+  NUM_SIDEBAR_CHAT,
+  NUM_SIDEBAR_DEFAULT
 } from '../../utility/Constants.js';
+import { useDispatch, useSelector } from 'react-redux';
+import { setsidebarState, BackHandler } from '../../features/rightSideSlice';
 
-export default function RightSide({ dispatch, chatId }) {
-  const [open, setopen] = useState(false);
+export default function RightSide({ chatId }) {
+  // const [open, setopen] = useState(false);
+  const isopen = useSelector((store) => store.rightsideMenues.isOpen);
+  const menu = useSelector((store) => store.rightsideMenues.RightView);
+
   const divref = useRef(null);
-  const [item, setItem] = useState(NUM_SIDEBAR_CHAT);
+  const dispatch = useDispatch();
   const Items = {
-    [NUM_SIDEBAR_CHAT]: <Chatlist dispatch={dispatch} />,
-    [NUM_SIDEBAR_CONTACTS]: <ContactsList dispatch={dispatch} />,
-    [NUM_SIDEBAR_SETTINGS]: <Settings menuSetter={setItem} setopen={setopen} />,
+    [NUM_SIDEBAR_CHAT]: <Chatlist />,
+    [NUM_SIDEBAR_CONTACTS]: <ContactsList />,
+    [NUM_SIDEBAR_SETTINGS]: <Settings />,
     [NUM_SIDEBAR_GROUP]: <GroupChannelAdd type={'group'} />,
     [NUM_SIDEBAR_CHANNEL]: <GroupChannelAdd type={'channel'} />
   };
+  function handleSearch(value) {
+    if (item == NUM_SIDEBAR_CHAT) {
+      Requests().SearchAll(value)
+    }
+  }
+
   function handleOutsideClick(event) {
     if (divref.current && !divref.current.contains(event.target)) {
-      setopen(false);
+      dispatch(setsidebarState({ state: false }));
     }
   }
   useEffect(() => {
@@ -45,15 +58,14 @@ export default function RightSide({ dispatch, chatId }) {
       } `}>
       <div className="flex justify-between px-2 py-1 ">
         <div>
-          {item == NUM_SIDEBAR_CHAT ? (
-            <button className="relative" onClick={(e) => setopen((prev) => !prev)}>
+          {menu == NUM_SIDEBAR_CHAT ? (
+            <button
+              className="relative"
+              onClick={(e) => dispatch(setsidebarState({ state: !isopen }))}>
               <UilBars className="text-text1 w-10 h-10 mx-1 m-1  " />
             </button>
           ) : (
-            <button onClick={(e) => setItem(
-              NUM_SIDEBAR_CHAT
-              // item == NUM_SIDEBAR_SETTINGS ? NUM_SIDEBAR_CHAT:NUM_SIDEBAR_CHANNEL
-              )}>
+            <button onClick={(e) => dispatch(BackHandler())}>
               <UilArrowRight className="text-text1 w-10 h-10 mx-1 m-1    " />
             </button>
           )}
@@ -64,9 +76,10 @@ export default function RightSide({ dispatch, chatId }) {
             <input
               type="search"
               id="default-search"
+              onChange={(e) => handleSearch(e.target.value)}
               className="block w-full rounded-full p-2 pl-10 pr-5 text-sm border bg-color2 focus:ring-color1 text-text1
               placeholder-text1"
-              placeholder={`جستجو ${item == NUM_SIDEBAR_CONTACTS ? 'مخاطبین' : ''}`}
+              placeholder={`جستجو`}
               // required
             />
             <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
@@ -76,16 +89,12 @@ export default function RightSide({ dispatch, chatId }) {
         </form>
       </div>
 
-      {Items[item]}
-      <SidebarMenu
-        profileImage={'images/profile.jpg'}
-        item={item}
-        setItem={setItem}
-        username={'Zahra'}
-        open={open}
-        setopen={setopen}
-        divref={divref}
-      />
+      {Items[menu]}
+      {open ? (
+        <SidebarMenu profileImage={'images/profile.jpg'} username={'Zahra'} divref={divref} />
+      ) : (
+        <></>
+      )}
     </div>
   );
 }

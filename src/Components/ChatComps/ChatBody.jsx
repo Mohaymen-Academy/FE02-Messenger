@@ -7,56 +7,56 @@ import { TYPE_CHANNEL, TYPE_GROUP } from '../../utility/Constants.js';
 import MessageDateGroup from '../message/MessageDateGroup.jsx';
 import MessageVoice from '../message/MessageVoice.jsx';
 import { UilArrowDown } from '@iconscout/react-unicons';
-const messages = [
-  {
-    messageID: 2,
-    text: ' 2 سلام',
-    time: '21:06',
-    media: null,
-    viewCount: 0,
-    sender: {
-      profileID: 1,
-      profileName: 'Ali',
-      defaultProfileColor: {}
-    },
-    isPinned: false,
-    isEdited: false
-  },
-  {
-    profile: {
-      profileID: 1,
-      profileName: 'Ali',
-      type: 'USER',
-      defaultProfileColor: {}
-    },
-    lastMessage: {
-      messageID: 1,
-      text: 'سلام',
-      time: '2023-08-09T19:57:36.18063',
-      viewCount: 0
-    },
-    unreadMessageCount: 1
-  },
-  {
-    id: 'else',
-    seen: true,
-    content: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis, ex',
-    repliedMessage: 'zendegito be atish mikesham'
-  },
-  {
-    id: 'you',
-    seen: true,
-    content: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis, ex',
-    forwarded: 'Mahmoud'
-  },
-  {
-    id: 'you',
-    seen: true,
-    content: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis, ex',
-    forwarded: 'Mahmoud',
-    media: '/images/profile.jpg'
-  }
-];
+// const messages = [
+//   {
+//     messageID: 2,
+//     text: ' 2 سلام',
+//     time: '21:06',
+//     media: null,
+//     viewCount: 0,
+//     sender: {
+//       profileID: 1,
+//       profileName: 'Ali',
+//       defaultProfileColor: {}
+//     },
+//     isPinned: false,
+//     isEdited: false
+//   },
+//   {
+//     profile: {
+//       profileID: 1,
+//       profileName: 'Ali',
+//       type: 'USER',
+//       defaultProfileColor: {}
+//     },
+//     lastMessage: {
+//       messageID: 1,
+//       text: 'سلام',
+//       time: '2023-08-09T19:57:36.18063',
+//       viewCount: 0
+//     },
+//     unreadMessageCount: 1
+//   },
+//   {
+//     id: 'else',
+//     seen: true,
+//     content: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis, ex',
+//     repliedMessage: 'zendegito be atish mikesham'
+//   },
+//   {
+//     id: 'you',
+//     seen: true,
+//     content: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis, ex',
+//     forwarded: 'Mahmoud'
+//   },
+//   {
+//     id: 'you',
+//     seen: true,
+//     content: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis, ex',
+//     forwarded: 'Mahmoud',
+//     media: '/images/profile.jpg'
+//   }
+// ];
 
 export default function ChatBody({ chattype }) {
   const bodyref = useRef(null);
@@ -74,6 +74,7 @@ export default function ChatBody({ chattype }) {
       }
     }
   }
+  
   // TODO
   const footerallowed = chattype == TYPE_CHANNEL ? false : chattype == TYPE_GROUP ? true : true;
   const [preview, setPreview] = useState(false);

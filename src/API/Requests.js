@@ -66,11 +66,22 @@ export default function Requests(body) {
       console.error(err);
     }
   }
+  async function SearchAll(text) {
+    const body = { search_entry : text };
+    try {
+      const res = await API().GET('search', body, AutorizeHeader);
+      return res;
+    } catch (err) {
+      console.error(err);
+    }
+  }
+
   return {
     checkDuplicateEmail,
     Register,
     Login,
     GetChatList,
-    GetChat
+    GetChat,
+    SearchAll
   };
 }

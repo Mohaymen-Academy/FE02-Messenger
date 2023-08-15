@@ -3,11 +3,13 @@ import { persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import thunk from 'redux-thunk';
 import profileReducer from '../features/profileSlice';
-import chatCardPreviewReducer from '../features/chatCardPreviewSlice';
+import chatCardPreviewReduce from '../features/chatCardPreviewSlice';
+import RightSideReducer from '../features/rightSideSlice';
+import SelectedProf from '../features/SelectedInfo';
 
 const profilePersistConfig = {
   key: 'profile',
-  storage
+  storage,
 };
 
 const persistedProfileReducer = persistReducer(profilePersistConfig, profileReducer);
@@ -15,9 +17,11 @@ const persistedProfileReducer = persistReducer(profilePersistConfig, profileRedu
 export const store = configureStore({
   reducer: {
     profile: persistedProfileReducer,
-    messageList: chatCardPreviewReducer
+    messageList: MessgeListReducer,
+    rightsideMenues: RightSideReducer,
+    selectedProf: SelectedProf,
   },
-  middleware: [thunk]
+  middleware: [thunk],
 });
 
 export default store;

@@ -8,25 +8,23 @@ import ChannelChat from '../Channel/ChannelChat';
 import WorkerBuilder from '../../Workers/web/WorkerBuilder';
 import Worker from '../../Workers/web/RequestHandler';
 // import Request from '../../API/Requests';
-import Requests from '../../API/Requests';
 // import Worker from ''
-
 import { TYPE_CHANNEL, TYPE_GROUP, TYPE_USER } from '../../utility/Constants';
-import { setMessages } from '../../features/chatCardPreviewSlice';
-// import { getMessgeList } from '../../features/messageListSlice';
+// import { setMessages } from '../../features/chatCardPreviewtSlice';
 
 export default function ChatLayout() {
-  const chatTools = useContext(LayoutContext);
+  // const chatTools = useContext(LayoutContext);
+  const chatType = useSelector((state) => state.selectedProf.chatType);
+  const chatID = useSelector((state) => state.selectedProf.selectedChatID);
   const token = useSelector((state) => state.profile.jwt);
   const dispatch = useDispatch();
-  // const requestHandler = Requests();
   const worker = new WorkerBuilder(Worker);
   const Chats = {
-    [TYPE_USER]: <UserChat setChatId={chatTools.dispatch} chatid={chatTools.chat.chatid} />,
-    [TYPE_GROUP]: <GroupChat chatid={chatTools.chat.chatid} />,
-    [TYPE_CHANNEL]: <ChannelChat chatid={chatTools.chat.chatid} />
+    [TYPE_USER]: <UserChat chatid={chatID} />,
+    [TYPE_GROUP]: <GroupChat chatid={chatID} />,
+    [TYPE_CHANNEL]: <ChannelChat chatid={chatID} />
   };
-  console.log('chatlayout');
+  console.log(chatType);
 
   useEffect(() => {
     document.addEventListener('keydown', (e) => {
@@ -34,20 +32,18 @@ export default function ChatLayout() {
         chatTools.dispatch({ type: 'null' });
       }
     });
-    const infinityInterval = setInterval(infinityRequest, 1000);
-    return () => {
-      clearInterval(infinityInterval);
-    };
+    // const infinityInterval = setInterval(infinityRequest, 1000);
+    // return () => {
+    //   clearInterval(infinityInterval);
+    // };
   }, []);
 
   function infinityRequest() {
-    console.log('here');
-    worker.postMessage(token);
-    worker.onmessage = (msg) => {
-      console.log(msg.data);
-      dispatch(setMessages(msg.data));
-    };
-  }
+  //   worker.postMessage(token);
+  //   worker.onmessage = (msg) => {
+  //     dispatch(setMessages(msg.data));
+  //   };
+  // }
 
-  return Chats[chatTools.chat.chattype];
+  return Chats[chatType];
 }
