@@ -7,6 +7,7 @@ import { TYPE_CHANNEL, TYPE_GROUP } from '../../utility/Constants.js';
 import MessageDateGroup from '../message/MessageDateGroup.jsx';
 import MessageVoice from '../message/MessageVoice.jsx';
 import { UilArrowDown } from '@iconscout/react-unicons';
+import { useSelector } from 'react-redux';
 // const messages = [
 //   {
 //     messageID: 2,
@@ -60,9 +61,9 @@ import { UilArrowDown } from '@iconscout/react-unicons';
 
 export default function ChatBody({ chattype }) {
   const bodyref = useRef(null);
+  const messages = useSelector((state) => state.selectedProf.Chatmessages);
   const [buttonhidden, setbuttonhidden] = useState(true);
   function handleonScroll() {
-    // console.log('zarp',bodyref.current?.scrollTop,bodyref.current.clientHeight)
     if (bodyref.current?.scrollTop == bodyref.current.scrollHeight - bodyref.current.clientHeight) {
       console.log('zarp');
       setbuttonhidden(true);
@@ -74,7 +75,7 @@ export default function ChatBody({ chattype }) {
       }
     }
   }
-  
+
   // TODO
   const footerallowed = chattype == TYPE_CHANNEL ? false : chattype == TYPE_GROUP ? true : true;
   const [preview, setPreview] = useState(false);

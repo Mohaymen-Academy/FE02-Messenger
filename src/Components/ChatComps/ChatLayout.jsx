@@ -7,6 +7,7 @@ import GroupChat from '../Group/GroupChat';
 import ChannelChat from '../Channel/ChannelChat';
 import WorkerBuilder from '../../Workers/web/WorkerBuilder';
 import Worker from '../../Workers/web/RequestHandler';
+import { setMessages } from '../../features/messageListSlice';
 // import Request from '../../API/Requests';
 // import Worker from ''
 import { TYPE_CHANNEL, TYPE_GROUP, TYPE_USER } from '../../utility/Constants';
@@ -32,17 +33,17 @@ export default function ChatLayout() {
         chatTools.dispatch({ type: 'null' });
       }
     });
-    // const infinityInterval = setInterval(infinityRequest, 1000);
-    // return () => {
-    //   clearInterval(infinityInterval);
-    // };
+    const infinityInterval = setInterval(infinityRequest, 1000);
+    return () => {
+      clearInterval(infinityInterval);
+    };
   }, []);
 
   function infinityRequest() {
-    // worker.postMessage(token);
-    // worker.onmessage = (msg) => {
-    //   dispatch(setMessages(msg.data));
-    // };
+    worker.postMessage(token);
+    worker.onmessage = (msg) => {
+      dispatch(setMessages(msg.data));
+    };
   }
 
   return Chats[chatType];

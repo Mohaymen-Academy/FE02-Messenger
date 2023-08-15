@@ -1,6 +1,7 @@
 import { useDispatch } from 'react-redux';
 import Avatar from './Avatar';
-import { setChatType } from '../../features/SelectedInfo';
+import { GetMessages } from '../../features/SelectedInfo';
+// import
 function bytesToBase64(bytes) {
   const binString = Array.from(bytes, (x) => String.fromCodePoint(x)).join('');
   return btoa(binString);
@@ -12,7 +13,9 @@ const ChatCardPreview = ({ profile, lastMessage, unreadMessageCount }) => {
   const dispatch = useDispatch();
   return (
     <div
-      onClick={(e) => dispatch(setChatType({ type: profile.type, ID: profile.profileID }))}
+      onClick={(e) =>
+        dispatch(GetMessages({ type: profile.type, ID: profile.profileID }))
+      }
       className=" h-18 p-3 mx-2 flex w-[97%] cursor-pointer flex-row items-center justify-start rounded-lg  hover:bg-bghovor">
       <div className="flex w-[100%] justify-between px-2">
         <div className="flex flex-row gap-2">
