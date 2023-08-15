@@ -3,7 +3,7 @@ export default (e) => {
   // const RequestHandler = Requests();
   self.onmessage = async (msg) => {
     // console.log(msg.data);
-    fetch('http://192.168.70.231:8080/', {
+    fetch('http://185.60.136.202:8080/', {
       headers: {
         'Content-Type': 'application/json',
         'Access-Control-Allow-Origin': '*',

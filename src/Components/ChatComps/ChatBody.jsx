@@ -11,10 +11,15 @@ import { useSelector } from 'react-redux';
 import { NeededId } from '../../utility/FindneededID.js';
 import Requests from '../../API/Requests.js';
 
-export default function ChatBody({ chattype }) {
-  const observer=IntersectionObserver(entries=>{
-
-  },{ threshold: 0.5 });
+export default function ChatBody({ chatid,chattype }) {
+  const observer = new IntersectionObserver(
+    (entries) => {
+      const visibleItems = entries
+        .filter((entry) => entry.isIntersecting)
+        .map((entry) => entry.target.dataset.id);
+    },
+    { threshold: 0.5 }
+  );
   const bodyref = useRef(null);
   const messages = useSelector((state) => state.selectedProf.Chatmessages);
   const [buttonhidden, setbuttonhidden] = useState(true);
@@ -24,8 +29,6 @@ export default function ChatBody({ chattype }) {
   });
   function handleonScroll() {
     clearTimeout(scrolltimeout);
-    // const newscrY = bodyref.current.scrollY;
-    // console.log();
     const direction =
       scrollValues.current.lastScrollPosition - bodyref.current.scrollTop > 0 ? 'UP' : 'DOWN';
     scrolltimeout = setTimeout(() => {
@@ -45,14 +48,8 @@ export default function ChatBody({ chattype }) {
   const footerallowed = chattype == TYPE_CHANNEL ? false : chattype == TYPE_GROUP ? true : true;
   const [preview, setPreview] = useState(false);
   useEffect(() => {
-    // console.log();
-    // console.log(messages);
     const idtoUpdate = NeededId('Down', messages);
-    // console.log(idtoUpdate);
     Requests().UpdateSeen(idtoUpdate);
-    if (bodyref) {
-      console.log(zarp);
-    }
   }, []);
 
   function scrolltobottom() {
@@ -88,7 +85,7 @@ export default function ChatBody({ chattype }) {
         <div
           className="mb-2 w-[80%] h-[105vh]  overflow-auto px-5 pt-3"
           // onScroll={() => console.log('hello')}
-          onScroll={handleonScroll}
+          // onScroll={handleonScroll}
           ref={bodyref}>
           <button
             onClick={scrolltobottom}
