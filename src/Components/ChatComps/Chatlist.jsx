@@ -13,7 +13,7 @@ const Chatlist = () => {
   const HandleScroller = HandleScroll();
   const lists = useSelector((store) => store.messageList.messages);
   const profid = useSelector((state) => state.selectedProf.selectedChatID);
-  // console.log(profids)
+  
   useEffect(() => {
     if (profid) {
       const shouldUpdate = lists.filter(
