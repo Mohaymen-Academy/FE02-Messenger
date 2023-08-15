@@ -12,7 +12,7 @@ function Message({ isSeen, id, chattype, creator, time, media, ispinned, isEdite
   const [openContextMenu, setOpenContextMenu] = useState(false);
   const [mousepositoin, setmousepositoin] = useState({ x: 0, y: 0 });
   const userprofile = useSelector((state) => state.profile);
-  console.log(userprofile.profileData.profileID);
+  // console.log(userprofile.profileData.profileID);
   let y_mouse = useRef(0);
   let x_mouse = useRef(0);
   function handleRightClick(event, index) {

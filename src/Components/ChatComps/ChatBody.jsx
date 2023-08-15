@@ -63,7 +63,7 @@ export default function ChatBody({ chattype }) {
     // console.log(bodyref.current)
     // bodyref.current.scrollIntoView({ behavior: 'smooth' });
   }
-
+  
   return (
     <div
       dir="rtl"

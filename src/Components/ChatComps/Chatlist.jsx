@@ -4,34 +4,28 @@ import { TYPE_USER } from '../../utility/Constants.js';
 import ChatCardPreview from './ChatCardPreview.jsx';
 import HandleScroll from '../../utility/HandleScroll.js';
 import store from '../../Store/store.js';
+import { GetMessages } from '../../features/SelectedInfo.js';
 import { setActiveMessage } from '../../features/chatCardPreviewSlice.js';
-
-
 
 const Chatlist = () => {
   const listRef = useRef(null);
   const dispatch = useDispatch();
   const HandleScroller = HandleScroll();
   const lists = useSelector((store) => store.messageList.messages);
-  console.log(lists)
-  /**
- *
- {
-        "profile": {
-            "profileID": 1,
-            "profileName": "Ali",
-            "type": "USER",
-            "defaultProfileColor": {}
-        },
-        "lastMessage": {
-            "messageID": 1,
-            "text": "سلام",
-            "time": "2023-08-09T19:57:36.18063",
-            "viewCount": 0
-        },
-        "unreadMessageCount": 1
+  const profid = useSelector((state) => state.selectedProf.selectedChatID);
+  // console.log(profids)
+  useEffect(() => {
+    if (profid) {
+      const shouldUpdate = lists.filter(
+        (ele) => ele.profile.profileID == profid && ele.unreadMessageCount != 0
+      )[0];
+      if (shouldUpdate) {
+        dispatch(
+          GetMessages({ type: shouldUpdate.profile.type, ID: shouldUpdate.profile.profileID })
+        );
+      }
     }
- */
+  });
   const handleScroll = (listRef) => {
     // const res = HandleScroller.ReachEnd(listRef);
     // if (res===true) {
