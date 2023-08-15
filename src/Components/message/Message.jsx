@@ -6,19 +6,13 @@ import MessageFooter from './MessageFooter.jsx';
 import ImagePreviewer from '../media-previewer/ImagePreviewer';
 import MessageBody from './MessageBody.jsx';
 import { Avatar } from '../ChatComps';
-function Message({
-  avatar,
-  content,
-  isSeen,
-  id,
-  forewardedFrom,
-  repliedTo,
-  media,
-  handleMediaMessage
-}) {
+import { useSelector } from 'react-redux';
+import { TYPE_GROUP, TYPE_USER } from '../../utility/Constants.js';
+function Message({ isSeen, id, chattype, creator, time, media, ispinned, isEdited, text }) {
   const [openContextMenu, setOpenContextMenu] = useState(false);
   const [mousepositoin, setmousepositoin] = useState({ x: 0, y: 0 });
-
+  const userprofile = useSelector((state) => state.profile);
+  console.log(userprofile.profileData.profileID);
   let y_mouse = useRef(0);
   let x_mouse = useRef(0);
   function handleRightClick(event, index) {
@@ -29,31 +23,37 @@ function Message({
     setmousepositoin({ x_mouse, y_mouse });
   }
   return (
-    <div
-      className={`relative flex w-full ${id === 'you' ? 'justify-start' : 'justify-end'} px-5`}
-      onContextMenu={handleRightClick}>
-      <MessageBody id={id}>
-        <div className="vsmmobile:text-xs">
-          <MessageHeader forewardedFrom={forewardedFrom} repliedTo={repliedTo} />
-        </div>
-        <MessageImageMedia src={media} handleClick={handleMediaMessage} />
-        <p>{content}</p>
-        <MessageFooter id={id} isSeen={isSeen} />
-      </MessageBody>
-      <div className="pt-[70px]">
-        <Avatar />
-      </div>
-      {mousepositoin.x != 0 ? (
-        <MessageMenu
-          x_pos={x_mouse.current}
-          y_pos={y_mouse.current}
-          positions={mousepositoin}
-          setposition={setmousepositoin}
-        />
-      ) : (
-        <></>
-      )}
-    </div>
+    // <div
+    //   className={`relative flex w-full ${
+    //     id === userprofile.profileData.profileID ? 'justify-start' : 'justify-end'
+    //   } px-5`}
+    //   onContextMenu={handleRightClick}>
+    //   <MessageBody id={id}>
+    //     <div className="vsmmobile:text-xs">
+    //       {/* <MessageHeader forewardedFrom={forewardedFrom} repliedTo={repliedTo} /> */}
+    //     </div>
+    //     {media ? <MessageImageMedia src={media} handleClick={handleMediaMessage} /> : <></>}
+    //     <p>{text}</p>
+    //     <MessageFooter id={id} isSeen={isSeen} />
+    //   </MessageBody>
+    //   <div className="pt-[70px]">
+    //   {chattype==TYPE_GROUP ?
+    //     <Avatar />
+    //     :<></>
+    //   }
+    //   </div>
+    //   {mousepositoin.x != 0 ? (
+    //     <MessageMenu
+    //       x_pos={x_mouse.current}
+    //       y_pos={y_mouse.current}
+    //       positions={mousepositoin}
+    //       setposition={setmousepositoin}
+    //     />
+    //   ) : (
+    //     <></>
+    //   )}
+    // </div>
+    <></>
   );
 }
 

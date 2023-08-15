@@ -13,6 +13,7 @@ const GetMessages = createAsyncThunk(
     try {
       console.log(requestinfo)
       const data = await Requests().GetChat(requestinfo.ID);
+      console.log(data)
       return { data: data.data, ID: requestinfo.ID, type: requestinfo.type };
     } catch (err) {
       console.log(err);
@@ -27,7 +28,7 @@ const SelectedProf = createSlice({
   extraReducers: (builder) =>
     builder.addCase(GetMessages.fulfilled, (state, action) => {
       console.log(action.payload);
-      state.Chatmessages = action.payload.data;
+      state.Chatmessages = action.payload.data?.messages;
       state.chatType = action.payload.type;
       state.selectedChatID = action.payload.ID;
     })

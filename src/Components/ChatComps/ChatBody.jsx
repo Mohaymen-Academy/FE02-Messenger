@@ -8,56 +8,6 @@ import MessageDateGroup from '../message/MessageDateGroup.jsx';
 import MessageVoice from '../message/MessageVoice.jsx';
 import { UilArrowDown } from '@iconscout/react-unicons';
 import { useSelector } from 'react-redux';
-// const messages = [
-//   {
-//     messageID: 2,
-//     text: ' 2 سلام',
-//     time: '21:06',
-//     media: null,
-//     viewCount: 0,
-//     sender: {
-//       profileID: 1,
-//       profileName: 'Ali',
-//       defaultProfileColor: {}
-//     },
-//     isPinned: false,
-//     isEdited: false
-//   },
-//   {
-//     profile: {
-//       profileID: 1,
-//       profileName: 'Ali',
-//       type: 'USER',
-//       defaultProfileColor: {}
-//     },
-//     lastMessage: {
-//       messageID: 1,
-//       text: 'سلام',
-//       time: '2023-08-09T19:57:36.18063',
-//       viewCount: 0
-//     },
-//     unreadMessageCount: 1
-//   },
-//   {
-//     id: 'else',
-//     seen: true,
-//     content: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis, ex',
-//     repliedMessage: 'zendegito be atish mikesham'
-//   },
-//   {
-//     id: 'you',
-//     seen: true,
-//     content: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis, ex',
-//     forwarded: 'Mahmoud'
-//   },
-//   {
-//     id: 'you',
-//     seen: true,
-//     content: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis, ex',
-//     forwarded: 'Mahmoud',
-//     media: '/images/profile.jpg'
-//   }
-// ];
 
 export default function ChatBody({ chattype }) {
   const bodyref = useRef(null);
@@ -137,18 +87,59 @@ export default function ChatBody({ chattype }) {
             <UilArrowDown />
           </button>
           <MessageDateGroup date={'2023-07-20'}>
-            {messages.map((message, index) => (
-              <div
-                key={index}
-                // onContextMenu={(e) => handleRightClick(e, index)}
-              >
+            {messages?.map((message, index) => (
+              <div key={index}>
+                {/* {
+    "messages": [
+        {
+            "messageID": 1,
+            "text": "سلام خوبی ؟",
+            "time": "2023-08-14T13:57:37.447431",
+            "media": null,
+            "viewCount": 2,
+            "sender": {
+                "profileID": 1000,
+                "profileName": "Ali",
+                "defaultProfileColor": "#e6c773",
+                "lastProfilePicture": null
+            },
+            "isPinned": false,
+            "isEdited": false
+        },
+        {
+            "messageID": 2,
+            "text": "سلام. خوبم ممنون تو چطوری ؟",
+            "time": "2023-08-14T13:57:41.209955",
+            "media": null,
+            "viewCount": 1,
+            "sender": {
+                "profileID": 1001,
+                "profileName": "Sara",
+                "defaultProfileColor": "#e68873",
+                "lastProfilePicture": {
+                    "preLoadingContent": "/9j/4AAQSkZJRgABAgAAAQABAAD/2wBDAAEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQH/2wBDAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQH/wAARCAAIAAgDASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwD+b/4ofGDwJ4ns4vgafC2nwveeCfDEtv4m1vVr7WfEWgfGiTwjKuu2OnTpdabY6HpXibxz9li1q1uYNYktoFS3n8yCzs/7FKKKvh+lSweSZdSpwlP2lJYidTE4jFYqrKdZUnNe0r16klTTvKMI2jGU5uzcmfoGczeJzbGQnGnBYaoqMHRp06LdOFqcFNU4qMnGMFaXKpdG3FRUf//Z"
+                }
+            },
+            "isPinned": false,
+            "isEdited": false
+        }
+    ],
+    "messageId": 1,
+    "downFinished": true,
+    "upFinished": true
+} */}
                 <Message
-                  content={message.content}
-                  isSeen={message.seen}
-                  id={message.id}
-                  forewardedFrom={message.forwarded}
-                  repliedTo={message.repliedMessage}
+                  // content={message.content}
+                  isSeen={message.viewCount > 1 ? true : false}
+                  id={message.messageID}
+                  chattype={chattype}
+                  creator={message.sender}
+                  time={message.time}
                   media={message.media}
+                  ispinned={message.ispinned}
+                  isEdited={message.isEdited}
+                  text={message.text}
+                  // chattype={chattype}
                   handleMediaMessage={() => setPreview(!preview)}
                 />
               </div>
