@@ -59,9 +59,11 @@ export default function Requests(body) {
 
   async function GetChat(receiverID) {
     console.log('Get chat messeages');
+    const newHeader = {...HEADER , 'Authorization': `${localStorage.getItem('token')}` };
+
     console.log(receiverID);
     try {
-      const res = await API().GET(receiverID, {}, AutorizeHeader);
+      const res = await API().GET(receiverID, {}, newHeader);
       // redirect('/');
       return res;
     } catch (err) {
