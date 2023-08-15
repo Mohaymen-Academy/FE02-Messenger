@@ -63,6 +63,7 @@ export default function Settings() {
               />
             ) : (
               <Avatar
+                size = {100}
                 imagecolor={profile.profileData.defaultProfileColor}
                 char={profile.profileData.profileName[0]}
                 // isOnline={true}

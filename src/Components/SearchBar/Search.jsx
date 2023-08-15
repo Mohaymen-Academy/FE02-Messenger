@@ -17,16 +17,16 @@ export default function Search({menu}) {
     const [result , setResult] = React.useState([]);
     const [channels , setChannels] = React.useState([]);
     const [massages , setMassages] = React.useState([]);
+    const [members , setMembers] = React.useState([]);
     const [isOpen , setisOpen] = React.useState(false);
     const [count , setCount] = React.useState(0);
     async function handleSearch(value) {
-        if (menu == NUM_SIDEBAR_CHAT) {
           await Requests().SearchAll(value).then((res) => {
             setResult(res.data);
             setChannels(res.data[0].items);
-            setMassages(res.data[1].items);
+            setMembers(res.data[1].items);
+            setMassages(res.data[2].items);
           });
-        }
       }
   return (
     <div className={`w-[92%] ml-3 ${isOpen && "h-screen"}`}>        
@@ -35,7 +35,7 @@ export default function Search({menu}) {
             <input
                 type="search"
                 id="default-search"
-                autocomplete="off"
+                autoComplete="off"
                 onFocus={() => setisOpen(true)}
                 // onBlur={() => setisOpen(false)}
                 onChange={(e) => handleSearch(e.target.value)}

@@ -10,6 +10,7 @@ import { useState } from 'react';
 import Settings from './Menues/Settings.jsx';
 import { UilArrowLeft } from '@iconscout/react-unicons';
 import { useSelector } from 'react-redux';
+import Avatar from '../ChatComps/Avatar.jsx';
 export default function SidebarMenu({ profileImage, username, divref }) {
   // const [menu, setmenu] = useState(NUM_SIDEBAR_DEFAULT);
   const open = useSelector((state) => state.rightsideMenues.isOpen);

@@ -42,8 +42,8 @@ const ChatHeader = ({ active, setActive, chatsetter, chattype ,chatid}) => {
               />
             ) : (
               <Avatar
-                imagecolor={profile.defaultProfileColor}
-                char={profile.profileName[0]}
+                imagecolor={selectedProfile.profile.defaultProfileColor}
+                char={selectedProfile.profile.profileName[0]}
                 // isOnline={true}
               />
             )}
