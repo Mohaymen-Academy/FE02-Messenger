@@ -145,7 +145,7 @@ export default function ChatBody({ chattype }) {
               </div>
             ))}
           </MessageDateGroup>
-          <MessageDateGroup date={'2023-07-22'}>
+          {/* <MessageDateGroup date={'2023-07-22'}>
             {messages.map((message, index) => (
               <div
                 key={index}
@@ -167,7 +167,7 @@ export default function ChatBody({ chattype }) {
               audioUrl="audios/12 Peaceful With Nature (1).mp3"
               audioID="you"
             />
-          </MessageDateGroup>
+          </MessageDateGroup> */}
         </div>
         {footerallowed && (
           <div className=" h-16 w-[80%] vsmmobile:mb-[7rem] smmobile:mb-[7rem]">

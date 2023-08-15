@@ -23,37 +23,32 @@ function Message({ isSeen, id, chattype, creator, time, media, ispinned, isEdite
     setmousepositoin({ x_mouse, y_mouse });
   }
   return (
-    // <div
-    //   className={`relative flex w-full ${
-    //     id === userprofile.profileData.profileID ? 'justify-start' : 'justify-end'
-    //   } px-5`}
-    //   onContextMenu={handleRightClick}>
-    //   <MessageBody id={id}>
-    //     <div className="vsmmobile:text-xs">
-    //       {/* <MessageHeader forewardedFrom={forewardedFrom} repliedTo={repliedTo} /> */}
-    //     </div>
-    //     {media ? <MessageImageMedia src={media} handleClick={handleMediaMessage} /> : <></>}
-    //     <p>{text}</p>
-    //     <MessageFooter id={id} isSeen={isSeen} />
-    //   </MessageBody>
-    //   <div className="pt-[70px]">
-    //   {chattype==TYPE_GROUP ?
-    //     <Avatar />
-    //     :<></>
-    //   }
-    //   </div>
-    //   {mousepositoin.x != 0 ? (
-    //     <MessageMenu
-    //       x_pos={x_mouse.current}
-    //       y_pos={y_mouse.current}
-    //       positions={mousepositoin}
-    //       setposition={setmousepositoin}
-    //     />
-    //   ) : (
-    //     <></>
-    //   )}
-    // </div>
-    <></>
+    <div
+      className={`relative flex w-full ${
+        creator.profileID === userprofile.profileData.profileID ? 'justify-start' : 'justify-end'
+      } px-5`}
+      onContextMenu={handleRightClick}>
+      <MessageBody id={id}>
+        <div className="vsmmobile:text-xs">
+          {/* <MessageHeader forewardedFrom={forewardedFrom} repliedTo={repliedTo} /> */}
+        </div>
+        {media ? <MessageImageMedia src={media} handleClick={handleMediaMessage} /> : <></>}
+        <p>{text}</p>
+        <MessageFooter id={id} isSeen={isSeen} />
+      </MessageBody>
+      <div className="pt-[70px]">{chattype == TYPE_GROUP ? <Avatar /> : <></>}</div>
+      {mousepositoin.x != 0 ? (
+        <MessageMenu
+          x_pos={x_mouse.current}
+          y_pos={y_mouse.current}
+          positions={mousepositoin}
+          setposition={setmousepositoin}
+        />
+      ) : (
+        <></>
+      )}
+    </div>
+    // <></>
   );
 }
 
