@@ -39,11 +39,11 @@ export default function ChatLayout() {
   }, []);
 
   function infinityRequest() {
-  //   worker.postMessage(token);
-  //   worker.onmessage = (msg) => {
-  //     dispatch(setMessages(msg.data));
-  //   };
-  // }
-
+    //   worker.postMessage(token);
+    //   worker.onmessage = (msg) => {
+    //     dispatch(setMessages(msg.data));
+    //   };
+    // }
+  }
   return Chats[chatType];
 }
