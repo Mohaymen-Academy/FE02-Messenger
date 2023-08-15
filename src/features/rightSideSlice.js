@@ -1,9 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { NUM_SIDEBAR_CHAT, NUM_SIDEBAR_DEFAULT } from '../utility/Constants';
+import { NUM_SIDEBAR_CHAT, NUM_SIDEBAR_DEFAULT, NUM_SIDEBAR_SETTINGS } from '../utility/Constants';
 const initialState = {
-  ParentType: NUM_SIDEBAR_CHAT,
+  ParentType: NUM_SIDEBAR_DEFAULT,
   ChildType: 0,
-  isOpen: false
+  isOpen: false,
+  RightView: NUM_SIDEBAR_CHAT
 };
 
 const rightsidemenues = createSlice({
@@ -11,22 +12,24 @@ const rightsidemenues = createSlice({
   initialState,
   reducers: {
     setParent: (state, action) => {
-      state.ParentType = action.payload.parent;
+      state.RightView = action.payload.parent;
     },
     setChild: (state, action) => {
+      console.log();
       state.ChildType = action.payload.child;
-    },
-    backChild: (state, action) => {
-      state.ChildType = 0;
-    },
-    backParent: (state, action) => {
-      state.ParentType = 0;
     },
     setsidebarState: (state, action) => {
       state.isOpen = action.payload.state;
+    },
+    BackHandler: (state, action) => {
+      if (state.ChildType) {
+        state.ChildType = 0;
+      } else {
+        state.RightView = NUM_SIDEBAR_CHAT;
+        // state.isOpen = false;
+      }
     }
   }
 });
-export const { setChild, setParent, backChild, backParent, setsidebarState } =
-  rightsidemenues.actions;
+export const { setChild, setParent, setsidebarState, BackHandler } = rightsidemenues.actions;
 export default rightsidemenues.reducer;

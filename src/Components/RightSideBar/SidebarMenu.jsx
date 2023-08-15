@@ -10,10 +10,10 @@ import { useState } from 'react';
 import Settings from './Menues/Settings.jsx';
 import { UilArrowLeft } from '@iconscout/react-unicons';
 import { useSelector } from 'react-redux';
-export default function SidebarMenu({ profileImage, username, divref, setItem }) {
+export default function SidebarMenu({ profileImage, username, divref }) {
   // const [menu, setmenu] = useState(NUM_SIDEBAR_DEFAULT);
   const open = useSelector((state) => state.rightsideMenues.isOpen);
-  const menu = useSelector((state) => state.rightsideMenues.ChildType);
+  const menu = useSelector((state) => state.rightsideMenues.ParentType);
 
   const Menues = {
     [NUM_SIDEBAR_DEFAULT]: ['Defualt', <Default />],
@@ -48,7 +48,7 @@ export default function SidebarMenu({ profileImage, username, divref, setItem })
         ) : (
           <div className="flex dlex-col justify-between px-5 py-2">
             <p className="text-text1 text-end mx-6">{Menues[menu][0]}</p>
-            <button 
+            <button
             // onClick={(e) => setmenu(NUM_SIDEBAR_DEFAULT)}
             >
               <UilArrowLeft className="text-text1 w-8 h-8 mx-1 top-0  " />

@@ -12,7 +12,6 @@ import {
 import { setChild } from '../../../features/rightSideSlice';
 
 export default function Settings({ image }) {
-  const [isShowing, setIsShowing] = useState(0);
   const dispatch = useDispatch();
   const child = useSelector((state) => state.rightsideMenues.ChildType);
   const items = {
@@ -42,8 +41,8 @@ export default function Settings({ image }) {
       component: <ChatSetting />
     }
   };
-  console.log(items[1].component);
-  console.log(child);
+  // console.log(items[1].component);
+  // console.log(child);
   return (
     <>
       {child == 0 ? (
@@ -70,7 +69,7 @@ export default function Settings({ image }) {
           {
             // map over item start from 1
             Object.entries(items).map((item, index) => {
-              console.log(item[0])
+              // console.log(item[0]);
               if (item[0] != SETTINGS_PRIVATE_INFO) {
                 return (
                   <div

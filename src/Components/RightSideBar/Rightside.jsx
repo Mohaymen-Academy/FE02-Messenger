@@ -10,33 +10,23 @@ import {
   NUM_SIDEBAR_CONTACTS,
   NUM_SIDEBAR_GROUP,
   NUM_SIDEBAR_SETTINGS,
-  NUM_SIDEBAR_CHAT
+  NUM_SIDEBAR_CHAT,
+  NUM_SIDEBAR_DEFAULT
 } from '../../utility/Constants.js';
 import { useDispatch, useSelector } from 'react-redux';
-import { setsidebarState } from '../../features/rightSideSlice';
+import { setsidebarState, BackHandler } from '../../features/rightSideSlice';
 
 export default function RightSide({ chatId }) {
   // const [open, setopen] = useState(false);
   const isopen = useSelector((store) => store.rightsideMenues.isOpen);
+  const menu = useSelector((store) => store.rightsideMenues.RightView);
+
   const divref = useRef(null);
   const dispatch = useDispatch();
-  const menu = useSelector((store) => store.rightsideMenues.ParentType);
   const Items = {
-    [NUM_SIDEBAR_CHAT]: (
-      <Chatlist
-      // dispatch={dispatch}
-      />
-    ),
-    [NUM_SIDEBAR_CONTACTS]: (
-      <ContactsList
-      // dispatch={dispatch}
-      />
-    ),
-    [NUM_SIDEBAR_SETTINGS]: (
-      <Settings
-      // menuSetter={setItem} setopen={setopen}
-      />
-    ),
+    [NUM_SIDEBAR_CHAT]: <Chatlist />,
+    [NUM_SIDEBAR_CONTACTS]: <ContactsList />,
+    [NUM_SIDEBAR_SETTINGS]: <Settings />,
     [NUM_SIDEBAR_GROUP]: <GroupChannelAdd type={'group'} />,
     [NUM_SIDEBAR_CHANNEL]: <GroupChannelAdd type={'channel'} />
   };
@@ -68,13 +58,7 @@ export default function RightSide({ chatId }) {
               <UilBars className="text-text1 w-10 h-10 mx-1 m-1  " />
             </button>
           ) : (
-            <button
-              onClick={(e) =>
-                dispatch(
-                  NUM_SIDEBAR_CHAT
-                  // item == NUM_SIDEBAR_SETTINGS ? NUM_SIDEBAR_CHAT:NUM_SIDEBAR_CHANNEL
-                )
-              }>
+            <button onClick={(e) => dispatch(BackHandler())}>
               <UilArrowRight className="text-text1 w-10 h-10 mx-1 m-1    " />
             </button>
           )}
@@ -98,15 +82,11 @@ export default function RightSide({ chatId }) {
       </div>
 
       {Items[menu]}
-      <SidebarMenu
-        profileImage={'images/profile.jpg'}
-        item={menu}
-        // setItem={setItem}
-        username={'Zahra'}
-        // open={isopen}
-        // setopen={setopen}
-        divref={divref}
-      />
+      {open ? (
+        <SidebarMenu profileImage={'images/profile.jpg'} username={'Zahra'} divref={divref} />
+      ) : (
+        <></>
+      )}
     </div>
   );
 }
