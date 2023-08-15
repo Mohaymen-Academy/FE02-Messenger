@@ -8,8 +8,10 @@ import TextProcessor from '../../utility/TextProcessor';
 import FileUploader from '../../utility/FileUploader';
 import PopUp from '../../utility/PopUp';
 import Poll from './Poll';
-export default function ChatFooter() {
-  const [openPoll , setopenPoll] = useState(false);
+import Requests from '../../API/Requests';
+
+export default function ChatFooter({ id }) {
+  const [openPoll, setopenPoll] = useState(false);
   const {
     handleEmojiPicker,
     handleKeyDown,
@@ -54,11 +56,13 @@ export default function ChatFooter() {
   return (
     <div
       dir="rtl"
-      className={`flex flex-col vsmmobile:relative transition-all duration-100 ease-in top-[50px] gap-3 ${
+      className={`top-[50px] flex flex-col gap-3 transition-all duration-100 ease-in vsmmobile:relative ${
         openemoji ? 'top-[-130px]' : ''
       }`}>
-      <div className="flex flex-row  justify-between items-center bg-color2 text-color4  w-[100%] p-2  m-auto rounded-xl">
-        <button className="text-text1 w-8 h-8 mx-1 ">
+      <div className="m-auto flex  w-[100%] flex-row items-center justify-between  rounded-xl bg-color2  p-2 text-color4">
+        <button
+          className="mx-1 h-8 w-8 text-text1 "
+          onClick={() => Requests().sendText(id, divref.current)}>
           <UilMessage />
         </button>
         {/* </UilPaperclip> */}
@@ -72,7 +76,7 @@ export default function ChatFooter() {
           onSelectCapture={handleSelect}
           onInput={handleonInput}
           suppressContentEditableWarning={true}
-          className=" w-[90%] max-h-[50px] flex flex-row outline-none h-auto overflow-hidden shadow-none border-none break-all focus:shadow-none active:shadow-none"></div>
+          className=" flex h-auto max-h-[50px] w-[90%] flex-row overflow-hidden break-all border-none shadow-none outline-none focus:shadow-none active:shadow-none"></div>
         <div>
           <button onClick={() => setopenemoji(!openemoji)} className="mx-1 h-8 w-8 text-text1 ">
             <UilSmile />
@@ -89,12 +93,11 @@ export default function ChatFooter() {
           {/* <EmojiPicker theme={localStorage.getItem('theme')} onEmojiClick={handleEmojiPicker} /> */}
         </>
       )}
-      {
-          openPoll&&
-          <PopUp title="ایجاد نظرسنجی" setIsModalOpen={setopenPoll}>
-            <Poll/>
-          </PopUp>
-      }
+      {openPoll && (
+        <PopUp title="ایجاد نظرسنجی" setIsModalOpen={setopenPoll}>
+          <Poll />
+        </PopUp>
+      )}
     </div>
   );
 }
