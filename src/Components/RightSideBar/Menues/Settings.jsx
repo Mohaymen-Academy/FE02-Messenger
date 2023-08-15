@@ -10,10 +10,14 @@ import {
   SETTINGS_PRIVATE_INFO
 } from '../../../utility/Constants';
 import { setChild } from '../../../features/rightSideSlice';
+import { Avatar } from '../../ChatComps';
+export default function Settings() {
 
-export default function Settings({ image }) {
   const dispatch = useDispatch();
   const child = useSelector((state) => state.rightsideMenues.ChildType);
+  const profile = useSelector((state) => state.profile);
+  console.log(profile.profileData)
+
   const items = {
     [SETTINGS_PRIVATE_INFO]: {
       title: 'اطلاعات شخصی',
@@ -52,17 +56,24 @@ export default function Settings({ image }) {
             className="flex flex-row w-[100%] p-3 hover:bg-bghovor border-b border-bghovor hover:cursor-pointer"
             onClick={() => dispatch(setChild({ child: SETTINGS_PRIVATE_INFO }))}>
             <div className="mx-5 flex h-[100px] w-[100px] items-center justify-center rounded-full bg-blue-400 ">
-              {image?.length == 1 ? (
-                <p className=" h-[100%] flex place-items-center text-center text-2xl font-normal text-white">
-                  {image}
-                </p>
-              ) : (
-                <img src={image} alt="" />
-              )}
+            {profile.profileData.lastProfilePicture ? (
+              <img
+                src={`data:image/jpeg;base64,${profile.profileData.lastProfilePicture.preLoadingContent}`}
+                className="h-full rounded-full"
+              />
+            ) : (
+              <Avatar
+                size = {100}
+                imagecolor={profile.profileData.defaultProfileColor}
+                char={profile.profileData.profileName[0]}
+                // isOnline={true}
+              />
+            )}
+
             </div>
             <div className="flex flex-col text-text1 text-[17px] justify-center">
-              <div>زهرا</div>
-              <div>Zahra@gmail.com</div>
+              <div>{profile.profileData.profileName}</div>
+              <div>{profile.profileData.handle}</div>
             </div>
             {/* items */}
           </div>

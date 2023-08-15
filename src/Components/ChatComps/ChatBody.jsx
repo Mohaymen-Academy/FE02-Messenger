@@ -76,16 +76,15 @@ export default function ChatBody({ chattype }) {
 
   return (
     <div
-      dir="rtl"
+      // dir="rtl"
       className={
-        `flex h-[100%] flex-col
-        // mb-[-30px]
+        `flex h-[100%] flex-col mb-[30px]
         `
         // mb-[-150px]
       }>
-      <div className="flex h-[70%] w-full flex-col items-center overflow-hidden">
+      <div className="flex h-[72%]  w-full flex-col items-center overflow-hidden">
         <div
-          className="mb-2 h-[105vh] w-full overflow-auto px-5 pt-3"
+          className="mb-2 w-[80%] h-[105vh]  overflow-auto px-5 pt-3"
           // onScroll={() => console.log('hello')}
           onScroll={handleonScroll}
           ref={bodyref}>

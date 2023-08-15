@@ -14,7 +14,7 @@
     --color-color1: 17 27 33; /* rgb(17,27,33) */
     --color-color2: 32 44 51; /* rgb(32,44,51) */
     --color-color3: 107 119 141; /* rgb(107 ,119, 141) */
-    --color-color4: 30 120 137; /* rgb(30 ,120, 137) */
+    --color-color4: 0 92 75; /* rgb(30 ,120, 137) */
     --color-text1: 244 244 242; /* rgb(244 , 244 , 242) */
     --color-bgmymassage: 0 92 75; /*rgb(0,92,75)*/
     --color-bgyoumassage: 32 44 51; /* rgb(32,44,51) */
@@ -28,17 +28,17 @@
     --color-color1: 244 244 242; /* rgb(244 , 244 , 242) */
     --color-color2: 232 232 232; /* rgb(244 , 232 , 232) */
     --color-color3: 187 191 202; /* rgb(187 , 191 , 202) */
-    --color-color4: 30 120 137; /* rgb(30 , 120 , 137) */
+    --color-color4: 0 92 75; /* rgb(30 , 120 , 137) */
     --color-text1: 17 27 33; /* rgb(17,27,33) */
     --color-bghovor: 187 191 202; /* rgb(187 , 191 , 202) */
     --color-bgyoumassage: 232 232 232; /* rgb(244 , 232 , 232) */
     --color-bgmymassage: 217 253 211; /*rgb(217,253,211)*/
-    --color-background: 30 120 137; /* rgb(182,258,150)*/
+    --color-background: ; /* rgb(245 255 235)*/
     --chatbackground: var(--background-image-light);
   }
   :root {
     --background-image-light: url('images/images.jpg');
-    --background-image-dark: url('images/DarkBackground.png');
+    --background-image-dark: url('images/pattern.png');
     --backgroundPattern: url('images/pattern.png');
   }
   * {
