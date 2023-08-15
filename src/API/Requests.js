@@ -1,11 +1,13 @@
 import axios from 'axios';
 import API from './API';
 import { BASE_URL, HEADER } from './consts';
+import { useDispatch, useSelector } from 'react-redux';
+
 
 export default function Requests(body) {
-  const AutorizeHeader = { ...HEADER, Authorization: `Bearer ` };
   // Register
   // check Duplicate Email - GET
+  
   async function checkDuplicateEmail(email) {
     try {
       console.log('Sending request to check duplicate email...');
@@ -68,8 +70,9 @@ export default function Requests(body) {
   }
   async function SearchAll(text) {
     const body = { search_entry : text };
+    const newHeader = {...HEADER , 'Authorization': `${localStorage.getItem('token')}` };
     try {
-      const res = await API().GET('search', body, AutorizeHeader);
+      const res = await API().GET('search/', body, newHeader);
       return res;
     } catch (err) {
       console.error(err);
