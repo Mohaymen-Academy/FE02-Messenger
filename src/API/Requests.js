@@ -1,10 +1,15 @@
-import axios from 'axios';
 import API from './API';
 import { BASE_URL, HEADER } from './consts';
-import { useDispatch, useSelector } from 'react-redux';
-
+// import { useSelector } from 'react-redux';
 
 export default function Requests(body) {
+  // const token = useSelector((state) => state.profile.jwt);
+  console.log(JSON.parse(localStorage.getItem('persist:profile')).jwt);
+  console.log();
+  const AutorizeHeader = {
+    ...HEADER,
+    Authorization: `${JSON.parse(localStorage.getItem('persist:profile')).jwt}`
+  };
   // Register
   // check Duplicate Email - GET
   
@@ -49,10 +54,14 @@ export default function Requests(body) {
       console.log(err);
     }
   }
-  async function GetChat(body, receiverID) {
+  // eyJ0eXAiOiJKV1QiLCJhbGciOiJub25lIn0.eyJpZCI6MTAwMCwiZXhwIjoxNjkyMTY0NDM4fQ.wbxoM2ylQRZwFGNnh8-qI3XLya9z4bgDxlNkHQsSJHM\""
+  // profileData
+
+  async function GetChat(receiverID) {
     console.log('Get chat messeages');
+    console.log(receiverID);
     try {
-      const res = await API().GET(receiverID, body, AutorizeHeader);
+      const res = await API().GET(receiverID, {}, AutorizeHeader);
       // redirect('/');
       return res;
     } catch (err) {

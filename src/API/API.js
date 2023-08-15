@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { BASE_URL, HEADER } from './consts';
+import { BASE_URL } from './consts';
 
 export default function API() {
   // GET function
