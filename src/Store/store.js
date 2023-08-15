@@ -3,10 +3,10 @@ import { persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import thunk from 'redux-thunk';
 import profileReducer from '../features/profileSlice';
-// import MessgeListReducer from '../features/messageListSlice';
 import RightSideReducer from '../features/rightSideSlice';
 import SelectedProf from '../features/SelectedInfo';
 import chatCardPreviewReducer from '../features/chatCardPreviewSlice';
+import composerSliceReducer from '../features/composerSlice';
 
 const profilePersistConfig = {
   key: 'profile',
@@ -21,7 +21,8 @@ export const store = configureStore({
     // messageList: MessgeListReducer,
     rightsideMenues: RightSideReducer,
     selectedProf: SelectedProf,
-    messageList: chatCardPreviewReducer
+    messageList: chatCardPreviewReducer,
+    composer: composerSliceReducer
   },
   middleware: [thunk]
 });
