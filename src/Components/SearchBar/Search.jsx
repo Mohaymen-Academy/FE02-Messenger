@@ -1,7 +1,7 @@
 import React from 'react'
 import {UilSearch} from '@iconscout/react-unicons'
 import Requests from '../../API/Requests';
-
+import SearchResult from './SearchResult';
 import {
     NUM_SIDEBAR_CHANNEL,
     NUM_SIDEBAR_CONTACTS,
@@ -23,7 +23,8 @@ export default function Search({menu}) {
         if (menu == NUM_SIDEBAR_CHAT) {
           await Requests().SearchAll(value).then((res) => {
             setResult(res.data);
-            console.log(res.data)
+            setChannels(res.data[0].items);
+            setMassages(res.data[1].items);
           });
         }
       }
@@ -34,8 +35,9 @@ export default function Search({menu}) {
             <input
                 type="search"
                 id="default-search"
+                autocomplete="off"
                 onFocus={() => setisOpen(true)}
-                onBlur={() => setisOpen(false)}
+                // onBlur={() => setisOpen(false)}
                 onChange={(e) => handleSearch(e.target.value)}
                 className={`block w-full rounded-full p-2 pl-10 pr-5 text-sm border bg-color2 focus:ring-color1 text-text1 placeholder-text1`}
                 
@@ -47,11 +49,21 @@ export default function Search({menu}) {
             </div>
             </div>
         </form>
-        {/* {
+        {
             isOpen && 
-            
-
-        } */}
+                channels.length > 0 && (
+                    
+                    channels.map((channel) => (
+                        <SearchResult profile={channel.profile} text={channel.text}/>
+                    )))          
+        }
+        {
+            isOpen && 
+                massages.length > 0 && (
+                    massages.map((massage) => (
+                        <SearchResult profile={massage.profile} text={massage.text}/>
+                    )))          
+        }
   </div>
   )
 }
