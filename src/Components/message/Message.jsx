@@ -20,18 +20,20 @@ function Message({
   text,
   observer
 }) {
-  useEffect(() => {
-    if (mainref) {
-      observer.observe(mainref.current);
-    }
-    return () => {
-      observer.unobserve(mainref.current);
-    };
-  }, []);
   const [openContextMenu, setOpenContextMenu] = useState(false);
   const [mousepositoin, setmousepositoin] = useState({ x: 0, y: 0 });
   const mainref = useRef(null);
   const userprofile = useSelector((state) => state.profile);
+  useEffect(() => {
+    if (!mainref) {
+      return;
+    }
+    console.log();
+    observer.observe(mainref.current);
+    // return () => {
+    //   observer.unobserve(mainref);
+    // };
+  }, []);
   // console.log(userprofile.profileData.profileID);
   let y_mouse = useRef(0);
   let x_mouse = useRef(0);
@@ -60,6 +62,8 @@ function Message({
       <div className="pt-[70px]">{chattype == TYPE_GROUP ? <Avatar /> : <></>}</div>
       {mousepositoin.x != 0 ? (
         <MessageMenu
+          msgId={id}
+          text={text}
           x_pos={x_mouse.current}
           y_pos={y_mouse.current}
           positions={mousepositoin}

@@ -7,8 +7,11 @@ import {
   UilCheckCircle
 } from '@iconscout/react-unicons';
 import React, { useState, useEffect, useRef } from 'react';
+import { useDispatch } from 'react-redux';
+import { composerActions } from '../../features/composerSlice';
+const MessageMenu = ({ positions, setposition, msgId, text }) => {
+  const dispatch = useDispatch();
 
-const MessageMenu = ({ positions, setposition }) => {
   const divref = useRef(null);
   function handleOutsideClick(event) {
     if (divref.current && !divref.current.contains(event.target)) {
@@ -26,12 +29,14 @@ const MessageMenu = ({ positions, setposition }) => {
     {
       icon: <UilCornerUpLeftAlt />,
       title: 'پاسخ',
-      color: 'text-text1'
+      color: 'text-text1',
+      action: 'reply'
     },
     {
       icon: <UilPen />,
       title: 'ویرایش',
-      color: 'text-text1'
+      color: 'text-text1',
+      action: 'edit'
     },
     {
       icon: <UilCopy />,
@@ -66,8 +71,9 @@ const MessageMenu = ({ positions, setposition }) => {
           <button
             key={index}
             className="flex flex-row items-center gap-2 px-5 w-full hover:bg-bghovor rounded-lg"
-            // onClick={(e) => setsection(menuId)}
-          >
+            onClick={(e) =>
+              item.action ? dispatch(composerActions.setaction({ type: item.action,text:text })) : null
+            }>
             <div className={`flex items-center gap-2 my-1 ${item.color}`}>{item.icon}</div>
             <p className={`text-xs px-2 ${item.color}`}>{item.title}</p>
           </button>
