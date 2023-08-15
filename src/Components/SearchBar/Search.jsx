@@ -15,12 +15,15 @@ import {
 
 export default function Search({menu}) {
     const [result , setResult] = React.useState([]);
+    const [channels , setChannels] = React.useState([]);
+    const [massages , setMassages] = React.useState([]);
     const [isOpen , setisOpen] = React.useState(false);
+    const [count , setCount] = React.useState(0);
     async function handleSearch(value) {
         if (menu == NUM_SIDEBAR_CHAT) {
           await Requests().SearchAll(value).then((res) => {
             setResult(res.data);
-            // const c1 = 
+            console.log(res.data)
           });
         }
       }
@@ -44,6 +47,11 @@ export default function Search({menu}) {
             </div>
             </div>
         </form>
+        {/* {
+            isOpen && 
+            
+
+        } */}
   </div>
   )
 }
