@@ -4,6 +4,7 @@ import SidebarMenu from './SidebarMenu.jsx';
 import ContactsList from './ContactsList';
 import Settings from './Menues/Settings';
 import GroupChannelAdd from './GroupChannelAdd';
+import Requests from '../../API/Requests';
 import { UilBars, UilSearch, UilArrowRight } from '@iconscout/react-unicons';
 import {
   NUM_SIDEBAR_CHANNEL,
@@ -30,6 +31,12 @@ export default function RightSide({ chatId }) {
     [NUM_SIDEBAR_GROUP]: <GroupChannelAdd type={'group'} />,
     [NUM_SIDEBAR_CHANNEL]: <GroupChannelAdd type={'channel'} />
   };
+  function handleSearch(value) {
+    if (item == NUM_SIDEBAR_CHAT) {
+      Requests().SearchAll(value)
+    }
+  }
+
   function handleOutsideClick(event) {
     if (divref.current && !divref.current.contains(event.target)) {
       dispatch(setsidebarState({ state: false }));
@@ -69,6 +76,7 @@ export default function RightSide({ chatId }) {
             <input
               type="search"
               id="default-search"
+              onChange={(e) => handleSearch(e.target.value)}
               className="block w-full rounded-full p-2 pl-10 pr-5 text-sm border bg-color2 focus:ring-color1 text-text1
               placeholder-text1"
               placeholder={`جستجو`}
