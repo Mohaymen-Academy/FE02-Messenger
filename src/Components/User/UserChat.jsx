@@ -23,7 +23,7 @@ export default function UserChat({ chatid, setChatId }) {
                 active={active}
                 chattype={TYPE_USER}
                 // chatsetter={setChatId}
-                // setActive={setActive}
+                setActive={setActive}
                 chatid={chatid}
               />
               <ChatBody chattype={TYPE_USER} chatid={chatid} />
