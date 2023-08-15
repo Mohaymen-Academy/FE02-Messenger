@@ -22,13 +22,14 @@ function Message({ isSeen, id, chattype, creator, time, media, ispinned, isEdite
     y_mouse = event.clientY;
     setmousepositoin({ x_mouse, y_mouse });
   }
+  const Isforme= creator.profileID === userprofile.profileData.profileID;
   return (
     <div
       className={`relative flex w-full ${
-        creator.profileID === userprofile.profileData.profileID ? 'justify-start' : 'justify-end'
+        Isforme ? 'justify-start' : 'justify-end'
       } px-5`}
       onContextMenu={handleRightClick}>
-      <MessageBody id={id}>
+      <MessageBody Isforme={Isforme}>
         <div className="vsmmobile:text-xs">
           {/* <MessageHeader forewardedFrom={forewardedFrom} repliedTo={repliedTo} /> */}
         </div>
