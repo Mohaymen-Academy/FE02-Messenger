@@ -33,12 +33,13 @@ export default function SidebarMenu({ profileImage, username, divref }) {
         }`}>
         <div className=" w-[100%] h-[200px] flex flex-col justify-end gap-6 pt-0 ">
           <div
-            className="flex w-[100%] object-cover h-[100%] flex-col justify-end place-items-end px-5 bg-background pb-6 bg-backgroundPattern bg-cover bg-opacity-90 bg-center " 
-            style={{ backgroundImage: 'var(backgroundPattern)', backgroundBlendMode:'soft-light' }}          >
+            className="flex w-[100%] object-cover h-[100%] flex-col justify-end place-items-end px-5 bg-gradient-to-r from-bghovor  to-[#005C4B] b pb-6  bg-cover  bg-center " 
+            // style={{ backgroundImage: 'var(backgroundPattern)', backgroundBlendMode:'soft-light' }}          
+            >
             {profile.profileData.lastProfilePicture ? (
               <img
               src={`data:image/jpeg;base64,${profile.profileData.lastProfilePicture.preLoadingContent}`}
-              className="w-[90px] h-[90px] rounded-full p-1  bg-white my-0"
+              className="w-[90px] h-[90px] rounded-full p-0.5  bg-white my-0"
               alt=""
             />
             ) : (

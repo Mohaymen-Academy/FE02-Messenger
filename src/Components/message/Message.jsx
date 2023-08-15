@@ -35,7 +35,7 @@ function Message({ isSeen, id, chattype, creator, time, media, ispinned, isEdite
         </div>
         {media ? <MessageImageMedia src={media} handleClick={handleMediaMessage} /> : <></>}
         <p>{text}</p>
-        <MessageFooter id={id} isSeen={isSeen} />
+        <MessageFooter Isforme={Isforme} id={id} isSeen={isSeen} />
       </MessageBody>
       <div className="pt-[70px]">{chattype == TYPE_GROUP ? <Avatar /> : <></>}</div>
       {mousepositoin.x != 0 ? (

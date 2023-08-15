@@ -39,7 +39,7 @@ const ChatCardPreview = ({ profile, lastMessage, unreadMessageCount }) => {
           </div>
         </div>
         <div className="flex h-[50px] flex-col justify-between pl-3">
-          <p className="text-xs">{lastMessage?.time}</p>
+          <p className="text-xs text-text1 opacity-[50%]">{lastMessage?.time}</p>
           {unreadMessageCount ? (
             <div>
               <div className="h-6 w-6 rounded-full bg-green-400  text-center text-white shadow-lg">

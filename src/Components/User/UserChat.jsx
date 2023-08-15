@@ -5,7 +5,7 @@ import { TYPE_USER } from '../../utility/Constants';
 import Requests from '../../API/Requests';
 export default function UserChat({ chatid, setChatId }) {
   const [active, setActive] = useState(false);
-  useEffect(() => {}, []);
+  
   return (
     <>
       <div className="flex flex-row">
@@ -24,10 +24,11 @@ export default function UserChat({ chatid, setChatId }) {
                 chattype={TYPE_USER}
                 // chatsetter={setChatId}
                 // setActive={setActive}
+                chatid={chatid}
               />
               <ChatBody chattype={TYPE_USER} chatid={chatid} />
             </div>
-            <LeftLayout CHATTYPE={TYPE_USER} id={1} active={active} setActive={setActive} />
+            <LeftLayout CHATTYPE={TYPE_USER} chatid={chatid} active={active} setActive={setActive} />
           </>
         ) : (
           <></>

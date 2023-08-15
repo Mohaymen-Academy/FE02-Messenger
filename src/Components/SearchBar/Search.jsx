@@ -29,7 +29,7 @@ export default function Search({menu}) {
         }
       }
   return (
-    <div className={`w-[92%] ${isOpen && "h-screen"}`}>        
+    <div className={`w-[92%] ml-3 ${isOpen && "h-screen"}`}>        
         <form dir="rtl" className="w-[100%] m-1">
             <div className="relative">
             <input

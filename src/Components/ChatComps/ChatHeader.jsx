@@ -2,16 +2,21 @@ import ChatHeaderSettings from './ChatHeaderSettings.jsx';
 import Avatar from './Avatar.jsx';
 import { UilArrowRight } from '@iconscout/react-unicons';
 import { UilSearch } from '@iconscout/react-unicons';
+import { useSelector } from 'react-redux';
+
 import { TYPE_CHANNEL, TYPE_USER, TYPE_GROUP } from '../../utility/Constants.js';
 import Pin from './Pin.jsx';
-const ChatHeader = ({ active, setActive, chatsetter, chattype }) => {
+import { useEffect } from 'react';
+import { useState } from 'react';
+const ChatHeader = ({ active, setActive, chatsetter, chattype ,chatid}) => {
+  const chatProf=useSelector(state=>state.messageList.messages)
+  const selectedProfile=chatProf.filter((item)=>item.profile.profileID==chatid)[0];
   const ChatInfo =
     chattype == TYPE_USER
       ? '12:22' // ShouldChange
       : chattype == TYPE_GROUP
       ? 4
       : 1200;
-
   return (
     <>
       <div
@@ -28,17 +33,29 @@ const ChatHeader = ({ active, setActive, chatsetter, chattype }) => {
             }}>
             <UilArrowRight className="w-8 h-8 text-text1 cursor-pointer" />
           </button>
-          <div className="flex-1 ">
-            <Avatar isOnline={false} image={'a'} />
+          <div className="flex-1 w-[75%] h-[75%] ">
+            {selectedProfile.profile.lastProfilePicture ? (
+              <img
+                src={`data:image/jpeg;base64,${selectedProfile.profile.lastProfilePicture.preLoadingContent}`}
+                className="h-full rounded-full w-full"
+
+              />
+            ) : (
+              <Avatar
+                imagecolor={profile.defaultProfileColor}
+                char={profile.profileName[0]}
+                // isOnline={true}
+              />
+            )}
           </div>
           <div className="">
-            <h3 className="text-lg font-semibold text-text1">یوزر نیم </h3>
+            <h3 className="text-lg font-semibold text-text1">{selectedProfile.profile.profileName} </h3>
             <div className="text-sm text-slate-400">{ChatInfo}</div>
           </div>
         </div>
         <div className="flex flex-row">
           <button>
-            <UilSearch />
+            <UilSearch className="w-6 h-6 text-text1 cursor-pointer" />
           </button>
           {<ChatHeaderSettings active={active} />}
         </div>
