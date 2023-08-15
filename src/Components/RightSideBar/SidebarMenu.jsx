@@ -45,6 +45,7 @@ export default function SidebarMenu({ profileImage, username, divref }) {
             />
             ) : (
               <Avatar
+                size={90}
                 imagecolor={profile.profileData.defaultProfileColor}
                 char={profile.profileData.profileName[0]}
                 // isOnline={true}
