@@ -1,13 +1,14 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { connect, useSelector, useStore } from 'react-redux';
+import { connect, useDispatch, useSelector, useStore } from 'react-redux';
 import { TYPE_USER } from '../../utility/Constants.js';
 import ChatCardPreview from './ChatCardPreview.jsx';
 import HandleScroll from '../../utility/HandleScroll.js';
 import store from '../../Store/store.js';
+import { setActiveMessage } from '../../features/chatCardPreviewSlice.js';
 
-const Chatlist = ({ dispatch }) => {
+const Chatlist = () => {
   const listRef = useRef(null);
-
+  const dispatch = useDispatch();
   const HandleScroller = HandleScroll();
   const lists = useSelector((store) => store.messageList.messages);
   console.log(lists);
@@ -40,7 +41,7 @@ const Chatlist = ({ dispatch }) => {
           chattype={TYPE_USER}
           chatid={index}
           lastMessage={chatprev.lastMessage}
-          setter={dispatch}
+          setter={dispatch(setActiveMessage(index))}
           unreadMessageCount={chatprev.unreadMessageCount}
         />
       ))}

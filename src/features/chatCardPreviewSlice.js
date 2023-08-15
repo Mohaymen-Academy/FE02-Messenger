@@ -13,10 +13,11 @@ const getMessgeList = createAsyncThunk('messageList/GetMessageList', (_, thunkAp
 });
 
 const initialState = {
+  activeMessage: null,
   messages: []
 };
 
-const messageListSlice = createSlice({
+const chatCardPreviewSlice = createSlice({
   name: 'messageList',
   initialState,
   reducers: {
@@ -24,6 +25,13 @@ const messageListSlice = createSlice({
       // console.log(action.payload.chatDisplayList)
       state.messages = action.payload.chatDisplayList;
       // state.messages.push(action.payload.chatDisplayList);
+    },
+    setActiveMessage: (state, action) => {
+      state.activeMessage = state.messages.at(action.payload);
+      console.log('hell');
+    },
+    removeActiveMessage: (state) => {
+      state.activeMessage = null;
     }
   }
   //   extraReducers: (builder) =>
@@ -32,5 +40,5 @@ const messageListSlice = createSlice({
   //       state.messages.push(action.payload);
   //     })
 });
-export const { setMessages } = messageListSlice.actions;
-export default messageListSlice.reducer;
+export const { setMessages, setActiveMessage, removeActiveMessage } = chatCardPreviewSlice.actions;
+export default chatCardPreviewSlice.reducer;

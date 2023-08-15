@@ -12,7 +12,7 @@ import Requests from '../../API/Requests';
 // import Worker from ''
 
 import { TYPE_CHANNEL, TYPE_GROUP, TYPE_USER } from '../../utility/Constants';
-import { setMessages } from '../../features/messageListSlice';
+import { setMessages } from '../../features/chatCardPreviewSlice';
 // import { getMessgeList } from '../../features/messageListSlice';
 
 export default function ChatLayout() {
@@ -41,8 +41,10 @@ export default function ChatLayout() {
   }, []);
 
   function infinityRequest() {
+    console.log('here');
     worker.postMessage(token);
     worker.onmessage = (msg) => {
+      console.log(msg.data);
       dispatch(setMessages(msg.data));
     };
   }
