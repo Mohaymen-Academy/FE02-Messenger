@@ -12,7 +12,7 @@ const Chatlist = () => {
   const HandleScroller = HandleScroll();
   const lists = useSelector((store) => store.messageList.messages);
   /**
- *  
+ *
  {
         "profile": {
             "profileID": 1,

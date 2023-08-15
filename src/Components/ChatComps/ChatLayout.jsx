@@ -48,6 +48,5 @@ export default function ChatLayout() {
       dispatch(setMessages(msg.data));
     };
   }
-
   return Chats[chatType];
 }
