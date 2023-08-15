@@ -1,19 +1,20 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
+import { UilArrowDown } from '@iconscout/react-unicons';
+import { useSelector } from 'react-redux';
 import ChatFooter from './ChatFooter.jsx';
 import Message from '../message/Message.jsx';
 import ImagePreviewer from '../media-previewer/ImagePreviewer.jsx';
 import { TYPE_CHANNEL, TYPE_GROUP } from '../../utility/Constants.js';
 import MessageDateGroup from '../message/MessageDateGroup.jsx';
 import MessageVoice from '../message/MessageVoice.jsx';
-import { UilArrowDown } from '@iconscout/react-unicons';
-import { useSelector } from 'react-redux';
 import { NeededId } from '../../utility/FindneededID.js';
 import Requests from '../../API/Requests.js';
 
 export default function ChatBody({ chattype }) {
   const bodyref = useRef(null);
   const messages = useSelector((state) => state.selectedProf.Chatmessages);
+  const chatId = useSelector((state) => state.selectedProf.selectedChatID);
   const [buttonhidden, setbuttonhidden] = useState(true);
   let scrolltimeout;
   const scrollValues = useRef({
@@ -34,11 +35,9 @@ export default function ChatBody({ chattype }) {
       // console.log('zarp');
       setbuttonhidden(true);
       // console.log('1');
-    } else {
-      if (buttonhidden) {
-        // console.log('2');
-        setbuttonhidden(false);
-      }
+    } else if (buttonhidden) {
+      // console.log('2');
+      setbuttonhidden(false);
     }
   }
 
@@ -69,7 +68,7 @@ export default function ChatBody({ chattype }) {
       }
     }
     function easeInOutCubic(t) {
-      return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+      return t < 0.5 ? 4 * t * t * t : 1 - (-2 * t + 2) ** 3 / 2;
     }
     requestAnimationFrame(scrollAnimation);
   }
@@ -84,7 +83,7 @@ export default function ChatBody({ chattype }) {
       }>
       <div className="flex h-[72%]  w-full flex-col items-center overflow-hidden">
         <div
-          className="mb-2 w-[80%] h-[105vh]  overflow-auto px-5 pt-3"
+          className="mb-2 h-[105vh] w-[80%]  overflow-auto px-5 pt-3"
           // onScroll={() => console.log('hello')}
           onScroll={handleonScroll}
           ref={bodyref}>
@@ -92,7 +91,7 @@ export default function ChatBody({ chattype }) {
             onClick={scrolltobottom}
             className={`${
               buttonhidden ? 'hidden' : ''
-            } p-3 bg-color1 rounded-full absolute top-[65%] right-[85%] z-10`}>
+            } absolute right-[85%] top-[65%] z-10 rounded-full bg-color1 p-3`}>
             <UilArrowDown />
           </button>
           <MessageDateGroup date={'2023-07-20'}>
@@ -100,7 +99,7 @@ export default function ChatBody({ chattype }) {
               <div key={index}>
                 <Message
                   // content={message.content}
-                  isSeen={message.viewCount > 1 ? true : false}
+                  isSeen={message.viewCount > 1}
                   id={message.messageID}
                   chattype={chattype}
                   creator={message.sender}
@@ -141,7 +140,7 @@ export default function ChatBody({ chattype }) {
         </div>
         {footerallowed && (
           <div className=" h-16 w-[80%] vsmmobile:mb-[7rem] smmobile:mb-[7rem]">
-            <ChatFooter />
+            <ChatFooter id={chatId} />
           </div>
         )}
       </div>

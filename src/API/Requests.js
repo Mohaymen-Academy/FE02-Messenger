@@ -3,8 +3,13 @@ import { BASE_URL, HEADER } from './consts';
 // import { useSelector } from 'react-redux';
 
 export default function Requests(body) {
+  // const token = useSelector((state) => state.profile.jwt);
+  console.log(JSON.parse(localStorage.getItem('persist:profile')).jwt);
   console.log();
-  const AutorizeHeader = { ...HEADER, Authorization: `${localStorage.getItem('token')}` };
+  const AutorizeHeader = {
+    ...HEADER,
+    Authorization: `${JSON.parse(localStorage.getItem('persist:profile')).jwt}`
+  };
   // Register
   // check Duplicate Email - GET
 
@@ -54,11 +59,11 @@ export default function Requests(body) {
 
   async function GetChat(receiverID) {
     console.log('Get chat messeages');
-    // const newHeader = { ...HEADER, Authorization: `${localStorage.getItem('token')}` };
+    const newHeader = { ...HEADER, Authorization: `${localStorage.getItem('token')}` };
 
     console.log(receiverID);
     try {
-      const res = await API().GET(receiverID, {}, AutorizeHeader);
+      const res = await API().GET(receiverID, {}, newHeader);
       // redirect('/');
       return res;
     } catch (err) {
@@ -76,25 +81,23 @@ export default function Requests(body) {
   }
   async function SearchAll(text) {
     const body = { search_entry: text };
-
+    const newHeader = { ...HEADER, Authorization: `${localStorage.getItem('token')}` };
     try {
-      const res = await API().GET('search/', body, AutorizeHeader);
+      const res = await API().GET('search/', body, newHeader);
       return res;
     } catch (err) {
       console.error(err);
     }
   }
-  async function UpdateSeen(MsgID) {
+  async function sendText(endpoint, text) {
+    const body = { text };
     try {
-      await API()
-        .POST(`seen/${MsgID}`, {}, AutorizeHeader)
-        .then((res) => res.json())
-        .then((data) => console.log(data));
-    } catch(err) {
-      console.log(err)
+      const res = await API.POST(`/${endpoint}`, body, AutorizeHeader);
+      return res;
+    } catch (err) {
+      console.log(err);
     }
   }
-
   return {
     checkDuplicateEmail,
     Register,
@@ -102,6 +105,6 @@ export default function Requests(body) {
     GetChatList,
     GetChat,
     SearchAll,
-    UpdateSeen
+    sendText
   };
 }
