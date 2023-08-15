@@ -13,6 +13,7 @@ const Chatlist = () => {
   const dispatch = useDispatch();
   const HandleScroller = HandleScroll();
   const lists = useSelector((store) => store.messageList.messages);
+  console.log(lists)
   /**
  *
  {
