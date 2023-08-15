@@ -14,6 +14,7 @@ export default function SidebarMenu({ profileImage, username, divref }) {
   // const [menu, setmenu] = useState(NUM_SIDEBAR_DEFAULT);
   const open = useSelector((state) => state.rightsideMenues.isOpen);
   const menu = useSelector((state) => state.rightsideMenues.ParentType);
+  const profile = useSelector((state) => state.profile);
 
   const Menues = {
     [NUM_SIDEBAR_DEFAULT]: ['Defualt', <Default />],
@@ -32,15 +33,22 @@ export default function SidebarMenu({ profileImage, username, divref }) {
         }`}>
         <div className=" w-[100%] h-[200px] flex flex-col justify-end gap-6 pt-0 ">
           <div
-            className="flex w-[100%] object-cover h-[100%] flex-col justify-end place-items-end px-5 bg-chatbackground bg-cover bg-center bg-no-repeat"
-            // style={{ background: `url(${'images/wall.webp'})` }}
-          >
-            <img
-              src={profileImage}
-              className="w-[90px] h-[90px] rounded-full p-1  bg-color1 my-0"
+            className="flex w-[100%] object-cover h-[100%] flex-col justify-end place-items-end px-5 bg-background pb-6 bg-backgroundPattern bg-cover bg-opacity-90 bg-center " 
+            style={{ backgroundImage: 'var(backgroundPattern)', backgroundBlendMode:'soft-light' }}          >
+            {profile.profileData.lastProfilePicture ? (
+              <img
+              src={`data:image/jpeg;base64,${profile.profileData.lastProfilePicture.preLoadingContent}`}
+              className="w-[90px] h-[90px] rounded-full p-1  bg-white my-0"
               alt=""
             />
-            <p className="text-white text-end mt-4 m-6">{username}</p>
+            ) : (
+              <Avatar
+                imagecolor={profile.profileData.defaultProfileColor}
+                char={profile.profileData.profileName[0]}
+                // isOnline={true}
+              />
+            )}
+            <p className="text-white text-end mt-4 m-6">{profile.profileData.profileName}</p>
           </div>
         </div>
         {menu == NUM_SIDEBAR_DEFAULT ? (
