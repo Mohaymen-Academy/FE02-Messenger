@@ -11,10 +11,11 @@ export default function SearchResult({profile , text}) {
             {profile.lastProfilePicture ? (
             <img
                 src={`data:image/jpeg;base64,${profile.lastProfilePicture.preLoadingContent}`}
-                className="h-full rounded-full"
+                className="h-[50px] w-[50px] rounded-full"
             />
             ) : (
             <Avatar
+              si
                 imagecolor={profile.defaultProfileColor}
                 char={profile.profileName[0]}
                 // isOnline={true}

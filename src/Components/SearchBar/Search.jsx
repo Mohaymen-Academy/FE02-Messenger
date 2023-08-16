@@ -37,7 +37,7 @@ export default function Search({menu}) {
                 id="default-search"
                 autoComplete="off"
                 onFocus={() => setisOpen(true)}
-                // onBlur={() => setisOpen(false)}
+                onBlur={() => setisOpen(false)}
                 onChange={(e) => handleSearch(e.target.value)}
                 className={`block w-full rounded-full p-2 pl-10 pr-5 text-sm border bg-color2 focus:ring-color1 text-text1 placeholder-text1`}
                 

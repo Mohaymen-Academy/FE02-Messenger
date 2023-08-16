@@ -37,7 +37,7 @@ const ChatHeader = ({ active, setActive, chatsetter, chattype, chatid }) => {
             {selectedProfile?.profile.lastProfilePicture ? (
               <img
                 src={`data:image/jpeg;base64,${selectedProfile?.profile.lastProfilePicture.preLoadingContent}`}
-                className="h-full rounded-full w-full"
+                className="h-[50px] w-[50px] rounded-full mr-5"
               />
             ) : (
               <Avatar

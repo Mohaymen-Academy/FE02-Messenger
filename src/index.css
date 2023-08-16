@@ -214,7 +214,7 @@ input[type='checkbox']::before {
 }
 
 input[type='checkbox']:checked::before {
-  color: white; /* Color of the checkmark when checked */
+  color: rgb(0,92,75) ; /* Color of the checkmark when checked */
 }
 
 /* width */

@@ -22,7 +22,7 @@ const ChatCardPreview = ({ profile, lastMessage, unreadMessageCount }) => {
           {profile.lastProfilePicture ? (
             <img
               src={`data:image/jpeg;base64,${profile.lastProfilePicture.preLoadingContent}`}
-              className="h-full rounded-full"
+              className="h-[50px] w-[50px] rounded-full"
             />
           ) : (
             <Avatar
