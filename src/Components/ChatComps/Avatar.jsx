@@ -1,9 +1,9 @@
 import React from 'react';
 
-const Avatar = ({ isOnline, char, imagecolor }) => (
+const Avatar = ({ isOnline, char, imagecolor , size }) => (
   <div >
     <div
-      className={`flex h-[50px] w-[50px] items-center justify-center rounded-full `}
+      className={`flex ${size? `h-[${size}px] w-[${size}px]` : "h-[50px] w-[50px]"} items-center justify-center rounded-full `}
       style={{ backgroundColor: `${imagecolor}` }}>
       <p className=" h-[100%] flex place-items-center text-center text-2xl font-normal text-white">
         {char}

@@ -29,24 +29,18 @@ export default function ChatLayout() {
   console.log(chatType);
 
   useEffect(() => {
+    // worker.postMessage(token);
+    // worker.onmessage = (msg) => {
+    //   console.log(msg?.data);
+    //   dispatch(setMessages(msg.data));
+    // };
+
     document.addEventListener('keydown', (e) => {
       if (e.key == 'Escape') {
         chatTools.dispatch({ type: 'null' });
       }
     });
-    const infinityInterval = setInterval(infinityRequest, 1000);
-    return () => {
-      clearInterval(infinityInterval);
-    };
   }, []);
 
-  function infinityRequest() {
-    // console.log('here');
-    worker.postMessage(token);
-    worker.onmessage = (msg) => {
-      // console.log(msg.data);
-      dispatch(setMessages(msg.data));
-    };
-  }
   return Chats[chatType];
 }

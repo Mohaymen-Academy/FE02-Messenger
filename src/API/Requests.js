@@ -55,11 +55,18 @@ export default function Requests(body) {
   async function GetChat(receiverID) {
     console.log('Get chat messeages');
     // const newHeader = { ...HEADER, Authorization: `${localStorage.getItem('token')}` };
-
     console.log(receiverID);
     try {
       const res = await API().GET(receiverID, {}, AutorizeHeader);
       // redirect('/');
+      return res;
+    } catch (err) {
+      console.log(err);
+    }
+  }
+  async function UpdateChat(receiveID) {
+    try {
+      const res = await API().GET(receiveID, {}, AutorizeHeader);
       return res;
     } catch (err) {
       console.log(err);
@@ -100,9 +107,18 @@ export default function Requests(body) {
     console.log(endpoint);
     console.log(text);
     try {
-      const res = await API().POST(`/${endpoint}`, body, AutorizeHeader);
-      console.log(res);
+      const res = await API.POST(`${endpoint}`, body, AutorizeHeader);
       return res;
+    } catch (err) {
+      console.log(err);
+    }
+  }
+  async function UpdateSeen(MsgID) {
+    try {
+      await API()
+        .POST(`seen/${MsgID}`, {}, AutorizeHeader)
+        .then((res) => res.json())
+        .then((data) => console.log(data));
     } catch (err) {
       console.log(err);
     }
@@ -114,7 +130,7 @@ export default function Requests(body) {
     GetChatList,
     GetChat,
     SearchAll,
-    UpdateSeen,
-    sendText
+    sendText,
+    UpdateSeen
   };
 }

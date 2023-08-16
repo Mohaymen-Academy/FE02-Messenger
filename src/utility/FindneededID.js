@@ -4,6 +4,7 @@ function CustomsortInc(a, b) {
   // else
   // return b.profile.profileID-a.profile.profileID;}
 }
+
 function CustomsortDec(a, b) {
   console.log(a.messageID, b.messageID);
   return b.messageID - a.messageID;

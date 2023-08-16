@@ -11,7 +11,15 @@ import MessageVoice from '../message/MessageVoice.jsx';
 import { NeededId } from '../../utility/FindneededID.js';
 import Requests from '../../API/Requests.js';
 
-export default function ChatBody({ chattype }) {
+export default function ChatBody({ chatid,chattype }) {
+  const observer = new IntersectionObserver(
+    (entries) => {
+      const visibleItems = entries
+        .filter((entry) => entry.isIntersecting)
+        .map((entry) => entry.target.dataset.id);
+    },
+    { threshold: 0.5 }
+  );
   const bodyref = useRef(null);
   const messages = useSelector((state) => state.selectedProf.Chatmessages);
   const chatId = useSelector((state) => state.selectedProf.selectedChatID);
@@ -22,22 +30,18 @@ export default function ChatBody({ chattype }) {
   });
   function handleonScroll() {
     clearTimeout(scrolltimeout);
-    const newscrY = bodyref.current.scrollY;
-    console.log(newscrY - scrollValues.current.lastScrollPosition);
+    const direction =
+      scrollValues.current.lastScrollPosition - bodyref.current.scrollTop > 0 ? 'UP' : 'DOWN';
     scrolltimeout = setTimeout(() => {
-      console.log(endPosition);
-      scrollValues.current.lastScrollPosition = bodyref.current.scrollY;
-
-      console.log('here');
+      scrollValues.current.lastScrollPosition = bodyref.current.scrollTop;
     }, 200);
 
     if (bodyref.current?.scrollTop == bodyref.current.scrollHeight - bodyref.current.clientHeight) {
-      // console.log('zarp');
       setbuttonhidden(true);
-      // console.log('1');
-    } else if (buttonhidden) {
-      // console.log('2');
-      setbuttonhidden(false);
+    } else {
+      if (buttonhidden) {
+        setbuttonhidden(false);
+      }
     }
   }
 
@@ -45,10 +49,7 @@ export default function ChatBody({ chattype }) {
   const footerallowed = chattype == TYPE_CHANNEL ? false : chattype == TYPE_GROUP ? true : true;
   const [preview, setPreview] = useState(false);
   useEffect(() => {
-    // console.log();
-    console.log(messages);
     const idtoUpdate = NeededId('Down', messages);
-    console.log(idtoUpdate);
     Requests().UpdateSeen(idtoUpdate);
   }, []);
 
@@ -85,7 +86,7 @@ export default function ChatBody({ chattype }) {
         <div
           className="mb-2 h-[105vh] w-[80%]  overflow-auto px-5 pt-3"
           // onScroll={() => console.log('hello')}
-          onScroll={handleonScroll}
+          // onScroll={handleonScroll}
           ref={bodyref}>
           <button
             onClick={scrolltobottom}
@@ -99,7 +100,8 @@ export default function ChatBody({ chattype }) {
               <div key={index}>
                 <Message
                   // content={message.content}
-                  isSeen={message.viewCount > 1}
+                  observer={observer}
+                  isSeen={message.viewCount > 1 ? true : false}
                   id={message.messageID}
                   chattype={chattype}
                   creator={message.sender}

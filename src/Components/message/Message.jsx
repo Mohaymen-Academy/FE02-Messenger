@@ -8,10 +8,32 @@ import MessageBody from './MessageBody.jsx';
 import { Avatar } from '../ChatComps';
 import { useSelector } from 'react-redux';
 import { TYPE_GROUP, TYPE_USER } from '../../utility/Constants.js';
-function Message({ isSeen, id, chattype, creator, time, media, ispinned, isEdited, text }) {
+function Message({
+  isSeen,
+  id,
+  chattype,
+  creator,
+  time,
+  media,
+  ispinned,
+  isEdited,
+  text,
+  observer
+}) {
   const [openContextMenu, setOpenContextMenu] = useState(false);
   const [mousepositoin, setmousepositoin] = useState({ x: 0, y: 0 });
+  const mainref = useRef(null);
   const userprofile = useSelector((state) => state.profile);
+  useEffect(() => {
+    if (!mainref) {
+      return;
+    }
+    console.log();
+    observer.observe(mainref.current);
+    // return () => {
+    //   observer.unobserve(mainref);
+    // };
+  }, []);
   // console.log(userprofile.profileData.profileID);
   let y_mouse = useRef(0);
   let x_mouse = useRef(0);
@@ -22,12 +44,12 @@ function Message({ isSeen, id, chattype, creator, time, media, ispinned, isEdite
     y_mouse = event.clientY;
     setmousepositoin({ x_mouse, y_mouse });
   }
-  const Isforme= creator.profileID === userprofile.profileData.profileID;
+  const Isforme = creator.profileID === userprofile.profileData.profileID;
   return (
     <div
-      className={`relative flex w-full ${
-        Isforme ? 'justify-start' : 'justify-end'
-      } px-5`}
+      data-id={id}
+      ref={mainref}
+      className={`relative flex w-full ${Isforme ? 'justify-start' : 'justify-end'} px-5`}
       onContextMenu={handleRightClick}>
       <MessageBody Isforme={Isforme}>
         <div className="vsmmobile:text-xs">
@@ -40,6 +62,8 @@ function Message({ isSeen, id, chattype, creator, time, media, ispinned, isEdite
       <div className="pt-[70px]">{chattype == TYPE_GROUP ? <Avatar /> : <></>}</div>
       {mousepositoin.x != 0 ? (
         <MessageMenu
+          msgId={id}
+          text={text}
           x_pos={x_mouse.current}
           y_pos={y_mouse.current}
           positions={mousepositoin}

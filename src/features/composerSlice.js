@@ -20,8 +20,23 @@ const composerSlice = createSlice({
     // setUnPin: (state) => {
     //   state.isPinned = false;
     // },
+    clear:(state,action)=>{
+      state.isEditting=false;
+      state.isReplying=false;
+      state.isForwarding=false;
+    },
+    setaction: (state, action) => {
+      switch (action.payload.type) {
+        case 'reply':
+          state.isReplying = true;
+          break;
+        case 'edit':
+          state.isEditting = true;
+          break;
+      }
+      state.composerValue = action.payload.text;
+    },
     setIsEditting: (state, action) => {
-      state.isEditting = true;
       state.editID = action.payload;
     },
     forwardMessage: (state, action) => {
