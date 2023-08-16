@@ -25,6 +25,13 @@ const loginUserProfile = createAsyncThunk('profile/sendLoginData', async (body) 
 const profileSlice = createSlice({
   name: 'profile',
   initialState,
+  reducers: {
+    clearLogin: (state) => {
+      state.jwt = initialState.jwt;
+      localStorage.removeItem();
+      console.log('hello');
+    }
+  },
   extraReducers: (builder) =>
     builder
       .addCase(registerUserProfile.fulfilled, (state, action) => {
@@ -44,5 +51,6 @@ const profileSlice = createSlice({
         }
       })
 });
+export const { clearLogin } = profileSlice.actions;
 export { registerUserProfile, loginUserProfile };
 export default profileSlice.reducer;
