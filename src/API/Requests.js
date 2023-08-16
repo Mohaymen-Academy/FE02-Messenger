@@ -71,7 +71,7 @@ export default function Requests(body) {
   }
   async function UpdateChat(receiveID) {
     try {
-      const res = await API().GET(receiverID, {}, AutorizeHeader);
+      const res = await API().GET(receiveID, {}, AutorizeHeader);
       return res;
     } catch (err) {
       console.log(err);
@@ -99,8 +99,18 @@ export default function Requests(body) {
   async function sendText(endpoint, text) {
     const body = { text };
     try {
-      const res = await API.POST(`/${endpoint}`, body, AutorizeHeader);
+      const res = await API.POST(`${endpoint}`, body, AutorizeHeader);
       return res;
+    } catch (err) {
+      console.log(err);
+    }
+  }
+  async function UpdateSeen(MsgID) {
+    try {
+      await API()
+        .POST(`seen/${MsgID}`, {}, AutorizeHeader)
+        .then((res) => res.json())
+        .then((data) => console.log(data));
     } catch (err) {
       console.log(err);
     }
@@ -112,6 +122,7 @@ export default function Requests(body) {
     GetChatList,
     GetChat,
     SearchAll,
-    sendText
+    sendText,
+    UpdateSeen,
   };
 }
