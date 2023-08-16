@@ -115,7 +115,7 @@
     @apply w-full text-right text-text1;
   }
   .notifsbutton {
-    @apply flex  gap-3 w-[100%];
+    @apply flex gap-3 w-[100%];
   }
   .notifsdiv {
     @apply flex flex-col w-[100%] p-3 pb-0 border-gray-500;
@@ -130,7 +130,7 @@
     @apply rounded-lg p-2 bg-color2 text-text1 text-[12px]  font-bold;
   }
   .sliderwithtext {
-    @apply hover:text-gray-500 hover:cursor-pointer;
+    @apply hover:text-gray-500 text-[12px] hover:cursor-pointer;
   }
   .strike {
     @apply line-through;
@@ -186,6 +186,37 @@
     border-radius: 50%;
   }
 }
+
+input[type='checkbox'] {
+  position: relative;
+  width: 12px !important;
+  height: 12px !important;
+  border-radius: 25%;
+  margin: 8px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -o-appearance: none;
+  appearance: none;
+  outline: 2px solid lightblue;
+  box-shadow: none;
+  font-size: 2em;
+  background-color: transparent; /* Initial background color */
+}
+
+input[type='checkbox']::before {
+  content: '\2713'; /* Unicode checkmark character */
+  position: absolute;
+  top: 70%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 0.4em;
+  color: transparent;
+}
+
+input[type='checkbox']:checked::before {
+  color: white; /* Color of the checkmark when checked */
+}
+
 /* width */
 ::-webkit-scrollbar {
   width: 10px;

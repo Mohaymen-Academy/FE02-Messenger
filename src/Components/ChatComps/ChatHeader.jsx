@@ -8,6 +8,7 @@ import { resetChatId } from '../../features/SelectedInfo.js';
 import Pin from './Pin.jsx';
 
 const ChatHeader = ({ active, setActive, chatsetter, chattype, chatid }) => {
+  const dispatch = useDispatch();
   const chatProf = useSelector((state) => state.messageList.messages);
   const selectedProfile = chatProf.filter((item) => item.profile.profileID == chatid)[0];
   const ChatInfo =

@@ -14,7 +14,7 @@ const ChatCardPreview = ({ profile, lastMessage, unreadMessageCount }) => {
   return (
     <div
       onClick={(e) =>
-        dispatch(GetMessages({ type: profile.type, ID: profile.profileID }))
+        dispatch(GetMessages({ type: profile.type, ID: profile.profileID }, { message_id: 0 }))
       }
       className=" h-18 p-3 mx-2 flex w-[97%] cursor-pointer flex-row items-center justify-start rounded-lg  hover:bg-bghovor">
       <div className="flex w-[100%] justify-between px-2">
