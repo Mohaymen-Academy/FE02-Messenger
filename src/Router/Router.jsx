@@ -1,18 +1,19 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom' // Import Navigate from react-router-dom
-import routes from './Routes/Routes'
+import { BrowserRouter, Routes, Route } from 'react-router-dom'; // Import Navigate from react-router-dom
+import React, { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
+import routes from './Routes/Routes';
 import Login from '../Pages/Login';
-import React, { useState, useEffect } from "react";
 
 const AppRouter = () => {
   const [isAuth, setIsAuth] = useState(false);
+  const stateToken = useSelector((state) => state.profile.jwt);
   useEffect(() => {
-    const token = localStorage.getItem("token");
-    console.log(token)
-    if (token != null) {
+    if (stateToken !== '') {
       setIsAuth(true);
-      console.log("token", token);
+      console.log('Stoken', stateToken);
     }
-  }, []);
+  }, [isAuth]);
+  console.log(isAuth);
   return (
     <BrowserRouter>
       <Routes>
@@ -20,17 +21,7 @@ const AppRouter = () => {
           <Route
             key={index}
             path={route.path}
-            element={
-              route.Private ? (
-                isAuth ? (
-                  <route.component />
-                ) : (
-                  <Login/>
-                )
-              ) : (
-                <route.component />
-              )
-            }
+            element={route.Private ? isAuth ? <route.component /> : <Login /> : <route.component />}
           />
         ))}
       </Routes>

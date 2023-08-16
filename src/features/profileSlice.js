@@ -27,8 +27,9 @@ const profileSlice = createSlice({
   initialState,
   reducers: {
     clearLogin: (state) => {
-      state.jwt = initialState.jwt;
-      localStorage.removeItem();
+      state.jwt = '';
+      localStorage.removeItem('token');
+      window.location.assign('/Login');
       console.log('hello');
     }
   },

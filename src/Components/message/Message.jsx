@@ -1,4 +1,5 @@
 import { useEffect, useState, useRef } from 'react';
+import { useSelector } from 'react-redux';
 import MessageMenu from './MessageMenu.jsx';
 import MessageHeader from './MessageHeader.jsx';
 import MessageImageMedia from './MessageImageMedia.jsx';
@@ -6,8 +7,8 @@ import MessageFooter from './MessageFooter.jsx';
 import ImagePreviewer from '../media-previewer/ImagePreviewer';
 import MessageBody from './MessageBody.jsx';
 import { Avatar } from '../ChatComps';
-import { useSelector } from 'react-redux';
 import { TYPE_GROUP, TYPE_USER } from '../../utility/Constants.js';
+
 function Message({
   isSeen,
   id,
@@ -52,8 +53,8 @@ function Message({
         <div className="vsmmobile:text-xs">
           {/* <MessageHeader forewardedFrom={forewardedFrom} repliedTo={repliedTo} /> */}
         </div>
-        {media ? <MessageImageMedia src={media} handleClick={handleMediaMessage} /> : <></>}
-        <p>{text}</p>
+        {/* {media ? <MessageImageMedia src={media} handleClick={handleMediaMessage} /> : <></>} */}
+        <p className="break-all">{text}</p>
         <MessageFooter Isforme={Isforme} id={id} isSeen={isSeen} />
       </MessageBody>
       <div className="pt-[70px]">{chattype == TYPE_GROUP ? <Avatar /> : <></>}</div>
