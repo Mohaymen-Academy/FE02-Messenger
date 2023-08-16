@@ -56,17 +56,19 @@ const chatCardPreviewSlice = createSlice({
   reducers: {
     setMessages: (state, action) => {
       state.messages = action.payload.chatDisplayList;
-      // console.log(action.payload.chatDisplayList)
-      // state.messages.push(action.payload.chatDisplayList);
     },
     setActiveMessage: (state, action) => {
       state.activeMessage = state.messages.at(action.payload);
-      // console.log('hell');
     },
     removeActiveMessage: (state) => {
       state.activeMessage = null;
     }
   }
+  // extraReducers: {
+  //   improveProfpic: (state, action) => {
+
+  //   }
+  // }
 });
 export const { setMessages, setActiveMessage, removeActiveMessage } = chatCardPreviewSlice.actions;
 export default chatCardPreviewSlice.reducer;
