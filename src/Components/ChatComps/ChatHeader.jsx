@@ -1,17 +1,13 @@
-import { UilArrowRight, UilSearch } from '@iconscout/react-unicons';
-
-import { useDispatch, useSelector } from 'react-redux';
-
 import { useEffect, useState } from 'react';
+import { UilArrowRight, UilSearch } from '@iconscout/react-unicons';
+import { useDispatch, useSelector } from 'react-redux';
 import { TYPE_CHANNEL, TYPE_USER, TYPE_GROUP } from '../../utility/Constants.js';
-import Pin from './Pin.jsx';
-
 import Avatar from './Avatar.jsx';
 import ChatHeaderSettings from './ChatHeaderSettings.jsx';
 import { resetChatId } from '../../features/SelectedInfo.js';
+import Pin from './Pin.jsx';
 
 const ChatHeader = ({ active, setActive, chatsetter, chattype, chatid }) => {
-  const dispatch = useDispatch();
   const chatProf = useSelector((state) => state.messageList.messages);
   const selectedProfile = chatProf.filter((item) => item.profile.profileID == chatid)[0];
   const ChatInfo =
@@ -38,22 +34,22 @@ const ChatHeader = ({ active, setActive, chatsetter, chattype, chatid }) => {
             <UilArrowRight className="h-8 w-8 cursor-pointer text-text1" />
           </button>
           <div className="h-[75%] w-[75%] flex-1 ">
-            {selectedProfile.profile.lastProfilePicture ? (
+            {selectedProfile?.profile.lastProfilePicture ? (
               <img
-                src={`data:image/jpeg;base64,${selectedProfile.profile.lastProfilePicture.preLoadingContent}`}
+                src={`data:image/jpeg;base64,${selectedProfile?.profile.lastProfilePicture.preLoadingContent}`}
                 className="h-full w-full rounded-full"
               />
             ) : (
               <Avatar
-                imagecolor={selectedProfile.profile.defaultProfileColor}
-                char={selectedProfile.profile.profileName[0]}
+                imagecolor={selectedProfile?.profile.defaultProfileColor}
+                char={selectedProfile?.profile.profileName[0]}
                 // isOnline={true}
               />
             )}
           </div>
           <div className="">
             <h3 className="text-lg font-semibold text-text1">
-              {selectedProfile.profile.profileName}{' '}
+              {selectedProfile?.profile.profileName}{' '}
             </h3>
             <div className="text-sm text-slate-400">{ChatInfo}</div>
           </div>

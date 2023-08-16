@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import {
   UilSmile,
   UilMessage,
@@ -11,6 +11,8 @@ import {
 export default function FileUploader() {
   const [open, setopen] = useState(false);
   let timer;
+  const uploadedFile = useRef(null);
+  const fileinput = useRef(null);
   function openthediv() {
     // clearTimeout(timer);
     setopen(true);
@@ -21,12 +23,24 @@ export default function FileUploader() {
   function closediv() {
     setopen(false);
   }
+  function handleFileuploaded(e) {
+    uploadedFile.current = fileinput.current.files[0];
+    console.log();
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      const base64string = e.target.result.split(',')[1];
+      console.log(base64string);
+      // base64Output.innerHTML = `<img src="${base64String}" alt="Uploaded Image"><p>Base64 String: ${base64String}</p>`;
+    };
+    // console.log();
+    reader.readAsDataURL(uploadedFile.current);
+  }
   return (
-    <button
+    <div
       onMouseOver={openthediv}
       //   onMouseLeave={closediv}
-      className="hover-trigger mx-1 h-8 w-8 text-text1">
-      <UilPaperclip hover-trigger />
+      className="hover:cursor-pointer mx-1 h-8 w-8 text-text1">
+      <UilPaperclip/>
 
       <div
         onMouseLeave={closediv}
@@ -44,7 +58,11 @@ export default function FileUploader() {
         </button>
         <button
           className=" my-1 flex w-full flex-row items-center gap-2 rounded-lg px-4 hover:bg-gray-200"
-          onClick={(e) => setsection(menuId)}>
+          onClick={(e) => {
+            // uploadedFile.current=
+            fileinput.current.click();
+          }}>
+          <input type="file" className="hidden" ref={fileinput} onInput={handleFileuploaded} />
           <div className="my-1 flex items-center gap-2">
             <UilFile />
           </div>
@@ -59,6 +77,6 @@ export default function FileUploader() {
           <p className=" text-xs">نظرسنجی</p>
         </button>
       </div>
-    </button>
+    </div>
   );
 }

@@ -54,7 +54,6 @@ export default function ChatFooter({ id }) {
     };
   }, []);
   const dispatch = useDispatch();
-
   const [mousepositoin, setmousepositoin] = useState({ x: 0, y: 0 });
   const needActoin = Isactive.isEditting || Isactive.isReplying || Isactive.isForwarding;
   return (
@@ -64,7 +63,9 @@ export default function ChatFooter({ id }) {
           <button onClick={() => dispatch(composerActions.clear())}>
             <UilTimes className={'text-color3'} />
           </button>
-          <div className=" border-r-2 border-color3  pr-2 text-text1">{Isactive.composerValue}</div>
+          <div className=" line-clamp-1 w-[30%] border-r-2 border-color3 pr-2 text-text1">
+            {Isactive.composerValue}
+          </div>
         </div>
       ) : (
         <></>
@@ -80,7 +81,7 @@ export default function ChatFooter({ id }) {
           ${needActoin ? '' : 'rounded-xl'} bg-color2  p-2 text-color4`}>
           <button
             className="mx-1 h-8 w-8 text-text1 "
-            onClick={() => Requests().sendText(id, divref.current)}>
+            onClick={() => Requests().sendText(id, divref.current.innerText)}>
             <UilMessage />
           </button>
           {/* </UilPaperclip> */}

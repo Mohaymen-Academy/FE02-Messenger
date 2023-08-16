@@ -25,14 +25,14 @@ export default function ChatLayout() {
     [TYPE_GROUP]: <GroupChat chatid={chatID} />,
     [TYPE_CHANNEL]: <ChannelChat chatid={chatID} />
   };
-  console.log(chatType);
+  // console.log(chatType);
 
   useEffect(() => {
-    // worker.postMessage(token);
-    // worker.onmessage = (msg) => {
-    //   console.log(msg?.data);
-    //   dispatch(setMessages(msg.data));
-    // };
+    worker.postMessage(token);
+    worker.onmessage = (msg) => {
+      // console.log(msg?.data);
+      dispatch(setMessages(msg.data));
+    };
 
     document.addEventListener('keydown', (e) => {
       if (e.key == 'Escape') {

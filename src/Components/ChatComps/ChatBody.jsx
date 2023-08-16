@@ -8,18 +8,24 @@ import ImagePreviewer from '../media-previewer/ImagePreviewer.jsx';
 import { TYPE_CHANNEL, TYPE_GROUP } from '../../utility/Constants.js';
 import MessageDateGroup from '../message/MessageDateGroup.jsx';
 import MessageVoice from '../message/MessageVoice.jsx';
-import { NeededId } from '../../utility/FindneededID.js';
+// import { NeededId } from '../../utility/FindneededID.js';
 import Requests from '../../API/Requests.js';
 
-export default function ChatBody({ chatid,chattype }) {
+export default function ChatBody({ chatid, chattype }) {
+  // console.log('wer')
   const observer = new IntersectionObserver(
     (entries) => {
       const visibleItems = entries
         .filter((entry) => entry.isIntersecting)
-        .map((entry) => entry.target.dataset.id);
+        .map((entry) => parseInt(entry.target.dataset.id));
+      console.log(visibleItems);
+      if (visibleItems.length != 0) {
+        msg.current = Math.max(visibleItems);
+      }
     },
     { threshold: 0.5 }
   );
+      const msg = useRef(0);
   const bodyref = useRef(null);
   const messages = useSelector((state) => state.selectedProf.Chatmessages);
   const chatId = useSelector((state) => state.selectedProf.selectedChatID);
@@ -30,12 +36,9 @@ export default function ChatBody({ chatid,chattype }) {
   });
   function handleonScroll() {
     clearTimeout(scrolltimeout);
-    const direction =
-      scrollValues.current.lastScrollPosition - bodyref.current.scrollTop > 0 ? 'UP' : 'DOWN';
     scrolltimeout = setTimeout(() => {
-      scrollValues.current.lastScrollPosition = bodyref.current.scrollTop;
+      console.log(msg.current);
     }, 200);
-
     if (bodyref.current?.scrollTop == bodyref.current.scrollHeight - bodyref.current.clientHeight) {
       setbuttonhidden(true);
     } else {
@@ -49,8 +52,12 @@ export default function ChatBody({ chatid,chattype }) {
   const footerallowed = chattype == TYPE_CHANNEL ? false : chattype == TYPE_GROUP ? true : true;
   const [preview, setPreview] = useState(false);
   useEffect(() => {
-    const idtoUpdate = NeededId('Down', messages);
-    Requests().UpdateSeen(idtoUpdate);
+    console.log(msg.current)
+    // const idtoUpdate = NeededId('Down', messages);
+    // Requests().UpdateSeen(0);
+    // const parentobserver=new IntersectionObserver((entries)=>{
+    //   if
+    // });
   }, []);
 
   function scrolltobottom() {
@@ -85,8 +92,7 @@ export default function ChatBody({ chatid,chattype }) {
       <div className="flex h-[72%]  w-full flex-col items-center overflow-hidden">
         <div
           className="mb-2 h-[105vh] w-[80%]  overflow-auto px-5 pt-3"
-          // onScroll={() => console.log('hello')}
-          // onScroll={handleonScroll}
+          onScroll={handleonScroll}
           ref={bodyref}>
           <button
             onClick={scrolltobottom}

@@ -2,24 +2,7 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
   activeMessage: null,
-  messages: [
-    {
-        "profile": {
-            "profileID": 1001,
-            "profileName": "Sara",
-            "type": 0,
-            "defaultProfileColor": "#e68873",
-            "lastProfilePicture": null
-        },
-        "lastMessage": {
-            "messageID": 1,
-            "text": "سلام خوبی ؟",
-            "time": "2023-08-15T21:02:35.166288",
-            "viewCount": 1
-        },
-        "unreadMessageCount": 0
-    }
-],
+  messages: []
 };
 
 /**
@@ -73,11 +56,12 @@ const chatCardPreviewSlice = createSlice({
   reducers: {
     setMessages: (state, action) => {
       state.messages = action.payload.chatDisplayList;
+      // console.log(action.payload.chatDisplayList)
       // state.messages.push(action.payload.chatDisplayList);
     },
     setActiveMessage: (state, action) => {
       state.activeMessage = state.messages.at(action.payload);
-      console.log('hell');
+      // console.log('hell');
     },
     removeActiveMessage: (state) => {
       state.activeMessage = null;
