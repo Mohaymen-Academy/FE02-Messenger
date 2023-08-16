@@ -5,7 +5,7 @@ const routes = [
     {
         path: '',
         component: App,
-        Private: false,
+        Private: true,
     },
     {
         path: '/Register',
