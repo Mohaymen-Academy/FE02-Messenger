@@ -6,7 +6,7 @@ export default (e) => {
     // http://185.60.136.206:/login
 
     setInterval(async () => {
-      fetch('http://192.168.70.231:8080/', {
+      fetch('http://localhost:8080/', {
         headers: {
           'Content-Type': 'application/json',
           'Access-Control-Allow-Origin': '*',
