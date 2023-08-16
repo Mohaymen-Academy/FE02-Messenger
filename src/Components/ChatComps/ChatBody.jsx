@@ -43,10 +43,11 @@ export default function ChatBody({ chatid, chattype, needupdate }) {
     const shouldUpdate = lists.filter(
       (ele) => ele.profile.profileID == chatid && ele.updated == true
     );
-    if (shouldUpdate) {
+    if (shouldUpdate.length!=0) {
       dispatch(GetMessages({ type: chattype, ID: chatid }, { message_id: MSGes.current.upper }));
     }
   });
+
   let scrolltimeout;
   const scrollValues = useRef({
     lastScrollPosition: 0
