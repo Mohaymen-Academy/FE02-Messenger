@@ -12,7 +12,7 @@ import MessageVoice from '../message/MessageVoice.jsx';
 import Requests from '../../API/Requests.js';
 import { GetMessages } from '../../features/SelectedInfo.js';
 
-export default function ChatBody({ chatid, chattype }) {
+export default function ChatBody({ chatid, chattype ,needupdate}) {
   const dispatch = useDispatch();
   const observer = new IntersectionObserver(
     (entries) => {

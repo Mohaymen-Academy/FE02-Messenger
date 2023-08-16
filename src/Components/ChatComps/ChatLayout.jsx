@@ -1,7 +1,6 @@
 // import { useState } from "react";
 import React, { useEffect, useContext } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { LayoutContext } from '../Layout';
 import UserChat from '../User/UserChat';
 import GroupChat from '../Group/GroupChat';
 import ChannelChat from '../Channel/ChannelChat';

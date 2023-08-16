@@ -1,17 +1,19 @@
 import { useState, createContext, useEffect, useReducer } from 'react';
+import { useSelector } from 'react-redux';
 import { getTheme } from '../utility/useLoclStorage';
 import RightSide from './RightSideBar/Rightside';
 import { TYPE_USER } from '../utility/Constants';
-const LayoutContext = createContext(null);
-function reducer(state, action) {
-  switch (action.type) {
-    case 'null':
-      return { ...state, chatid: null };
-    case 'change':
-      // console.log(action)
-      return { ...state, chatid: action.chatid, chattype: action.chattype };
-  }
-}
+
+// const LayoutContext = createContext(null);
+// function reducer(state, action) {
+//   switch (action.type) {
+//     case 'null':
+//       return { ...state, chatid: null };
+//     case 'change':
+//       // console.log(action)
+//       return { ...state, chatid: action.chatid, chattype: action.chattype };
+//   }
+// }
 const Layout = ({ children }) => {
   useEffect(() => {
     const div = document.getElementById('zarp');
@@ -19,17 +21,26 @@ const Layout = ({ children }) => {
   }, []);
 
   // const [chatid, setChatId] = useState(null);
-  const [chat, dispatch] = useReducer(reducer, { chatid: null, chattype: null });
+  // const [chat, dispatch] = useReducer(reducer, { chatid: null, chattype: null });
+  const selectedContacts = useSelector((state) => state.selectedProf);
+  const chatID = selectedContacts.selectedChatID;
   return (
-    <div className={`flex h-screen w-screen overflow-hidden vsmmobile:relative font-estedad `} id="app-holder">
-      <RightSide chatId={chat.chatid} dispatch={dispatch} />
-      <LayoutContext.Provider value={{ chat, dispatch }}>
-      <div className="h-full flex-1 flex-row bg-background pb-6 bg-backgroundPattern bg-cover bg-opacity-90 bg-center " style={{ backgroundImage: 'var(backgroundPattern)', backgroundBlendMode:'soft-light', backgroundRepeat: 'repeat',  backgroundSize: '600px', width: '600px' }}>
-          {children}
-        </div>
-      </LayoutContext.Provider>
+    <div
+      className={'flex h-screen w-screen overflow-hidden font-estedad vsmmobile:relative '}
+      id="app-holder">
+      <RightSide chatId={chatID} />
+      <div
+        className="h-full flex-1 flex-row bg-background bg-opacity-90 bg-backgroundPattern bg-cover bg-center pb-6 "
+        style={{
+          backgroundImage: 'var(backgroundPattern)',
+          backgroundBlendMode: 'soft-light',
+          backgroundRepeat: 'repeat',
+          backgroundSize: '600px',
+          width: '600px'
+        }}>
+        {children}
+      </div>
     </div>
   );
 };
-export { LayoutContext };
 export default Layout;

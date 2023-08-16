@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { UilSmile, UilMessage, UilPaperclip } from '@iconscout/react-unicons';
+import { UilSmile, UilMessage, UilPaperclip, UilTimes } from '@iconscout/react-unicons';
 // import EmojiPicker from 'emoji-picker-react';
+import { useDispatch, useSelector } from 'react-redux';
 import EmojiPicker from '../../utility/EmojiPicker';
 import Text from '../../utility/Text';
 import TextProcessorMenu from '../../utility/TextProcessorMenu';
@@ -9,8 +10,6 @@ import FileUploader from '../../utility/FileUploader';
 import PopUp from '../../utility/PopUp';
 import Poll from './Poll';
 import Requests from '../../API/Requests';
-import { UilTimes } from '@iconscout/react-unicons';
-import { useDispatch, useSelector } from 'react-redux';
 import { composerActions } from '../../features/composerSlice';
 
 export default function ChatFooter({ id }) {
@@ -58,13 +57,15 @@ export default function ChatFooter({ id }) {
   const [mousepositoin, setmousepositoin] = useState({ x: 0, y: 0 });
   const needActoin = Isactive.isEditting || Isactive.isReplying || Isactive.isForwarding;
   return (
-    <div className="flex flex-col relative top-[-30px]">
+    <div className="relative top-[-30px] flex flex-col">
       {needActoin ? (
-        <div className="pt-1 gap-3 w-[100%] bg-color2 h-[30px] flex flex-row pr-2 rounded-t-lg">
+        <div className="flex h-[30px] w-[100%] flex-row gap-3 rounded-t-lg bg-color2 pr-2 pt-1">
           <button onClick={() => dispatch(composerActions.clear())}>
             <UilTimes className={'text-color3'} />
           </button>
-          <div className=" pr-2 border-r-2 w-[30%] line-clamp-1 border-color3 text-text1">{Isactive.composerValue}</div>
+          <div className=" line-clamp-1 w-[30%] border-r-2 border-color3 pr-2 text-text1">
+            {Isactive.composerValue}
+          </div>
         </div>
       ) : (
         <></>

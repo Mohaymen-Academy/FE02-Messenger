@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import Requests from '../API/Requests';
+
 function CustomsortInc(a, b) {
   // console.log(a.messageID,b.messageID)
   return a.messageID - b.messageID;
@@ -43,6 +44,12 @@ const SelectedProf = createSlice({
   initialState,
   // reducers: {
   // },
+  reducers: {
+    resetChatId: (state) => {
+      console.log('hello from reducer');
+      state.selectedChatID = null;
+    }
+  },
   extraReducers: (builder) =>
     builder
       .addCase(GetMessages.fulfilled, (state, action) => {
@@ -65,5 +72,6 @@ const SelectedProf = createSlice({
       })
 });
 export { GetMessages };
+export const { resetChatId } = SelectedProf.actions;
 // export const { setChat, setChatType } = SelectedProf.actions;
 export default SelectedProf.reducer;

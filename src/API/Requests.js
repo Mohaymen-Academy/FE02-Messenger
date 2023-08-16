@@ -86,17 +86,28 @@ export default function Requests(body) {
   }
   async function SearchAll(text) {
     const body = { search_entry: text };
-    const newHeader = { ...HEADER, Authorization: `${localStorage.getItem('token')}` };
+
     try {
-      const res = await API().GET('search/', body, newHeader);
+      const res = await API().GET('search/', body, AutorizeHeader);
       return res;
     } catch (err) {
       console.error(err);
     }
   }
+  async function UpdateSeen(MsgID) {
+    try {
+      await API()
+        .POST(`seen/${MsgID}`, {}, AutorizeHeader)
+        .then((res) => res.json())
+        .then((data) => console.log(data));
+    } catch (err) {
+      console.log(err);
+    }
+  }
   async function sendText(endpoint, text) {
     const body = { text };
     console.log(text);
+    // console.log(text)
     try {
       const res = await API().POST(`${endpoint}`, body, AutorizeHeader);
       return res;
