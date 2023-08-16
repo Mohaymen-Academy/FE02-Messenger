@@ -81,15 +81,15 @@ export default function Register() {
     values.current[name] = value;
   };
   return (
-    <div dir="rtl" className="bg-complete">
+    <div dir="rtl" className="bg-complete h-screen">
       <div className="main-div">
-        <div className="flex flex-col items-center justify-center">
+        <div className="flex mb-5 flex-col items-center justify-center">
           <a href="/">
-            <img width={100} src="images/logo.png" />
+            <img width={150} src="images/rasa.png" />
           </a>
-          <div className="mb-5 text-[20px] text-text1">ثبت نام</div>
         </div>
-        <div className="sm:max-w-lg sm:rounded-lg w-full  overflow-hidden rounded border  bg-color1 px-6 py-4 shadow-md">
+        <div className="bg-color2 h-full sm:max-w-lg sm:rounded-lg w-full  overflow-hidden rounded border  px-6 py-4 shadow-md">
+          <div className="mb-5 text-center text-[20px] text-text1">ثبت نام</div>
           <form>
             <div>
               <label htmlFor="name" className="undefined mt-3 block text-sm font-medium text-text1">
@@ -155,13 +155,13 @@ export default function Register() {
                 {passwordError && <p className="text-xs text-red-500">{passwordError}</p>}
               </div>
             </div>
-            <a href="#" className="text-xs text-[#1e7889] hover:underline">
+            <a href="#" className="text-xs text-[rgb(0,132,105)] hover:underline">
               رمز عبور خود را فراموش کرده اید؟
             </a>
             <div className="mt-4 flex items-center">
               <button
                 onClick={handleRegisterClick}
-                className="w-full rounded-md bg-[#1e7889] px-4 py-2 tracking-wide text-white transition-colors duration-200 hover:bg-[#7fc2cf] focus:bg-[#135461] focus:outline-none">
+                className="w-full rounded-md bg-[rgb(0,132,105)] px-4 py-2 tracking-wide text-white transition-colors duration-200 hover:bg-[#7fc2cf] focus:bg-[#135461] focus:outline-none">
                 ثبت نام
               </button>
             </div>
@@ -169,7 +169,7 @@ export default function Register() {
           <div className="mt-4 text-text1">
             قبلا اکانت داشته اید؟{' '}
             <span>
-              <a className="text-[#1e7889] hover:underline" href="/Login">
+              <a className="text-[rgb(0,132,105)] hover:underline" href="/Login">
                 وارد شوید
               </a>
             </span>

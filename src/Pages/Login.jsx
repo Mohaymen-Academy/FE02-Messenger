@@ -39,19 +39,21 @@ export default function Login() {
   return (
     <div dir="rtl" className="bg-complete">
       <div className="main-div">
-        <div className="flex flex-col items-center justify-center">
+        <div className="flex flex-col my-5 items-center justify-center">
           <a href="/">
-            <img width={100} src="images/logo.png" />
+            <img width={150} src="images/rasa.png" />
           </a>
-          <div className="mb-5 text-[20px] text-text1">ورود</div>
         </div>
-        <div className="sm:max-w-lg sm:rounded-lg w-full  overflow-hidden rounded border  bg-color1 px-6 py-4 shadow-md ">
+        <div className="sm:max-w-lg sm:rounded-lg w-full bg-color2 overflow-hidden rounded border  bg-color px-6 py-4 shadow-md ">
+          <div className="mb-5 text-[20px] text-center text-text1">ورود</div>
           <form>
             <div>
-              ایمیل
               <label
                 htmlFor="name"
-                className="undefined mt-3 block text-sm font-medium text-text1"></label>
+                className="undefined mt-3 block text-sm font-medium text-text1">
+                                ایمیل
+
+                </label>
               <div className="flex flex-col items-start">
                 <input
                   type="email"
@@ -78,13 +80,13 @@ export default function Login() {
                 />
               </div>
             </div>
-            <a href="#" className="text-xs text-color4 hover:underline">
+            <a href="#" className="text-xs text-[rgb(0,132,105)] hover:underline">
               رمز عبور خود را فراموش کرده اید؟
             </a>
             <div className="mt-4 flex items-center">
               <button
                 onClick={handleRegisterClick}
-                className="w-full rounded-md bg-[#1e7889] px-4 py-2 tracking-wide text-white transition-colors duration-200 hover:bg-[#7fc2cf] focus:bg-[#135461] focus:outline-none">
+                className="w-full rounded-md bg-[rgb(0,92,75)] px-4 py-2 tracking-wide text-white transition-colors duration-200 hover:bg-[#7fc2cf] focus:bg-[#135461] focus:outline-none">
                 ورود
               </button>
             </div>
@@ -92,7 +94,7 @@ export default function Login() {
           <div className="mt-4 text-text1">
             اکانت ندارید؟{' '}
             <span>
-              <a className="text-[#1e7889] hover:underline" href="/Register">
+              <a className="text-[rgb(0,132,105)] hover:underline" href="/Register">
                 ثبت نام کنید
               </a>
             </span>

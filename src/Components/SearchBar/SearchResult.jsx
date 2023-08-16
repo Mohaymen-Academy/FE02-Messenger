@@ -1,10 +1,16 @@
 import React from 'react'
 import { Avatar } from '../ChatComps'
-export default function SearchResult({profile , text}) {
+import { GetMessages } from '../../features/SelectedInfo';
+import { useDispatch } from 'react-redux';
+export default function SearchResult({profile , text  , message_id}) {
+  const dispatch = useDispatch();
+
   return (
     <div>    
         <div
-        onClick={(e) => dispatch(setChatType({ type: profile.type, ID: profile.profileID }))}
+          onClick={(e) =>
+            dispatch(GetMessages({ type: profile.type, ID: profile.profileID }, { message_id: 0 }))
+          }
         className=" h-[70px] p-3 mx-2 flex w-[97%] cursor-pointer flex-row items-center justify-start rounded-lg  hover:bg-bghovor">
         <div className="flex w-[100%] h-full justify-between px-2">
         <div className="flex flex-row gap-2 items-center">
