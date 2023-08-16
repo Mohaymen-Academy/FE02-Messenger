@@ -13,20 +13,19 @@ import Requests from '../../API/Requests.js';
 
 export default function ChatBody({ chatid, chattype }) {
   // console.log('wer')
-  const msg = useRef(0);
   const observer = new IntersectionObserver(
     (entries) => {
       const visibleItems = entries
-      .filter((entry) => entry.isIntersecting)
-      .map((entry) => entry.target.dataset.id);
-      // console.log(visibleItems.length)
-      // msg.current = visibleItems.length > 0 ? visibleItems[0] : msg.current;
-      if (visibleItems.length){
-        msg.current=visibleItems[0]
+        .filter((entry) => entry.isIntersecting)
+        .map((entry) => parseInt(entry.target.dataset.id));
+      console.log(visibleItems);
+      if (visibleItems.length != 0) {
+        msg.current = Math.max(visibleItems);
       }
     },
     { threshold: 0.5 }
   );
+      const msg = useRef(0);
   const bodyref = useRef(null);
   const messages = useSelector((state) => state.selectedProf.Chatmessages);
   const chatId = useSelector((state) => state.selectedProf.selectedChatID);
@@ -57,8 +56,12 @@ export default function ChatBody({ chatid, chattype }) {
   const footerallowed = chattype == TYPE_CHANNEL ? false : chattype == TYPE_GROUP ? true : true;
   const [preview, setPreview] = useState(false);
   useEffect(() => {
+    console.log(msg.current)
     // const idtoUpdate = NeededId('Down', messages);
-    Requests().UpdateSeen(0);
+    // Requests().UpdateSeen(0);
+    // const parentobserver=new IntersectionObserver((entries)=>{
+    //   if
+    // });
   }, []);
 
   function scrolltobottom() {
