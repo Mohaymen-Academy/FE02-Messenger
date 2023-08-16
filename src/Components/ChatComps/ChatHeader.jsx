@@ -8,9 +8,9 @@ import { TYPE_CHANNEL, TYPE_USER, TYPE_GROUP } from '../../utility/Constants.js'
 import Pin from './Pin.jsx';
 import { useEffect } from 'react';
 import { useState } from 'react';
-const ChatHeader = ({ active, setActive, chatsetter, chattype ,chatid}) => {
-  const chatProf=useSelector(state=>state.messageList.messages)
-  const selectedProfile=chatProf.filter((item)=>item.profile.profileID==chatid)[0];
+const ChatHeader = ({ active, setActive, chatsetter, chattype, chatid }) => {
+  const chatProf = useSelector((state) => state.messageList.messages);
+  const selectedProfile = chatProf.filter((item) => item.profile.profileID == chatid)[0];
   const ChatInfo =
     chattype == TYPE_USER
       ? '12:22' // ShouldChange
@@ -34,22 +34,23 @@ const ChatHeader = ({ active, setActive, chatsetter, chattype ,chatid}) => {
             <UilArrowRight className="w-8 h-8 text-text1 cursor-pointer" />
           </button>
           <div className="flex-1 w-[75%] h-[75%] ">
-            {selectedProfile.profile.lastProfilePicture ? (
+            {selectedProfile?.profile.lastProfilePicture ? (
               <img
-                src={`data:image/jpeg;base64,${selectedProfile.profile.lastProfilePicture.preLoadingContent}`}
+                src={`data:image/jpeg;base64,${selectedProfile?.profile.lastProfilePicture.preLoadingContent}`}
                 className="h-full rounded-full w-full"
-
               />
             ) : (
               <Avatar
-                imagecolor={selectedProfile.profile.defaultProfileColor}
-                char={selectedProfile.profile.profileName[0]}
+                imagecolor={selectedProfile?.profile.defaultProfileColor}
+                char={selectedProfile?.profile.profileName[0]}
                 // isOnline={true}
               />
             )}
           </div>
           <div className="">
-            <h3 className="text-lg font-semibold text-text1">{selectedProfile.profile.profileName} </h3>
+            <h3 className="text-lg font-semibold text-text1">
+              {selectedProfile?.profile.profileName}{' '}
+            </h3>
             <div className="text-sm text-slate-400">{ChatInfo}</div>
           </div>
         </div>

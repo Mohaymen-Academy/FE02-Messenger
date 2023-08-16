@@ -1,14 +1,10 @@
 import { useRef, useState } from 'react';
 import { TEXT_STYLES } from './Constants';
-import Text from './Text';
 export default function TextProcessorObj(containers) {
-  // console.log(containers);
   const customSort = (a, b) => {
-    // console.log(a,b)
     if (a.lower != b.lower) {
       return a.lower - b.lower;
     } else {
-      // console.log(a.upper, b.upper);
       return a.upper - b.upper;
     }
   };

@@ -36,13 +36,9 @@ export default function ChatBody({ chatid, chattype }) {
   });
   function handleonScroll() {
     clearTimeout(scrolltimeout);
-    // const direction =
-    // scrollValues.current.lastScrollPosition - bodyref.current.scrollTop > 0 ? 'UP' : 'DOWN';
     scrolltimeout = setTimeout(() => {
       console.log(msg.current);
-      // scrollValues.current.lastScrollPosition = bodyref.current.scrollTop;
     }, 200);
-
     if (bodyref.current?.scrollTop == bodyref.current.scrollHeight - bodyref.current.clientHeight) {
       setbuttonhidden(true);
     } else {
