@@ -57,7 +57,7 @@ export default function ChatFooter({ id }) {
   const [mousepositoin, setmousepositoin] = useState({ x: 0, y: 0 });
   const needActoin = Isactive.isEditting || Isactive.isReplying || Isactive.isForwarding;
   return (
-    <div className="relative top-[-30px] flex flex-col">
+    <div className="relative top-[0px] flex flex-col">
       {needActoin ? (
         <div className="flex h-[30px] w-[100%] flex-row gap-3 rounded-t-lg bg-color2 pr-2 pt-1">
           <button onClick={() => dispatch(composerActions.clear())}>

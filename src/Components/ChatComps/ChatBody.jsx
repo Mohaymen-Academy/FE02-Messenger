@@ -68,10 +68,8 @@ export default function ChatBody({ chatid, chattype, needupdate }) {
       ) < 10
     ) {
       setbuttonhidden(true);
-    } else {
-      if (buttonhidden) {
-        setbuttonhidden(false);
-      }
+    } else if (buttonhidden) {
+      setbuttonhidden(false);
     }
   }
 
@@ -126,7 +124,7 @@ export default function ChatBody({ chatid, chattype, needupdate }) {
                 <Message
                   // content={message.content}
                   observer={observer}
-                  isSeen={message.viewCount > 1 ? true : false}
+                  isSeen={message.viewCount > 1}
                   id={message.messageID}
                   chattype={chattype}
                   creator={message.sender}
@@ -166,7 +164,7 @@ export default function ChatBody({ chatid, chattype, needupdate }) {
           </MessageDateGroup> */}
         </div>
         {footerallowed && (
-          <div className=" h-16 w-[80%] vsmmobile:mb-[7rem] smmobile:mb-[7rem]">
+          <div className=" h-16 w-[80%] vsmmobile:mb-[3rem] smmobile:mb-[3rem]">
             <ChatFooter id={chatid} />
           </div>
         )}
