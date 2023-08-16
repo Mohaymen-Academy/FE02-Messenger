@@ -4,11 +4,11 @@ import { BASE_URL, HEADER } from './consts';
 
 export default function Requests(body) {
   // const token = useSelector((state) => state.profile.jwt);
-  console.log(JSON.parse(localStorage.getItem('persist:profile')).jwt);
+  // console.log(JSON.parse(localStorage.getItem('persist:profile')).jwt);
   console.log();
   const AutorizeHeader = {
     ...HEADER,
-    Authorization: `${JSON.parse(localStorage.getItem('persist:profile')).jwt}`
+    Authorization: `${localStorage.getItem('token')}`
   };
   // Register
   // check Duplicate Email - GET
@@ -48,7 +48,6 @@ export default function Requests(body) {
       console.log('Sending request to login...');
       const res = await API().POST('access/login', body, HEADER);
       localStorage.setItem('token', res.data.jwt);
-      // redirect('/');
       return res;
     } catch (err) {
       console.log(err);
@@ -57,12 +56,11 @@ export default function Requests(body) {
   // eyJ0eXAiOiJKV1QiLCJhbGciOiJub25lIn0.eyJpZCI6MTAwMCwiZXhwIjoxNjkyMTY0NDM4fQ.wbxoM2ylQRZwFGNnh8-qI3XLya9z4bgDxlNkHQsSJHM\""
   // profileData
 
-  async function GetChat(receiverID) {
+  async function GetChat(receiverID, params) {
     console.log('Get chat messeages');
-    // const newHeader = { ...HEADER, Authorization: `${localStorage.getItem('token')}` };
     console.log(receiverID);
     try {
-      const res = await API().GET(receiverID, {}, AutorizeHeader);
+      const res = await API().GET(receiverID, params, AutorizeHeader);
       // redirect('/');
       return res;
     } catch (err) {
@@ -98,8 +96,7 @@ export default function Requests(body) {
   }
   async function sendText(endpoint, text) {
     const body = { text };
-    console.log(text)
-    // console.log(text)
+    console.log(text);
     try {
       const res = await API().POST(`${endpoint}`, body, AutorizeHeader);
       return res;
@@ -125,6 +122,6 @@ export default function Requests(body) {
     GetChat,
     SearchAll,
     sendText,
-    UpdateSeen,
+    UpdateSeen
   };
 }

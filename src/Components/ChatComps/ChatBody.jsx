@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { UilArrowDown } from '@iconscout/react-unicons';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import ChatFooter from './ChatFooter.jsx';
 import Message from '../message/Message.jsx';
 import ImagePreviewer from '../media-previewer/ImagePreviewer.jsx';
@@ -10,9 +10,10 @@ import MessageDateGroup from '../message/MessageDateGroup.jsx';
 import MessageVoice from '../message/MessageVoice.jsx';
 // import { NeededId } from '../../utility/FindneededID.js';
 import Requests from '../../API/Requests.js';
+import { GetMessages } from '../../features/SelectedInfo.js';
 
 export default function ChatBody({ chatid, chattype }) {
-  // console.log('wer')
+  const dispatch = useDispatch();
   const observer = new IntersectionObserver(
     (entries) => {
       const visibleItems = entries
@@ -20,12 +21,19 @@ export default function ChatBody({ chatid, chattype }) {
         .map((entry) => parseInt(entry.target.dataset.id));
       console.log(visibleItems);
       if (visibleItems.length != 0) {
-        msg.current = Math.max(visibleItems);
+        const maxval = Math.max(visibleItems);
+        if (maxval > MSGes.current.upper) {
+          MSGes.current.upper = Math.max(visibleItems);
+          Requests().UpdateSeen(MSGes.current.upper);
+        }
       }
     },
     { threshold: 0.5 }
   );
-      const msg = useRef(0);
+  const MSGes = useRef({
+    upper: -Infinity,
+    lower: Infinity
+  });
   const bodyref = useRef(null);
   const messages = useSelector((state) => state.selectedProf.Chatmessages);
   const chatId = useSelector((state) => state.selectedProf.selectedChatID);
@@ -36,10 +44,19 @@ export default function ChatBody({ chatid, chattype }) {
   });
   function handleonScroll() {
     clearTimeout(scrolltimeout);
+    console.log(
+      bodyref.current?.scrollTop,
+      bodyref.current.scrollHeight - bodyref.current.clientHeight
+    );
     scrolltimeout = setTimeout(() => {
-      console.log(msg.current);
+      console.log(MSGes.current);
+      dispatch(GetMessages({ type: chattype, ID: chatId }, { message_id: MSGes.current.upper }));
     }, 200);
-    if (bodyref.current?.scrollTop == bodyref.current.scrollHeight - bodyref.current.clientHeight) {
+    if (
+      Math.abs(
+        bodyref.current?.scrollTop - (bodyref.current.scrollHeight - bodyref.current.clientHeight)
+      ) < 10
+    ) {
       setbuttonhidden(true);
     } else {
       if (buttonhidden) {
@@ -52,9 +69,8 @@ export default function ChatBody({ chatid, chattype }) {
   const footerallowed = chattype == TYPE_CHANNEL ? false : chattype == TYPE_GROUP ? true : true;
   const [preview, setPreview] = useState(false);
   useEffect(() => {
-    console.log(msg.current)
+    console.log(MSGes.current);
     // const idtoUpdate = NeededId('Down', messages);
-    // Requests().UpdateSeen(0);
     // const parentobserver=new IntersectionObserver((entries)=>{
     //   if
     // });

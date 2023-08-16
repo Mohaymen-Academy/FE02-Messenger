@@ -8,7 +8,7 @@ export default function API() {
       params: params,
       headers: header
     });
-    console.log(res);
+    // console.log(res);
     return res;
   }
 
@@ -17,7 +17,7 @@ export default function API() {
     const res = await axios.post(`${BASE_URL}/${endpoint}`, body, {
       headers: header
     });
-    console.log(res);
+    // console.log(res);
     return res;
   }
 
@@ -26,7 +26,7 @@ export default function API() {
     const res = await axios.put(`${BASE_URL}/${endpoint}`, body, {
       headers: header
     });
-    console.log(res);
+    // console.log(res);
     return res;
   }
 
@@ -36,7 +36,7 @@ export default function API() {
       params: params,
       headers: header
     });
-    console.log(res);
+    // console.log(res);
     return res;
   }
 

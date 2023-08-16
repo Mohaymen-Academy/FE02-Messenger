@@ -15,16 +15,16 @@ const Chatlist = () => {
   const profid = useSelector((state) => state.selectedProf.selectedChatID);
   
   useEffect(() => {
-    if (profid) {
-      const shouldUpdate = lists.filter(
-        (ele) => ele.profile.profileID == profid && ele.unreadMessageCount != 0
-      )[0];
-      if (shouldUpdate) {
-        dispatch(
-          GetMessages({ type: shouldUpdate.profile.type, ID: shouldUpdate.profile.profileID })
-        );
-      }
-    }
+    // if (profid) {
+    //   const shouldUpdate = lists.filter(
+    //     (ele) => ele.profile.profileID == profid && ele.unreadMessageCount != 0
+    //   )[0];
+    //   if (shouldUpdate) {
+    //     dispatch(
+    //       GetMessages({ type: shouldUpdate.profile.type, ID: shouldUpdate.profile.profileID })
+    //     );
+    //   }
+    // }
   });
   const handleScroll = (listRef) => {
     // const res = HandleScroller.ReachEnd(listRef);

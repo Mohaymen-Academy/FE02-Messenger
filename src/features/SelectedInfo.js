@@ -14,27 +14,30 @@ const initialState = {
   Chatmessages: [],
   lastMessage: 0
 };
-const GetMessages = createAsyncThunk('selectedProf/getmessages', async (requestinfo) => {
+const GetMessages = createAsyncThunk('selectedProf/getmessages', async (requestinfo, params) => {
   try {
     // console.log(requestinfo);
     const data = await Requests().GetChat(requestinfo.ID);
     // console.log(data);
-    return data;
+    // return data;
     return { data: data.data, ID: requestinfo.ID, type: requestinfo.type };
   } catch (err) {
     console.log(err);
   }
 });
-const UpdateMessages = createAsyncThunk('selectedProf/updatemessages', async (requestinfo) => {
-  try {
-    // console.log(requestinfo);
-    const data = await Requests().GetChat(requestinfo.ID);
-    // console.log(data);
-    return { data: data.data };
-  } catch (err) {
-    console.log(err);
+const UpdateMessages = createAsyncThunk(
+  'selectedProf/updatemessages',
+  async (requestinfo, params) => {
+    try {
+      // console.log(requestinfo);
+      const data = await Requests().GetChat(requestinfo.ID, params);
+      // console.log(data);
+      return { data: data.data };
+    } catch (err) {
+      console.log(err);
+    }
   }
-});
+);
 const SelectedProf = createSlice({
   name: 'selectedProf',
   initialState,
@@ -43,12 +46,11 @@ const SelectedProf = createSlice({
   extraReducers: (builder) =>
     builder
       .addCase(GetMessages.fulfilled, (state, action) => {
-        
-        console.log(action.payload);
-        console.log('zarp')
-        // state.Chatmessages = action.payload.data?.messages;
-        // state.chatType = action.payload.type;
-        // state.selectedChatID = action.payload.ID;
+        // console.log(action.payload);
+        // console.log('zarp');
+        state.Chatmessages = action.payload.data?.messages;
+        state.chatType = action.payload.type;
+        state.selectedChatID = action.payload.ID;
       })
       .addCase(UpdateMessages.fulfilled, (state, action) => {
         const x = [{ id: 1 }, { id: 2 }, { id: 3 }, { id: 4 }];
