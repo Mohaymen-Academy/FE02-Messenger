@@ -30,9 +30,6 @@ function Message({
     }
     console.log();
     observer.observe(mainref.current);
-    // return () => {
-    //   observer.unobserve(mainref);
-    // };
   }, []);
   // console.log(userprofile.profileData.profileID);
   let y_mouse = useRef(0);
