@@ -47,6 +47,7 @@ export default function ChatBody({ chatid, chattype, needupdate }) {
       dispatch(GetMessages({ type: chattype, ID: chatid }, { message_id: MSGes.current.upper }));
     }
   });
+
   let scrolltimeout;
   const scrollValues = useRef({
     lastScrollPosition: 0

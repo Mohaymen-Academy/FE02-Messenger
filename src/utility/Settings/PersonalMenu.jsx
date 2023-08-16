@@ -39,7 +39,7 @@ useEffect(()=>{
       <div className="flex flex-col  justify-start items-center gap-3 w-full p-5">
         <div className={`w-[250px] h-[250px] my-7 flex justify-center items-center rounded-full cursor-pointer `}
         onClick={handleclick}
-          style={{ backgroundImage: `${profile.profileData.lastProfilePicture && `url('data:image/jpeg;base64,${profile.profileData.lastProfilePicture.preLoadingContent}')`}` , backgroundColor : `${profile.profileData.defaultProfileColor}`  }}
+          style={{ backgroundImage: `${profile.profileData.lastProfilePicture && `url('data:image/jpeg;base64,${profile.profileData.lastProfilePicture.preLoadingContent}')`}` , backgroundColor : `${profile.profileData.defaultProfileColor}` , backgroundRepeat:"no-repeat" , backgroundSize:"cover"  }}
         >
           <input ref={image} type="file" id="upload" className='hidden'/>
           <UilCameraPlus className={'w-[50%] h-[50%] hover:w-[55%] hover:h-[55%] text-white'} />
