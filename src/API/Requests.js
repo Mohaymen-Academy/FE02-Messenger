@@ -95,14 +95,11 @@ export default function Requests(body) {
     }
   }
   async function UpdateSeen(MsgID) {
-    try {
-      await API()
-        .POST(`seen/${MsgID}`, {}, AutorizeHeader)
-        .then((res) => res.json())
-        .then((data) => console.log(data));
-    } catch (err) {
-      console.log(err);
-    }
+    await API()
+      .POST(`seen/${MsgID}`, {}, AutorizeHeader)
+      .then((res) => res.json())
+      .then((data) => console.log(data))
+      .catch((err) => console.log(err));
   }
   async function sendText(endpoint, text) {
     const body = { text };
@@ -126,14 +123,25 @@ export default function Requests(body) {
     }
   }
   async function GetProfileMedium(chatid) {
-    console.log(chatid)
+    console.log(chatid);
     await API()
-      .GET(`profile/compressed-profile/${chatid}`,{},AutorizeHeader)
-      // .then((res) => res.json())
+      .GET(`profile/compressed-profile/${chatid}`, {}, AutorizeHeader)
+      .then((res) => res.json())
+      .then((data) => console.log(data))
+      .catch((err) => console.log(err));
+  }
+  async function EditMessage(messageId, text) {
+    const body = {
+      text: text
+    };
+    await API()
+      .POST(`edit-message/${messageId}`, body, AutorizeHeader)
+      .then((res) => res.json())
       // .then((data) => console.log(data))
       // .catch((err) => console.log(err));
   }
   return {
+    EditMessage,
     GetProfileMedium,
     checkDuplicateEmail,
     Register,

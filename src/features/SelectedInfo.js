@@ -26,52 +26,46 @@ const GetMessages = createAsyncThunk('selectedProf/getmessages', async (requesti
     console.log(err);
   }
 });
-const UpdateMessages = createAsyncThunk(
-  'selectedProf/updatemessages',
-  async (requestinfo, params) => {
-    try {
-      // console.log(requestinfo);
-      const data = await Requests().GetChat(requestinfo.ID, params);
-      // console.log(data);
-      return { data: data.data };
-    } catch (err) {
-      console.log(err);
-    }
-  }
-);
+// const UpdateMessages = createAsyncThunk(
+//   'selectedProf/updatemessages',
+//   async (requestinfo, params) => {
+//     try {
+//       const data = await Requests().GetChat(requestinfo.ID, params);
+//       return { msgId: data.id, newtext: data.text };
+//     } catch (err) {
+//       console.log(err);
+//     }
+//   }
+// );
 const SelectedProf = createSlice({
   name: 'selectedProf',
   initialState,
   // reducers: {
   // },
   reducers: {
-    resetChatId: (state,action) => {
+    resetChatId: (state, action) => {
       // console.log('hello from reducer');
       state.selectedChatID = null;
+    },
+    editmsg: (state, action) => {
+      console.log(action.payload.msgId)
+      state.Chatmessages = state.Chatmessages.map((ele) => {
+        if (ele.messageID == action.payload.msgId) {
+          return { ...ele, text:action.payload.newtext };
+        }
+        return ele;
+      });
     }
   },
   extraReducers: (builder) =>
-    builder
-      .addCase(GetMessages.fulfilled, (state, action) => {
-        // console.log(action.payload);
-        // console.log('zarp');
-        state.Chatmessages = action.payload.data?.messages;
-        state.chatType = action.payload.type;
-        state.selectedChatID = action.payload.ID;
-      })
-      .addCase(UpdateMessages.fulfilled, (state, action) => {
-        const x = [{ id: 1 }, { id: 2 }, { id: 3 }, { id: 4 }];
-
-        // action.payload.data?.messages.forEach(newObj => {
-        //   state.Chatmessages.find()
-        // });
-
-        // x.map(ent=>)
-
-        // state.Chatmessages =
-      })
+    builder.addCase(GetMessages.fulfilled, (state, action) => {
+      state.Chatmessages = action.payload.data?.messages;
+      state.chatType = action.payload.type;
+      state.selectedChatID = action.payload.ID;
+    })
 });
 export { GetMessages };
-export const { resetChatId } = SelectedProf.actions;
+export const { resetChatId, editmsg } = SelectedProf.actions;
 // export const { setChat, setChatType } = SelectedProf.actions;
 export default SelectedProf.reducer;
+

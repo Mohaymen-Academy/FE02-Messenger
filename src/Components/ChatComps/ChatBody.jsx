@@ -44,6 +44,7 @@ export default function ChatBody({ chatid, chattype, needupdate }) {
       (ele) => ele.profile.profileID == chatid && ele.updated == true
     );
     if (shouldUpdate.length != 0) {
+      console.log('werew')
       dispatch(GetMessages({ type: chattype, ID: chatid }, { message_id: MSGes.current.upper }));
     }
   });

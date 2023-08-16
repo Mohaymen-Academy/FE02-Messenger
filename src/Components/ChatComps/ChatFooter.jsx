@@ -11,6 +11,7 @@ import PopUp from '../../utility/PopUp';
 import Poll from './Poll';
 import Requests from '../../API/Requests';
 import { composerActions } from '../../features/composerSlice';
+import { editmsg } from '../../features/SelectedInfo';
 
 export default function ChatFooter({ id }) {
   const [openPoll, setopenPoll] = useState(false);
@@ -48,6 +49,10 @@ export default function ChatFooter({ id }) {
         closeTextProcessor();
       }
     }
+    // if (divref.current) {
+    //   // console.log('wer');
+    //   // divref.current.innerText = Isactive.composerValue;
+    // }
     document.addEventListener('click', handleDocumentClick);
     return () => {
       document.removeEventListener('click', handleDocumentClick);
@@ -56,6 +61,18 @@ export default function ChatFooter({ id }) {
   const dispatch = useDispatch();
   const [mousepositoin, setmousepositoin] = useState({ x: 0, y: 0 });
   const needActoin = Isactive.isEditting || Isactive.isReplying || Isactive.isForwarding;
+  async function SelectRequestType() {
+    if (Isactive.isEditting) {
+      // console.log(divref.current.innerText);
+      console.log(Isactive.editID);
+      dispatch(editmsg({ msgId: Isactive.editID, newtext: divref.current.innerText }));
+      await Requests().EditMessage(Isactive.editID, divref.current.innerText);
+    } else {
+      if (Isactive.isReplying) {
+      } else {
+      }
+    }
+  }
   return (
     <div className="relative top-[0px] flex flex-col">
       {needActoin ? (
@@ -79,9 +96,7 @@ export default function ChatFooter({ id }) {
         <div
           className={`m-auto flex  w-[100%] flex-row items-center justify-between  
           ${needActoin ? '' : 'rounded-xl'} bg-color2  p-2 text-color4`}>
-          <button
-            className="mx-1 h-8 w-8 text-text1 "
-            onClick={() => Requests().sendText(id, divref.current.innerText)}>
+          <button className="mx-1 h-8 w-8 text-text1 " onClick={SelectRequestType}>
             <UilMessage />
           </button>
           {/* </UilPaperclip> */}
@@ -95,7 +110,9 @@ export default function ChatFooter({ id }) {
             onSelectCapture={handleSelect}
             onInput={handleonInput}
             suppressContentEditableWarning={true}
-            className=" flex h-auto max-h-[50px] w-[90%] flex-row overflow-hidden break-all border-none shadow-none outline-none focus:shadow-none active:shadow-none"></div>
+            className=" flex h-auto max-h-[50px] w-[90%] flex-row overflow-hidden break-all border-none shadow-none outline-none focus:shadow-none active:shadow-none">
+            {Isactive.composerValue ? Isactive.composerValue : ''}
+          </div>
           <div>
             <button onClick={() => setopenemoji(!openemoji)} className="mx-1 h-8 w-8 text-text1 ">
               <UilSmile />

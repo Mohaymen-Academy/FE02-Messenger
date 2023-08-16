@@ -32,6 +32,7 @@ const composerSlice = createSlice({
           break;
         case 'edit':
           state.isEditting = true;
+          state.editID=action.payload.messageID
           break;
       }
       state.composerValue = action.payload.text;

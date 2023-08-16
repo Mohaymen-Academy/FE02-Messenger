@@ -18,7 +18,8 @@ function Message({
   ispinned,
   isEdited,
   text,
-  observer
+  observer,
+  handleMediaMessage
 }) {
   const [openContextMenu, setOpenContextMenu] = useState(false);
   const [mousepositoin, setmousepositoin] = useState({ x: 0, y: 0 });
@@ -52,7 +53,7 @@ function Message({
         <div className="vsmmobile:text-xs">
           {/* <MessageHeader forewardedFrom={forewardedFrom} repliedTo={repliedTo} /> */}
         </div>
-        {media ? <MessageImageMedia src={media} handleClick={handleMediaMessage} /> : <></>}
+        {media ? <MessageImageMedia src={media.preLoadingContent} handleClick={handleMediaMessage} /> : <></>}
         <p>{text}</p>
         <MessageFooter Isforme={Isforme} id={id} isSeen={isSeen} />
       </MessageBody>

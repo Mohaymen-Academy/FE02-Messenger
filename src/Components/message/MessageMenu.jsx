@@ -72,7 +72,11 @@ const MessageMenu = ({ positions, setposition, msgId, text }) => {
             key={index}
             className="flex flex-row items-center gap-2 px-5 w-full hover:bg-bghovor rounded-lg"
             onClick={(e) =>
-              item.action ? dispatch(composerActions.setaction({ type: item.action,text:text })) : null
+              item.action
+                ? dispatch(
+                    composerActions.setaction({ type: item.action, text: text, messageID: msgId })
+                  )
+                : null
             }>
             <div className={`flex items-center gap-2 my-1 ${item.color}`}>{item.icon}</div>
             <p className={`text-xs px-2 ${item.color}`}>{item.title}</p>

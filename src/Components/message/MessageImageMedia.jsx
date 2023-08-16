@@ -1,7 +1,8 @@
 function MessageImageMedia({ src, handleClick }) {
+//  console.log(src)
   return (
     <div className="w-full rounded-md" onClick={handleClick}>
-      <img src={src} className="cursor-pointer" />
+      <img src={`data:image/jpeg;base64,${src}`} className="cursor-pointer w-[200px] h-[200px]" />
     </div>
   );
 }
