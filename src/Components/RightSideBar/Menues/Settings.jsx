@@ -1,8 +1,15 @@
 import { useState } from 'react';
-import { PersonalMenu, Notifs, Privacy, DataStorage, ChatSetting } from '../../../utility/Settings';
-import { UilBell, UilLock, UilCloudCheck, UilComment, UilUser } from '@iconscout/react-unicons';
-import { UilSignout } from '@iconscout/react-unicons'
+import {
+  UilBell,
+  UilLock,
+  UilCloudCheck,
+  UilComment,
+  UilUser,
+  UilSignout
+} from '@iconscout/react-unicons';
+
 import { useDispatch, useSelector } from 'react-redux';
+import { PersonalMenu, Notifs, Privacy, DataStorage, ChatSetting } from '../../../utility/Settings';
 import {
   SETTINGS_NOTIFS_MEN,
   SETTINGS_PRIVACY_MEN,
@@ -12,67 +19,67 @@ import {
 } from '../../../utility/Constants';
 import { setChild } from '../../../features/rightSideSlice';
 import { Avatar } from '../../ChatComps';
-export default function Settings() {
+import { clearLogin } from '../../../features/profileSlice';
 
+export default function Settings() {
   const dispatch = useDispatch();
   const child = useSelector((state) => state.rightsideMenues.ChildType);
   const profile = useSelector((state) => state.profile);
-  console.log(profile.profileData)
+  console.log(profile.profileData);
 
   const items = {
     [SETTINGS_PRIVATE_INFO]: {
       title: 'اطلاعات شخصی',
-      icon: <UilUser className="text-text1 w-8 h-8 mx-1 " />,
+      icon: <UilUser className="mx-1 h-8 w-8 text-text1 " />,
       component: <PersonalMenu />
     },
     [SETTINGS_NOTIFS_MEN]: {
       title: 'اعلان‌ها و صداها',
-      icon: <UilBell className="text-text1 w-8 h-8 mx-1 " />,
+      icon: <UilBell className="mx-1 h-8 w-8 text-text1 " />,
       component: <Notifs />
     },
     [SETTINGS_PRIVACY_MEN]: {
       title: 'حریم خصوصی و امنیت',
-      icon: <UilLock className="text-text1 w-8 h-8 mx-1 " />,
+      icon: <UilLock className="mx-1 h-8 w-8 text-text1 " />,
       component: <Privacy />
     },
     [SETTINGS_STORAGE_MEN]: {
       title: 'داده و ذخیره سازی',
-      icon: <UilCloudCheck className="text-text1 w-8 h-8 mx-1 " />,
+      icon: <UilCloudCheck className="mx-1 h-8 w-8 text-text1 " />,
       component: <DataStorage />
     },
     [SETTINGS_CHAT_MEN]: {
       title: 'تنظیمات گفتگو',
-      icon: <UilComment className="text-text1 w-8 h-8 mx-1 " />,
+      icon: <UilComment className="mx-1 h-8 w-8 text-text1 " />,
       component: <ChatSetting />
     }
   };
   // console.log(items[1].component);
   // console.log(child);
   return (
-    <div className='w-[450px] h-full overflow-y-scroll'>
+    <div className="h-full w-[450px] overflow-y-scroll">
       {child == 0 ? (
-        <div className="mt-4 w-full  h-full overflow-y-auto ">
+        <div className="mt-4 h-full  w-full overflow-y-auto ">
           {/* edit profile */}
           <div
-            className="flex flex-row w-[100%] p-3 hover:bg-bghovor border-b border-bghovor hover:cursor-pointer"
+            className="flex w-[100%] flex-row border-b border-bghovor p-3 hover:cursor-pointer hover:bg-bghovor"
             onClick={() => dispatch(setChild({ child: SETTINGS_PRIVATE_INFO }))}>
             <div className="mx-5 flex h-[100px] w-[100px] items-center justify-center rounded-full bg-blue-400 ">
-            {profile.profileData.lastProfilePicture ? (
-              <img
-                src={`data:image/jpeg;base64,${profile.profileData.lastProfilePicture.preLoadingContent}`}
-                className="h-full rounded-full"
-              />
-            ) : (
-              <Avatar
-                size = {100}
-                imagecolor={profile.profileData.defaultProfileColor}
-                char={profile.profileData.profileName[0]}
-                // isOnline={true}
-              />
-            )}
-
+              {profile.profileData.lastProfilePicture ? (
+                <img
+                  src={`data:image/jpeg;base64,${profile.profileData.lastProfilePicture.preLoadingContent}`}
+                  className="h-full rounded-full"
+                />
+              ) : (
+                <Avatar
+                  size={100}
+                  imagecolor={profile.profileData.defaultProfileColor}
+                  char={profile.profileData.profileName[0]}
+                  // isOnline={true}
+                />
+              )}
             </div>
-            <div className="flex flex-col text-text1 text-[17px] justify-center">
+            <div className="flex flex-col justify-center text-[17px] text-text1">
               <div>{profile.profileData.profileName}</div>
               <div>{profile.profileData.handle}</div>
             </div>
@@ -87,20 +94,20 @@ export default function Settings() {
                   <div
                     key={index}
                     onClick={() => dispatch(setChild({ child: item[0] }))}
-                    className="flex flex-row w-[100%] border-b border-bghovor px-8 gap-5 hover:bg-bghovor text-text1 items-center hover:cursor-pointer ">
+                    className="flex w-[100%] flex-row items-center gap-5 border-b border-bghovor px-8 text-text1 hover:cursor-pointer hover:bg-bghovor ">
                     <div>{item[1].icon}</div>
-                    <div className="text-[15px]  w-full py-6">{item[1].title}</div>
+                    <div className="w-full  py-6 text-[15px]">{item[1].title}</div>
                   </div>
                 );
               }
             })
           }
-              <div
-                onClick={() => console.log("log out")}
-                className="flex text-red-600 flex-row w-[100%] h-[70px] px-8 gap-5 hover:bg-bghovor items-center hover:cursor-pointer ">
-                <UilSignout className="text-red-600 w-8 h-8 mx-1 " />
-                <div>خروج از حساب کاربری</div>
-              </div>
+          <div
+            onClick={() => dispatch(clearLogin())}
+            className="flex h-[70px] w-[100%] flex-row items-center gap-5 px-8 text-red-600 hover:cursor-pointer hover:bg-bghovor ">
+            <UilSignout className="mx-1 h-8 w-8 text-red-600 " />
+            <div>خروج از حساب کاربری</div>
+          </div>
         </div>
       ) : (
         items[child].component
