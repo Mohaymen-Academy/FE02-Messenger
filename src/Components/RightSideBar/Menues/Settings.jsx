@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { PersonalMenu, Notifs, Privacy, DataStorage, ChatSetting } from '../../../utility/Settings';
 import { UilBell, UilLock, UilCloudCheck, UilComment, UilUser } from '@iconscout/react-unicons';
+import { UilSignout } from '@iconscout/react-unicons'
 import { useDispatch, useSelector } from 'react-redux';
 import {
   SETTINGS_NOTIFS_MEN,
@@ -94,6 +95,12 @@ export default function Settings() {
               }
             })
           }
+              <div
+                onClick={() => console.log("log out")}
+                className="flex text-red-600 flex-row w-[100%] h-[70px] px-8 gap-5 hover:bg-bghovor items-center hover:cursor-pointer ">
+                <UilSignout className="text-red-600 w-8 h-8 mx-1 " />
+                <div>خروج از حساب کاربری</div>
+              </div>
         </div>
       ) : (
         items[child].component
