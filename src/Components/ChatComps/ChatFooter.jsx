@@ -62,7 +62,7 @@ export default function ChatFooter({ id }) {
       <div className="m-auto flex  w-[100%] flex-row items-center justify-between  rounded-xl bg-color2  p-2 text-color4">
         <button
           className="mx-1 h-8 w-8 text-text1 "
-          onClick={() => Requests().sendText(id, divref.current)}>
+          onClick={() => Requests().sendText(id, divref.current.innerText)}>
           <UilMessage />
         </button>
         {/* </UilPaperclip> */}
