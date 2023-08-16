@@ -45,8 +45,8 @@ const SelectedProf = createSlice({
   // reducers: {
   // },
   reducers: {
-    resetChatId: (state) => {
-      console.log('hello from reducer');
+    resetChatId: (state,action) => {
+      // console.log('hello from reducer');
       state.selectedChatID = null;
     }
   },

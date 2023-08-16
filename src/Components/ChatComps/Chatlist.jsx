@@ -12,20 +12,16 @@ const Chatlist = () => {
   const dispatch = useDispatch();
   const HandleScroller = HandleScroll();
   const lists = useSelector((store) => store.messageList.messages);
-  const profid = useSelector((state) => state.selectedProf.selectedChatID);
+  // const profid = useSelector((state) => state.selectedProf.selectedChatID);
   
-  useEffect(() => {
-    // if (profid) {
-    //   const shouldUpdate = lists.filter(
-    //     (ele) => ele.profile.profileID == profid && ele.unreadMessageCount != 0
-    //   )[0];
-    //   if (shouldUpdate) {
-    //     dispatch(
-    //       GetMessages({ type: shouldUpdate.profile.type, ID: shouldUpdate.profile.profileID })
-    //     );
-    //   }
-    // }
-  });
+  // useEffect(() => {
+  //   if (profid) {
+  //     console.log('wer')
+  //     //     const shouldUpdate = lists.filter(
+  //     //       (ele) => ele.profile.profileID == profid && ele.unreadMessageCount != 0
+  //     //     )[0];
+  //   }
+  // });
   const handleScroll = (listRef) => {
     // const res = HandleScroller.ReachEnd(listRef);
     // if (res===true) {

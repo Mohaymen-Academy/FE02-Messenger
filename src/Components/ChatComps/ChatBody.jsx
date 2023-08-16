@@ -12,7 +12,7 @@ import MessageVoice from '../message/MessageVoice.jsx';
 import Requests from '../../API/Requests.js';
 import { GetMessages } from '../../features/SelectedInfo.js';
 
-export default function ChatBody({ chatid, chattype ,needupdate}) {
+export default function ChatBody({ chatid, chattype, needupdate }) {
   const dispatch = useDispatch();
   const observer = new IntersectionObserver(
     (entries) => {
@@ -36,21 +36,30 @@ export default function ChatBody({ chatid, chattype ,needupdate}) {
   });
   const bodyref = useRef(null);
   const messages = useSelector((state) => state.selectedProf.Chatmessages);
-  const chatId = useSelector((state) => state.selectedProf.selectedChatID);
   const [buttonhidden, setbuttonhidden] = useState(true);
+  // const ChatId = useSelector((state) => state.selectedProf.selectedChatID);
+  const lists = useSelector((store) => store.messageList.messages);
+  useEffect(() => {
+    const shouldUpdate = lists.filter(
+      (ele) => ele.profile.profileID == chatid && ele.updated == true
+    );
+    if (shouldUpdate) {
+      dispatch(GetMessages({ type: chattype, ID: chatid }, { message_id: MSGes.current.upper }));
+    }
+  });
   let scrolltimeout;
   const scrollValues = useRef({
     lastScrollPosition: 0
   });
   function handleonScroll() {
     clearTimeout(scrolltimeout);
-    console.log(
-      bodyref.current?.scrollTop,
-      bodyref.current.scrollHeight - bodyref.current.clientHeight
-    );
+    // console.log(
+    //   bodyref.current?.scrollTop,
+    //   bodyref.current.scrollHeight - bodyref.current.clientHeight
+    // );
     scrolltimeout = setTimeout(() => {
-      console.log(MSGes.current);
-      dispatch(GetMessages({ type: chattype, ID: chatId }, { message_id: MSGes.current.upper }));
+      // console.log(MSGes.current);
+      dispatch(GetMessages({ type: chattype, ID: chatid }, { message_id: MSGes.current.upper }));
     }, 200);
     if (
       Math.abs(
@@ -68,13 +77,6 @@ export default function ChatBody({ chatid, chattype ,needupdate}) {
   // TODO
   const footerallowed = chattype == TYPE_CHANNEL ? false : chattype == TYPE_GROUP ? true : true;
   const [preview, setPreview] = useState(false);
-  useEffect(() => {
-    console.log(MSGes.current);
-    // const idtoUpdate = NeededId('Down', messages);
-    // const parentobserver=new IntersectionObserver((entries)=>{
-    //   if
-    // });
-  }, []);
 
   function scrolltobottom() {
     const startPosition = bodyref.current.scrollTop;
@@ -164,7 +166,7 @@ export default function ChatBody({ chatid, chattype ,needupdate}) {
         </div>
         {footerallowed && (
           <div className=" h-16 w-[80%] vsmmobile:mb-[7rem] smmobile:mb-[7rem]">
-            <ChatFooter id={chatId} />
+            <ChatFooter id={chatid} />
           </div>
         )}
       </div>

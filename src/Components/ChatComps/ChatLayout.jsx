@@ -11,10 +11,9 @@ import Worker from '../../Workers/web/RequestHandler';
 // import Worker from ''
 import { TYPE_CHANNEL, TYPE_GROUP, TYPE_USER } from '../../utility/Constants';
 import { setMessages } from '../../features/chatCardPreviewSlice';
-// import { getMessgeList } from '../../features/messageListSlice';
+import { resetChatId } from '../../features/SelectedInfo';
 
 export default function ChatLayout() {
-  // const chatTools = useContext(LayoutContext);
   const chatType = useSelector((state) => state.selectedProf.chatType);
   const chatID = useSelector((state) => state.selectedProf.selectedChatID);
   const token = useSelector((state) => state.profile.jwt);
@@ -25,18 +24,16 @@ export default function ChatLayout() {
     [TYPE_GROUP]: <GroupChat chatid={chatID} />,
     [TYPE_CHANNEL]: <ChannelChat chatid={chatID} />
   };
-  // console.log(chatType);
 
   useEffect(() => {
     worker.postMessage(token);
     worker.onmessage = (msg) => {
-      // console.log(msg?.data);
       dispatch(setMessages(msg.data));
     };
 
     document.addEventListener('keydown', (e) => {
       if (e.key == 'Escape') {
-        chatTools.dispatch({ type: 'null' });
+        dispatch(resetChatId());
       }
     });
   }, []);

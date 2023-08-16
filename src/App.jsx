@@ -6,6 +6,7 @@ function App() {
   useEffect(() => {
     document.addEventListener('contextmenu', (e) => {
       e.preventDefault();
+      
     });
   }, []);
   return (

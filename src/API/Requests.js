@@ -34,7 +34,7 @@ export default function Requests(body) {
   // Sign Up - POST
   async function Register(body) {
     try {
-      console.log('Sending request to sign up...');
+      // console.log('Sending request to sign up...');
       const res = await API().POST('access/signup', body, HEADER);
       return res;
     } catch (err) {
@@ -45,7 +45,7 @@ export default function Requests(body) {
   async function Login(body) {
     console.log(body);
     try {
-      console.log('Sending request to login...');
+      // console.log('Sending request to login...');
       const res = await API().POST('access/login', body, HEADER);
       localStorage.setItem('token', res.data.jwt);
       return res;
@@ -57,7 +57,7 @@ export default function Requests(body) {
   // profileData
 
   async function GetChat(receiverID, params) {
-    console.log('Get chat messeages');
+    // console.log('Get chat messeages');
     console.log(receiverID);
     try {
       const res = await API().GET(receiverID, params, AutorizeHeader);
