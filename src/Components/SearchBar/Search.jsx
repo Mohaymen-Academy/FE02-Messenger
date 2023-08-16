@@ -1,4 +1,4 @@
-import React from 'react'
+import React , {useEffect , useRef} from 'react'
 import {UilSearch} from '@iconscout/react-unicons'
 import Requests from '../../API/Requests';
 import SearchResult from './SearchResult';
@@ -20,6 +20,8 @@ export default function Search({menu}) {
     const [members , setMembers] = React.useState([]);
     const [isOpen , setisOpen] = React.useState(false);
     const [count , setCount] = React.useState(0);
+    const searchContainerRef = useRef(null);
+
     async function handleSearch(value) {
           await Requests().SearchAll(value).then((res) => {
             setResult(res.data);
@@ -28,8 +30,20 @@ export default function Search({menu}) {
             setMassages(res.data[2].items);
           });
       }
+      useEffect(() => {
+        function handleClickOutside(event) {
+          if (searchContainerRef.current && !searchContainerRef.current.contains(event.target)) {
+            setisOpen(false);
+          }
+        }
+    
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => {
+          document.removeEventListener('mousedown', handleClickOutside);
+        };
+      }, []);
   return (
-    <div className={`w-[92%] ml-3 ${isOpen && "h-screen"}`}>        
+    <div className={`w-[92%] ml-3 ${isOpen && 'h-screen'}`} ref={searchContainerRef}>
         <form dir="rtl" className="w-[100%] m-1">
             <div className="relative">
             <input
@@ -37,7 +51,7 @@ export default function Search({menu}) {
                 id="default-search"
                 autoComplete="off"
                 onFocus={() => setisOpen(true)}
-                onBlur={() => setisOpen(false)}
+                // onBlur={() => setisOpen(false)}
                 onChange={(e) => handleSearch(e.target.value)}
                 className={`block w-full rounded-full p-2 pl-10 pr-5 text-sm border bg-color2 focus:ring-color1 text-text1 placeholder-text1`}
                 
@@ -54,14 +68,21 @@ export default function Search({menu}) {
                 channels.length > 0 && (
                     
                     channels.map((channel) => (
-                        <SearchResult profile={channel.profile} text={channel.text}/>
+                        <SearchResult profile={channel.profile} text={channel.text} massage_id = {channel.massage_id}/>
                     )))          
         }
         {
             isOpen && 
                 massages.length > 0 && (
                     massages.map((massage) => (
-                        <SearchResult profile={massage.profile} text={massage.text}/>
+                        <SearchResult profile={massage.profile} text={massage.text} massage_id = {massage.massage_id}/>
+                    )))          
+        }
+                {
+            isOpen && 
+                members.length > 0 && (
+                    members.map((member) => (
+                        <SearchResult profile={member.profile} text={member.text} massage_id = {0}/>
                     )))          
         }
   </div>
