@@ -19,9 +19,9 @@ export default function RadioinputTimeFormat({ headers, subtitles, setters }) {
                 type="radio"
                 value={index}
                 name="default-radio"
-                className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 before:ring-none focus:ring-blue-500 "
+                className="w-4 h-4 text-color4 accent-color4 bg-gray-100 border-gray-300 before:ring-none focus:ring-color4 "
               />
-              <label className="cursor-pointer flex flex-col  ml-2 text-sm text-right font-medium text-gray-900 ">
+              <label className="cursor-pointer text-text1 flex flex-col  ml-2 text-sm text-right font-medium ">
                 <h3>{header}</h3>
                 <p className="opacity-70" style={{ fontSize: '10px' }}>
                   {subtitles[index]}

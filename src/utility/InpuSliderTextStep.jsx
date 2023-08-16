@@ -6,9 +6,11 @@ export default function InpuSliderTextStep() {
 
   return (
     <div className="w-[100%]">
+            <div className='flex flex-col justify-center items-center my-5'>
+
       <input
         ref={inputslider}
-        className="rounded-lg overflow-hidden appearance-none bg-blue-600 h-3 w-128 cursor-default w-[99%]"
+        className="w-[92%] mb-5 h-1 bg-bghovor rounded-lg cursor-pointer range-sm accent-color4 "
         type="range"
         min="1"
         max="3"
@@ -16,7 +18,7 @@ export default function InpuSliderTextStep() {
         value={value}
         onChange={(e) => setvalue(e.target.value)}
       />
-      <div className="flex flex-row justify-between">
+      <div className="flex flex-row justify-between text-text1 w-[90%]">
         <div className="sliderwithtext" onClick={(e) => setvalue(1)}>
           <p>فعال</p>
         </div>
@@ -26,6 +28,7 @@ export default function InpuSliderTextStep() {
         <div className="sliderwithtext" onClick={(e) => setvalue(3)}>
           <p>غیرفعال</p>
         </div>
+      </div>
       </div>
     </div>
   );

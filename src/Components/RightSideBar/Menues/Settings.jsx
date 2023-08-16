@@ -48,9 +48,9 @@ export default function Settings() {
   // console.log(items[1].component);
   // console.log(child);
   return (
-    <>
+    <div className='w-[450px] h-full overflow-y-scroll'>
       {child == 0 ? (
-        <div className="mt-4 w-[450px] h-full overflow-y-auto ">
+        <div className="mt-4 w-full  h-full overflow-y-auto ">
           {/* edit profile */}
           <div
             className="flex flex-row w-[100%] p-3 hover:bg-bghovor border-b border-bghovor hover:cursor-pointer"
@@ -88,7 +88,7 @@ export default function Settings() {
                     onClick={() => dispatch(setChild({ child: item[0] }))}
                     className="flex flex-row w-[100%] border-b border-bghovor px-8 gap-5 hover:bg-bghovor text-text1 items-center hover:cursor-pointer ">
                     <div>{item[1].icon}</div>
-                    <div className="text-[20px]  w-full py-6">{item[1].title}</div>
+                    <div className="text-[15px]  w-full py-6">{item[1].title}</div>
                   </div>
                 );
               }
@@ -98,6 +98,6 @@ export default function Settings() {
       ) : (
         items[child].component
       )}
-    </>
+    </div>
   );
 }
