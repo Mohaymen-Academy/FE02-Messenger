@@ -3,10 +3,10 @@ export default (e) => {
   // const RequestHandler = Requests();
   self.onmessage = (msg) => {
     // console.log(msg.data);
-    // http://185.60.136.206:/login
+    // http://185.60.136.206:8080
 
     setInterval(async () => {
-      fetch('http://localhost:8080/', {
+      fetch('http://185.60.136.206:8080/', {
         headers: {
           'Content-Type': 'application/json',
           'Access-Control-Allow-Origin': '*',
