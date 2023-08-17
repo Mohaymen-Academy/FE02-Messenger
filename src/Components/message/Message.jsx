@@ -25,6 +25,7 @@ function Message({
   const [openContextMenu, setOpenContextMenu] = useState(false);
   const [mousepositoin, setmousepositoin] = useState({ x: 0, y: 0 });
   const mainref = useRef(null);
+  const textref = useRef(null);
   const userprofile = useSelector((state) => state.profile);
   useEffect(() => {
     if (!mainref) {
@@ -32,6 +33,8 @@ function Message({
     }
     console.log();
     observer.observe(mainref.current);
+    if (textref) {
+    }
   }, []);
   // console.log(userprofile.profileData.profileID);
   let y_mouse = useRef(0);
@@ -51,11 +54,12 @@ function Message({
       className={`relative flex w-full ${Isforme ? 'justify-start' : 'justify-end'} px-5`}
       onContextMenu={handleRightClick}>
       <MessageBody Isforme={Isforme}>
-        <div className="vsmmobile:text-xs">
-          {/* <MessageHeader forewardedFrom={forewardedFrom} repliedTo={repliedTo} /> */}
-        </div>
-        {media ? <MessageImageMedia src={media.preLoadingContent} handleClick={handleMediaMessage} /> : <></>}
-        <p className="break-all">{text}</p>
+        {media ? (
+          <MessageImageMedia src={media.preLoadingContent} handleClick={handleMediaMessage} />
+        ) : (
+          <></>
+        )}
+        <div className="break-all">{text}</div>
         <MessageFooter Isforme={Isforme} id={id} isSeen={isSeen} />
       </MessageBody>
       <div className="pt-[70px]">{chattype == TYPE_GROUP ? <Avatar /> : <></>}</div>

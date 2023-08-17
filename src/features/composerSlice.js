@@ -14,16 +14,11 @@ const composerSlice = createSlice({
   name: 'composer',
   initialState,
   reducers: {
-    // setIsPinned: (state) => {
-    //   state. = true;
-    // },
-    // setUnPin: (state) => {
-    //   state.isPinned = false;
-    // },
-    clear:(state,action)=>{
-      state.isEditting=false;
-      state.isReplying=false;
-      state.isForwarding=false;
+    clear: (state, action) => {
+      state.composerValue = '';
+      state.isEditting = false;
+      state.isReplying = false;
+      state.isForwarding = false;
     },
     setaction: (state, action) => {
       switch (action.payload.type) {
@@ -32,7 +27,7 @@ const composerSlice = createSlice({
           break;
         case 'edit':
           state.isEditting = true;
-          state.editID=action.payload.messageID
+          state.editID = action.payload.messageID;
           break;
       }
       state.composerValue = action.payload.text;

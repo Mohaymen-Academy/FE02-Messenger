@@ -17,7 +17,6 @@ export default function ChatFooter({ id }) {
   const [openPoll, setopenPoll] = useState(false);
   const {
     handleEmojiPicker,
-    handleKeyDown,
     handleSelect,
     handleonInput,
     handleclick,
@@ -28,7 +27,9 @@ export default function ChatFooter({ id }) {
     setentitycontainers,
     ChangeEntities,
     openemoji,
-    setopenemoji
+    setopenemoji,
+    handleKeyLeftRight,
+    ProcessorValues
   } = TextProcessor([
     // { id: 1, lower: 0, upper: 2, content: '012', style: ['bold', 'strike'] },
     // { id: 2, lower: 3, upper: 8, content: '345678', style: ['strike'] },
@@ -63,15 +64,17 @@ export default function ChatFooter({ id }) {
   const needActoin = Isactive.isEditting || Isactive.isReplying || Isactive.isForwarding;
   async function SelectRequestType() {
     if (Isactive.isEditting) {
-      // console.log(divref.current.innerText);
       console.log(Isactive.editID);
-      dispatch(editmsg({ msgId: Isactive.editID, newtext: divref.current.innerText }));
-      await Requests().EditMessage(Isactive.editID, divref.current.innerText);
+      // dispatch(editmsg({ msgId: Isactive.editID, newtext: divref.current.innerText }));
+      // await Requests().EditMessage(Isactive.editID, divref.current.innerText);
     } else {
       if (Isactive.isReplying) {
       } else {
+        console.log(ProcessorValues.current.rawtext);
+        console.log(entitycontainers);
       }
     }
+    dispatch(composerActions.clear());
   }
   return (
     <div className="relative top-[0px] flex flex-col">
@@ -106,6 +109,7 @@ export default function ChatFooter({ id }) {
             ref={divref}
             dir="auto"
             contentEditable
+            onKeyDown={handleKeyLeftRight}
             onClick={handleclick}
             onSelectCapture={handleSelect}
             onInput={handleonInput}
@@ -114,7 +118,12 @@ export default function ChatFooter({ id }) {
             {Isactive.composerValue ? Isactive.composerValue : ''}
           </div>
           <div>
-            <button onClick={() => setopenemoji(!openemoji)} className="mx-1 h-8 w-8 text-text1 ">
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                setopenemoji(!openemoji);
+              }}
+              className="mx-1 h-8 w-8 text-text1 ">
               <UilSmile />
             </button>
             {openTextProcessor && <TextProcessorMenu ChangeEntities={ChangeEntities} />}

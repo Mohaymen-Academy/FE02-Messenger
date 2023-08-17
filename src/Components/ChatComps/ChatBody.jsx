@@ -44,10 +44,18 @@ export default function ChatBody({ chatid, chattype, needupdate }) {
       (ele) => ele.profile.profileID == chatid && ele.updated == true
     );
     if (shouldUpdate.length != 0) {
-      console.log('werew')
+      console.log('werew');
       dispatch(GetMessages({ type: chattype, ID: chatid }, { message_id: MSGes.current.upper }));
     }
   });
+  useEffect(() => {
+    if (bodyref) {
+      // const endPosition = bodyref.current.scrollHeight
+      bodyref.current.scrollTop = bodyref.current.scrollHeight;
+      // - bodyref.current.clientHeight;
+      // console.log(endPosition);
+    }
+  }, []);
 
   let scrolltimeout;
   const scrollValues = useRef({
@@ -119,50 +127,49 @@ export default function ChatBody({ chatid, chattype, needupdate }) {
             } absolute right-[85%] top-[65%] z-10 rounded-full bg-color1 p-3`}>
             <UilArrowDown />
           </button>
-          <MessageDateGroup date={'2023-07-20'}>
-            {messages?.map((message, index) => (
-              <div key={index}>
-                <Message
-                  // content={message.content}
-                  observer={observer}
-                  isSeen={message.viewCount > 1}
-                  id={message.messageID}
-                  chattype={chattype}
-                  creator={message.sender}
-                  time={message.time}
-                  media={message.media}
-                  ispinned={message.ispinned}
-                  isEdited={message.isEdited}
-                  text={message.text}
-                  // chattype={chattype}
-                  handleMediaMessage={() => setPreview(!preview)}
-                />
+          {messages.length ? (
+            <MessageDateGroup date={'2023-07-20'}>
+              {messages?.map((message, index) => (
+                <div key={index}>
+                  <Message
+                    // content={message.content}
+                    observer={observer}
+                    isSeen={message.viewCount > 1}
+                    id={message.messageID}
+                    chattype={chattype}
+                    creator={message.sender}
+                    time={message.time}
+                    media={message.media}
+                    ispinned={message.ispinned}
+                    isEdited={message.isEdited}
+                    text={message.text}
+                    // chattype={chattype}
+                    handleMediaMessage={() => setPreview(!preview)}
+                  />
+                </div>
+              ))}
+            </MessageDateGroup>
+          ) : (
+            <>
+              <div className="flex flex-col items-center h-[100%]">
+                <div
+                  className="
+                  flex flex-col bg-black bg-opacity-25 rounded-2xl
+             w-[300px]  h-[400px] m-auto
+             p-10 text-center text-text1
+             items-center
+             gap-3">
+                  <div className="font-bold text-xl">
+                    <p className="font-estedad ">هنوز پیامی اینجا موجود نیست</p>
+                    <p className="font-estedad ">پیامی ارسال کنید یا بر روی عکس کلیک کنید</p>
+                  </div>
+                  <button className="w-[200px] h-[200px]" onClick={() => console.log('zarp')}>
+                    <img src="images/hello2.jpg" className="w-[100%] h-[100%] rounded-2xl" alt="" />
+                  </button>
+                </div>
               </div>
-            ))}
-          </MessageDateGroup>
-          {/* <MessageDateGroup date={'2023-07-22'}>
-            {messages.map((message, index) => (
-              <div
-                key={index}
-                // onContextMenu={(e) => handleRightClick(e, index)}
-              >
-                <Message
-                  content={message.content}
-                  isSeen={message.seen}
-                  id={message.id}
-                  forewardedFrom={message.forwarded}
-                  repliedTo={message.repliedMessage}
-                  media={message.media}
-                  handleMediaMessage={() => setPreview(!preview)}
-                />
-              </div>
-            ))}
-            <MessageVoice
-              id="you"
-              audioUrl="audios/12 Peaceful With Nature (1).mp3"
-              audioID="you"
-            />
-          </MessageDateGroup> */}
+            </>
+          )}
         </div>
         {footerallowed && (
           <div className=" h-16 w-[80%] vsmmobile:mb-[3rem] smmobile:mb-[3rem]">

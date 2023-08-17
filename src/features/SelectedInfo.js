@@ -25,6 +25,14 @@ const initialState = {
         defaultProfileColor: '#e6c773',
         lastProfilePicture: null
       },
+      enteties: 
+      [
+        { lower: 0, upper: 3 },
+        { id: 6, lower: 4, upper: 4, style: Array(1) },
+        { id: 5, lower: 5, upper: 7, style: Array(2) },
+        { lower: 8, upper: 9 },
+        { id: 4, lower: 10, upper: 13, style: Array(1) }
+      ],
       isPinned: false,
       isEdited: false
     },
@@ -227,15 +235,16 @@ const initialState = {
       isEdited: false
     }
   ],
+  // ],
   lastMessage: 0
 };
 const GetMessages = createAsyncThunk('selectedProf/getmessages', async (requestinfo, params) => {
   try {
     // console.log(requestinfo);
-    const data = await Requests().GetChat(requestinfo.ID);
+    // const data = await Requests().GetChat(requestinfo.ID);
     // console.log(data);
     // return data;
-    return { data: data.data, ID: requestinfo.ID, type: requestinfo.type };
+    // return { data: data.data, ID: requestinfo.ID, type: requestinfo.type };
   } catch (err) {
     console.log(err);
   }

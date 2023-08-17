@@ -86,7 +86,7 @@ const TextProcessorMenu = ({ x_pos, y_pos, positions, setPosotion, ChangeEntitie
       className="flex flex-row absolute z-10 shadow-2xl bg-color1 text-color4 rounded-lg opacity-90 p-1 w-fit"
       ref={divref}
       style={{ 
-        // bottom: `${0}`, 
+        bottom: `${10}px`, 
       left: '30%' }}
       >
       {items.map((item, index) => {
