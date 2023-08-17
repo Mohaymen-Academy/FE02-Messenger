@@ -7,10 +7,8 @@ const AppRouter = () => {
   const [isAuth, setIsAuth] = useState(false);
   useEffect(() => {
     const token = localStorage.getItem("token");
-    console.log(token)
     if (token != null) {
       setIsAuth(true);
-      console.log("token", token);
     }
   }, []);
   return (
