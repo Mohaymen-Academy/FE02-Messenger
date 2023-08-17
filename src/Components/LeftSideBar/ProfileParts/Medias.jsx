@@ -31,12 +31,19 @@ export default function Medias() {
             
 
   return (
-    <div className='flex flex-row flex-wrap justify-between py-2 px-1 '>
-        {medias.map(media => (
-            <div className='flex flex-col items-center justify-center m-0.5' key={media.name}>
-                <img src={media.url} alt={media.name} className='w-[110px] h-[110px] object-cover' />
-            </div>   
-        ))}
+    <div className='flex flex-row flex-wrap pr-2 pt-2'>
+      {medias.map((media) => (
+        <div
+          className='flex items-center justify-center m-0.5 w-[32%]  '
+          key={media.id}
+        >
+          <img
+            src={media.url}
+            alt={media.name}
+            className='w-full h-full object-cover aspect-[1/1] hover:opacity-70 rounded-sm '
+          />
+        </div>
+      ))}
     </div>
 
   )

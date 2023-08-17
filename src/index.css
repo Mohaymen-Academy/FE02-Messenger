@@ -79,7 +79,7 @@
     @apply w-[100%] flex flex-col gap-3 h-[390px] max-h-[300px] overflow-y-scroll;
   }
   .category-part {
-    @apply px-1 hover:bg-color1 h-full w-1/5 flex justify-center items-center text-text1 cursor-pointer;
+    @apply px-1  h-full w-1/5 flex justify-center items-center text-text1 mt-1 rounded-t-lg cursor-pointer;
   }
   .input-text-div {
     @apply resize-none overflow-hidden h-auto w-[90%] flex rounded-lg bg-color2 focus:outline-none  top-0 placeholder:p-2 placeholder:top-0;

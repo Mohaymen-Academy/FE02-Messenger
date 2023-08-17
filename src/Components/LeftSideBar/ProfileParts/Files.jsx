@@ -22,16 +22,22 @@ export default function Files() {
             
 
   return (
-    <div dir='rtl' className='flex flex-col flex-wrap py-2'>
+    <div dir='rtl' className='flex flex-col justify-center items-center flex-wrap pt-3 '>
         {files.map(file => (
-            <div className="flex flex-row items-center justify-start m-0.5 bg-color1 h-[60px] mt-1.5 hover:bg-color2 rounded-lg mx-1" >
-                <UilFileQuestion className="text-text1 w-14 h-14 mx-1 " />
-                <div className='flex flex-col '>
-                    <div className='text-text1 text-[16px] font-bold'>{file.name}</div>
-                    <div className='text-text1 text-[12px]'>{file.size}  ,   {file.date}</div>
-
+            <div className=" flex flex-row gap-3 my-1 hover:opacity-70 w-[95%] rounded-lg ">
+                <div className="flex w-[60px] h-[60px] cursor-default text-center items-center text-text1 justify-center text-lg rounded-lg">
+                    <UilFileQuestion className="text-text1 w-14 h-14 mx-1 " />
                 </div>
-            </div>   
+                <div
+                className='flex flex-col text-color3 text-sm mt-3'>
+                <a>
+                    <p className="text-text1 font-bold">{file.name}</p>
+                </a>
+                <a>
+                    <p>{file.size}  ,   {file.date}</p>
+                </a>
+                </div>
+          </div>
         ))}
     </div>
 

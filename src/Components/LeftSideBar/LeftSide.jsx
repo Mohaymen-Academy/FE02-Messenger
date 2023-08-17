@@ -30,8 +30,8 @@ export default function LeftSide({
   };
   return (
     <div
-      className={`flex flex-col h-screen transition-all duration-200 ease-in bg-color2 shadow-md border-r-2`}>
-      <div className="flex bg-color2 items-center justify-between px-4 border ">
+      className={`flex flex-col h-screen transition-all duration-200 ease-in bg-color2 shadow-md border-r`}>
+      <div className="flex bg-color2 items-center justify-between px-4  ">
         <div className="flex flex-row w-fit h-[70px] place-items-center">
           <button
             onClick={(e) => {
@@ -47,11 +47,15 @@ export default function LeftSide({
           </button>
         </div>
       </div>
-      <div className="flex flex-col justify-end place-items-end bg-[url('images/profile.jpg')] w-full h-[350px] bg-cover bg-center bg-no-repeat mb-0 md:h-[350px]">
-        <div className="p-7 pb-0 text-white font-bold text-[25px] ">Zahra</div>
-        <div className="p-7 pt-0 text-white text-[15px] ">Last Seen recently</div>
+      <div className="relative w-full h-[350px] mb-0 md:h-[350px]">
+      <div className="flex flex-col justify-end place-items-end w-full h-[350px] bg-cover bg-[url('images/profile.jpg')] bg-center bg-no-repeat">
+        <div className="p-7 pb-0 text-white font-bold text-[25px] opacity-150">Zahra</div>
+        <div className="p-7 pt-0 text-white text-[15px]">Last Seen recently</div>
         {/* //should change with the member or subs number */}
       </div>
+      <div className="absolute bottom-0 w-full h-1/3 bg-gradient-to-b from-transparent to-black"></div>
+    </div>
+
       <div>
         {isgroup ? (
           <div className="w-[100%] flex flex-col gap-1 my-3">
@@ -84,7 +88,7 @@ export default function LeftSide({
         <div className="w-full h-[50px] bg-color2 flex flex-row  place-items-center border-b-1">
           {isgroup ? (
             <div
-              className={`category-part ${filepart[0] == 1 ? 'bg-color1' : 'bg-color2'}`}
+              className={`category-part ${filepart[0] == 1 ? 'bg-color1 rounded-t-lg ' : 'bg-color2'}`}
               onClick={() => changesetpat(0)}>
               اعضا
             </div>
@@ -92,27 +96,27 @@ export default function LeftSide({
             <></>
           )}
           <div
-            className={`category-part ${filepart[0] == 1 ? 'bg-color1' : 'bg-color2'}`}
+            className={`category-part ${filepart[0] == 1 ? 'bg-color1 rounded-t-lg' : 'bg-color2'}`}
             onClick={() => changesetpat(0)}>
             رسانه
           </div>
           <div
-            className={`category-part ${filepart[1] == 1 ? 'bg-color1' : 'bg-color2'}`}
+            className={`category-part ${filepart[1] == 1 ? 'bg-color1 rounded-t-lg' : 'bg-color2'}`}
             onClick={() => changesetpat(1)}>
             فایل ها
           </div>
           <div
-            className={`category-part ${filepart[2] == 1 ? 'bg-color1' : 'bg-color2'}`}
+            className={`category-part ${filepart[2] == 1 ? 'bg-color1 rounded-t-lg' : 'bg-color2'}`}
             onClick={() => changesetpat(2)}>
             لینک
           </div>
           <div
-            className={`category-part ${filepart[3] == 1 ? 'bg-color1' : 'bg-color2'}`}
+            className={`category-part ${filepart[3] == 1 ? 'bg-color1 rounded-t-lg' : 'bg-color2'}`}
             onClick={() => changesetpat(3)}>
             موسیقی
           </div>
           <div
-            className={`category-part ${filepart[4] == 1 ? 'bg-color1' : 'bg-color2'}`}
+            className={`category-part ${filepart[4] == 1 ? 'bg-color1 rounded-t-lg' : 'bg-color2'}`}
             onClick={() => changesetpat(4)}>
             صدا
           </div>
