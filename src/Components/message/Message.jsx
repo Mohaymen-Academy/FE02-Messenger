@@ -8,6 +8,7 @@ import ImagePreviewer from '../media-previewer/ImagePreviewer';
 import MessageBody from './MessageBody.jsx';
 import { Avatar } from '../ChatComps';
 import { TYPE_GROUP, TYPE_USER } from '../../utility/Constants.js';
+import TextProcessorObj from '../../utility/TextProcessor.js';
 
 function Message({
   isSeen,
@@ -20,12 +21,13 @@ function Message({
   isEdited,
   text,
   observer,
-  handleMediaMessage
+  handleMediaMessage,
+  entities
 }) {
-  const [openContextMenu, setOpenContextMenu] = useState(false);
-  const [mousepositoin, setmousepositoin] = useState({ x: 0, y: 0 });
+  const [mousepositoin, setmousepositoin] = useState({ x_mouse: 0, y_mouse: 0 });
   const mainref = useRef(null);
   const textref = useRef(null);
+  const processor = TextProcessorObj([]);
   const userprofile = useSelector((state) => state.profile);
   useEffect(() => {
     if (!mainref) {
@@ -33,17 +35,22 @@ function Message({
     }
     console.log();
     observer.observe(mainref.current);
-    if (textref) {
+    if (textref.current) {
+      // console.log(textref.current.innerText)
+      if (entities) {
+        console.log(text);
+        processor.OutputEntity(textref, text, entities);
+      } else {
+        textref.current.innerText = text;
+      }
     }
   }, []);
-  // console.log(userprofile.profileData.profileID);
-  let y_mouse = useRef(0);
-  let x_mouse = useRef(0);
-  function handleRightClick(event, index) {
+  function handleRightClick(event) {
     event.preventDefault();
     event.stopPropagation();
-    x_mouse = event.clientX;
-    y_mouse = event.clientY;
+    // console.log(event)
+    const x_mouse = event.clientX;
+    const y_mouse = event.clientY;
     setmousepositoin({ x_mouse, y_mouse });
   }
   const Isforme = creator.profileID === userprofile.profileData.profileID;
@@ -59,16 +66,17 @@ function Message({
         ) : (
           <></>
         )}
-        <div className="break-all">{text}</div>
+        <div
+          className="flex break-words break-all whitespace-break-spaces"
+          dir="auto"
+          ref={textref}></div>
         <MessageFooter Isforme={Isforme} id={id} isSeen={isSeen} />
       </MessageBody>
       <div className="pt-[70px]">{chattype == TYPE_GROUP ? <Avatar /> : <></>}</div>
-      {mousepositoin.x != 0 ? (
+      {mousepositoin.x_mouse != 0 ? (
         <MessageMenu
           msgId={id}
           text={text}
-          x_pos={x_mouse.current}
-          y_pos={y_mouse.current}
           positions={mousepositoin}
           setposition={setmousepositoin}
         />

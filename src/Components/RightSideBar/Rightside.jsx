@@ -71,7 +71,6 @@ export default function RightSide({ chatId }) {
             </button>
           )}
         </div>
-
         <Search menu={menu}/>
       </div>
 

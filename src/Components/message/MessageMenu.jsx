@@ -11,11 +11,10 @@ import { useDispatch } from 'react-redux';
 import { composerActions } from '../../features/composerSlice';
 const MessageMenu = ({ positions, setposition, msgId, text }) => {
   const dispatch = useDispatch();
-
   const divref = useRef(null);
   function handleOutsideClick(event) {
     if (divref.current && !divref.current.contains(event.target)) {
-      setposition({ x: 0, y: 0 });
+      setposition({ x_mouse: 0, y_mouse: 0 });
     }
   }
   useEffect(() => {
@@ -60,11 +59,11 @@ const MessageMenu = ({ positions, setposition, msgId, text }) => {
     }
   ]);
   // console.log(positions);
-  // console.log(positions);
+  console.log(positions);
   return (
     <ul
       ref={divref}
-      style={{ top: `${positions.y_mouse / 3}px`, left: `${positions.x_mouse / 1.3}px` }}
+      style={{ top: `${positions.y_mouse/4}`, left: `${positions.x_mouse}` }}
       className="absolute z-10 shadow-2xl w-[150px] bg-color1 text-color4 rounded-lg opacity-90">
       {items.map((item, index) => {
         return (

@@ -234,29 +234,37 @@ export default function TextProcessorObj(containers) {
         index++;
       }
       ProcessorValues.current.sorted = ProcessorValues.current.sorted.sort(customSort);
-      // console.log(ProcessorValues.current.sorted);
-      // setTimeout(() => {}, 500000);
     }
-    generateEntity();
+    InputEntity();
   }
 
   function InputEntity() {
     ProcessorValues.current.rawtext = RawText();
     const text = ProcessorValues.current.rawtext;
-    generateEntity(ref, text);
+    const ents = ProcessorValues.current.sorted;
+    const list = generateEntity(divref, text, ents);
+    setentitycontainers(list);
   }
-  function generateEntity(ref, text,ents) {
+
+  function OutputEntity(targetref, text, ents) {
+    console.log('ert');
+    const list = generateEntity(targetref, text, ents);
+    // console.log(list);
+    // setentitycontainers(list);
+  }
+  function generateEntity(ref, text, ents) {
     let list_of_renderableentities = [];
+    console.log(ents);
     let prevEnd;
-    for (let i = 0; i < ProcessorValues.current.sorted.length; i++) {
-      if (i == 0 && ProcessorValues.current.sorted[0].lower > 0) {
+    for (let i = 0; i < ents.length; i++) {
+      if (i == 0 && ents[0].lower > 0) {
         list_of_renderableentities.push({
           lower: 0,
-          upper: ProcessorValues.current.sorted[0].lower - 1
+          upper: ents[0].lower - 1
         });
-        prevEnd = ProcessorValues.current.sorted[0].upper;
+        prevEnd = ents[0].upper;
       }
-      const currentRange = ProcessorValues.current.sorted[i];
+      const currentRange = ents[i];
       const gapStart = prevEnd + 1;
       const gapEnd = currentRange.lower - 1;
       if (gapStart <= gapEnd) {
@@ -264,45 +272,34 @@ export default function TextProcessorObj(containers) {
       }
       prevEnd = Math.max(prevEnd, currentRange.upper);
     }
-    if (prevEnd < ProcessorValues.current.rawtext.length) {
+    if (prevEnd < text.length) {
       list_of_renderableentities.push({
         lower: prevEnd + 1,
-        upper: ProcessorValues.current.rawtext.length - 1
+        upper: text.length - 1
       });
     }
-    list_of_renderableentities = list_of_renderableentities.concat(ProcessorValues.current.sorted);
+    list_of_renderableentities = list_of_renderableentities.concat(ents);
     list_of_renderableentities.sort(customSort);
-    console.log(list_of_renderableentities);
     list_of_renderableentities = list_of_renderableentities.map((ent) => ({
       ...ent,
-      content: ProcessorValues.current.rawtext.substring(ent.lower, ent.upper + 1)
+      content: text.substring(ent.lower, ent.upper + 1)
     }));
 
     // ProcessorValues.current.rawtext = '';
-    divref.current.innerText = '';
+    ref.current.innerText = '';
     list_of_renderableentities.forEach((element) => {
       if (element.style) {
         const ptag = document.createElement('p');
         element.style.forEach((stl) => ptag.classList.add(stl));
         ptag.textContent = element.content;
-        divref.current.appendChild(ptag);
+        ref.current.appendChild(ptag);
       } else {
-        divref.current.appendChild(document.createTextNode(element.content));
+        ref.current.appendChild(document.createTextNode(element.content));
       }
     });
-    setentitycontainers(list_of_renderableentities);
-  }
-  function ProcessEnt(targetref, ents) {
-    ents.forEach((element) => {
-      if (element.style) {
-        const ptag = document.createElement('p');
-        element.style.forEach((stl) => ptag.classList.add(stl));
-        ptag.textContent = element.content;
-        targetref.current.appendChild(ptag);
-      } else {
-        targetref.current.appendChild(document.createTextNode(element.content));
-      }
-    });
+
+    console.log(list_of_renderableentities);
+    return list_of_renderableentities;
   }
 
   function handleSelect(e) {
@@ -322,6 +319,7 @@ export default function TextProcessorObj(containers) {
     openemoji,
     setopenemoji,
     handleKeyLeftRight,
-    ProcessorValues
+    ProcessorValues,
+    OutputEntity
   };
 }

@@ -5,13 +5,17 @@ function MessageFooter({ id, isSeen, Isforme }) {
     <div className=" flex w-full items-end justify-between text-sm text-zinc-400">
       <p className="text-color3">23:00</p>
       <div className="text-bluetext1">
-        {Isforme && isSeen ? (
-          <div className="flex flex-row">
-            <UilCheck className={'relative left-[-18px]'} />
+        {Isforme ? (
+          isSeen ? (
+            <div className="flex flex-row">
+              <UilCheck className={'relative left-[-18px]'} />
+              <UilCheck />
+            </div>
+          ) : (
             <UilCheck />
-          </div>
+          )
         ) : (
-          <UilCheck />
+          <></>
         )}
       </div>
     </div>

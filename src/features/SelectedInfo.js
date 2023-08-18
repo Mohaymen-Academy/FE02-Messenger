@@ -15,7 +15,7 @@ const initialState = {
   Chatmessages: [
     {
       messageID: 1,
-      text: 'سلام خوبی ؟',
+      text: 'salam be to riqo cheotri',
       time: '2023-08-14T13:57:37.447431',
       media: null,
       viewCount: 2,
@@ -25,13 +25,10 @@ const initialState = {
         defaultProfileColor: '#e6c773',
         lastProfilePicture: null
       },
-      enteties: 
-      [
-        { lower: 0, upper: 3 },
-        { id: 6, lower: 4, upper: 4, style: Array(1) },
-        { id: 5, lower: 5, upper: 7, style: Array(2) },
-        { lower: 8, upper: 9 },
-        { id: 4, lower: 10, upper: 13, style: Array(1) }
+      entities: [
+        { id: 6, lower: 2, upper: 4, style: ['bold'] },
+        { id: 5, lower: 5, upper: 7, style: ['bold','underline'] },
+        { id: 4, lower: 10, upper: 13, style: ['spoiler'] }
       ],
       isPinned: false,
       isEdited: false

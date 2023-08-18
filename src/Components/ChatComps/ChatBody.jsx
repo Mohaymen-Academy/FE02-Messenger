@@ -19,7 +19,7 @@ export default function ChatBody({ chatid, chattype, needupdate }) {
       const visibleItems = entries
         .filter((entry) => entry.isIntersecting)
         .map((entry) => parseInt(entry.target.dataset.id));
-      console.log(visibleItems);
+      // console.log(visibleItems);
       if (visibleItems.length != 0) {
         const maxval = Math.max(visibleItems);
         if (maxval > MSGes.current.upper) {
@@ -44,7 +44,7 @@ export default function ChatBody({ chatid, chattype, needupdate }) {
       (ele) => ele.profile.profileID == chatid && ele.updated == true
     );
     if (shouldUpdate.length != 0) {
-      console.log('werew');
+      // console.log('werew');
       dispatch(GetMessages({ type: chattype, ID: chatid }, { message_id: MSGes.current.upper }));
     }
   });
@@ -143,6 +143,7 @@ export default function ChatBody({ chatid, chattype, needupdate }) {
                     ispinned={message.ispinned}
                     isEdited={message.isEdited}
                     text={message.text}
+                    entities={message.entities}
                     // chattype={chattype}
                     handleMediaMessage={() => setPreview(!preview)}
                   />
