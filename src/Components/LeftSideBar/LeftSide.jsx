@@ -10,6 +10,7 @@ import {
 import { Files, Links, Medias, Musics, Voices } from './ProfileParts';
 import { useDispatch, useSelector } from 'react-redux';
 import Requests from '../../API/Requests';
+import { addcontact } from '../../features/SelectedInfo';
 export default function LeftSide({
   isActive,
   profile,
@@ -44,6 +45,8 @@ export default function LeftSide({
   function handleAdd() {
     console.log(selectedProfile.profileID);
     Requests().AddContact(selectedProfile.profileID);
+    Requests().GetContacts();
+    dispatch(addcontact());
   }
   return (
     <div

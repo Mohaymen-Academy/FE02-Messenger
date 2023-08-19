@@ -68,6 +68,9 @@ const SelectedProf = createSlice({
         }
         return ele;
       });
+    },
+    addcontact: (state, action) => {
+      state.isContact = true;
     }
   },
   extraReducers: (builder) =>
@@ -82,9 +85,6 @@ const SelectedProf = createSlice({
         }
       })
       .addCase(SetLeftProf.fulfilled, (state, action) => {
-        /**
-         * {profile: {…}, isContact: true, profilePictures: Array(0), contact: true}
-         * */
         console.log(action.payload);
         state.isContact = action.payload.isContact;
         state.leftprof = action.payload.profile;
@@ -92,6 +92,6 @@ const SelectedProf = createSlice({
       })
 });
 export { GetMessages, SetLeftProf };
-export const { resetChatId, editmsg } = SelectedProf.actions;
+export const { resetChatId, editmsg ,addcontact} = SelectedProf.actions;
 // export const { setChat, setChatType } = SelectedProf.actions;
 export default SelectedProf.reducer;

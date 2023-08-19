@@ -192,8 +192,12 @@ export default function Requests(body) {
   async function AddContact(contactId) {
     await API().POST(`contacts/${contactId}`, {}, AutorizeHeader);
   }
+  async function Deletemsg(msgID) {
+    await API().DEL(msgID,{},AutorizeHeader);
+  }
 
   return {
+    Deletemsg,
     AddContact,
     CreateChat,
     getleftProf,
