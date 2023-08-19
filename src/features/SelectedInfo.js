@@ -72,6 +72,11 @@ const SelectedProf = createSlice({
     },
     addcontact: (state, action) => {
       state.isContact = true;
+    },
+    deletemessage: (state, action) => {
+      state.Chatmessages = state.Chatmessages.filter(
+        (msg) => msg.messageID != action.payload.msgid
+      );
     }
   },
   extraReducers: (builder) =>
@@ -93,6 +98,6 @@ const SelectedProf = createSlice({
       })
 });
 export { GetMessages, SetLeftProf };
-export const { resetChatId, editmsg, addcontact } = SelectedProf.actions;
+export const { resetChatId, editmsg, addcontact,deletemessage } = SelectedProf.actions;
 // export const { setChat, setChatType } = SelectedProf.actions;
 export default SelectedProf.reducer;
