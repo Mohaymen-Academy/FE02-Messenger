@@ -127,7 +127,7 @@ export default function ChatBody({ chatid, chattype, needupdate }) {
             } absolute right-[85%] top-[65%] z-10 rounded-full bg-color1 p-3`}>
             <UilArrowDown />
           </button>
-          {messages.length ? (
+          {messages?.length ? (
             <MessageDateGroup date={'2023-07-20'}>
               {messages?.map((message, index) => (
                 <div key={index}>
