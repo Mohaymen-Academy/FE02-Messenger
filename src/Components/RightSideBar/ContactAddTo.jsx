@@ -43,7 +43,7 @@ export default function ContactAddTo({
             <Avatar
               imagecolor={color}
               char={name[0]}
-              isOnline={lastseen?.toLowerCase() === 'online'}
+              isOnline={'online'}
             />
           )}
           <div className="flex flex-row m-2">

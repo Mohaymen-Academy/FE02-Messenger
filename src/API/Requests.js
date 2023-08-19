@@ -186,8 +186,19 @@ export default function Requests(body) {
       .then((res) => res.json())
       .catch((err) => console.log(err));
   }
+  async function getleftProf(profid) {
+    console.log(profid)
+    try {
+      const res = await API().GET(`profile/info/${profid}`, {}, AutorizeHeader);
+      return res;
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
   return {
     CreateChat,
+    getleftProf,
     GetContacts,
     EditMessage,
     GetProfileMedium,
