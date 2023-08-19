@@ -250,7 +250,6 @@ export default function TextProcessorObj(containers) {
   }
 
   function OutputEntity(targetref, text, ents) {
-    console.log('ert');
     const list = generateEntity(targetref, text, ents);
     // console.log(list);
     // setentitycontainers(list);

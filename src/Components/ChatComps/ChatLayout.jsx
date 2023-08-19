@@ -26,10 +26,10 @@ export default function ChatLayout() {
   };
 
   useEffect(() => {
-    // worker.postMessage(token);
-    // worker.onmessage = (msg) => {
-    //   dispatch(setMessages(msg.data));
-    // };
+    worker.postMessage(token);
+    worker.onmessage = (msg) => {
+      dispatch(setMessages(msg.data));
+    };
 
     document.addEventListener('keydown', (e) => {
       if (e.key == 'Escape') {
