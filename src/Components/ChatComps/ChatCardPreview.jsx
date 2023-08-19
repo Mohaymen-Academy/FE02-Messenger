@@ -24,7 +24,7 @@ const ChatCardPreview = ({ profile, lastMessage, unreadMessageCount, lastseen, p
     <div
       onContextMenu={handleRightClick}
       onClick={async (e) => {
-        // console.log(profile.type, profile.profileID);
+        console.log(profile);
         dispatch(
           GetMessages({
             type: profile.type,

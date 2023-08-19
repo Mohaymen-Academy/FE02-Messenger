@@ -58,7 +58,8 @@ export default function Requests(body) {
   // profileData
 
   async function GetChat(receiverID, params) {
-    console.log(receiverID);
+    console.log(params);
+    // console.log(receiverID);
     try {
       const res = await API().GET(receiverID, params, AutorizeHeader);
       return res;

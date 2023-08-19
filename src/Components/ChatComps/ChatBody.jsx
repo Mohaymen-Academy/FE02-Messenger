@@ -24,15 +24,15 @@ export default function ChatBody({ chatid, chattype, needupdate }) {
         const maxval = Math.max(visibleItems);
         if (maxval > MSGes.current.upper) {
           MSGes.current.upper = Math.max(visibleItems);
-          // Requests().UpdateSeen(MSGes.current.upper);
+          Requests().UpdateSeen(MSGes.current.upper);
         }
       }
     },
     { threshold: 0.5 }
   );
   const MSGes = useRef({
-    upper: -Infinity,
-    lower: Infinity
+    upper: 0
+    // lower: Infinity
   });
   const bodyref = useRef(null);
   const messages = useSelector((state) => state.selectedProf.Chatmessages);
@@ -44,16 +44,13 @@ export default function ChatBody({ chatid, chattype, needupdate }) {
       (ele) => ele.profile.profileID == chatid && ele.updated == true
     );
     if (shouldUpdate.length != 0) {
-      // console.log('werew');
-      dispatch(GetMessages({ type: chattype, ID: chatid }, { message_id: MSGes.current.upper }));
+      console.log(MSGes.current.upper);
+      dispatch(GetMessages({ type: chattype, ID: chatid, message_id: MSGes.current.upper }));
     }
   });
   useEffect(() => {
     if (bodyref) {
-      // const endPosition = bodyref.current.scrollHeight
       bodyref.current.scrollTop = bodyref.current.scrollHeight;
-      // - bodyref.current.clientHeight;
-      // console.log(endPosition);
     }
   }, []);
 
@@ -68,8 +65,9 @@ export default function ChatBody({ chatid, chattype, needupdate }) {
     //   bodyref.current.scrollHeight - bodyref.current.clientHeight
     // );
     scrolltimeout = setTimeout(() => {
-      // console.log(MSGes.current);
-      dispatch(GetMessages({ type: chattype, ID: chatid , message_id: MSGes.current.upper }));
+      console.log(MSGes.current.upper);
+      // dispatch(GetMessages({ type: chattype, ID: chatid, message_id: 0}));
+      dispatch(GetMessages({ type: chattype, ID: chatid, message_id: MSGes.current.upper }));
     }, 200);
     if (
       Math.abs(
