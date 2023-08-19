@@ -159,13 +159,13 @@ export default function Requests(body) {
       console.log(err);
     }
   }
-  async function UpdateProfile(image , id) {
+  async function UpdateProfile(image, id) {
     body = {
-      "content" : image,
-      "size" : 6.91,
-      "type" : "jpg",
-      "fileName" : "boz"
-    }
+      content: image,
+      size: 6.91,
+      type: 'jpg',
+      fileName: 'boz'
+    };
     try {
       await API()
         .POST(`profile/picture/${id}`, body, AutorizeHeader)
@@ -199,7 +199,7 @@ export default function Requests(body) {
     await API().POST(`contacts/${contactId}`, {}, AutorizeHeader);
   }
   async function Deletemsg(msgID) {
-    await API().DEL(msgID,{},AutorizeHeader);
+    await API().DEL(msgID, {}, AutorizeHeader);
   }
 
   return {
