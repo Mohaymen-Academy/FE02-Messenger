@@ -4,7 +4,8 @@ import {
   UilPen,
   UilCopy,
   UilCornerUpRightAlt,
-  UilCheckCircle
+  UilCheckCircle,
+  UilLink 
 } from '@iconscout/react-unicons';
 import React, { useState, useEffect, useRef } from 'react';
 import { useDispatch } from 'react-redux';
@@ -38,6 +39,12 @@ const MessageMenu = ({ positions, setposition, msgId, text }) => {
       action: 'edit'
     },
     {
+      icon: <UilLink  />,
+      title: 'سنجاق کردن',
+      color: 'text-text1',
+      action: 'pin'
+    },
+    {
       icon: <UilCopy />,
       title: 'کپی ',
       color: 'text-text1'
@@ -63,7 +70,7 @@ const MessageMenu = ({ positions, setposition, msgId, text }) => {
   return (
     <ul
       ref={divref}
-      style={{ top: `${positions.y_mouse/4}`, left: `${positions.x_mouse}` }}
+      style={{ top: `${positions.y_mouse / 4}`, left: `${positions.x_mouse}` }}
       className="absolute z-10 shadow-2xl w-[150px] bg-color1 text-color4 rounded-lg opacity-90">
       {items.map((item, index) => {
         return (

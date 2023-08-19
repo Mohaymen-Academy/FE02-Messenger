@@ -281,6 +281,13 @@ export default function TextProcessorObj(containers) {
     console.log(ents);
     let prevEnd;
     for (let i = 0; i < ents.length; i++) {
+      // if (ents.length == 1) {
+      //   list_of_renderableentities.push({
+      //     lower: ents[0].upper + 1,
+      //     upper: text.length - 1
+      //   });
+      //   break;
+      // }
       if (i == 0 && ents[0].lower > 0) {
         list_of_renderableentities.push({
           lower: 0,
@@ -288,6 +295,14 @@ export default function TextProcessorObj(containers) {
         });
         prevEnd = ents[0].upper;
       }
+      if (i == 0 && ents[0].lower == 0) {
+        list_of_renderableentities.push({
+          lower: ents[0].upper + 1,
+          upper: ents.length == 1 ? text.length - 1 : ents[1].lower - 1
+        });
+        prevEnd = ents[0].upper;
+      }
+
       const currentRange = ents[i];
       const gapStart = prevEnd + 1;
       const gapEnd = currentRange.lower - 1;

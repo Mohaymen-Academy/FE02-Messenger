@@ -1,9 +1,11 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import Requests from '../API/Requests';
 
 const initialState = {
   activeMessage: null,
   messages: [],
-  finished: false
+  finished: false,
+  contacts: []
 };
 
 /**
@@ -50,7 +52,14 @@ const initialState = {
  * 
  * 
  * */
-
+const GetContacts = createAsyncThunk('messageList/getcontacts', async () => {
+  try {
+    const data = await Requests().GetContacts();
+    return data;
+  } catch (err) {
+    console.log(err);
+  }
+});
 const chatCardPreviewSlice = createSlice({
   name: 'messageList',
   initialState,
@@ -64,12 +73,13 @@ const chatCardPreviewSlice = createSlice({
     removeActiveMessage: (state) => {
       state.activeMessage = null;
     }
-  }
-  // extraReducers: {
-  //   improveProfpic: (state, action) => {
-
-  //   }
-  // }
+  },
+  extraReducers: (builder) =>
+    builder.addCase(GetContacts.fulfilled, (state, action) => {
+      console.log(action.payload.data);
+      state.contacts = action.payload.data;
+    })
 });
+export { GetContacts };
 export const { setMessages, setActiveMessage, removeActiveMessage } = chatCardPreviewSlice.actions;
 export default chatCardPreviewSlice.reducer;

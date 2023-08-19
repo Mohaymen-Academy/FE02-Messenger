@@ -10,7 +10,7 @@ function bytesToBase64(bytes) {
 
 // TODO
 //  NEED TO ADD TIME TO IT
-const ChatCardPreview = ({ profile, lastMessage, unreadMessageCount }) => {
+const ChatCardPreview = ({ profile, lastMessage, unreadMessageCount, lastseen, pinned }) => {
   // console.log(profile?.lastProfilePicture?.preLoadingContent)
   const dispatch = useDispatch();
   return (
@@ -31,7 +31,7 @@ const ChatCardPreview = ({ profile, lastMessage, unreadMessageCount }) => {
             <Avatar
               imagecolor={profile.defaultProfileColor}
               char={profile.profileName[0]}
-              // isOnline={true}
+              isOnline={lastseen?.toLowerCase() === 'online'}
             />
           )}
           <div className="flex flex-col">
