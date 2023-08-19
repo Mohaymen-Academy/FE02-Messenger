@@ -112,16 +112,16 @@ export default function Requests(body) {
       console.log(err);
     }
   }
-  async function UpdateSeen(MsgID) {
-    try {
-      await API()
-        .POST(`seen/${MsgID}`, {}, AutorizeHeader)
-        .then((res) => res.json())
-        .then((data) => console.log(data));
-    } catch (err) {
-      console.log(err);
-    }
-  }
+  // async function UpdateSeen(MsgID) {
+  //   try {
+  //     await API()
+  //       .POST(`seen/${MsgID}`, {}, AutorizeHeader)
+  //       .then((res) => res.json())
+  //       .then((data) => console.log(data));
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // }
   async function GetProfileMedium(chatid) {
     console.log(chatid);
     await API()

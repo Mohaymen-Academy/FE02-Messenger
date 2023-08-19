@@ -24,7 +24,7 @@ export default function ChatBody({ chatid, chattype, needupdate }) {
         const maxval = Math.max(visibleItems);
         if (maxval > MSGes.current.upper) {
           MSGes.current.upper = Math.max(visibleItems);
-          Requests().UpdateSeen(MSGes.current.upper);
+          // Requests().UpdateSeen(MSGes.current.upper);
         }
       }
     },

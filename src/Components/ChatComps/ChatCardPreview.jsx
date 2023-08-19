@@ -25,7 +25,14 @@ const ChatCardPreview = ({ profile, lastMessage, unreadMessageCount, lastseen, p
       onContextMenu={handleRightClick}
       onClick={async (e) => {
         // console.log(profile.type, profile.profileID);
-        dispatch(GetMessages({ type: profile.type, ID: profile.profileID }, { message_id: 0 }));
+        dispatch(
+          GetMessages({
+            type: profile.type,
+            ID: profile.profileID,
+            message_id: 0,
+            profileinfo: profile
+          })
+        );
         // await Requests().GetProfileMedium(profile.profileID);
       }}
       className="h-18 relative mx-2 flex w-[97%] cursor-pointer flex-row items-center justify-start rounded-lg p-3  hover:bg-bghovor">
