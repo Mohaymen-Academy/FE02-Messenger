@@ -1,6 +1,6 @@
 import React, { useState, useRef } from 'react';
-import CheckBoxParag from '../CheckBoxParag';
-import InputSlider from '../InputSlider';
+import CheckBoxParag from '../../../utility/CheckBoxParag';
+import InputSlider from '../../../utility/InputSlider';
 import { UilLock, UilBan ,UilDesktop   } from '@iconscout/react-unicons'
 
 export default function Privacy() {

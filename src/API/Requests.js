@@ -149,6 +149,26 @@ export default function Requests(body) {
       console.log(err);
     }
   }
+  async function UpdateProfileImage(body , id) {
+    try {
+      await API()
+        .POST(`profile/picture/${id}`, {}, AutorizeHeader)
+        .then((res) => res.json())
+        .then((data) => console.log(data));
+    } catch (err) {
+      console.log(err);
+    }
+  }
+  async function UpdateProfile(body , id) {
+    try {
+      await API()
+        .POST(`profile/picture/${id}`, {}, AutorizeHeader)
+        .then((res) => res.json())
+        .then((data) => console.log(data));
+    } catch (err) {
+      console.log(err);
+    }
+  }
   return {
     GetContacts,
     EditMessage,
@@ -160,6 +180,8 @@ export default function Requests(body) {
     GetChat,
     SearchAll,
     sendText,
-    UpdateSeen
+    UpdateSeen,
+    UpdateProfileImage ,
+    UpdateProfile
   };
 }

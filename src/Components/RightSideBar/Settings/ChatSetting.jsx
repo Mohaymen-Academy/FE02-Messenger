@@ -1,10 +1,10 @@
 import React, { useState, useRef } from 'react';
-import CheckBoxChatSetting from '../CheckBoxChatSetting';
-import InputSlider from '../InputSlider';
-import InpuSliderTextStep from '../InpuSliderTextStep';
+// import CheckBoxChatSetting from '../CheckBoxChatSetting';
+import InputSlider from '../../../utility/InputSlider';
+import InpuSliderTextStep from '../../../utility/InpuSliderTextStep';
 import { UilImage } from '@iconscout/react-unicons'
-import Radioinput from '../Radioinput';
-import RadioinputTimeFormat from '../RadioinputTimeFormat';
+import Radioinput from '../../../utility/Radioinput';
+import RadioinputTimeFormat from '../../../utility/RadioinputTimeFormat';
 
 export default function ChatSetting() {
   const [open, setopen] = useState(false);

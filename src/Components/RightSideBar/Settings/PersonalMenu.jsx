@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { UilUser , UilCameraPlus, UilArrowRight} from '@iconscout/react-unicons';
 import { useRef } from 'react';
 import { useEffect } from 'react';
+import Requests from "../../../API/Requests"
 export default function PersonalMenu() {
   const [open, setopen] = useState(false);
   const profile =  useSelector((state) => state.profile);
@@ -26,8 +27,20 @@ useEffect(()=>{
     // editProfile.current.profilePicture = profile.profileData.lastProfilePicture; 
   }
 },[]);
+const [profilePicture, setprofilePicture] = useState(null);
   const handleclick = () =>{
     image.current.click();
+    // const res = Requests().UpdateProfileImage(image.current.files[0] , profile.profileData.profileID)
+    //save image in local storage
+    setprofilePicture(URL.createObjectURL(image.current.files[0]))
+  }
+  const submit = () => {
+    const res = Requests().UpdateProfile({
+      name : name.current,
+      handle : handle.current,
+      biography : biography.current
+    }
+    , profile.profileData.profileID)
   }
   console.log(profile)
   return (
@@ -37,13 +50,20 @@ useEffect(()=>{
         <div className="p-1 pt-0 cardP">ویرایش پروفایل</div>
       </div>
       <div className="flex flex-col  justify-start items-center gap-3 w-full p-5">
-        <div className={`w-[250px] h-[250px] my-7 flex justify-center items-center rounded-full cursor-pointer `}
-        onClick={handleclick}
-          style={{ backgroundImage: `${profile.profileData.lastProfilePicture && `url('data:image/jpeg;base64,${profile.profileData.lastProfilePicture.preLoadingContent}')`}` , backgroundColor : `${profile.profileData.defaultProfileColor}` , backgroundRepeat:"no-repeat" , backgroundSize:"cover"  }}
-        >
-          <input ref={image} type="file" id="upload" className='hidden'/>
-          <UilCameraPlus className={'w-[50%] h-[50%] hover:w-[55%] hover:h-[55%] text-white'} />
-        </div>
+      {
+        profilePicture == null ?
+                <div className={`w-[250px] h-[250px] my-7 flex justify-center items-center rounded-full cursor-pointer `}
+                onClick={handleclick}
+                  style={{ backgroundImage: `${profile.profileData.lastProfilePicture && `url('data:image/jpeg;base64,${profile.profileData.lastProfilePicture.preLoadingContent}')`}` , backgroundColor : `${profile.profileData.defaultProfileColor}` , backgroundRepeat:"no-repeat" , backgroundSize:"cover"  }}
+                >
+                  <input ref={image} type="file" id="upload" accept="image/jpeg, image/png, image/jpg" className='hidden'/>
+                  <UilCameraPlus className={'w-[50%] h-[50%] hover:w-[55%] hover:h-[55%] text-white'} />
+                </div>
+                :
+                <div className={`w-[250px] h-[250px] my-7 flex justify-center items-center rounded-full cursor-pointer `}>
+                  <img className=' w-full h-full object-cover aspect-[1/1] rounded-full cursor-pointer' src={profilePicture} alt="" />
+                  </div>
+      }
         <div className='flex flex-col gap-3 w-full '>
         <div className="relative w-full">
           <input
@@ -59,8 +79,8 @@ useEffect(()=>{
         </div>
         <div className="relative w-full">
           <input
-  ref={handle}
-type="text"
+            ref={handle}
+            type="text"
             id="floating_outlined"
             className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-text1  rounded-lg border-2  border-bghovor appearance-none  bg-color1 focus:outline-none focus:ring-0 focus:border-color4 peer"
             placeholder=" "
@@ -83,7 +103,7 @@ type="text"
           </label>
         </div>
         </div>
-        <button className="w-[100%] mt-10 h-12 rounded-xl bg-color4 text-white text-sm font-semibold">
+        <button className="w-[100%] mt-10 h-12 rounded-xl bg-color4 text-white text-sm font-semibold" onClick={()=>submit()}>
               ذخیره تغییرات 
           </button>
       </div>
