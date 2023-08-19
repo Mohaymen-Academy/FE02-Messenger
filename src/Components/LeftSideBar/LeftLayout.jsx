@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import {LeftSide ,ProfileEdit} from './';
 
-export default function LeftLayout({ active, setActive }) {
+export default function LeftLayout({ active, setActive , chatid }) {
   const [layout, setlayout] = useState(0);
   //   const [active, ] = useState(false);
   //   console.log(setlayout)
   const Pages = [
-    <LeftSide isActive={active} setActive={setActive} setlayout={setlayout} />,
+    <LeftSide isActive={active} setActive={setActive} setlayout={setlayout} chatid={chatid} />,
     <ProfileEdit isActive={active} setActive={setActive} setlayout={setlayout} />
   ];
   // const

@@ -1,14 +1,20 @@
 import React from 'react';
 import { UilTimes, UilPen, UilLink, UilBell, UilBellSlash } from '@iconscout/react-unicons';
 import { Files, Links, Medias, Musics, Voices } from './ProfileParts';
+import { useDispatch, useSelector } from 'react-redux';
 export default function LeftSide({
   isActive,
   profile,
   setActive,
   setlayout,
   isGroupOrChannel,
-  isgroup
+  isgroup,
+  chatid
 }) {
+  const dispatch = useDispatch();
+  const chatProf = useSelector((state) => state.messageList.messages);
+  const selectedProfile = chatProf.filter((item) => item.profile.profileID == chatid)[0];
+
   const [filepart, setfilepart] = React.useState({
     0: 1,
     1: 0,
@@ -48,8 +54,10 @@ export default function LeftSide({
         </div>
       </div>
       <div className="relative w-full h-[350px] mb-0 md:h-[350px]">
-      <div className="flex flex-col justify-end place-items-end w-full h-[350px] bg-cover bg-[url('images/profile.jpg')] bg-center bg-no-repeat">
-        <div className="p-7 pb-0 text-white font-bold text-[25px] opacity-150">Zahra</div>
+      <div className={`flex flex-col justify-end place-items-end w-full h-[350px]  bg-cover  bg-center bg-no-repeat`}
+        style={{ backgroundImage: `${selectedProfile?.profile.lastProfilePicture && `url('data:image/jpeg;base64,${selectedProfile?.profile.lastProfilePicture.preLoadingContent}')`}` , backgroundColor : `${selectedProfile?.profile.defaultProfileColor}` , backgroundRepeat:"no-repeat" , backgroundSize:"cover"  }}
+      >
+        <div className="p-7 pb-0 text-white font-bold text-[25px] opacity-150"> {selectedProfile?.profile.profileName}{' '}</div>
         <div className="p-7 pt-0 text-white text-[15px]">Last Seen recently</div>
         {/* //should change with the member or subs number */}
       </div>

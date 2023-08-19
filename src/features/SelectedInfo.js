@@ -15,13 +15,17 @@ const initialState = {
   Chatmessages: [],
   lastMessage: 0
 };
-const GetMessages = createAsyncThunk('selectedProf/getmessages', async (requestinfo, params) => {
+const GetMessages = createAsyncThunk('selectedProf/getmessages', async (requestinfo) => {
   try {
     // console.log(requestinfo);
-    // const data = await Requests().GetChat(requestinfo.ID);
+    const data = await Requests().GetChat(requestinfo.ID, requestinfo.message_id);
     // console.log(data);
     // return data;
-    // return { data: data.data, ID: requestinfo.ID, type: requestinfo.type };
+    return {
+      data: data.data,
+      ID: requestinfo.ID,
+      type: requestinfo.type
+    };
   } catch (err) {
     console.log(err);
   }
@@ -51,7 +55,10 @@ const SelectedProf = createSlice({
       console.log(action.payload.msgId);
       state.Chatmessages = state.Chatmessages.map((ele) => {
         if (ele.messageID == action.payload.msgId) {
-          return { ...ele, text: action.payload.newtext };
+          return {
+            ...ele,
+            text: action.payload.newtext
+          };
         }
         return ele;
       });
@@ -59,6 +66,7 @@ const SelectedProf = createSlice({
   },
   extraReducers: (builder) =>
     builder.addCase(GetMessages.fulfilled, (state, action) => {
+      console.log(action.payload.data?.messages);
       state.Chatmessages = action.payload.data?.messages;
       state.chatType = action.payload.type;
       state.selectedChatID = action.payload.ID;

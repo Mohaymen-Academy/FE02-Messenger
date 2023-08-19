@@ -75,6 +75,7 @@ export default function ChatFooter({ id }) {
       }
     }
     dispatch(composerActions.clear());
+    Requests().sendText(id,ProcessorValues.current.rawtext)
   }
   return (
     <div className="relative top-[0px] flex flex-col">
