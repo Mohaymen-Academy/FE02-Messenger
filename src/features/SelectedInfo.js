@@ -9,8 +9,8 @@ function CustomsortInc(a, b) {
 }
 
 const initialState = {
-  selectedChatID: 1032,
-  chatType: 0,
+  selectedChatID: null,
+  chatType: null,
   selectedProfileView: null,
   Chatmessages: [],
   lastMessage: 0
