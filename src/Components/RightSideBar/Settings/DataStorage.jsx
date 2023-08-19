@@ -1,6 +1,6 @@
 import React, { useState, useRef } from 'react';
-import CheckBoxData from '../CheckBoxData';
-import InputSlider from '../InputSlider';
+import CheckBoxData from '../../../utility/CheckBoxData';
+// import InputSlider from '../InputSlider';
 import { UilCloudCheck } from '@iconscout/react-unicons'
 export default function DataStorage() {
   const [open, setopen] = useState(false);

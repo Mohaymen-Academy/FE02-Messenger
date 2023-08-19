@@ -9,7 +9,7 @@ import {
 } from '@iconscout/react-unicons';
 
 import { useDispatch, useSelector } from 'react-redux';
-import { PersonalMenu, Notifs, Privacy, DataStorage, ChatSetting } from '../../../utility/Settings';
+import { PersonalMenu, Notifs, Privacy, DataStorage, ChatSetting } from '../Settings';
 import {
   SETTINGS_NOTIFS_MEN,
   SETTINGS_PRIVACY_MEN,
