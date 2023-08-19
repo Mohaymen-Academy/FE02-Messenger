@@ -62,7 +62,8 @@ const MessageMenu = ({ positions, setposition, msgId, text }) => {
     {
       icon: <UilTrash />,
       title: 'حذف ',
-      color: 'text-red-500'
+      color: 'text-red-500',
+      action:'delete'
     }
   ]);
   // console.log(positions);

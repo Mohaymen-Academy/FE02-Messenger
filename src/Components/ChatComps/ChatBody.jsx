@@ -31,8 +31,8 @@ export default function ChatBody({ chatid, chattype, needupdate }) {
     { threshold: 0.5 }
   );
   const MSGes = useRef({
-    upper: -Infinity,
-    lower: Infinity
+    upper: 0
+    // lower: Infinity
   });
   const bodyref = useRef(null);
   const messages = useSelector((state) => state.selectedProf.Chatmessages);
@@ -40,20 +40,19 @@ export default function ChatBody({ chatid, chattype, needupdate }) {
   // const ChatId = useSelector((state) => state.selectedProf.selectedChatID);
   const lists = useSelector((store) => store.messageList.messages);
   useEffect(() => {
+    // console.log(lists);
     const shouldUpdate = lists.filter(
       (ele) => ele.profile.profileID == chatid && ele.updated == true
     );
     if (shouldUpdate.length != 0) {
-      // console.log('werew');
-      dispatch(GetMessages({ type: chattype, ID: chatid }, { message_id: MSGes.current.upper }));
+      // console.log(MSGes.current.upper);
+      dispatch(GetMessages({ type: chattype, ID: chatid, message_id: 0 }));
+      bodyref.current.scrollTop = bodyref.current.scrollHeight;
     }
   });
   useEffect(() => {
     if (bodyref) {
-      // const endPosition = bodyref.current.scrollHeight
       bodyref.current.scrollTop = bodyref.current.scrollHeight;
-      // - bodyref.current.clientHeight;
-      // console.log(endPosition);
     }
   }, []);
 
@@ -68,8 +67,9 @@ export default function ChatBody({ chatid, chattype, needupdate }) {
     //   bodyref.current.scrollHeight - bodyref.current.clientHeight
     // );
     scrolltimeout = setTimeout(() => {
-      // console.log(MSGes.current);
-      dispatch(GetMessages({ type: chattype, ID: chatid, message_id: MSGes.current.upper }));
+      console.log(MSGes.current.upper);
+      dispatch(GetMessages({ type: chattype, ID: chatid, message_id: 0 }));
+      // dispatch(GetMessages({ type: chattype, ID: chatid, message_id: MSGes.current.upper }));
     }, 200);
     if (
       Math.abs(
@@ -127,7 +127,7 @@ export default function ChatBody({ chatid, chattype, needupdate }) {
             } absolute right-[85%] top-[65%] z-10 rounded-full bg-color1 p-3`}>
             <UilArrowDown />
           </button>
-          {messages.length ? (
+          {messages?.length ? (
             <MessageDateGroup date={'2023-07-20'}>
               {messages?.map((message, index) => (
                 <div key={index}>

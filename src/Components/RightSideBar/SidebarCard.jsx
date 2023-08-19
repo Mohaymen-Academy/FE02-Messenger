@@ -7,7 +7,7 @@ export default function SidebarCard({ icon, title, menuId, action }) {
     dispatch(setParent({ parent: menuId }));
     dispatch(setsidebarState({ state: false }));
   }
-  console.log(action);
+  // console.log(action);
   return (
     <button
       className="hover:bg-color1  flex flex-row p-3 px-5 items-center gap-2 w-[full]"

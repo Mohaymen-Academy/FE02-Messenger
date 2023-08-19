@@ -1,6 +1,6 @@
 import React, { useState, useRef } from 'react';
-import CheckBoxParag from '../CheckBoxParag';
-import InputSlider from '../InputSlider';
+import CheckBoxParag from '../../../utility/CheckBoxParag';
+import InputSlider from '../../../utility/InputSlider';
 import { UilBell } from '@iconscout/react-unicons'
 
 export default function Notifs() {

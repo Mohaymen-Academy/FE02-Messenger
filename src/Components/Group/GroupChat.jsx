@@ -1,7 +1,8 @@
 import React, { useState, useContext, useEffect } from 'react';
 import LeftLayout from '../LeftSideBar/LeftLayout';
 import { TYPE_GROUP } from '../../utility/Constants';
-import { ChatBody } from '../ChatComps';
+import { ChatBody, ChatHeader } from '../ChatComps';
+
 
 export default function GroupChat({ chatid, setChatId }) {
   const [active, setActive] = useState(false);

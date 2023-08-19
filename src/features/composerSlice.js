@@ -1,4 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
+import Requests from '../API/Requests';
+import { deletemessage } from './SelectedInfo';
 
 const initialState = {
   composerValue: '',
@@ -28,6 +30,10 @@ const composerSlice = createSlice({
         case 'edit':
           state.isEditting = true;
           state.editID = action.payload.messageID;
+          break;
+        case 'delete':
+          Requests().Deletemsg(action.payload.messageID);
+          deletemessage(action.payload.messageID);
           break;
       }
       state.composerValue = action.payload.text;

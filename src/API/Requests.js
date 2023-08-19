@@ -58,7 +58,8 @@ export default function Requests(body) {
   // profileData
 
   async function GetChat(receiverID, params) {
-    console.log(receiverID);
+    console.log(params);
+    // console.log(receiverID);
     try {
       const res = await API().GET(receiverID, params, AutorizeHeader);
       return res;
@@ -112,16 +113,16 @@ export default function Requests(body) {
       console.log(err);
     }
   }
-  async function UpdateSeen(MsgID) {
-    try {
-      await API()
-        .POST(`seen/${MsgID}`, {}, AutorizeHeader)
-        .then((res) => res.json())
-        .then((data) => console.log(data));
-    } catch (err) {
-      console.log(err);
-    }
-  }
+  // async function UpdateSeen(MsgID) {
+  //   try {
+  //     await API()
+  //       .POST(`seen/${MsgID}`, {}, AutorizeHeader)
+  //       .then((res) => res.json())
+  //       .then((data) => console.log(data));
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // }
   async function GetProfileMedium(chatid) {
     console.log(chatid);
     await API()
@@ -142,8 +143,34 @@ export default function Requests(body) {
   }
   async function GetContacts() {
     try {
-      const res = await API().GET('contacts', {}, AutorizeHeader);
+      const res = await API().GET('contacts/', {}, AutorizeHeader);
       return res;
+    } catch (err) {
+      console.log(err);
+    }
+  }
+  async function UpdateProfileImage(body, id) {
+    try {
+      await API()
+        .POST(`profile/picture/${id}`, {}, AutorizeHeader)
+        .then((res) => res.json())
+        .then((data) => console.log(data));
+    } catch (err) {
+      console.log(err);
+    }
+  }
+  async function UpdateProfile(image , id) {
+    body = {
+      "content" : image,
+      "size" : 6.91,
+      "type" : "jpg",
+      "fileName" : "boz"
+    }
+    try {
+      await API()
+        .POST(`profile/picture/${id}`, body, AutorizeHeader)
+        .then((res) => res.json())
+        .then((data) => console.log(data));
     } catch (err) {
       console.log(err);
     }
@@ -159,8 +186,27 @@ export default function Requests(body) {
       .then((res) => res.json())
       .catch((err) => console.log(err));
   }
+  async function getleftProf(profid) {
+    console.log(profid);
+    try {
+      const res = await API().GET(`profile/info/${profid}`, {}, AutorizeHeader);
+      return res;
+    } catch (err) {
+      console.log(err);
+    }
+  }
+  async function AddContact(contactId) {
+    await API().POST(`contacts/${contactId}`, {}, AutorizeHeader);
+  }
+  async function Deletemsg(msgID) {
+    await API().DEL(msgID,{},AutorizeHeader);
+  }
+
   return {
+    Deletemsg,
+    AddContact,
     CreateChat,
+    getleftProf,
     GetContacts,
     EditMessage,
     GetProfileMedium,
@@ -171,6 +217,8 @@ export default function Requests(body) {
     GetChat,
     SearchAll,
     sendText,
-    UpdateSeen
+    UpdateSeen,
+    UpdateProfileImage,
+    UpdateProfile
   };
 }

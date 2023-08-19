@@ -15,17 +15,23 @@ const initialState = {
   Chatmessages: [],
   lastMessage: 0,
   profileinfo: null,
+  leftprof: null,
+  profPics: [],
+  isContact: false
 };
+const SetLeftProf = createAsyncThunk('selectedProf/setleftprof', async (infos) => {
+  console.log(infos.profid);
+  const data = await Requests().getleftProf(infos.profid);
+  return data.data;
+});
 const GetMessages = createAsyncThunk('selectedProf/getmessages', async (requestinfo) => {
   try {
-    // console.log(requestinfo);
     const data = await Requests().GetChat(requestinfo.ID, requestinfo.message_id);
-    // console.log(data);
-    // return data;
     return {
-      data: data.data,
+      data: data?.data,
       ID: requestinfo.ID,
-      type: requestinfo.type
+      type: requestinfo.type,
+      profileinfo: requestinfo?.profileinfo
     };
   } catch (err) {
     console.log(err);
@@ -63,17 +69,35 @@ const SelectedProf = createSlice({
         }
         return ele;
       });
+    },
+    addcontact: (state, action) => {
+      state.isContact = true;
+    },
+    deletemessage: (state, action) => {
+      state.Chatmessages = state.Chatmessages.filter(
+        (msg) => msg.messageID != action.payload.msgid
+      );
     }
   },
   extraReducers: (builder) =>
-    builder.addCase(GetMessages.fulfilled, (state, action) => {
-      console.log(action.payload.data?.messages);
-      state.Chatmessages = action.payload.data?.messages;
-      state.chatType = action.payload.type;
-      state.selectedChatID = action.payload.ID;
-    })
+    builder
+      .addCase(GetMessages.fulfilled, (state, action) => {
+        console.log(action.payload);
+        state.Chatmessages = action.payload?.data?.messages;
+        if (action.payload.profileinfo?.profileID) {
+          state.chatType = action.payload?.type;
+          state.selectedChatID = action.payload?.ID;
+          state.profileinfo = action.payload?.profileinfo;
+        }
+      })
+      .addCase(SetLeftProf.fulfilled, (state, action) => {
+        console.log(action.payload);
+        state.isContact = action.payload.isContact;
+        state.leftprof = action.payload.profile;
+        state.profPics = action.payload.profilePictures;
+      })
 });
-export { GetMessages };
-export const { resetChatId, editmsg } = SelectedProf.actions;
+export { GetMessages, SetLeftProf };
+export const { resetChatId, editmsg, addcontact,deletemessage } = SelectedProf.actions;
 // export const { setChat, setChatType } = SelectedProf.actions;
 export default SelectedProf.reducer;

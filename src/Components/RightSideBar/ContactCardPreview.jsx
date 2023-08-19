@@ -1,11 +1,24 @@
 import React from 'react';
 import Avatar from '../ChatComps/Avatar';
+import { useDispatch } from 'react-redux';
+import { GetMessages } from '../../features/SelectedInfo';
 
-export default function ContactCardPreview({ name, image, color, chatid, type, lastseen }) {
+export default function ContactCardPreview({
+  name,
+  image,
+  color,
+  chatid,
+  type,
+  lastseen,
+  profile
+}) {
+  const dispatch = useDispatch();
   return (
     <div>
       <div
-        // onClick={() => setter(chatid)}
+        onClick={() =>
+          dispatch(GetMessages({ type: type, ID: chatid, profileinfo: profile, message_id: 0 }))
+        }
         className="flex h-18 w-[97%] cursor-pointer m-1 mx-2 flex-row items-center justify-start rounded-lg hover:bg-bghovor">
         <div className="w-fit px-2 flex">
           {image ? (

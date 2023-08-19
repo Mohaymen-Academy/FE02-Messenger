@@ -1,7 +1,16 @@
 import React from 'react';
-import { UilTimes, UilPen, UilLink, UilBell, UilBellSlash } from '@iconscout/react-unicons';
+import {
+  UilTimes,
+  UilPen,
+  UilLink,
+  UilBell,
+  UilBellSlash,
+  UilUserPlus
+} from '@iconscout/react-unicons';
 import { Files, Links, Medias, Musics, Voices } from './ProfileParts';
 import { useDispatch, useSelector } from 'react-redux';
+import Requests from '../../API/Requests';
+import { addcontact } from '../../features/SelectedInfo';
 export default function LeftSide({
   isActive,
   profile,
@@ -12,9 +21,9 @@ export default function LeftSide({
   chatid
 }) {
   const dispatch = useDispatch();
-  const chatProf = useSelector((state) => state.messageList.messages);
-  const selectedProfile = chatProf.filter((item) => item.profile.profileID == chatid)[0];
-
+  const pics = useSelector((state) => state.selectedProf.profPics);
+  const selectedProfile = useSelector((state) => state.selectedProf.leftprof);
+  const iscontact = useSelector((state) => state.selectedProf.isContact);
   const [filepart, setfilepart] = React.useState({
     0: 1,
     1: 0,
@@ -23,7 +32,6 @@ export default function LeftSide({
     4: 0
   });
   const changesetpat = (num) => {
-    //all 0 just num 1
     let newfilepart = {
       0: 0,
       1: 0,
@@ -34,6 +42,12 @@ export default function LeftSide({
     newfilepart[num] = 1;
     setfilepart(newfilepart);
   };
+  function handleAdd() {
+    console.log(selectedProfile.profileID);
+    Requests().AddContact(selectedProfile.profileID);
+    Requests().GetContacts();
+    dispatch(addcontact());
+  }
   return (
     <div
       className={`flex flex-col h-screen transition-all duration-200 ease-in bg-color2 shadow-md border-r`}>
@@ -48,21 +62,38 @@ export default function LeftSide({
           <div className="p-1 cardP">اطلاعات پروفایل</div>
         </div>
         <div>
-          <button onClick={() => setlayout(1)}>
-            <UilPen className=" text-text1 cursor-pointer" />
-          </button>
+          {iscontact ? (
+            <button onClick={() => setlayout(1)}>
+              <UilPen className=" text-text1 cursor-pointer" />
+            </button>
+          ) : (
+            <button onClick={handleAdd}>
+              <UilUserPlus className=" text-text1 cursor-pointer" />
+            </button>
+          )}
         </div>
       </div>
       <div className="relative w-full h-[350px] mb-0 md:h-[350px]">
-      <div className={`flex flex-col justify-end place-items-end w-full h-[350px]  bg-cover  bg-center bg-no-repeat`}
-        style={{ backgroundImage: `${selectedProfile?.profile.lastProfilePicture && `url('data:image/jpeg;base64,${selectedProfile?.profile.lastProfilePicture.preLoadingContent}')`}` , backgroundColor : `${selectedProfile?.profile.defaultProfileColor}` , backgroundRepeat:"no-repeat" , backgroundSize:"cover"  }}
-      >
-        <div className="p-7 pb-0 text-white font-bold text-[25px] opacity-150"> {selectedProfile?.profile.profileName}{' '}</div>
-        <div className="p-7 pt-0 text-white text-[15px]">Last Seen recently</div>
-        {/* //should change with the member or subs number */}
+        <div
+          className={`flex flex-col justify-end place-items-end w-full h-[350px]  bg-cover  bg-center bg-no-repeat`}
+          style={{
+            backgroundImage: `${
+              selectedProfile?.lastProfilePicture &&
+              `url('data:image/jpeg;base64,${selectedProfile?.lastProfilePicture.preLoadingContent}')`
+            }`,
+            backgroundColor: `${selectedProfile?.defaultProfileColor}`,
+            backgroundRepeat: 'no-repeat',
+            backgroundSize: 'cover'
+          }}>
+          <div className="p-7 pb-0 text-white font-bold text-[25px] opacity-150">
+            {' '}
+            {selectedProfile?.profileName}{' '}
+          </div>
+          <div className="p-7 pt-0 text-white text-[15px]">Last Seen recently</div>
+          {/* //should change with the member or subs number */}
+        </div>
+        <div className="absolute bottom-0 w-full h-1/3 bg-gradient-to-b from-transparent to-black"></div>
       </div>
-      <div className="absolute bottom-0 w-full h-1/3 bg-gradient-to-b from-transparent to-black"></div>
-    </div>
 
       <div>
         {isgroup ? (
@@ -96,7 +127,9 @@ export default function LeftSide({
         <div className="w-full h-[50px] bg-color2 flex flex-row  place-items-center border-b-1">
           {isgroup ? (
             <div
-              className={`category-part ${filepart[0] == 1 ? 'bg-color1 rounded-t-lg ' : 'bg-color2'}`}
+              className={`category-part ${
+                filepart[0] == 1 ? 'bg-color1 rounded-t-lg ' : 'bg-color2'
+              }`}
               onClick={() => changesetpat(0)}>
               اعضا
             </div>
