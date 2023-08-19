@@ -20,6 +20,7 @@ const initialState = {
   isContact: false
 };
 const SetLeftProf = createAsyncThunk('selectedProf/setleftprof', async (infos) => {
+  console.log(infos.profid);
   const data = await Requests().getleftProf(infos.profid);
   return data.data;
 });
@@ -92,6 +93,6 @@ const SelectedProf = createSlice({
       })
 });
 export { GetMessages, SetLeftProf };
-export const { resetChatId, editmsg ,addcontact} = SelectedProf.actions;
+export const { resetChatId, editmsg, addcontact } = SelectedProf.actions;
 // export const { setChat, setChatType } = SelectedProf.actions;
 export default SelectedProf.reducer;
