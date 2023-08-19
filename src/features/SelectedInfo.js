@@ -15,10 +15,10 @@ const initialState = {
   Chatmessages: [],
   lastMessage: 0
 };
-const GetMessages = createAsyncThunk('selectedProf/getmessages', async (requestinfo, params) => {
+const GetMessages = createAsyncThunk('selectedProf/getmessages', async (requestinfo) => {
   try {
     // console.log(requestinfo);
-    const data = await Requests().GetChat(requestinfo.ID,params);
+    const data = await Requests().GetChat(requestinfo.ID, requestinfo.message_id);
     // console.log(data);
     // return data;
     return {
