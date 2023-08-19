@@ -168,6 +168,7 @@ export default function Requests(body) {
     } catch (err) {
       console.log(err);
     }
+  }
   async function CreateChat(name, members, type) {
     const body = {
       type: type,
