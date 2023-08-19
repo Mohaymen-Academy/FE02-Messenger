@@ -72,10 +72,10 @@ export default function ChatFooter({ id }) {
         console.log(divref.current.innerText);
         console.log(ProcessorValues.current.rawtext);
         console.log(ProcessorValues.current.sorted);
+        Requests().sendText(id, ProcessorValues.current.rawtext,ProcessorValues.current.sorted);
       }
     }
     dispatch(composerActions.clear());
-    Requests().sendText(id,ProcessorValues.current.rawtext)
   }
   return (
     <div className="relative top-[0px] flex flex-col">
@@ -118,7 +118,7 @@ export default function ChatFooter({ id }) {
             className=" flex h-auto max-h-[50px] w-[90%] flex-row overflow-hidden 
             whitespace-pre-wrap
             break-all border-none shadow-none outline-none focus:shadow-none active:shadow-none">
-            {Isactive.composerValue ? Isactive.composerValue :''}
+            {Isactive.composerValue ? Isactive.composerValue : ''}
           </div>
           <div>
             <button

@@ -101,9 +101,10 @@ export default function Requests(body) {
       .then((data) => console.log(data))
       .catch((err) => console.log(err));
   }
-  async function sendText(endpoint, text) {
-    const body = { text };
-    console.log(text);
+  async function sendText(endpoint, text, styles) {
+    const body = { text, styles };
+    console.log(body);
+    // console.log(text);
     // console.log(text)
     try {
       const res = await API().POST(`${endpoint}`, body, AutorizeHeader);
@@ -136,11 +137,20 @@ export default function Requests(body) {
     };
     await API()
       .POST(`edit-message/${messageId}`, body, AutorizeHeader)
-      .then((res) => res.json())
-      // .then((data) => console.log(data))
-      // .catch((err) => console.log(err));
+      .then((res) => res.json());
+    // .then((data) => console.log(data))
+    // .catch((err) => console.log(err));
+  }
+  async function GetContacts() {
+    try {
+      const res = await API().GET('contacts', {}, AutorizeHeader);
+      return res;
+    } catch (err) {
+      console.log(err);
+    }
   }
   return {
+    GetContacts,
     EditMessage,
     GetProfileMedium,
     checkDuplicateEmail,

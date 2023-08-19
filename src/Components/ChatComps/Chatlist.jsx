@@ -13,7 +13,7 @@ const Chatlist = () => {
   const HandleScroller = HandleScroll();
   const lists = useSelector((store) => store.messageList.messages);
   // const profid = useSelector((state) => state.selectedProf.selectedChatID);
-  
+
   // useEffect(() => {
   //   if (profid) {
   //     console.log('wer')
@@ -49,6 +49,7 @@ const Chatlist = () => {
           profile={chatprev.profile}
           lastMessage={chatprev.lastMessage}
           unreadMessageCount={chatprev.unreadMessageCount}
+          lastseen={chatprev.lastSeen}
         />
       ))}
     </div>

@@ -13,7 +13,8 @@ const initialState = {
   chatType: null,
   selectedProfileView: null,
   Chatmessages: [],
-  lastMessage: 0
+  lastMessage: 0,
+  profileinfo: null,
 };
 const GetMessages = createAsyncThunk('selectedProf/getmessages', async (requestinfo) => {
   try {
