@@ -149,7 +149,7 @@ export default function Requests(body) {
       console.log(err);
     }
   }
-  async function UpdateProfileImage(body , id) {
+  async function UpdateProfileImage(body, id) {
     try {
       await API()
         .POST(`profile/picture/${id}`, {}, AutorizeHeader)
@@ -159,7 +159,7 @@ export default function Requests(body) {
       console.log(err);
     }
   }
-  async function UpdateProfile(body , id) {
+  async function UpdateProfile(body, id) {
     try {
       await API()
         .POST(`profile/picture/${id}`, {}, AutorizeHeader)
@@ -181,7 +181,7 @@ export default function Requests(body) {
       .catch((err) => console.log(err));
   }
   async function getleftProf(profid) {
-    console.log(profid)
+    console.log(profid);
     try {
       const res = await API().GET(`profile/info/${profid}`, {}, AutorizeHeader);
       return res;
@@ -189,8 +189,12 @@ export default function Requests(body) {
       console.log(err);
     }
   }
+  async function AddContact(contactId) {
+    await API().POST(`contacts/${contactId}`, {}, AutorizeHeader);
+  }
 
   return {
+    AddContact,
     CreateChat,
     getleftProf,
     GetContacts,
@@ -204,7 +208,7 @@ export default function Requests(body) {
     SearchAll,
     sendText,
     UpdateSeen,
-    UpdateProfileImage ,
+    UpdateProfileImage,
     UpdateProfile
   };
 }

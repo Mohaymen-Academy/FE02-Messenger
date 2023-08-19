@@ -10,6 +10,7 @@ import Pin from './Pin.jsx';
 const ChatHeader = ({ active, setActive, chatsetter, chattype, chatid }) => {
   const dispatch = useDispatch();
   const selectedProfile = useSelector((state) => state.selectedProf.profileinfo);
+  console.log(selectedProfile)
   const ChatInfo =
     chattype == TYPE_USER
       ? selectedProfile?.status // ShouldChange
@@ -45,7 +46,8 @@ const ChatHeader = ({ active, setActive, chatsetter, chattype, chatid }) => {
               <Avatar
                 imagecolor={selectedProfile?.defaultProfileColor}
                 char={selectedProfile?.profileName[0]}
-                isOnline={selectedProfile.status.toLowerCase()}
+                // isOnline={selectedProfile?.status.toLowerCase()}
+                isOnline={'online'}
               />
             )}
           </div>
