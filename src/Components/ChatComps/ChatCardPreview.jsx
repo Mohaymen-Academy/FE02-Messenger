@@ -61,7 +61,11 @@ const ChatCardPreview = ({ profile, lastMessage, unreadMessageCount, lastseen, p
         </div>
       </div>
       {openContext ? (
-        <ChatCardContext openContext={openContext} setOpenContext={setOpenContext} />
+        <ChatCardContext
+          type={profile.type}
+          openContext={openContext}
+          setOpenContext={setOpenContext}
+        />
       ) : (
         <></>
       )}
