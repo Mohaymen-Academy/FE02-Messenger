@@ -5,7 +5,7 @@ import { TYPE_CHANNEL, TYPE_GROUP, TYPE_USER } from '../../utility/Constants';
 function ChatCardContext({ openContext, setOpenContext, type }) {
   useEffect(
     () => () => {
-      document.addEventListener('click', () => {
+      document.addEventListener('mousedown', () => {
         console.log('hello');
         setOpenContext(false);
       });

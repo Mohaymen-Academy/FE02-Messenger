@@ -18,6 +18,7 @@ const ChatCardPreview = ({ profile, lastMessage, unreadMessageCount, lastseen, p
   const dispatch = useDispatch();
 
   const handleRightClick = (e) => {
+    e.preventDefault();
     setOpenContext(true);
   };
   return (

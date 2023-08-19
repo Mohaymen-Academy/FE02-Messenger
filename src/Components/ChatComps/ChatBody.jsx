@@ -69,7 +69,7 @@ export default function ChatBody({ chatid, chattype, needupdate }) {
     // );
     scrolltimeout = setTimeout(() => {
       // console.log(MSGes.current);
-      dispatch(GetMessages({ type: chattype, ID: chatid , message_id: MSGes.current.upper }));
+      dispatch(GetMessages({ type: chattype, ID: chatid, message_id: MSGes.current.upper }));
     }, 200);
     if (
       Math.abs(
@@ -117,7 +117,7 @@ export default function ChatBody({ chatid, chattype, needupdate }) {
       }>
       <div className="flex h-[72%]  w-full flex-col items-center overflow-hidden">
         <div
-          className="mb-2 h-[105vh] w-[80%]  overflow-auto px-5 pt-3"
+          className="mb-2 h-[105vh] w-full  overflow-auto px-5 pt-3"
           onScroll={handleonScroll}
           ref={bodyref}>
           <button
@@ -152,20 +152,20 @@ export default function ChatBody({ chatid, chattype, needupdate }) {
             </MessageDateGroup>
           ) : (
             <>
-              <div className="flex flex-col items-center h-[100%]">
+              <div className="flex h-[100%] flex-col items-center">
                 <div
                   className="
-                  flex flex-col bg-black bg-opacity-25 rounded-2xl
-             w-[300px]  h-[400px] m-auto
-             p-10 text-center text-text1
-             items-center
-             gap-3">
-                  <div className="font-bold text-xl">
+                  m-auto flex h-[400px] w-[300px] flex-col
+             items-center  gap-3 rounded-2xl
+             bg-black bg-opacity-25 p-10
+             text-center
+             text-text1">
+                  <div className="text-xl font-bold">
                     <p className="font-estedad ">هنوز پیامی اینجا موجود نیست</p>
                     <p className="font-estedad ">پیامی ارسال کنید یا بر روی عکس کلیک کنید</p>
                   </div>
-                  <button className="w-[200px] h-[200px]" onClick={() => console.log('zarp')}>
-                    <img src="images/hello2.jpg" className="w-[100%] h-[100%] rounded-2xl" alt="" />
+                  <button className="h-[200px] w-[200px]" onClick={() => console.log('zarp')}>
+                    <img src="images/hello2.jpg" className="h-[100%] w-[100%] rounded-2xl" alt="" />
                   </button>
                 </div>
               </div>
