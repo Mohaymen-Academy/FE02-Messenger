@@ -1,7 +1,9 @@
 import { useDispatch } from 'react-redux';
+import { useState } from 'react';
 import Avatar from './Avatar';
 import { GetMessages } from '../../features/SelectedInfo';
 import Requests from '../../API/Requests';
+import ChatCardContext from './ChatCardContext';
 // import
 function bytesToBase64(bytes) {
   const binString = Array.from(bytes, (x) => String.fromCodePoint(x)).join('');
@@ -12,15 +14,21 @@ function bytesToBase64(bytes) {
 //  NEED TO ADD TIME TO IT
 const ChatCardPreview = ({ profile, lastMessage, unreadMessageCount, lastseen, pinned }) => {
   // console.log(profile?.lastProfilePicture?.preLoadingContent)
+  const [openContext, setOpenContext] = useState(false);
   const dispatch = useDispatch();
+
+  const handleRightClick = (e) => {
+    setOpenContext(true);
+  };
   return (
     <div
+      onContextMenu={handleRightClick}
       onClick={async (e) => {
         // console.log(profile.type, profile.profileID);
         dispatch(GetMessages({ type: profile.type, ID: profile.profileID }, { message_id: 0 }));
         // await Requests().GetProfileMedium(profile.profileID);
       }}
-      className=" h-18 p-3 mx-2 flex w-[97%] cursor-pointer flex-row items-center justify-start rounded-lg  hover:bg-bghovor">
+      className="h-18 relative mx-2 flex w-[97%] cursor-pointer flex-row items-center justify-start rounded-lg p-3  hover:bg-bghovor">
       <div className="flex w-[100%] justify-between px-2">
         <div className="flex flex-row gap-2">
           {profile.lastProfilePicture ? (
@@ -53,6 +61,15 @@ const ChatCardPreview = ({ profile, lastMessage, unreadMessageCount, lastseen, p
           ) : null}
         </div>
       </div>
+      {openContext ? (
+        <ChatCardContext
+          type={profile.type}
+          openContext={openContext}
+          setOpenContext={setOpenContext}
+        />
+      ) : (
+        <></>
+      )}
     </div>
   );
 };
