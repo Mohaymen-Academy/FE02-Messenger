@@ -1,3 +1,4 @@
+import { TYPE_GROUP } from '../utility/Constants';
 import API from './API';
 import { BASE_URL, HEADER } from './consts';
 // import { useSelector } from 'react-redux';
@@ -57,11 +58,9 @@ export default function Requests(body) {
   // profileData
 
   async function GetChat(receiverID, params) {
-    // console.log('Get chat messeages');
     console.log(receiverID);
     try {
       const res = await API().GET(receiverID, params, AutorizeHeader);
-      // redirect('/');
       return res;
     } catch (err) {
       console.log(err);
@@ -149,7 +148,19 @@ export default function Requests(body) {
       console.log(err);
     }
   }
+  async function CreateChat(name, members, type) {
+    const body = {
+      type: type,
+      members: members,
+      name: name
+    };
+    await API()
+      .POST('create-chat', body, AutorizeHeader)
+      .then((res) => res.json())
+      .catch((err) => console.log(err));
+  }
   return {
+    CreateChat,
     GetContacts,
     EditMessage,
     GetProfileMedium,

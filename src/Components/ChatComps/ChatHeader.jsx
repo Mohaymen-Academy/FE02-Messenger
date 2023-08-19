@@ -13,7 +13,7 @@ const ChatHeader = ({ active, setActive, chatsetter, chattype, chatid }) => {
   const selectedProfile = chatProf.filter((item) => item.profile.profileID == chatid)[0];
   const ChatInfo =
     chattype == TYPE_USER
-      ? '12:22' // ShouldChange
+      ? selectedProfile?.lastSeen // ShouldChange
       : chattype == TYPE_GROUP
       ? 4
       : 1200;

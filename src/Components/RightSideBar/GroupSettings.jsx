@@ -1,10 +1,16 @@
 import React from 'react';
 import ContactCardPreview from './ContactCardPreview';
 import { UilArrowRight, UilCameraPlus, UilTrashAlt } from '@iconscout/react-unicons';
+import { TYPE_GROUP, TYPE_USER } from '../../utility/Constants';
+import Requests from '../../API/Requests';
 
 export default function GroupSettings({ selected }) {
   const [groupname, setgroupname] = React.useState('');
-
+  function CreateGroup() {
+    const memebers = selected.map((cont) => cont.chatid);
+    const name = groupname;
+    Requests().CreateChat(name, memebers, TYPE_GROUP);
+  }
   const handleGroupname = (e) => {
     setgroupname(e);
   };
@@ -29,17 +35,24 @@ export default function GroupSettings({ selected }) {
         </div>
         {groupname !== '' && (
           <div id={1}>
-            <button className="w-[100%] h-12 rounded-xl bg-blue-400 text-white text-xl font-semibold">
+            <button
+              onClick={CreateGroup}
+              className="w-[100%] h-12 rounded-xl bg-blue-400 text-white text-xl font-semibold">
               ایجاد گروه
             </button>
           </div>
         )}
         <div className="h-0.5 w-full flex bg-bghovor m-5"></div>
         <p className="text-text1">{selected.length} عضو</p>
-        <div
-        className='add_to_x_list'>
-          {selected.map((x, i) => (
-            <ContactCardPreview chatid={i} key={i} />
+        <div className="add_to_x_list">
+          {selected.map((cont) => (
+            <ContactCardPreview
+              name={cont.name}
+              image={cont.image}
+              color={cont.color}
+              chatid={cont.chatid}
+              type={TYPE_USER}
+            />
           ))}
         </div>
       </div>

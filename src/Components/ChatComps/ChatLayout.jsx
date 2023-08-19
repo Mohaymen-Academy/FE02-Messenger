@@ -10,7 +10,7 @@ import Worker from '../../Workers/web/RequestHandler';
 // import Request from '../../API/Requests';
 // import Worker from ''
 import { TYPE_CHANNEL, TYPE_GROUP, TYPE_USER } from '../../utility/Constants';
-import { setMessages } from '../../features/chatCardPreviewSlice';
+import { GetContacts, setMessages } from '../../features/chatCardPreviewSlice';
 import { resetChatId } from '../../features/SelectedInfo';
 
 export default function ChatLayout() {
@@ -30,7 +30,7 @@ export default function ChatLayout() {
     worker.onmessage = (msg) => {
       dispatch(setMessages(msg.data));
     };
-
+    dispatch(GetContacts());
     document.addEventListener('keydown', (e) => {
       if (e.key == 'Escape') {
         dispatch(resetChatId());

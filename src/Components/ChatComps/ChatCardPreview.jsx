@@ -16,6 +16,7 @@ const ChatCardPreview = ({ profile, lastMessage, unreadMessageCount, lastseen, p
   return (
     <div
       onClick={async (e) => {
+        // console.log(profile.type, profile.profileID);
         dispatch(GetMessages({ type: profile.type, ID: profile.profileID }, { message_id: 0 }));
         // await Requests().GetProfileMedium(profile.profileID);
       }}

@@ -27,12 +27,8 @@ export default function Default({ menuSetter, setopen }) {
     div.dataset.theme === 'dark' ? (div.dataset.theme = 'light') : (div.dataset.theme = 'dark');
     setTheme(div.dataset.theme);
   }
-  function handleContacts() {
-   console.log('werwer')
-    dispatch(setParent({ parent: NUM_SIDEBAR_CONTACTS }));
-    dispatch(setsidebarState({ state: false }));
-    dispatch(GetContacts());
-  }
+  // dispatch(GetContacts());
+
 
   return (
     <div className="flex flex-col w-[100%]  ">
@@ -50,7 +46,7 @@ export default function Default({ menuSetter, setopen }) {
         icon={<UilUser className="text-text1 w-8 h-8 mx-1 " />}
         title={'مخاطبین'}
         menuId={NUM_SIDEBAR_CONTACTS}
-        action={handleContacts}
+        // action={handleContacts}
       />
 
       <SidebarCard
