@@ -27,7 +27,7 @@ export default function SearchResult({ profile, text, massage_id }) {
               />
             ) : (
               <Avatar
-                si
+                size={50}
                 imagecolor={profile.defaultProfileColor}
                 char={profile.profileName[0]}
                 // isOnline={true}

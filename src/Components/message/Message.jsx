@@ -44,7 +44,34 @@ function Message({
         textref.current.innerText = text;
       }
     }
+    if (mainref.current) {
+      mainref.current.addEventListener('touchstart', handleTouchStart);
+      mainref.current.addEventListener('touchend', handleTouchEnd);
+    }
+
+    // Cleanup touch event listeners on unmount
+    return () => {
+      if (mainref.current) {
+        mainref.current.removeEventListener('touchstart', handleTouchStart);
+        mainref.current.removeEventListener('touchend', handleTouchEnd);
+      }
+    };
   }, []);
+    // Handle touch start event
+    function handleTouchStart(event) {
+      setmousepositoin({ x_mouse: event.touches[0].clientX, y_mouse: event.touches[0].clientY });
+      // Start a timer for long press
+      this.longPressTimer = setTimeout(() => {
+        handleRightClick(event);
+      }, 500); // Adjust the timeout duration as needed
+    }
+  
+    // Handle touch end event
+    function handleTouchEnd(event) {
+      // Clear the long press timer
+      clearTimeout(this.longPressTimer);
+      setmousepositoin({ x_mouse: 0, y_mouse: 0 });
+    }
   function handleRightClick(event) {
     event.preventDefault();
     event.stopPropagation();

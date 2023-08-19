@@ -41,6 +41,7 @@ export default function ContactAddTo({
             />
           ) : (
             <Avatar
+            size={50}
               imagecolor={color}
               char={name[0]}
               isOnline={'online'}

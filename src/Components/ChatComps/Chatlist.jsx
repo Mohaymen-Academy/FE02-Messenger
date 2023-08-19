@@ -11,7 +11,8 @@ const Chatlist = () => {
   const listRef = useRef(null);
   const dispatch = useDispatch();
   const HandleScroller = HandleScroll();
-  const lists = useSelector((store) => store.messageList.messages);
+  const lists = useSelector((store) => store.messageList.contacts);
+
   // const profid = useSelector((state) => state.selectedProf.selectedChatID);
 
   // useEffect(() => {
@@ -51,6 +52,7 @@ const Chatlist = () => {
           unreadMessageCount={chatprev.unreadMessageCount}
           lastseen={chatprev.lastSeen}
         />
+        
       ))}
     </div>
   );
