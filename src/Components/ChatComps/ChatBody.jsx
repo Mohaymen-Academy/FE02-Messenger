@@ -40,12 +40,14 @@ export default function ChatBody({ chatid, chattype, needupdate }) {
   // const ChatId = useSelector((state) => state.selectedProf.selectedChatID);
   const lists = useSelector((store) => store.messageList.messages);
   useEffect(() => {
+    // console.log(lists);
     const shouldUpdate = lists.filter(
       (ele) => ele.profile.profileID == chatid && ele.updated == true
     );
     if (shouldUpdate.length != 0) {
-      console.log(MSGes.current.upper);
-      dispatch(GetMessages({ type: chattype, ID: chatid, message_id: MSGes.current.upper }));
+      // console.log(MSGes.current.upper);
+      dispatch(GetMessages({ type: chattype, ID: chatid, message_id: 0 }));
+      bodyref.current.scrollTop = bodyref.current.scrollHeight;
     }
   });
   useEffect(() => {
@@ -66,8 +68,8 @@ export default function ChatBody({ chatid, chattype, needupdate }) {
     // );
     scrolltimeout = setTimeout(() => {
       console.log(MSGes.current.upper);
-      // dispatch(GetMessages({ type: chattype, ID: chatid, message_id: 0}));
-      dispatch(GetMessages({ type: chattype, ID: chatid, message_id: MSGes.current.upper }));
+      dispatch(GetMessages({ type: chattype, ID: chatid, message_id: 0}));
+      // dispatch(GetMessages({ type: chattype, ID: chatid, message_id: MSGes.current.upper }));
     }, 200);
     if (
       Math.abs(

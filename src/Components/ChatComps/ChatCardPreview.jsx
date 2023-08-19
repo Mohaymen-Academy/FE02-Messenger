@@ -47,7 +47,7 @@ const ChatCardPreview = ({ profile, lastMessage, unreadMessageCount, lastseen, p
             <Avatar
               imagecolor={profile.defaultProfileColor}
               char={profile.profileName[0]}
-              isOnline={lastseen?.toLowerCase() === 'online'}
+              isOnline={profile.status?.toLowerCase()}
             />
           )}
           <div className="flex flex-col">

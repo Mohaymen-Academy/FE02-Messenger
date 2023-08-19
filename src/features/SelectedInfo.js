@@ -14,8 +14,15 @@ const initialState = {
   selectedProfileView: null,
   Chatmessages: [],
   lastMessage: 0,
-  profileinfo: null
+  profileinfo: null,
+  leftprof: null,
+  profPics: [],
+  isContact: false
 };
+const SetLeftProf = createAsyncThunk('selectedProf/setleftprof', async (infos) => {
+  const data = await Requests().getleftProf(infos.profid);
+  return data.data;
+});
 const GetMessages = createAsyncThunk('selectedProf/getmessages', async (requestinfo) => {
   try {
     const data = await Requests().GetChat(requestinfo.ID, requestinfo.message_id);
@@ -64,17 +71,27 @@ const SelectedProf = createSlice({
     }
   },
   extraReducers: (builder) =>
-    builder.addCase(GetMessages.fulfilled, (state, action) => {
-      console.log(action.payload)
-      state.Chatmessages = [];
-      if (action.payload?.profileinfo.profileID) {
-        state.chatType = action.payload?.type;
-        state.selectedChatID = action.payload?.ID;
-        state.profileinfo = action.payload?.profileinfo;
-      }
-    })
+    builder
+      .addCase(GetMessages.fulfilled, (state, action) => {
+        console.log(action.payload);
+        state.Chatmessages = action.payload?.data?.messages;
+        if (action.payload.profileinfo?.profileID) {
+          state.chatType = action.payload?.type;
+          state.selectedChatID = action.payload?.ID;
+          state.profileinfo = action.payload?.profileinfo;
+        }
+      })
+      .addCase(SetLeftProf.fulfilled, (state, action) => {
+        /**
+         * {profile: {…}, isContact: true, profilePictures: Array(0), contact: true}
+         * */
+        console.log(action.payload);
+        state.isContact = action.payload.isContact;
+        state.leftprof = action.payload.profile;
+        state.profPics = action.payload.profilePictures;
+      })
 });
-export { GetMessages };
+export { GetMessages, SetLeftProf };
 export const { resetChatId, editmsg } = SelectedProf.actions;
 // export const { setChat, setChatType } = SelectedProf.actions;
 export default SelectedProf.reducer;

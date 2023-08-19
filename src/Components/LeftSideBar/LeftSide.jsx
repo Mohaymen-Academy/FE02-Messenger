@@ -12,9 +12,9 @@ export default function LeftSide({
   chatid
 }) {
   const dispatch = useDispatch();
-  const chatProf = useSelector((state) => state.messageList.messages);
-  const selectedProfile = chatProf.filter((item) => item.profile.profileID == chatid)[0];
-
+  const pics = useSelector((state) => state.selectedProf.profPics);
+  const selectedProfile = useSelector((state) => state.selectedProf.leftprof);
+  const iscontact = useSelector((state) => state.selectedProf.isContact);
   const [filepart, setfilepart] = React.useState({
     0: 1,
     1: 0,
@@ -54,15 +54,26 @@ export default function LeftSide({
         </div>
       </div>
       <div className="relative w-full h-[350px] mb-0 md:h-[350px]">
-      <div className={`flex flex-col justify-end place-items-end w-full h-[350px]  bg-cover  bg-center bg-no-repeat`}
-        style={{ backgroundImage: `${selectedProfile?.profile.lastProfilePicture && `url('data:image/jpeg;base64,${selectedProfile?.profile.lastProfilePicture.preLoadingContent}')`}` , backgroundColor : `${selectedProfile?.profile.defaultProfileColor}` , backgroundRepeat:"no-repeat" , backgroundSize:"cover"  }}
-      >
-        <div className="p-7 pb-0 text-white font-bold text-[25px] opacity-150"> {selectedProfile?.profile.profileName}{' '}</div>
-        <div className="p-7 pt-0 text-white text-[15px]">Last Seen recently</div>
-        {/* //should change with the member or subs number */}
+        <div
+          className={`flex flex-col justify-end place-items-end w-full h-[350px]  bg-cover  bg-center bg-no-repeat`}
+          style={{
+            backgroundImage: `${
+              selectedProfile?.lastProfilePicture &&
+              `url('data:image/jpeg;base64,${selectedProfile?.lastProfilePicture.preLoadingContent}')`
+            }`,
+            backgroundColor: `${selectedProfile?.defaultProfileColor}`,
+            backgroundRepeat: 'no-repeat',
+            backgroundSize: 'cover'
+          }}>
+          <div className="p-7 pb-0 text-white font-bold text-[25px] opacity-150">
+            {' '}
+            {selectedProfile?.profileName}{' '}
+          </div>
+          <div className="p-7 pt-0 text-white text-[15px]">Last Seen recently</div>
+          {/* //should change with the member or subs number */}
+        </div>
+        <div className="absolute bottom-0 w-full h-1/3 bg-gradient-to-b from-transparent to-black"></div>
       </div>
-      <div className="absolute bottom-0 w-full h-1/3 bg-gradient-to-b from-transparent to-black"></div>
-    </div>
 
       <div>
         {isgroup ? (
@@ -96,7 +107,9 @@ export default function LeftSide({
         <div className="w-full h-[50px] bg-color2 flex flex-row  place-items-center border-b-1">
           {isgroup ? (
             <div
-              className={`category-part ${filepart[0] == 1 ? 'bg-color1 rounded-t-lg ' : 'bg-color2'}`}
+              className={`category-part ${
+                filepart[0] == 1 ? 'bg-color1 rounded-t-lg ' : 'bg-color2'
+              }`}
               onClick={() => changesetpat(0)}>
               اعضا
             </div>
