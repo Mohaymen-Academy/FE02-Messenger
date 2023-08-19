@@ -1,5 +1,12 @@
 import React from 'react';
-import { UilTimes, UilPen, UilLink, UilBell, UilBellSlash } from '@iconscout/react-unicons';
+import {
+  UilTimes,
+  UilPen,
+  UilLink,
+  UilBell,
+  UilBellSlash,
+  UilUserPlus
+} from '@iconscout/react-unicons';
 import { Files, Links, Medias, Musics, Voices } from './ProfileParts';
 import { useDispatch, useSelector } from 'react-redux';
 export default function LeftSide({
@@ -23,7 +30,6 @@ export default function LeftSide({
     4: 0
   });
   const changesetpat = (num) => {
-    //all 0 just num 1
     let newfilepart = {
       0: 0,
       1: 0,
@@ -34,6 +40,9 @@ export default function LeftSide({
     newfilepart[num] = 1;
     setfilepart(newfilepart);
   };
+  function handleAdd() {
+    
+  }
   return (
     <div
       className={`flex flex-col h-screen transition-all duration-200 ease-in bg-color2 shadow-md border-r`}>
@@ -48,9 +57,15 @@ export default function LeftSide({
           <div className="p-1 cardP">اطلاعات پروفایل</div>
         </div>
         <div>
-          <button onClick={() => setlayout(1)}>
-            <UilPen className=" text-text1 cursor-pointer" />
-          </button>
+          {iscontact ? (
+            <button onClick={() => setlayout(1)}>
+              <UilPen className=" text-text1 cursor-pointer" />
+            </button>
+          ) : (
+            <button onClick={() => handleAdd}>
+              <UilUserPlus className=" text-text1 cursor-pointer" />
+            </button>
+          )}
         </div>
       </div>
       <div className="relative w-full h-[350px] mb-0 md:h-[350px]">
