@@ -10,6 +10,7 @@ import Pin from './Pin.jsx';
 const ChatHeader = ({ active, setActive, chatsetter, chattype, chatid }) => {
   const dispatch = useDispatch();
   const selectedProfile = useSelector((state) => state.selectedProf.profileinfo);
+  console.log(selectedProfile)
   const ChatInfo =
     chattype == TYPE_USER
       ? selectedProfile?.status // ShouldChange

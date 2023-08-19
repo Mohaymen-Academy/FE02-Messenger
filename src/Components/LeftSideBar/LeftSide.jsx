@@ -9,6 +9,7 @@ import {
 } from '@iconscout/react-unicons';
 import { Files, Links, Medias, Musics, Voices } from './ProfileParts';
 import { useDispatch, useSelector } from 'react-redux';
+import Requests from '../../API/Requests';
 export default function LeftSide({
   isActive,
   profile,
@@ -41,7 +42,8 @@ export default function LeftSide({
     setfilepart(newfilepart);
   };
   function handleAdd() {
-    
+    console.log(selectedProfile.profileID);
+    Requests().AddContact(selectedProfile.profileID);
   }
   return (
     <div
@@ -62,7 +64,7 @@ export default function LeftSide({
               <UilPen className=" text-text1 cursor-pointer" />
             </button>
           ) : (
-            <button onClick={() => handleAdd}>
+            <button onClick={handleAdd}>
               <UilUserPlus className=" text-text1 cursor-pointer" />
             </button>
           )}
