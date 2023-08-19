@@ -7,20 +7,20 @@ export default function ChatHeaderSettings({ active, icon, title, setsection, me
   const [isopen, setisopen] = useState(false);
   return (
     <>
+      <button
+        style={{ direction: 'rtl' }}
+        className={'text-text1 hover:bg-slate-400 rounded-full relative'}
+        onClick={(e) => {
+          e.stopPropagation();
+          setisopen((prev) => !prev);
+        }}>
+        <UilEllipsisV className="w-[25px] p-0 m-0" />
+      </button>
       {active ? (
         <></>
       ) : (
         <div className="z-10">
-          <div className="text-text1 flex flex-row-reverse  ">
-            <button
-              style={{ direction: 'rtl' }}
-              className={'hover:bg-slate-400 rounded-full relative'}
-              onClick={(e) => {
-                e.stopPropagation();
-                setisopen((prev) => !prev);
-              }}>
-              <UilEllipsisV className="w-[25px] p-0 m-0" />
-            </button>
+          <div className="text-text1 flex flex-row-reverse ">
             {isopen ? (
               <div className="fixed top-[60px]  shadow-2xl w-[150px] bg-color1 text-color4 rounded-lg">
                 <button

@@ -6,6 +6,7 @@ import { persistStore } from 'redux-persist';
 import { Provider } from 'react-redux';
 import { store } from './Store/store';
 import AppRouter from './Router/Router.jsx';
+// import * as serviceWorker from './Workers/service/service-worker';
 
 const persistedStore = persistStore(store);
 
@@ -18,3 +19,5 @@ ReactDOM.createRoot(document.getElementById('root')).render(
     </Provider>
   </React.StrictMode>
 );
+
+// serviceWorker.register();

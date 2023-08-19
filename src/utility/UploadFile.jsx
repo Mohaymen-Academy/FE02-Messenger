@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function Imageupload({ imagebase64 }) {
+export default function UploadFile({ imagebase64 }) {
   return (
     <div>
       <img

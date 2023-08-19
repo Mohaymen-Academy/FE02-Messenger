@@ -12,7 +12,7 @@ import { composerActions } from '../../features/composerSlice';
 import { editmsg } from '../../features/SelectedInfo';
 import PopUp from '../../utility/PopUp';
 import Poll from './Poll';
-import Imageupload from '../../utility/Imageupload';
+import UploadFile from '../../utility/UploadFile';
 
 export default function ChatFooter({ id }) {
   const {
@@ -117,7 +117,7 @@ export default function ChatFooter({ id }) {
             className=" flex h-auto max-h-[50px] w-[90%] flex-row overflow-hidden 
             whitespace-pre-wrap
             break-all border-none shadow-none outline-none focus:shadow-none active:shadow-none">
-            {Isactive.composerValue ? Isactive.composerValue : ''}
+            {Isactive.composerValue ? Isactive.composerValue :''}
           </div>
           <div>
             <button
@@ -135,7 +135,7 @@ export default function ChatFooter({ id }) {
 
             {fileuploaded && (
               <PopUp title="انتخاب عکس" setIsModalOpen={setfileuploaded}>
-                <Imageupload imagebase64={fileuploaded} />
+                <UploadFile imagebase64={fileuploaded} />
               </PopUp>
             )}
             {openPoll && (

@@ -111,12 +111,16 @@ export default function TextProcessorObj(containers) {
   function handleEmojiPicker(e) {
     const emoji = e;
     const careposition = ProcessorValues.current.caretPosition;
-    ProcessorValues.current.sorted = insertCharAtIndex(
-      ProcessorValues.current.sorted,
+    ProcessorValues.current.rawtext = insertCharAtIndex(
+      ProcessorValues.current.rawtext,
       emoji,
       careposition
     );
-    updateEnteties();
+    // updateEnteties();
+    const text = ProcessorValues.current.rawtext;
+    const ents = ProcessorValues.current.sorted;
+    const list = generateEntity(divref, text, ents);
+    setentitycontainers(list);
     setopenemoji(false);
   }
 
@@ -127,7 +131,6 @@ export default function TextProcessorObj(containers) {
     if (index == originalString.length) {
       return originalString + charToAdd;
     }
-    // console.log(index);
     const leftPart = originalString.substring(0, index);
     const rightPart = originalString.substring(index);
     return leftPart + charToAdd + rightPart;
@@ -254,6 +257,28 @@ export default function TextProcessorObj(containers) {
   }
   function generateEntity(ref, text, ents) {
     let list_of_renderableentities = [];
+
+    if (ents.length == 0) {
+      ProcessorValues.current.counter += 1;
+      list_of_renderableentities.push({
+        id: ProcessorValues.current.counter,
+        lower: 0,
+        upper: text.length - 1,
+        content: text
+      });
+      ref.current.innerText = '';
+      list_of_renderableentities.forEach((element) => {
+        if (element.style) {
+          const ptag = document.createElement('p');
+          element.style.forEach((stl) => ptag.classList.add(stl));
+          ptag.textContent = element.content;
+          ref.current.appendChild(ptag);
+        } else {
+          ref.current.appendChild(document.createTextNode(element.content));
+        }
+      });
+      return list_of_renderableentities;
+    }
     console.log(ents);
     let prevEnd;
     for (let i = 0; i < ents.length; i++) {
@@ -298,7 +323,7 @@ export default function TextProcessorObj(containers) {
       }
     });
 
-    console.log(list_of_renderableentities);
+    // console.log(list_of_renderableentities);
     return list_of_renderableentities;
   }
 

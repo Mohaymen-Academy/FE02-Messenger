@@ -5,7 +5,8 @@ import {
   UilPaperclip,
   UilCommentAltChartLines,
   UilFile,
-  UilImagePlus
+  UilImagePlus,
+  UilMicrophone ,
 } from '@iconscout/react-unicons';
 
 export default function FileUploader({ openpull, openfile }) {
@@ -50,9 +51,9 @@ export default function FileUploader({ openpull, openfile }) {
           onClick={(e) => setsection(menuId)}>
           <div className="my-1 flex items-center gap-2">
             {/* <UilVolumeMute /> */}
-            <UilImagePlus />
+            <UilMicrophone />
           </div>
-          <p className=" text-xs">انتخاب عکس یا ویدیو</p>
+          <p className=" text-xs">ضبط صدا</p>
         </button>
         <button
           className=" my-1 flex w-full flex-row items-center gap-2 rounded-lg px-4 hover:bg-gray-200"
