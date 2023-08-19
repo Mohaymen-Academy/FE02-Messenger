@@ -143,7 +143,7 @@ export default function Requests(body) {
   }
   async function GetContacts() {
     try {
-      const res = await API().GET('contacts', {}, AutorizeHeader);
+      const res = await API().GET('contacts/', {}, AutorizeHeader);
       return res;
     } catch (err) {
       console.log(err);

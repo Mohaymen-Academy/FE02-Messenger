@@ -46,8 +46,8 @@ const ChatHeader = ({ active, setActive, chatsetter, chattype, chatid }) => {
               <Avatar
                 imagecolor={selectedProfile?.defaultProfileColor}
                 char={selectedProfile?.profileName[0]}
-                // isOnline={selectedProfile?.status.toLowerCase()}
-                isOnline={'online'}
+                isOnline={selectedProfile?.status.toLowerCase()}
+                // isOnline={'online'}
               />
             )}
           </div>
