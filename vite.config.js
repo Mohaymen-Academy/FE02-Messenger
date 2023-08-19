@@ -45,7 +45,9 @@ const manifestForPlugIn = {
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [react(), VitePWA(manifestForPlugIn)],
+  plugins: [react(), 
+    // VitePWA(manifestForPlugIn)
+  ],
   build: {
     outDir: './build'
   },

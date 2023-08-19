@@ -1,7 +1,4 @@
-import {
-  createAsyncThunk,
-  createSlice
-} from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import Requests from '../API/Requests';
 
 function CustomsortInc(a, b) {
@@ -21,7 +18,7 @@ const initialState = {
 const GetMessages = createAsyncThunk('selectedProf/getmessages', async (requestinfo, params) => {
   try {
     // console.log(requestinfo);
-    const data = await Requests().GetChat(requestinfo.ID);
+    const data = await Requests().GetChat(requestinfo.ID,params);
     // console.log(data);
     // return data;
     return {
@@ -69,17 +66,13 @@ const SelectedProf = createSlice({
   },
   extraReducers: (builder) =>
     builder.addCase(GetMessages.fulfilled, (state, action) => {
+      console.log(action.payload.data?.messages);
       state.Chatmessages = action.payload.data?.messages;
       state.chatType = action.payload.type;
       state.selectedChatID = action.payload.ID;
     })
 });
-export {
-  GetMessages
-};
-export const {
-  resetChatId,
-  editmsg
-} = SelectedProf.actions;
+export { GetMessages };
+export const { resetChatId, editmsg } = SelectedProf.actions;
 // export const { setChat, setChatType } = SelectedProf.actions;
 export default SelectedProf.reducer;
