@@ -1,4 +1,7 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import {
+  createAsyncThunk,
+  createSlice
+} from '@reduxjs/toolkit';
 import Requests from '../API/Requests';
 
 function CustomsortInc(a, b) {
@@ -18,10 +21,14 @@ const initialState = {
 const GetMessages = createAsyncThunk('selectedProf/getmessages', async (requestinfo, params) => {
   try {
     // console.log(requestinfo);
-    // const data = await Requests().GetChat(requestinfo.ID);
+    const data = await Requests().GetChat(requestinfo.ID);
     // console.log(data);
     // return data;
-    // return { data: data.data, ID: requestinfo.ID, type: requestinfo.type };
+    return {
+      data: data.data,
+      ID: requestinfo.ID,
+      type: requestinfo.type
+    };
   } catch (err) {
     console.log(err);
   }
@@ -51,7 +58,10 @@ const SelectedProf = createSlice({
       console.log(action.payload.msgId);
       state.Chatmessages = state.Chatmessages.map((ele) => {
         if (ele.messageID == action.payload.msgId) {
-          return { ...ele, text: action.payload.newtext };
+          return {
+            ...ele,
+            text: action.payload.newtext
+          };
         }
         return ele;
       });
@@ -64,7 +74,12 @@ const SelectedProf = createSlice({
       state.selectedChatID = action.payload.ID;
     })
 });
-export { GetMessages };
-export const { resetChatId, editmsg } = SelectedProf.actions;
+export {
+  GetMessages
+};
+export const {
+  resetChatId,
+  editmsg
+} = SelectedProf.actions;
 // export const { setChat, setChatType } = SelectedProf.actions;
 export default SelectedProf.reducer;
