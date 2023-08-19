@@ -9,11 +9,11 @@ import Pin from './Pin.jsx';
 
 const ChatHeader = ({ active, setActive, chatsetter, chattype, chatid }) => {
   const dispatch = useDispatch();
-  const chatProf = useSelector((state) => state.messageList.messages);
-  const selectedProfile = chatProf.filter((item) => item.profile.profileID == chatid)[0];
+  const selectedProfile = useSelector((state) => state.selectedProf.profileinfo);
+  console.log(selectedProfile)
   const ChatInfo =
     chattype == TYPE_USER
-      ? '12:22' // ShouldChange
+      ? selectedProfile?.lastSeen // ShouldChange
       : chattype == TYPE_GROUP
       ? 4
       : 1200;
@@ -35,22 +35,22 @@ const ChatHeader = ({ active, setActive, chatsetter, chattype, chatid }) => {
             <UilArrowRight className="h-8 w-8 cursor-pointer text-text1" />
           </button>
           <div className="h-[75%] w-[75%] flex-1 ">
-            {selectedProfile?.profile.lastProfilePicture ? (
+            {selectedProfile?.lastProfilePicture ? (
               <img
                 src={`data:image/jpeg;base64,${selectedProfile?.profile.lastProfilePicture.preLoadingContent}`}
                 className="h-[50px] w-[50px] rounded-full mr-5"
               />
             ) : (
               <Avatar
-                imagecolor={selectedProfile?.profile.defaultProfileColor}
-                char={selectedProfile?.profile.profileName[0]}
+                imagecolor={selectedProfile?.defaultProfileColor}
+                char={selectedProfile?.profileName[0]}
                 // isOnline={true}
               />
             )}
           </div>
           <div className="">
             <h3 className="text-lg font-semibold text-text1">
-              {selectedProfile?.profile.profileName}{' '}
+              {selectedProfile?.profileName}{' '}
             </h3>
             <div className="text-sm text-slate-400">{ChatInfo}</div>
           </div>

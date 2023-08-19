@@ -14,18 +14,16 @@ const initialState = {
   selectedProfileView: null,
   Chatmessages: [],
   lastMessage: 0,
-  profileinfo: null,
+  profileinfo: null
 };
 const GetMessages = createAsyncThunk('selectedProf/getmessages', async (requestinfo) => {
   try {
-    // console.log(requestinfo);
     const data = await Requests().GetChat(requestinfo.ID, requestinfo.message_id);
-    // console.log(data);
-    // return data;
     return {
-      data: data.data,
+      data: data?.data,
       ID: requestinfo.ID,
-      type: requestinfo.type
+      type: requestinfo.type,
+      profileinfo: requestinfo?.profileinfo
     };
   } catch (err) {
     console.log(err);
@@ -67,10 +65,13 @@ const SelectedProf = createSlice({
   },
   extraReducers: (builder) =>
     builder.addCase(GetMessages.fulfilled, (state, action) => {
-      console.log(action.payload.data?.messages);
-      state.Chatmessages = action.payload.data?.messages;
-      state.chatType = action.payload.type;
-      state.selectedChatID = action.payload.ID;
+      console.log(action.payload)
+      state.Chatmessages = [];
+      if (action.payload?.profileinfo.profileID) {
+        state.chatType = action.payload?.type;
+        state.selectedChatID = action.payload?.ID;
+        state.profileinfo = action.payload?.profileinfo;
+      }
     })
 });
 export { GetMessages };

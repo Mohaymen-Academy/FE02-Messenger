@@ -25,7 +25,6 @@ export default function Search({menu}) {
     async function handleSearch(value) {
           await Requests().SearchAll(value).then((res) => {
             setResult(res.data);
-            console.log(res)
             setChannels(res.data[0].items);
             setMembers(res.data[1].items);
             setMassages(res.data[2].items);
