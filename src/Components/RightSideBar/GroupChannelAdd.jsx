@@ -52,7 +52,7 @@ export default function GroupChannelAdd({ type }) {
       {openModel && (
         <PopUp title={type == 'group' ? 'ایجاد گروه' : 'ایجاد کانال'} setIsModalOpen={setOpenModel}>
           {type == 'group' ? (
-            <GroupSettings selected={selected} />
+            <GroupSettings selected={selected} setOpenModel={setOpenModel} />
           ) : (
             <ChannelSettings selected={selected} />
           )}

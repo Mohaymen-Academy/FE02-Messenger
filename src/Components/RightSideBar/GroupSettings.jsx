@@ -4,12 +4,13 @@ import { UilArrowRight, UilCameraPlus, UilTrashAlt } from '@iconscout/react-unic
 import { TYPE_GROUP, TYPE_USER } from '../../utility/Constants';
 import Requests from '../../API/Requests';
 
-export default function GroupSettings({ selected }) {
+export default function GroupSettings({ selected, setOpenModel }) {
   const [groupname, setgroupname] = React.useState('');
   function CreateGroup() {
     const memebers = selected.map((cont) => cont.chatid);
     const name = groupname;
     Requests().CreateChat(name, memebers, TYPE_GROUP);
+    setOpenModel(false);
   }
   const handleGroupname = (e) => {
     setgroupname(e);
