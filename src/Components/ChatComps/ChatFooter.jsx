@@ -14,7 +14,7 @@ import PopUp from '../../utility/PopUp';
 import Poll from './Poll';
 import UploadFile from '../../utility/UploadFile';
 
-export default function ChatFooter({ id ,chattype}) {
+export default function ChatFooter({ id, chattype }) {
   const {
     handleEmojiPicker,
     handleSelect,
@@ -61,6 +61,7 @@ export default function ChatFooter({ id ,chattype}) {
   const dispatch = useDispatch();
   const [mousepositoin, setmousepositoin] = useState({ x: 0, y: 0 });
   const needActoin = Isactive.isEditting || Isactive.isReplying || Isactive.isForwarding;
+
   async function SelectRequestType() {
     if (Isactive.isEditting) {
       console.log(Isactive.editID);
@@ -75,9 +76,9 @@ export default function ChatFooter({ id ,chattype}) {
         Requests().sendText(id, ProcessorValues.current.rawtext, ProcessorValues.current.sorted);
       }
     }
-    ProcessorValues.current.rawtext = '';
-    divref.current.innerText = '';
-    setentitycontainers([]);
+    // ProcessorValues.current.rawtext = '';
+    // divref.current.innerText = '';
+    // setentitycontainers([]);
     dispatch(composerActions.clear());
   }
   return (
@@ -107,7 +108,7 @@ export default function ChatFooter({ id ,chattype}) {
             <UilMessage />
           </button>
           {/* </UilPaperclip> */}
-          <FileUploader openpull={setopenPoll} openfile={setfileuploaded} chattype={chattype}  />
+          <FileUploader openpull={setopenPoll} openfile={setfileuploaded} chattype={chattype} />
           {/* <input type="text" dir='auto' /> */}
           <div
             ref={divref}
@@ -121,7 +122,7 @@ export default function ChatFooter({ id ,chattype}) {
             className=" flex h-auto max-h-[50px] w-[90%] flex-row overflow-hidden 
             whitespace-pre-wrap
             break-all border-none shadow-none outline-none focus:shadow-none active:shadow-none">
-            {Isactive.composerValue ? Isactive.composerValue : ''}
+            {Isactive.editvalue ? Isactive.editvalue : ''}
           </div>
           <div>
             <button

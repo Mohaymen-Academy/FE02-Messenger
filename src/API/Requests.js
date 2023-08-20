@@ -59,12 +59,11 @@ export default function Requests(body) {
 
   async function GetChat(receiverID, params) {
     console.log(params);
-    // console.log(receiverID);
     try {
       const res = await API().GET(receiverID, params, AutorizeHeader);
       return res;
     } catch (err) {
-      console.log(err);
+      console.error(err);
     }
   }
   async function UpdateChat(receiveID) {
@@ -209,11 +208,12 @@ export default function Requests(body) {
   }
   async function pinChat(chatid) {
     await API()
-      .GET(chatid, {}, AutorizeHeader)
+      .PUT(`pin-chat/${chatid}`, {}, AutorizeHeader)
       .then((res) => res.json())
       .then((data) => console.log(data))
       .catch((err) => console.log(err));
   }
+  async function deleteChat(chatid) {}
 
   return {
     pinChat,
