@@ -75,8 +75,9 @@ const chatCardPreviewSlice = createSlice({
     },
     ReplaceImage : (state, action) => {
       const underlyingObject = state.messages.find((message) => message.messageID === action.payload.messageID)[[target]];
+      const newmassage = {... state.messages}
       console.log(underlyingObject)
-      state.messages.find((message) => message.messageID === action.payload.messageID).media.preLoadingContent = action.payload.image ;
+      newmassage.find((message) => message.messageID === action.payload.messageID).media.preLoadingContent = action.payload.image ;
     }
   },
   extraReducers: (builder) =>
