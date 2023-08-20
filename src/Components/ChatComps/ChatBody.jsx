@@ -16,6 +16,13 @@ export default function ChatBody({ chatid, chattype }) {
   const dispatch = useDispatch();
   const downfinished = useSelector((state) => state.selectedProf.downfinished);
   const upfinished = useSelector((state) => state.selectedProf.upfinished);
+  const [previewImages, setPreviewImages] = useState([]); // State to store media content
+
+  function handleMediaMessage(images, imageId) {
+    setPreviewImages(images); // Store media content in state
+    console.log(images, imageId);
+    setPreview(!preview);
+  }
   let prevScrollPos;
   const observer = new IntersectionObserver(
     (entries) => {
@@ -156,7 +163,7 @@ export default function ChatBody({ chatid, chattype }) {
                         isEdited={message.isEdited}
                         text={message.text}
                         entities={message.textStyle}
-                        handleMediaMessage={() => setPreview(!preview)}
+                        handleMediaMessage={() => handleMediaMessage(message.media, message.messageID)} // Pass media content to the handler
                         profile={message.sender}
                       />
                     )}
@@ -193,12 +200,14 @@ export default function ChatBody({ chatid, chattype }) {
           </div>
       )} */}
       {preview
-        ? createPortal(
-            <ImagePreviewer handleClose={() => setPreview(false)} />,
-            document.getElementById('app-holder')
-            // ||
-            // document.getElementById('root')
-          )
+  ? createPortal(
+    <ImagePreviewer
+      handleClose={() => setPreview(false)}
+      images={[previewImages]} // Pass media content to the component
+      imageId={0}
+    />,
+    document.getElementById('app-holder')
+  )
         : null}
     </div>
   );
