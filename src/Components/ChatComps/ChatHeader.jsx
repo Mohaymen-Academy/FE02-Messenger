@@ -62,9 +62,7 @@ const ChatHeader = ({ active, setActive, chatsetter, chattype, chatid }) => {
           {<ChatHeaderSettings active={active} />}
         </div>
       </div>
-      {/*
-      <Pin />
-             */}
+      <Pin chatid={chatid} />            
     </>
   );
 };

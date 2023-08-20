@@ -4,13 +4,13 @@ const MessageHeader = ({ isReciver, forewardedFrom, repliedTo }) => (
   <div>
     {forewardedFrom ? (
       <div className={`flex  ${isReciver ? 'justify-start' : 'justify-end'} text-opacity-80`}>
-        <span className="font-semibold italic opacity-100">{forewardedFrom}</span> message forwarded
-        from
+        <span className="font-semibold italic opacity-100">{forewardedFrom}</span> پیام هدایت شده از
+        طرف
         <UilCornerUpRightAlt />
       </div>
     ) : null}
     {repliedTo ? (
-      <div className="line-clamp-1 border-x border-white bg-color3  px-1  opacity-60">
+      <div dir="auto" className="line-clamp-1 text-xs p-1 border-r-2 border-white bg-color3 bg-opacity-25 ">
         {repliedTo}
       </div>
     ) : null}

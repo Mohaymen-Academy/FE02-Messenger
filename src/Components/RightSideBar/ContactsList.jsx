@@ -1,9 +1,13 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import ContactCardPreview from './ContactCardPreview';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { GetContacts } from '../../features/chatCardPreviewSlice';
 export default function ContactsList() {
   const contacts = useSelector((state) => state.messageList.contacts);
-
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(GetContacts());
+  },[]);
   return (
     <div className="mt-4 w-full h-full overflow-y-auto bg-color1">
       {contacts.map((cont) => (

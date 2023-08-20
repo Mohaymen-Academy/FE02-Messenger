@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import ChatFooter from './ChatFooter.jsx';
 import Message from '../message/Message.jsx';
 import ImagePreviewer from '../media-previewer/ImagePreviewer.jsx';
-import { DOWN, TYPE_CHANNEL, TYPE_GROUP, UP } from '../../utility/Constants.js';
+import { DOWN, TYPE_CHANNEL, TYPE_GROUP, UP, getRelativeDate } from '../../utility/Constants.js';
 import MessageDateGroup from '../message/MessageDateGroup.jsx';
 import MessageVoice from '../message/MessageVoice.jsx';
 // import { NeededId } from '../../utility/FindneededID.js';
@@ -16,7 +16,31 @@ export default function ChatBody({ chatid, chattype }) {
   const dispatch = useDispatch();
   const downfinished = useSelector((state) => state.selectedProf.downfinished);
   const upfinished = useSelector((state) => state.selectedProf.upfinished);
+  const [previewImages, setPreviewImages] = useState([]); // State to store media content
+  const [massageIdpreview, setMassageIdpreview] = useState(0); // State to store media content
+  function handleMediaMessage(images, imageId) {
+    setPreviewImages(images); // Store media content in state
+    setMassageIdpreview(imageId); // Store media content in state
+    console.log(images, imageId);
+    setPreview(!preview);
+  }
   let prevScrollPos;
+  const seenObserver = new IntersectionObserver(
+    (entries) => {
+      const visibleItems = entries
+        .filter((entry) => entry.isIntersecting)
+        .map((entry) => parseInt(entry.target.dataset.id));
+      if (visibleItems.length != 0) {
+        const maxval = Math.max(...visibleItems);
+        if (maxval > MSGes.current.upper) {
+          MSGes.current.upper = maxval;
+          console.log(MSGes.current.upper);
+          // Requests().UpdateSeen(MSGes.current.upper);
+        }
+      }
+    },
+    { rootMargin: '20px', threshold: 1.0 }
+  );
   const observer = new IntersectionObserver(
     (entries) => {
       const visibleItems = entries
@@ -24,18 +48,19 @@ export default function ChatBody({ chatid, chattype }) {
         .map((entry) => parseInt(entry.target.dataset.id));
       if (visibleItems.length != 0) {
         console.log(visibleItems);
-        handleGetMessages(visibleItems[0], dir);
+        handleGetMessages(Math.max(visibleItems), dir, chatid);
       }
     },
     { rootMargin: '20px', threshold: 1.0 }
   );
-  function handleGetMessages(msgid, dir) {
-    console.log(dir.current, dir.current == UP);
+  function handleGetMessages(msgid, dir, chatid) {
+    // console.log(dir.current, dir.current == UP);
     if (dir.current == UP && !upfinished) {
-      console.log('zarp');
-      dispatch(GetMessagesUp({ id: msgid }));
+      // console.log()
+      // console.log('zarp');
+      dispatch(GetMessagesUp({ msgid: msgid, chatid: chatid }));
     } else if (dir.current == DOWN && !downfinished) {
-      dispatch(GetMessagesDown({ id: msgid }));
+      dispatch(GetMessagesDown({ msgid: msgid, chatid: chatid }));
     }
   }
   const MSGes = useRef({
@@ -52,12 +77,33 @@ export default function ChatBody({ chatid, chattype }) {
       bodyref.current.scrollTop = bodyref.current.scrollHeight;
       prevScrollPos = bodyref.current.scrollTop;
     }
+    const currentScrollPos = bodyref.current.scrollTop;
+    // console.log(prevScrollPos, currentScrollPos);
+    if (prevScrollPos == currentScrollPos) {
+      const maxid = messages.map((ele) => parseInt(ele.messageID));
+      console.log(maxid);
+      // Requests().UpdateSeen(Math.max(...maxid));
+    }
   }, []);
+
+  useEffect(() => {
+    if (bodyref) {
+      bodyref.current.scrollTop = bodyref.current.scrollHeight;
+      prevScrollPos = bodyref.current.scrollTop;
+    }
+    const currentScrollPos = bodyref.current.scrollTop;
+    // console.log(prevScrollPos, currentScrollPos);
+    if (prevScrollPos == currentScrollPos) {
+      const maxid = messages.map((ele) => parseInt(ele.messageID));
+      // Requests().UpdateSeen(Math.max(...maxid));
+    }
+  });
 
   let scrolltimeout;
   const scrollValues = useRef({
     lastScrollPosition: 0
   });
+  console.log(messages);
 
   function handleonScroll(e) {
     clearTimeout(scrolltimeout);
@@ -70,7 +116,7 @@ export default function ChatBody({ chatid, chattype }) {
       dir.current = UP;
     }
     prevScrollPos = currentScrollPos;
-
+    console.log(prevScrollPos, currentScrollPos);
     // Update previous scroll position
     prevScrollPos = currentScrollPos;
 
@@ -112,7 +158,7 @@ export default function ChatBody({ chatid, chattype }) {
     }
     requestAnimationFrame(scrollAnimation);
   }
-  console.log(messages);
+  // console.log(messages);
   return (
     <div
       // dir="rtl"
@@ -130,40 +176,48 @@ export default function ChatBody({ chatid, chattype }) {
             <UilArrowDown className="text-text1" />
           </button>
           {messages?.length ? (
-            <MessageDateGroup date={'2023-07-20'}>
-              {messages?.map((message, index) => {
-                // console.log(message.isEdited);
-                return (
-                  <>
-                    {message.sender.profileID == 1 ? (
+            messages?.map((message, index) => {
+              return (
+                <>
+                  {message.sender.profileID == 1 ? (
+                    message.messageID != 0 ? (
                       <div className="my-[1rem] w-full text-center">
                         <span className=" bg-black bg-opacity-60 text-text1 p-1 px-3 rounded-full ">
                           {message.text}
                         </span>
                       </div>
                     ) : (
-                      <Message
-                        shouldobserve={index == 0 || messages.length - 1 == index}
-                        key={message.messageID}
-                        observer={observer}
-                        isSeen={message.viewCount > 1}
-                        id={message.messageID}
-                        chattype={chattype}
-                        creator={message.sender}
-                        time={message.time}
-                        media={message.media}
-                        ispinned={message.ispinned}
-                        isEdited={message.isEdited}
-                        text={message.text}
-                        entities={message.textStyle}
-                        handleMediaMessage={() => setPreview(!preview)}
-                        profile={message.sender}
-                      />
-                    )}
-                  </>
-                );
-              })}
-            </MessageDateGroup>
+                      <div className="my-[1rem] w-full text-center">
+                        <span className="pointer-events-none sticky rounded-full bg-black bg-opacity-60 px-2 py-1 font-iRANSans text-white">
+                          {getRelativeDate(message.text)}
+                        </span>
+                        {/* {children} */}
+                      </div>
+                    )
+                  ) : (
+                    <Message
+                      shouldobserve={index == 0 || messages.length - 1 == index}
+                      key={message.messageID}
+                      observer={observer}
+                      seenObserver={seenObserver}
+                      isSeen={message.viewCount > 1}
+                      id={message.messageID}
+                      chattype={chattype}
+                      creator={message.sender}
+                      time={message.time}
+                      media={message.media}
+                      ispinned={message.ispinned}
+                      isEdited={message.isEdited}
+                      text={message.text}
+                      entities={message.textStyle}
+                      handleMediaMessage={() => setPreview(!preview)}
+                      profile={message.sender}
+                      replyinfo={message.replyMessageInfo}
+                    />
+                  )}
+                </>
+              );
+            })
           ) : (
             <>
               <div className="flex h-[100%] flex-col items-center">
@@ -193,12 +247,16 @@ export default function ChatBody({ chatid, chattype }) {
           </div>
       )} */}
       {preview
-        ? createPortal(
-            <ImagePreviewer handleClose={() => setPreview(false)} />,
-            document.getElementById('app-holder')
-            // ||
-            // document.getElementById('root')
-          )
+  ? createPortal(
+    <ImagePreviewer
+      handleClose={() => setPreview(false)}
+      images={[previewImages]} // Pass media content to the component
+      imageId={previewImages.mediaId}
+      chatId={chatid}
+      massageId={massageIdpreview}
+    />,
+    document.getElementById('app-holder')
+  )
         : null}
     </div>
   );

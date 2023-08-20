@@ -4,8 +4,9 @@ import { TYPE_USER } from '../../utility/Constants.js';
 import ChatCardPreview from './ChatCardPreview.jsx';
 import HandleScroll from '../../utility/HandleScroll.js';
 import store from '../../Store/store.js';
-import { GetMessages } from '../../features/SelectedInfo.js';
+import { GetMessages, deletemessage } from '../../features/SelectedInfo.js';
 import { setActiveMessage } from '../../features/chatCardPreviewSlice.js';
+import Requests from '../../API/Requests.js';
 
 const Chatlist = () => {
   const listRef = useRef(null);
@@ -14,14 +15,35 @@ const Chatlist = () => {
   const lists = useSelector((store) => store.messageList.messages);
   const selectedChat = useSelector((store) => store.selectedProf.selectedChatID);
   const chattype = useSelector((store) => store.selectedProf.chatType);
+  const downfinished = useSelector((state) => state.selectedProf.downfinished);
+  const upfinished = useSelector((state) => state.selectedProf.upfinished);
+  // console.log(lists);
   useEffect(() => {
-    // console.log(lists);
-    const shouldUpdate = lists.filter(
-      (ele) => ele.profile.profileID == selectedChat && ele.updated == true
-    );
-    if (shouldUpdate.length != 0) {
-      dispatch(GetMessages({ type: chattype, ID: selectedChat, message_id: 0 }));
-      // bodyref.current.scrollTop = bodyref.current.scrollHeight;
+    if (selectedChat) {
+      const shouldUpdate = lists.filter((ele) => ele.profile.profileID == selectedChat);
+      // console.log(shouldUpdate[0]?.unreadMessageCount);
+      // if (shouldUpdate.length != 0) {
+      //   console.log(downfinished, upfinished);
+      // }
+      const profileinfo = shouldUpdate[0];
+      // console.log('fuck1');
+      // if (profileinfo?.updates) {
+      //   // console.log(profileinfo?.updates);
+      //   // profileinfo.updates.forEach((command) => {
+      //   //   switch (command.updateType) {
+      //   //     case 'DELETE':
+      //   //       dispatch(deletemessage({ msgid: command.MessageId }));
+      //   //     case 'EDIT':
+      //   //       Requests()
+      //   //         .GetupdateVal(command.MessageId)
+      //   //         .then((res) => res.json())
+      //   //         .then((msg) => dispatch(editmsg({ msgId: command.MessageId, newtext: msg })))
+      //   //         .catch((err) => console.log(err));
+      //   //   }
+      //   // });
+      // } else if (profileinfo.unreadMessageCount != 0) {
+      //   dispatch(GetMessages({ type: chattype, ID: selectedChat, message_id: 0 }));
+      // }
     }
   });
   const handleScroll = (listRef) => {

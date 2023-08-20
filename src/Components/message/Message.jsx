@@ -12,6 +12,7 @@ import TextProcessorObj from '../../utility/TextProcessor.js';
 
 const Message = memo(
   ({
+    seenObserver,
     isSeen,
     id,
     chattype,
@@ -25,7 +26,8 @@ const Message = memo(
     handleMediaMessage,
     entities,
     profile,
-    shouldobserve
+    shouldobserve,
+    replyinfo
   }) => {
     // console.log(entities);
     const [mousepositoin, setmousepositoin] = useState({ x_mouse: 0, y_mouse: 0 });
@@ -49,28 +51,27 @@ const Message = memo(
         return;
       }
       if (shouldobserve) {
-        console.log('here')
         observer.observe(mainref.current);
       }
+      seenObserver.observe(mainref.current);
       if (textref.current) {
         console.log();
         if (entities != '') {
           processor.OutputEntity(textref, text, []);
         } else {
-          console.log('herer');
           textref.current.innerText = text;
         }
       }
       if (mainref.current) {
-        mainref.current.addEventListener('touchstart', handleTouchStart);
-        mainref.current.addEventListener('touchend', handleTouchEnd);
+        // mainref.current.addEventListener('touchstart', handleTouchStart);
+        // mainref.current.addEventListener('touchend', handleTouchEnd);
       }
 
       // Cleanup touch event listeners on unmount
       return () => {
         if (mainref.current) {
-          mainref.current.removeEventListener('touchstart', handleTouchStart);
-          mainref.current.removeEventListener('touchend', handleTouchEnd);
+          // mainref.current.removeEventListener('touchstart', handleTouchStart);
+          // mainref.current.removeEventListener('touchend', handleTouchEnd);
         }
       };
     }, []);
@@ -104,7 +105,23 @@ const Message = memo(
         ref={mainref}
         className={`relative flex w-full ${Isforme ? 'justify-start' : 'justify-end'} px-5`}
         onContextMenu={handleRightClick}>
+        {/* replyMessageInfo
+: 
+compressedContent
+: 
+null
+messageId
+: 
+6
+sender
+: 
+"hesam"
+text
+: 
+"hello" */}
+
         <MessageBody Isforme={Isforme}>
+          {replyinfo ? <MessageHeader repliedTo={replyinfo.text} /> : <></>}
           {media ? (
             <MessageImageMedia src={media.preLoadingContent} handleClick={handleMediaMessage} />
           ) : (

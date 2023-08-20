@@ -22,12 +22,12 @@ const initialState = {
   isContact: false
 };
 const GetMessagesUp = createAsyncThunk('selectedProf/getmessagesup', async (infos) => {
-  console.log('iwoereuiwpr')
-  const data = await Requests().GetMessagesUp(infos.id);
+  console.log('iwoereuiwpr');
+  const data = await Requests().GetMessagesUp(infos.chatid, infos.msgid);
   return data.data;
 });
 const GetMessagesDown = createAsyncThunk('selectedProf/getmessagesdown', async (infos) => {
-  const data = await Requests().GetMessagesDown(infos.id);
+  const data = await Requests().GetMessagesDown(infos.chatid, infos.msgid);
   return data.data;
 });
 
@@ -103,12 +103,16 @@ const SelectedProf = createSlice({
         state.profPics = action.payload.profilePictures;
       })
       .addCase(GetMessagesUp.fulfilled, (state, action) => {
-        console.log('up');
+        // console.log('up');
+        state.Chatmessages = [].concat(action.payload.messages, state.Chatmessages);
+        state.upfinished = action.payload?.upFinished;
+
         console.log();
       })
       .addCase(GetMessagesDown.fulfilled, (state, action) => {
-        console.log('down');
-        console.log(action.payload);
+        // console.log('down');
+        state.Chatmessages = [].concat(state.Chatmessages, action.payload.messages);
+        state.downfinished = action.payload?.downFinished;
       })
 });
 export { GetMessages, SetLeftProf, GetMessagesDown, GetMessagesUp };
