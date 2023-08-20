@@ -1,10 +1,17 @@
 import React from 'react';
 import ContactCardPreview from './ContactCardPreview';
 import { UilArrowRight, UilCameraPlus, UilTrashAlt } from '@iconscout/react-unicons';
+import { TYPE_CHANNEL , TYPE_USER } from '../../utility/Constants';
+import Requests from '../../API/Requests';
 
-export default function ChannelSetting({ selected }) {
+export default function ChannelSetting({ selected, setOpenModel}) {
   const [channelname, setchannelname] = React.useState('');
-
+  function CreateChannel() {
+    const memebers = selected.map((cont) => cont.chatid);
+    const name = channelname;
+    Requests().CreateChat(name, memebers, TYPE_CHANNEL);
+    setOpenModel(false);
+  }
   const handlechannelname = (e) => {
     setchannelname(e);
   };
@@ -40,7 +47,8 @@ export default function ChannelSetting({ selected }) {
         </div>
         {channelname !== '' && (
           <div id={1}>
-            <button className="w-[100%] h-12 rounded-xl bg-blue-400 text-white text-xl font-semibold">
+            <button className="w-[100%] h-12 rounded-xl bg-blue-400 text-white text-xl font-semibold"
+            onClick={CreateChannel}>
               {' '}
               ایجاد کانال
             </button>
@@ -50,8 +58,14 @@ export default function ChannelSetting({ selected }) {
         <p className="text-text1">{selected.length} عضو</p>
         <div
         className='add_to_x_list'>
-          {selected.map((x, i) => (
-            <ContactCardPreview chatid={i} key={i} />
+          {selected.map((cont) => (
+            <ContactCardPreview
+              name={cont.name}
+              image={cont.image}
+              color={cont.color}
+              chatid={cont.chatid}
+              type={TYPE_USER}
+            />
           ))}
         </div>
       </div>

@@ -54,7 +54,7 @@ export default function GroupChannelAdd({ type }) {
           {type == 'group' ? (
             <GroupSettings selected={selected} setOpenModel={setOpenModel} />
           ) : (
-            <ChannelSettings selected={selected} />
+            <ChannelSettings selected={selected} setOpenModel={setOpenModel} />
           )}
         </PopUp>
       )}

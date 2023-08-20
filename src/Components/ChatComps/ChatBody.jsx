@@ -96,44 +96,48 @@ export default function ChatBody({ chatid, chattype }) {
   return (
     <div
       // dir="rtl"
-      className={
-        `flex h-[100%] flex-col mb-[30px]
-        `
-        // mb-[-150px]
-      }>
+      className={`flex h-[100%] flex-col items-center`}>
       <div className="flex h-[72%]  w-full flex-col items-center overflow-hidden">
         <div
-          className="mb-2 h-[105vh] w-full  overflow-auto px-5 pt-3"
+          className="mb-2 h-[105vh] w-[100%]  overflow-auto px-5 pt-3"
           onScroll={handleonScroll}
           ref={bodyref}>
           <button
             onClick={scrolltobottom}
             className={`${
               buttonhidden ? 'hidden' : ''
-            } absolute right-[85%] top-[65%] z-10 rounded-full bg-color1 p-3`}>
-            <UilArrowDown />
+            } absolute right-[50%] top-[75%] z-10 rounded-full bg-color2 border border-text1 p-3`}>
+            <UilArrowDown className="text-text1" />
           </button>
           {messages?.length ? (
             <MessageDateGroup date={'2023-07-20'}>
               {messages?.map((message) => {
                 // console.log(message.isEdited);
                 return (
-                  <Message
-                    key={message.messageID}
-                    observer={observer}
-                    isSeen={message.viewCount > 1}
-                    id={message.messageID}
-                    chattype={chattype}
-                    creator={message.sender}
-                    time={message.time}
-                    media={message.media}
-                    ispinned={message.ispinned}
-                    isEdited={message.isEdited}
-                    text={message.text}
-                    entities={ message.textStyle}
-                    handleMediaMessage={() => setPreview(!preview)}
-                    profile={message.sender}
-                  />
+                  <>
+                    message.sender.profileID == 1 ?
+                    <div className="my-[1rem] w-full text-center">
+                      <span className=" bg-black bg-opacity-60 text-text1 p-1 px-3 rounded-full ">
+                        {message.text}
+                      </span>
+                    </div>
+                    <Message
+                      key={message.messageID}
+                      observer={observer}
+                      isSeen={message.viewCount > 1}
+                      id={message.messageID}
+                      chattype={chattype}
+                      creator={message.sender}
+                      time={message.time}
+                      media={message.media}
+                      ispinned={message.ispinned}
+                      isEdited={message.isEdited}
+                      text={message.text}
+                      entities={message.textStyle}
+                      handleMediaMessage={() => setPreview(!preview)}
+                      profile={message.sender}
+                    />
+                  </>
                 );
               })}
             </MessageDateGroup>
@@ -159,12 +163,12 @@ export default function ChatBody({ chatid, chattype }) {
             </>
           )}
         </div>
-        {footerallowed && (
-          <div className=" h-16 w-[80%] vsmmobile:mb-[3rem] smmobile:mb-[3rem]">
-            <ChatFooter id={chatid} chattype={chattype} />
-          </div>
-        )}
       </div>
+      {/* {footerallowed && (
+        <div className="  w-[80%] vsmmobile:mb-[3rem] smmobile:mb-[3rem] sticky bottom-1">
+          <ChatFooter id={chatid} chattype={chattype} />
+          </div>
+      )} */}
       {preview
         ? createPortal(
             <ImagePreviewer handleClose={() => setPreview(false)} />,

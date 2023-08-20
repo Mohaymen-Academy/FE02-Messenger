@@ -28,12 +28,35 @@ export default function PersonalMenu() {
     }
   }, []);
   const [profilePicture, setprofilePicture] = useState(null);
+  const uploadedFile = useRef(null);
+  const base64img = useRef(null);
   const handleclick = () => {
     image.current.click();
-    // const res = Requests().UpdateProfileImage(image.current.files[0] , profile.profileData.profileID)
-    //save image in local storage
-    setprofilePicture(URL.createObjectURL(image.current.files[0]));
   };
+  
+  const handleImageChange = (event) => {
+    const selectedFile = event.target.files[0];
+    if (selectedFile) {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const base64string = e.target.result.split(',')[1];
+        base64img.current = base64string;
+        console.log(e)
+        setprofilePicture(base64string);
+        const body = {
+          "content" : base64string,
+          "size" : selectedFile.size,
+          "media-type" : selectedFile.type,
+          "fileName" : selectedFile.name
+        }
+        console.log(body)
+        const res = Requests().UpdateProfileImage(body, profile.profileData.profileID)
+        
+      };
+      reader.readAsDataURL(selectedFile);
+    }
+  };
+  
   const submit = () => {
     const res = Requests().UpdateProfile(
       {
@@ -71,6 +94,7 @@ export default function PersonalMenu() {
               id="upload"
               accept="image/jpeg, image/png, image/jpg"
               className="hidden"
+              onChange={handleImageChange}
             />
             <UilCameraPlus className={'w-[50%] h-[50%] hover:w-[55%] hover:h-[55%] text-white'} />
           </div>
