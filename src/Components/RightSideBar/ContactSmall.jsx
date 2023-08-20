@@ -26,7 +26,7 @@ export default function ContactSmall({ chatid, name, color, image, setselected }
           className="h-[50px] w-[50px] rounded-full"
         />
       ) : (
-        <Avatar imagecolor={color} char={name[0]} isOnline={false} />
+        <Avatar imagecolor={color} char={name[0]} isOnline={false} size={40} />
       )}
       <div className="flex flex-col m-4">
         <p className="font-semibold text-text1">{name}</p>

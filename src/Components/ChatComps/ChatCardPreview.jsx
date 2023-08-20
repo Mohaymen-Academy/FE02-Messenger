@@ -38,20 +38,21 @@ const ChatCardPreview = ({ profile, lastMessage, unreadMessageCount, pinned }) =
       className="h-18 relative mx-2 flex w-[97%] cursor-pointer flex-row items-center justify-start rounded-lg p-3  hover:bg-bghovor">
       <div className="flex w-[100%] justify-between px-2">
         <div className="flex flex-row gap-2">
-          {profile.lastProfilePicture ? (
+          {profile.lastProfilePicture? (
             <img
-              src={`data:image/jpeg;base64,${profile.lastProfilePicture.preLoadingContent}`}
+              src={`data:image/jpeg;base64,${profile?.lastProfilePicture.preLoadingContent}`}
               className="h-[50px] w-[50px] rounded-full"
             />
           ) : (
             <Avatar
+            size={50}
               imagecolor={profile.defaultProfileColor}
               char={profile.profileName[0]}
               isOnline={profile.status?.toLowerCase()}
             />
           )}
           <div className="flex flex-col">
-            <p className="font-semibold text-text1">{profile.profileName}</p>
+            <p className="font-semibold text-text1">{profile?.profileName}</p>
             <div className="line-clamp-1 pl-3 text-base text-text1 opacity-[50%]">
               {lastMessage?.text}
             </div>

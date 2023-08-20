@@ -44,9 +44,10 @@ const ChatHeader = ({ active, setActive, chatsetter, chattype, chatid }) => {
               />
             ) : (
               <Avatar
+              size={50}
                 imagecolor={selectedProfile?.defaultProfileColor}
                 char={selectedProfile?.profileName[0]}
-                isOnline={selectedProfile?.status.toLowerCase()}
+                isOnline={selectedProfile && selectedProfile.status ? selectedProfile.status.toLowerCase() : ''}
                 // isOnline={'online'}
               />
             )}
@@ -56,9 +57,9 @@ const ChatHeader = ({ active, setActive, chatsetter, chattype, chatid }) => {
             <div className="text-sm text-slate-400">{ChatInfo}</div>
           </div>
         </div>
-        <div className="flex flex-row">
+        <div className="flex flex-row  gap-3">
           <button>
-            <UilSearch className="h-6 w-6 cursor-pointer text-text1" />
+            <UilSearch className="h-5 w-5 cursor-pointer text-text1" />
           </button>
           {<ChatHeaderSettings active={active} />}
         </div>
