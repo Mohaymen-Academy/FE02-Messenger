@@ -18,7 +18,6 @@ export default function ChatBody({ chatid, chattype }) {
   const upfinished = useSelector((state) => state.selectedProf.upfinished);
   // const downfinished = false;
   // const upfinished = false;
-  console.log('zarp')
   let prevScrollPos;
   const seenObserver = new IntersectionObserver(
     (entries) => {
@@ -26,10 +25,11 @@ export default function ChatBody({ chatid, chattype }) {
         .filter((entry) => entry.isIntersecting)
         .map((entry) => parseInt(entry.target.dataset.id));
       if (visibleItems.length != 0) {
-        const maxval = Math.max(visibleItems);
+        const maxval = Math.max(...visibleItems);
         if (maxval > MSGes.current.upper) {
-          MSGes.current.upper = Math.max(visibleItems);
-          Requests().UpdateSeen(MSGes.current.upper);
+          MSGes.current.upper = maxval;
+          console.log(MSGes.current.upper);
+          // Requests().UpdateSeen(MSGes.current.upper);
         }
       }
     },
@@ -42,8 +42,7 @@ export default function ChatBody({ chatid, chattype }) {
         .map((entry) => parseInt(entry.target.dataset.id));
       if (visibleItems.length != 0) {
         console.log(visibleItems);
-        console.log('zarp here ');
-        handleGetMessages(visibleItems[0], dir, chatid);
+        handleGetMessages(Math.max(visibleItems), dir, chatid);
       }
     },
     { rootMargin: '20px', threshold: 1.0 }
@@ -59,7 +58,7 @@ export default function ChatBody({ chatid, chattype }) {
     }
   }
   const MSGes = useRef({
-    upper: 0
+    upper: 0,
     // lower: Infinity
   });
   const bodyref = useRef(null);
@@ -72,14 +71,27 @@ export default function ChatBody({ chatid, chattype }) {
       bodyref.current.scrollTop = bodyref.current.scrollHeight;
       prevScrollPos = bodyref.current.scrollTop;
     }
+    const currentScrollPos = bodyref.current.scrollTop;
+    // console.log(prevScrollPos, currentScrollPos);
+    if (prevScrollPos == currentScrollPos) {
+      const maxid = messages.map((ele) => parseInt(ele.messageID));
+      console.log(maxid);
+      // Requests().UpdateSeen(Math.max(...maxid));
+    }
   }, []);
 
-  // useEffect(() => {
-  //   if (bodyref) {
-  //     bodyref.current.scrollTop = bodyref.current.scrollHeight/2;
-  //     prevScrollPos = bodyref.current.scrollTop;
-  //   }
-  // });
+  useEffect(() => {
+    if (bodyref) {
+      bodyref.current.scrollTop = bodyref.current.scrollHeight;
+      prevScrollPos = bodyref.current.scrollTop;
+    }
+    const currentScrollPos = bodyref.current.scrollTop;
+    // console.log(prevScrollPos, currentScrollPos);
+    if (prevScrollPos == currentScrollPos) {
+      const maxid = messages.map((ele) => parseInt(ele.messageID));
+      // Requests().UpdateSeen(Math.max(...maxid));
+    }
+  });
 
   let scrolltimeout;
   const scrollValues = useRef({
@@ -97,7 +109,7 @@ export default function ChatBody({ chatid, chattype }) {
       dir.current = UP;
     }
     prevScrollPos = currentScrollPos;
-
+    console.log(prevScrollPos, currentScrollPos);
     // Update previous scroll position
     prevScrollPos = currentScrollPos;
 

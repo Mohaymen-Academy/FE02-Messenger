@@ -77,6 +77,7 @@ export default function ChatFooter({ id, chattype }) {
           Isactive.replyID
         );
       } else {
+        console.log(id);
         Requests().sendText(
           id,
           ProcessorValues.current.rawtext,
@@ -86,7 +87,7 @@ export default function ChatFooter({ id, chattype }) {
       console.log(Isactive.editID);
       // dispatch(editmsg({ msgId: Isactive.editID, newtext: divref.current.innerText }));
       // await Requests().EditMessage(Isactive.editID, divref.current.innerText);
-    } 
+    }
     ProcessorValues.current.rawtext = '';
     divref.current.innerText = '';
     setentitycontainers([]);
@@ -119,7 +120,7 @@ export default function ChatFooter({ id, chattype }) {
             <UilMessage />
           </button>
           {/* </UilPaperclip> */}
-          <FileUploader  openpull={setopenPoll} openfile={setfileuploaded} chattype={chattype} />
+          <FileUploader openpull={setopenPoll} openfile={setfileuploaded} chattype={chattype} />
           {/* <input type="text" dir='auto' /> */}
           <div
             ref={divref}

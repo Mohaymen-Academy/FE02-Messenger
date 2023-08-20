@@ -251,7 +251,12 @@ export default function Requests(body) {
       console.error(error);
     }
   }
+  async function GetupdateVal(messageId) {
+   return await API().GET(`update/${messageId}`, {}, AutorizeHeader);
+    // return res;
+  }
   return {
+    GetupdateVal,
     GetMessagesDown,
     GetMessagesUp,
     pinChat,

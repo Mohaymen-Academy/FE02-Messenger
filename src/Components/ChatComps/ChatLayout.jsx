@@ -20,6 +20,7 @@ export default function ChatLayout() {
   // const activechat=useSelector(state=>state.)
   const dispatch = useDispatch();
   const worker = new WorkerBuilder(Worker);
+  let interval;
   const Chats = {
     [TYPE_USER]: <UserChat chatid={chatID} />,
     [TYPE_GROUP]: <GroupChat chatid={chatID} />,
@@ -27,17 +28,41 @@ export default function ChatLayout() {
   };
 
   useEffect(() => {
-    worker.postMessage({ token, chatID: chatID || 0 });
-    worker.onmessage = (msg) => {
-      dispatch(setMessages(msg.data));
-    };
+    interval = setInterval(async () => {
+      worker.postMessage({ token, chatID: chatID || 0 });
+      worker.onmessage = (msg) => {
+        dispatch(setMessages(msg.data));
+      };
+    }, 1000);
     dispatch(GetContacts());
     document.addEventListener('keydown', (e) => {
       if (e.key == 'Escape') {
         dispatch(resetChatId());
       }
     });
+    () => {
+      clearInterval(interval);
+    };
   }, []);
+  useEffect(() => {
+    clearInterval(interval);
+    interval = setInterval(async () => {
+      // console.log(chatID);
+      worker.postMessage({ token, chatID: chatID || 0 });
+      worker.onmessage = (msg) => {
+        dispatch(setMessages(msg.data));
+      };
+    }, 1000);
+    dispatch(GetContacts());
+    document.addEventListener('keydown', (e) => {
+      if (e.key == 'Escape') {
+        dispatch(resetChatId());
+      }
+    });
+    () => {
+      clearInterval(interval);
+    };
+  });
 
   return Chats[chatType];
 }

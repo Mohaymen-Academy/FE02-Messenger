@@ -62,15 +62,15 @@ const Message = memo(
         }
       }
       if (mainref.current) {
-        mainref.current.addEventListener('touchstart', handleTouchStart);
-        mainref.current.addEventListener('touchend', handleTouchEnd);
+        // mainref.current.addEventListener('touchstart', handleTouchStart);
+        // mainref.current.addEventListener('touchend', handleTouchEnd);
       }
 
       // Cleanup touch event listeners on unmount
       return () => {
         if (mainref.current) {
-          mainref.current.removeEventListener('touchstart', handleTouchStart);
-          mainref.current.removeEventListener('touchend', handleTouchEnd);
+          // mainref.current.removeEventListener('touchstart', handleTouchStart);
+          // mainref.current.removeEventListener('touchend', handleTouchEnd);
         }
       };
     }, []);
