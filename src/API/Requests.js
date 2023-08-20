@@ -119,6 +119,7 @@ export default function Requests(body) {
   async function GetMessagesUp(endpoint) {
     const params = { direction: UP };
     try {
+      console.log(params)
       const res = await API().GET(`${endpoint}`, params, AutorizeHeader);
       return res;
     } catch (err) {
@@ -183,7 +184,7 @@ export default function Requests(body) {
     }
   }
   async function UpdateProfile(body, id) {
-    console.log(body)
+    console.log(body);
     try {
       await API()
         .PUT(`profile/edit-info/${id}`, body, AutorizeHeader)

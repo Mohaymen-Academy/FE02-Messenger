@@ -5,45 +5,52 @@ import { useDispatch, useSelector } from 'react-redux';
 import ChatFooter from './ChatFooter.jsx';
 import Message from '../message/Message.jsx';
 import ImagePreviewer from '../media-previewer/ImagePreviewer.jsx';
-import { TYPE_CHANNEL, TYPE_GROUP } from '../../utility/Constants.js';
+import { DOWN, TYPE_CHANNEL, TYPE_GROUP, UP } from '../../utility/Constants.js';
 import MessageDateGroup from '../message/MessageDateGroup.jsx';
 import MessageVoice from '../message/MessageVoice.jsx';
 // import { NeededId } from '../../utility/FindneededID.js';
 import Requests from '../../API/Requests.js';
-import { GetMessages } from '../../features/SelectedInfo.js';
+import { GetMessages, GetMessagesDown, GetMessagesUp } from '../../features/SelectedInfo.js';
 
 export default function ChatBody({ chatid, chattype }) {
   const dispatch = useDispatch();
+  const downfinished = useSelector((state) => state.selectedProf.downfinished);
+  const upfinished = useSelector((state) => state.selectedProf.upfinished);
+  let prevScrollPos;
   const observer = new IntersectionObserver(
     (entries) => {
       const visibleItems = entries
         .filter((entry) => entry.isIntersecting)
         .map((entry) => parseInt(entry.target.dataset.id));
-      // console.log(visibleItems);
       if (visibleItems.length != 0) {
-        const maxval = Math.max(visibleItems);
-        if (maxval > MSGes.current.upper) {
-          MSGes.current.upper = Math.max(visibleItems);
-          Requests().UpdateSeen(MSGes.current.upper);
-        }
+        console.log(visibleItems);
+        handleGetMessages(visibleItems[0], dir);
       }
     },
-    { threshold: 0.5 }
+    { rootMargin: '20px', threshold: 1.0 }
   );
-  function handleGetMessages(msgid, dir, shouldupdate) {}
+  function handleGetMessages(msgid, dir) {
+    console.log(dir.current, dir.current == UP);
+    if (dir.current == UP && !upfinished) {
+      console.log('zarp');
+      dispatch(GetMessagesUp({ id: msgid }));
+    } else if (dir.current == DOWN && !downfinished) {
+      dispatch(GetMessagesDown({ id: msgid }));
+    }
+  }
   const MSGes = useRef({
     upper: 0
     // lower: Infinity
   });
   const bodyref = useRef(null);
   const messages = useSelector((state) => state.selectedProf.Chatmessages);
-  let messagelist = messages;
   const [buttonhidden, setbuttonhidden] = useState(true);
-  // const ChatId = useSelector((state) => state.selectedProf.selectedChatID);
+  const dir = useRef(null);
 
   useEffect(() => {
     if (bodyref) {
       bodyref.current.scrollTop = bodyref.current.scrollHeight;
+      prevScrollPos = bodyref.current.scrollTop;
     }
   }, []);
 
@@ -51,11 +58,24 @@ export default function ChatBody({ chatid, chattype }) {
   const scrollValues = useRef({
     lastScrollPosition: 0
   });
-  function handleonScroll() {
+
+  function handleonScroll(e) {
     clearTimeout(scrolltimeout);
+    // console.log(bodyref.current.scrollHeight);
+    const currentScrollPos = bodyref.current.scrollTop;
+    // console.log(currentScrollPos, prevScrollPos);
+    if (currentScrollPos > prevScrollPos) {
+      dir.current = DOWN;
+    } else {
+      dir.current = UP;
+    }
+    prevScrollPos = currentScrollPos;
+
+    // Update previous scroll position
+    prevScrollPos = currentScrollPos;
 
     scrolltimeout = setTimeout(() => {
-      console.log(MSGes.current.upper);
+      // console.log(MSGes.current.upper);
     }, 200);
     if (
       Math.abs(

@@ -22,10 +22,11 @@ const initialState = {
   isContact: false
 };
 const GetMessagesUp = createAsyncThunk('selectedProf/getmessagesup', async (infos) => {
+  console.log('iwoereuiwpr')
   const data = await Requests().GetMessagesUp(infos.id);
   return data.data;
 });
-const GetMessagesDown = createAsyncThunk('selectedProf/getmessagesup', async (infos) => {
+const GetMessagesDown = createAsyncThunk('selectedProf/getmessagesdown', async (infos) => {
   const data = await Requests().GetMessagesDown(infos.id);
   return data.data;
 });
@@ -87,6 +88,8 @@ const SelectedProf = createSlice({
       .addCase(GetMessages.fulfilled, (state, action) => {
         console.log(action.payload);
         state.Chatmessages = action.payload?.data?.messages;
+        state.downfinished = action.payload?.data?.downFinished;
+        state.upfinished = action.payload?.data?.upFinished;
         state.chatType = action.payload?.type;
         state.selectedChatID = action.payload?.ID;
         if (action.payload?.profileinfo) {
@@ -99,8 +102,16 @@ const SelectedProf = createSlice({
         state.leftprof = action.payload.profile;
         state.profPics = action.payload.profilePictures;
       })
+      .addCase(GetMessagesUp.fulfilled, (state, action) => {
+        console.log('up');
+        console.log();
+      })
+      .addCase(GetMessagesDown.fulfilled, (state, action) => {
+        console.log('down');
+        console.log(action.payload);
+      })
 });
-export { GetMessages, SetLeftProf };
+export { GetMessages, SetLeftProf, GetMessagesDown, GetMessagesUp };
 export const { resetChatId, editmsg, addcontact, deletemessage } = SelectedProf.actions;
 // export const { setChat, setChatType } = SelectedProf.actions;
 export default SelectedProf.reducer;
