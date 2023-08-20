@@ -60,7 +60,7 @@ export default function ChatBody({ chatid, chattype }) {
 
     scrolltimeout = setTimeout(() => {
       console.log(MSGes.current.upper);
-      dispatch(GetMessages({ type: chattype, ID: chatid, message_id: MSGes.current.upper }));
+      // dispatch(GetMessages({ type: chattype, ID: chatid, message_id: 0 }));
     }, 200);
     if (
       Math.abs(
