@@ -54,11 +54,13 @@ const SelectedProf = createSlice({
         if (ele.messageID == action.payload.msgId) {
           return {
             ...ele,
-            text: action.payload.newtext
+            text: action.payload.newtext,
+            isEdited: true
           };
         }
         return ele;
       });
+      // state.Chatmessages = temp;
     },
     addcontact: (state, action) => {
       state.isContact = true;

@@ -11,7 +11,9 @@ import React, { useState, useEffect, useRef } from 'react';
 import { useDispatch } from 'react-redux';
 import { composerActions } from '../../features/composerSlice';
 import { deletemessage } from '../../features/SelectedInfo';
-const MessageMenu = ({ positions, setposition, msgId, text }) => {
+import Requests from '../../API/Requests';
+
+const MessageMenu = ({ positions, setposition, msgId, text }) => {  
   const dispatch = useDispatch();
   const divref = useRef(null);
   function handleOutsideClick(event) {
@@ -84,7 +86,10 @@ const MessageMenu = ({ positions, setposition, msgId, text }) => {
                 dispatch(
                   composerActions.setaction({ type: item.action, text: text, messageID: msgId })
                 );
-                if (item.action === 'delete') dispatch(deletemessage({ msgid: msgId }));
+                if (item.action === 'delete') {
+                  dispatch(deletemessage({ msgid: msgId }));
+                  Requests().Deletemsg(msgId);
+                }
               }
             }}>
             <div className={`flex items-center gap-2 my-1 ${item.color}`}>{item.icon}</div>

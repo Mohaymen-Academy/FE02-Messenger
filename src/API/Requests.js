@@ -69,9 +69,9 @@ export default function Requests(body) {
       console.error(err);
     }
   }
-  async function editMessage(msgid) {
-    API().POST()
-  }
+  // async function editMessage(msgid) {
+  //   API().POST()
+  // }
   async function UpdateChat(receiveID) {
     try {
       const res = await API().GET(receiveID, {}, AutorizeHeader);
@@ -106,8 +106,8 @@ export default function Requests(body) {
       .then((data) => console.log(data))
       .catch((err) => console.log(err));
   }
-  async function sendText(endpoint, text, styles) {
-    const body = { text, textStyle: styles };
+  async function sendText(endpoint, text, styles, replymsg) {
+    const body = { text, text_style: styles, reply_message: replymsg };
     console.log(body);
     try {
       const res = await API().POST(`${endpoint}`, body, AutorizeHeader);
@@ -116,6 +116,7 @@ export default function Requests(body) {
       console.log(err);
     }
   }
+  // async function Replymsg()
   // async function UpdateSeen(MsgID) {
   //   try {
   //     await API()
@@ -140,9 +141,9 @@ export default function Requests(body) {
     };
     await API()
       .POST(`edit-message/${messageId}`, body, AutorizeHeader)
-      .then((res) => res.json());
-    // .then((data) => console.log(data))
-    // .catch((err) => console.log(err));
+      .then((res) => res.json())
+      .then((data) => console.log(data))
+      .catch((err) => console.log(err));
   }
   async function GetContacts() {
     try {
@@ -219,7 +220,7 @@ export default function Requests(body) {
       .then((data) => console.log(data))
       .catch((err) => console.log(err));
   }
-  async function deleteChat(chatid) {}
+
 
   return {
     pinChat,

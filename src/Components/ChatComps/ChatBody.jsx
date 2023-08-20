@@ -36,6 +36,7 @@ export default function ChatBody({ chatid, chattype }) {
   });
   const bodyref = useRef(null);
   const messages = useSelector((state) => state.selectedProf.Chatmessages);
+  let messagelist = messages;
   const [buttonhidden, setbuttonhidden] = useState(true);
   // const ChatId = useSelector((state) => state.selectedProf.selectedChatID);
 
@@ -44,12 +45,6 @@ export default function ChatBody({ chatid, chattype }) {
       bodyref.current.scrollTop = bodyref.current.scrollHeight;
     }
   }, []);
-
-  // useEffect(() => {
-  //   if (bodyref) {
-  //     bodyref.current.scrollTop = bodyref.current.scrollHeight;
-  //   }
-  // });
 
   let scrolltimeout;
   const scrollValues = useRef({
@@ -61,7 +56,6 @@ export default function ChatBody({ chatid, chattype }) {
     scrolltimeout = setTimeout(() => {
       console.log(MSGes.current.upper);
       dispatch(GetMessages({ type: chattype, ID: chatid, message_id: MSGes.current.upper }));
-
     }, 200);
     if (
       Math.abs(
@@ -121,10 +115,11 @@ export default function ChatBody({ chatid, chattype }) {
           </button>
           {messages?.length ? (
             <MessageDateGroup date={'2023-07-20'}>
-              {messages?.map((message, index) => (
-                <div key={index}>
+              {messages?.map((message) => {
+                // console.log(message.isEdited);
+                return (
                   <Message
-                    // content={message.content}
+                    key={message.messageID}
                     observer={observer}
                     isSeen={message.viewCount > 1}
                     id={message.messageID}
@@ -135,13 +130,12 @@ export default function ChatBody({ chatid, chattype }) {
                     ispinned={message.ispinned}
                     isEdited={message.isEdited}
                     text={message.text}
-                    entities={message.textStyle}
-                    // chattype={chattype}
+                    entities={ message.textStyle}
                     handleMediaMessage={() => setPreview(!preview)}
                     profile={message.sender}
                   />
-                </div>
-              ))}
+                );
+              })}
             </MessageDateGroup>
           ) : (
             <>

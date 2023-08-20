@@ -32,6 +32,7 @@ export default function FileUploader({ openpull, openfile, chattype }) {
       const base64string = e.target.result.split(',')[1];
       base64img.current = base64string;
       openfile(base64string);
+      
     };
     reader.readAsDataURL(uploadedFile.current);
   }

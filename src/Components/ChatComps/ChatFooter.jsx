@@ -13,6 +13,7 @@ import { editmsg } from '../../features/SelectedInfo';
 import PopUp from '../../utility/PopUp';
 import Poll from './Poll';
 import UploadFile from '../../utility/UploadFile';
+import { json } from 'react-router-dom';
 
 export default function ChatFooter({ id, chattype }) {
   const {
@@ -64,21 +65,28 @@ export default function ChatFooter({ id, chattype }) {
 
   async function SelectRequestType() {
     if (Isactive.isEditting) {
-      console.log(Isactive.editID);
-      // dispatch(editmsg({ msgId: Isactive.editID, newtext: divref.current.innerText }));
-      // await Requests().EditMessage(Isactive.editID, divref.current.innerText);
+      console.log();
+      dispatch(editmsg({ msgId: Isactive.editID, newtext: ProcessorValues.current.rawtext }));
+      await Requests().EditMessage(Isactive.editID, ProcessorValues.current.rawtext);
     } else {
       if (Isactive.isReplying) {
+        Requests().sendText(
+          id,
+          ProcessorValues.current.rawtext,
+          JSON.stringify(ProcessorValues.current.sorted),
+          Isactive.replyID
+        );
       } else {
-        console.log(divref.current.innerText);
-        console.log(ProcessorValues.current.rawtext);
-        console.log(ProcessorValues.current.sorted);
-        Requests().sendText(id, ProcessorValues.current.rawtext, ProcessorValues.current.sorted);
+        Requests().sendText(
+          id,
+          ProcessorValues.current.rawtext,
+          JSON.stringify(ProcessorValues.current.sorted)
+        );
       }
     }
-    // ProcessorValues.current.rawtext = '';
-    // divref.current.innerText = '';
-    // setentitycontainers([]);
+    ProcessorValues.current.rawtext = '';
+    divref.current.innerText = '';
+    setentitycontainers([]);
     dispatch(composerActions.clear());
   }
   return (

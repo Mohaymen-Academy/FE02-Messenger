@@ -1,6 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
 import Requests from '../API/Requests';
-import { deletemessage } from './SelectedInfo';
 // import {  } from 'react-redux';
 
 const initialState = {
@@ -29,6 +28,7 @@ const composerSlice = createSlice({
       switch (action.payload.type) {
         case 'reply':
           state.isReplying = true;
+          state.replyID = action.payload.messageID;
           state.composerValue = action.payload.text;
           break;
         case 'edit':
@@ -37,13 +37,7 @@ const composerSlice = createSlice({
           state.editvalue = action.payload.text;
           state.composerValue = action.payload.text;
           break;
-        case 'delete':
-          Requests().Deletemsg(action.payload.messageID);
-          break;
       }
-    },
-    setIsEditting: (state, action) => {
-      state.editID = action.payload;
     },
     forwardMessage: (state, action) => {
       state.isForwarding = true;
