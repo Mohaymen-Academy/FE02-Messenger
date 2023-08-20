@@ -6,10 +6,11 @@ import {
   UilCommentAltChartLines,
   UilFile,
   UilImagePlus,
-  UilMicrophone ,
+  UilMicrophone
 } from '@iconscout/react-unicons';
+import { TYPE_USER } from './Constants';
 
-export default function FileUploader({ openpull, openfile }) {
+export default function FileUploader({ openpull, openfile, chattype }) {
   const [open, setopen] = useState(false);
   let timer;
 
@@ -67,14 +68,18 @@ export default function FileUploader({ openpull, openfile }) {
           </div>
           <p className=" text-xs">فایل</p>
         </button>
-        <button
-          className=" my-1 flex w-full flex-row items-center gap-2 rounded-lg px-4 hover:bg-gray-200"
-          onClick={(e) => openpull(true)}>
-          <div className="my-1 flex items-center gap-2">
-            <UilCommentAltChartLines />
-          </div>
-          <p className=" text-xs">نظرسنجی</p>
-        </button>
+        {chattype != TYPE_USER ? (
+          <button
+            className=" my-1 flex w-full flex-row items-center gap-2 rounded-lg px-4 hover:bg-gray-200"
+            onClick={(e) => openpull(true)}>
+            <div className="my-1 flex items-center gap-2">
+              <UilCommentAltChartLines />
+            </div>
+            <p className=" text-xs">نظرسنجی</p>
+          </button>
+        ) : (
+          <></>
+        )}
       </div>
     </div>
   );

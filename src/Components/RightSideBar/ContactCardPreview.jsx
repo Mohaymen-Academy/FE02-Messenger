@@ -28,6 +28,7 @@ export default function ContactCardPreview({
             />
           ) : (
             <Avatar
+            size={50}
               imagecolor={color}
               char={name[0]}
               isOnline={lastseen?.toLowerCase() === 'online'}

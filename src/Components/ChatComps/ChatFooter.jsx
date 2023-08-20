@@ -14,7 +14,7 @@ import PopUp from '../../utility/PopUp';
 import Poll from './Poll';
 import UploadFile from '../../utility/UploadFile';
 
-export default function ChatFooter({ id }) {
+export default function ChatFooter({ id ,chattype}) {
   const {
     handleEmojiPicker,
     handleSelect,
@@ -72,9 +72,12 @@ export default function ChatFooter({ id }) {
         console.log(divref.current.innerText);
         console.log(ProcessorValues.current.rawtext);
         console.log(ProcessorValues.current.sorted);
-        Requests().sendText(id, ProcessorValues.current.rawtext,ProcessorValues.current.sorted);
+        Requests().sendText(id, ProcessorValues.current.rawtext, ProcessorValues.current.sorted);
       }
     }
+    ProcessorValues.current.rawtext = '';
+    divref.current.innerText = '';
+    setentitycontainers([]);
     dispatch(composerActions.clear());
   }
   return (
@@ -104,7 +107,7 @@ export default function ChatFooter({ id }) {
             <UilMessage />
           </button>
           {/* </UilPaperclip> */}
-          <FileUploader openpull={setopenPoll} openfile={setfileuploaded} />
+          <FileUploader openpull={setopenPoll} openfile={setfileuploaded} chattype={chattype}  />
           {/* <input type="text" dir='auto' /> */}
           <div
             ref={divref}

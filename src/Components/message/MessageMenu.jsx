@@ -5,11 +5,12 @@ import {
   UilCopy,
   UilCornerUpRightAlt,
   UilCheckCircle,
-  UilLink 
+  UilLink
 } from '@iconscout/react-unicons';
 import React, { useState, useEffect, useRef } from 'react';
 import { useDispatch } from 'react-redux';
 import { composerActions } from '../../features/composerSlice';
+import { deletemessage } from '../../features/SelectedInfo';
 const MessageMenu = ({ positions, setposition, msgId, text }) => {
   const dispatch = useDispatch();
   const divref = useRef(null);
@@ -39,7 +40,7 @@ const MessageMenu = ({ positions, setposition, msgId, text }) => {
       action: 'edit'
     },
     {
-      icon: <UilLink  />,
+      icon: <UilLink />,
       title: 'سنجاق کردن',
       color: 'text-text1',
       action: 'pin'
@@ -63,7 +64,7 @@ const MessageMenu = ({ positions, setposition, msgId, text }) => {
       icon: <UilTrash />,
       title: 'حذف ',
       color: 'text-red-500',
-      action:'delete'
+      action: 'delete'
     }
   ]);
   // console.log(positions);
@@ -78,13 +79,14 @@ const MessageMenu = ({ positions, setposition, msgId, text }) => {
           <button
             key={index}
             className="flex flex-row items-center gap-2 px-5 w-full hover:bg-bghovor rounded-lg"
-            onClick={(e) =>
-              item.action
-                ? dispatch(
-                    composerActions.setaction({ type: item.action, text: text, messageID: msgId })
-                  )
-                : null
-            }>
+            onClick={(e) => {
+              if (item.action) {
+                dispatch(
+                  composerActions.setaction({ type: item.action, text: text, messageID: msgId })
+                );
+                if (item.action === 'delete') dispatch(deletemessage({ msgid: msgId }));
+              }
+            }}>
             <div className={`flex items-center gap-2 my-1 ${item.color}`}>{item.icon}</div>
             <p className={`text-xs px-2 ${item.color}`}>{item.title}</p>
           </button>
