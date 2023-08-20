@@ -45,11 +45,11 @@ export default function ChatBody({ chatid, chattype }) {
     }
   }, []);
 
-  useEffect(() => {
-    if (bodyref) {
-      bodyref.current.scrollTop = bodyref.current.scrollHeight;
-    }
-  });
+  // useEffect(() => {
+  //   if (bodyref) {
+  //     bodyref.current.scrollTop = bodyref.current.scrollHeight;
+  //   }
+  // });
 
   let scrolltimeout;
   const scrollValues = useRef({
@@ -60,7 +60,7 @@ export default function ChatBody({ chatid, chattype }) {
 
     scrolltimeout = setTimeout(() => {
       console.log(MSGes.current.upper);
-      // dispatch(GetMessages({ type: chattype, ID: chatid, message_id: 0 }));
+      dispatch(GetMessages({ type: chattype, ID: chatid, message_id: MSGes.current.upper }));
 
     }, 200);
     if (
