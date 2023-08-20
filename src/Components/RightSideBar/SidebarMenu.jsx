@@ -40,7 +40,7 @@ export default function SidebarMenu({ profileImage, username, divref }) {
             {profile.profileData.lastProfilePicture ? (
               <img
               src={`data:image/jpeg;base64,${profile.profileData.lastProfilePicture.preLoadingContent}`}
-              className="w-[90px] h-[90px] rounded-full p-0.5  bg-white my-0"
+              className="w-[90px] h-[90px] bg-cover aspect-[1/1] rounded-full p-0.5  bg-white my-0"
               alt=""
             />
             ) : (

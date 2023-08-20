@@ -5,10 +5,12 @@ import { UilUser, UilCameraPlus, UilArrowRight } from '@iconscout/react-unicons'
 import { useRef } from 'react';
 import { useEffect } from 'react';
 import Requests from '../../../API/Requests';
+import { UpdateImage, UpdateProfile } from '../../../features/profileSlice';
+import { current } from '@reduxjs/toolkit';
 export default function PersonalMenu() {
   const [open, setopen] = useState(false);
   const profile = useSelector((state) => state.profile);
-
+  const dispatch = useDispatch();
   const name = useRef(null);
   const handle = useRef(null);
   const biography = useRef(null);
@@ -42,7 +44,7 @@ export default function PersonalMenu() {
         const base64string = e.target.result.split(',')[1];
         base64img.current = base64string;
         console.log(e)
-        setprofilePicture(base64string);
+        // setprofilePicture(base64string);
         const body = {
           "content" : base64string,
           "size" : selectedFile.size,
@@ -50,6 +52,7 @@ export default function PersonalMenu() {
           "fileName" : selectedFile.name
         }
         console.log(body)
+        dispatch(UpdateImage(base64string))
         const res = Requests().UpdateProfileImage(body, profile.profileData.profileID)
         
       };
@@ -57,15 +60,17 @@ export default function PersonalMenu() {
     }
   };
   
-  const submit = () => {
-    const res = Requests().UpdateProfile(
+  const  submit = async () => {
+    const res = await Requests().UpdateProfile(
       {
-        name: name.current,
-        handle: handle.current,
-        biography: biography.current
+        "name": name.current.value,
+        "username": handle.current.value,
+        "biography": biography.current.value
       },
       profile.profileData.profileID
     );
+    dispatch(UpdateProfile({name : name.current.value,handle : handle.current.value, biography :biography.current.value}))
+    console.log(res)
   };
   console.log(profile);
   return (
@@ -77,7 +82,7 @@ export default function PersonalMenu() {
       <div className="flex flex-col  justify-start items-center gap-3 w-full p-5">
         {profilePicture == null ? (
           <div
-            className={`w-[250px] h-[250px] my-7 flex justify-center items-center rounded-full cursor-pointer `}
+            className={`w-[250px] h-[250px] my-7 flex  justify-center items-center rounded-full cursor-pointer `}
             onClick={handleclick}
             style={{
               backgroundImage: `${
@@ -86,7 +91,7 @@ export default function PersonalMenu() {
               }`,
               backgroundColor: `${profile.profileData.defaultProfileColor}`,
               backgroundRepeat: 'no-repeat',
-              backgroundSize: 'cover'
+              backgroundSize: 'cover',
             }}>
             <input
               ref={image}
@@ -103,7 +108,7 @@ export default function PersonalMenu() {
             className={`w-[250px] h-[250px] my-7 flex justify-center items-center rounded-full cursor-pointer `}>
             <img
               className=" w-full h-full object-cover aspect-[1/1] rounded-full cursor-pointer"
-              src={profilePicture}
+              src={profile.profileData.lastProfilePicture.preLoadingContent}
               alt=""
             />
           </div>
