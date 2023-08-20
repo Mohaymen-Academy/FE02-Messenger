@@ -116,21 +116,26 @@ export default function Requests(body) {
       console.log(err);
     }
   }
-  async function GetMessagesUp(endpoint) {
-    const params = { direction: UP };
+  async function GetMessagesUp(endpoint, msgid) {
+    const param = {
+      direction: UP,
+      message_id: msgid
+    };
     try {
-      console.log(params)
-      const res = await API().GET(`${endpoint}`, params, AutorizeHeader);
+      const res = await API().GET(`${endpoint}`, param, AutorizeHeader);
       return res;
     } catch (err) {
       console.log(err);
     }
   }
 
-  async function GetMessagesDown(endpoint) {
-    const params = { direction: DOWN };
+  async function GetMessagesDown(endpoint, msgid) {
+    const param = {
+      direction: DOWN,
+      message_id: msgid
+    };
     try {
-      const res = await API().GET(`${endpoint}`, params, AutorizeHeader);
+      const res = await API().GET(`${endpoint}`, param, AutorizeHeader);
       return res;
     } catch (err) {
       console.log(err);
@@ -154,6 +159,10 @@ export default function Requests(body) {
       .then((res) => res.json())
       .then((data) => console.log(data))
       .catch((err) => console.log(err));
+  }
+  async function GetOriginalImage(mediaId) {
+      const res = await API().GET(`original/${mediaId}`, {}, AutorizeHeader)
+      return res.data
   }
   async function EditMessage(messageId, text) {
     const body = {
@@ -267,6 +276,7 @@ export default function Requests(body) {
     UpdateSeen,
     UpdateProfileImage,
     UpdateProfile,
-    sendFiles
+    sendFiles,
+    GetOriginalImage
   };
 }
