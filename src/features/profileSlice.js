@@ -31,8 +31,17 @@ const profileSlice = createSlice({
       localStorage.removeItem('token');
       window.location.assign('/Login');
       console.log('hello');
+    },
+    UpdateImage: (state, action) => {
+        state.profileData.lastProfilePicture.preLoadingContent = action.payload
+    } ,
+    UpdateProfile: (state , action) => {
+      state.profileData.profileName = action.payload.name,
+      state.profileData.handle = action.payload.handle,
+      state.profileData.biography = action.payload.biography
     }
   },
+
   extraReducers: (builder) =>
     builder
       .addCase(registerUserProfile.fulfilled, (state, action) => {
@@ -52,6 +61,6 @@ const profileSlice = createSlice({
         }
       })
 });
-export const { clearLogin } = profileSlice.actions;
+export const { clearLogin , UpdateImage , UpdateProfile } = profileSlice.actions;
 export { registerUserProfile, loginUserProfile };
 export default profileSlice.reducer;

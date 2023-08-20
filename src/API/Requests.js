@@ -182,16 +182,11 @@ export default function Requests(body) {
       console.log(err);
     }
   }
-  async function UpdateProfile(image, id) {
-    body = {
-      content: image,
-      size: 6.91,
-      type: 'jpg',
-      fileName: 'boz'
-    };
+  async function UpdateProfile(body, id) {
+    console.log(body)
     try {
       await API()
-        .POST(`profile/picture/${id}`, body, AutorizeHeader)
+        .PUT(`profile/edit-info/${id}`, body, AutorizeHeader)
         .then((res) => res.json())
         .then((data) => console.log(data));
     } catch (err) {
