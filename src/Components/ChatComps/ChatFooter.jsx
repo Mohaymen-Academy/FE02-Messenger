@@ -82,9 +82,9 @@ export default function ChatFooter({ id, chattype }) {
     dispatch(composerActions.clear());
   }
   return (
-    <div className="relative top-[0px] flex flex-col">
+    <div className=" flex flex-col sticky bottom-0">
       {needActoin ? (
-        <div className="flex h-[30px] w-[100%] flex-row gap-3 rounded-t-lg bg-color2 pr-2 pt-1">
+        <div className="flex h-[30px] w-[100%] flex-row= bg-color2 pr-2 pt-1">
           <button onClick={() => dispatch(composerActions.clear())}>
             <UilTimes className={'text-color3'} />
           </button>
@@ -99,16 +99,16 @@ export default function ChatFooter({ id, chattype }) {
         dir="rtl"
         className={`
           flex flex-col gap-3 transition-all duration-100 ease-in vsmmobile:relative ${
-            openemoji ? 'top-[-110px]' : ''
+            openemoji ? 'top-[130px]' : ''
           }`}>
         <div
-          className={`m-auto flex  w-[100%] flex-row items-center justify-between  
-          ${needActoin ? '' : 'rounded-xl'} bg-color2  p-2 text-color4`}>
+          className={` flex  w-[100%] flex-row items-center justify-between sticky bottom-0
+          ${needActoin ? '' : ''} bg-color2  p-2 text-color4`}>
           <button className="mx-1 h-8 w-8 text-text1 " onClick={SelectRequestType}>
             <UilMessage />
           </button>
           {/* </UilPaperclip> */}
-          <FileUploader openpull={setopenPoll} openfile={setfileuploaded} chattype={chattype} />
+          <FileUploader  openpull={setopenPoll} openfile={setfileuploaded} chattype={chattype} />
           {/* <input type="text" dir='auto' /> */}
           <div
             ref={divref}

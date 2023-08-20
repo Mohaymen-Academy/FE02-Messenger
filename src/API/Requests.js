@@ -149,7 +149,7 @@ export default function Requests(body) {
   async function UpdateProfileImage(body, id) {
     try {
       await API()
-        .POST(`profile/picture/${id}`, {}, AutorizeHeader)
+        .POST(`profile/picture/${id}`, body, AutorizeHeader)
         .then((res) => res.json())
         .then((data) => console.log(data));
     } catch (err) {

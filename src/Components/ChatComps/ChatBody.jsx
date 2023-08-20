@@ -103,21 +103,19 @@ export default function ChatBody({ chatid, chattype }) {
     <div
       // dir="rtl"
       className={
-        `flex h-[100%] flex-col mb-[30px]
-        `
-        // mb-[-150px]
+        `flex h-[100%] flex-col items-center`
       }>
       <div className="flex h-[72%]  w-full flex-col items-center overflow-hidden">
         <div
-          className="mb-2 h-[105vh] w-[80%]  overflow-auto px-5 pt-3"
+          className="mb-2 h-[105vh] w-[100%]  overflow-auto px-5 pt-3"
           onScroll={handleonScroll}
           ref={bodyref}>
           <button
             onClick={scrolltobottom}
             className={`${
               buttonhidden ? 'hidden' : ''
-            } absolute right-[85%] top-[65%] z-10 rounded-full bg-color1 p-3`}>
-            <UilArrowDown />
+            } absolute right-[50%] top-[75%] z-10 rounded-full bg-color2 border border-text1 p-3`}>
+            <UilArrowDown className='text-text1' />
           </button>
           {messages?.length ? (
             <MessageDateGroup date={'2023-07-20'}>
@@ -177,12 +175,12 @@ export default function ChatBody({ chatid, chattype }) {
             </>
           )}
         </div>
-        {footerallowed && (
-          <div className=" h-16 w-[80%] vsmmobile:mb-[3rem] smmobile:mb-[3rem]">
-            <ChatFooter id={chatid} chattype={chattype} />
-          </div>
-        )}
       </div>
+      {/* {footerallowed && (
+        <div className="  w-[80%] vsmmobile:mb-[3rem] smmobile:mb-[3rem] sticky bottom-1">
+          <ChatFooter id={chatid} chattype={chattype} />
+          </div>
+      )} */}
       {preview
         ? createPortal(
             <ImagePreviewer handleClose={() => setPreview(false)} />,

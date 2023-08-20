@@ -20,6 +20,7 @@ export default function ChannelChat({ chatid, setChatId }) {
               `}>
               <ChatHeader active={active} chattype={TYPE_CHANNEL} chatsetter={setChatId} setActive={setActive} />
               <ChatBody chattype={TYPE_CHANNEL} />
+              
             </div>
             <LeftLayout CHATTYPE={TYPE_CHANNEL} id={1} active={active} setActive={setActive} />
           </>
