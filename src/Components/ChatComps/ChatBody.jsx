@@ -122,24 +122,36 @@ export default function ChatBody({ chatid, chattype }) {
           {messages?.length ? (
             <MessageDateGroup date={'2023-07-20'}>
               {messages?.map((message, index) => (
-                <div key={index}>
-                  <Message
-                    // content={message.content}
-                    observer={observer}
-                    isSeen={message.viewCount > 1}
-                    id={message.messageID}
-                    chattype={chattype}
-                    creator={message.sender}
-                    time={message.time}
-                    media={message.media}
-                    ispinned={message.ispinned}
-                    isEdited={message.isEdited}
-                    text={message.text}
-                    entities={message.textStyle}
-                    // chattype={chattype}
-                    handleMediaMessage={() => setPreview(!preview)}
-                    profile={message.sender}
-                  />
+                <div key={index} >
+                  {
+                    message.sender.profileID == 1 ?
+
+                      <div className="my-[1rem] w-full text-center">
+                        <span className=' bg-black bg-opacity-60 text-text1 p-1 px-3 rounded-full '>
+                          {message.text}
+                        </span>
+                      </div>
+                     :
+                     <Message
+                       // content={message.content}
+                       observer={observer}
+                       isSeen={message.viewCount > 1}
+                       id={message.messageID}
+                       chattype={chattype}
+                       creator={message.sender}
+                       time={message.time}
+                       media={message.media}
+                       ispinned={message.ispinned}
+                       isEdited={message.isEdited}
+                       text={message.text}
+                       entities={message.textStyle}
+                       // chattype={chattype}
+                       handleMediaMessage={() => setPreview(!preview)}
+                       profile={message.sender}
+                     />
+
+
+                  }
                 </div>
               ))}
             </MessageDateGroup>

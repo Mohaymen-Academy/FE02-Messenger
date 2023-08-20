@@ -88,7 +88,7 @@ function Message({
       ref={mainref}
       className={`relative flex w-full ${Isforme ? 'justify-start' : 'justify-end'} px-5`}
       onContextMenu={handleRightClick}>
-      <MessageBody Isforme={Isforme}>
+      <MessageBody Isforme={Isforme} id={creator.profileID}>
         {media ? (
           <MessageImageMedia src={media.preLoadingContent} handleClick={handleMediaMessage} />
         ) : (
