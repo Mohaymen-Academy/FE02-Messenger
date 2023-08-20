@@ -2,18 +2,18 @@ import React, { useEffect, useRef, useState } from 'react';
 import { UilSmile, UilMessage, UilPaperclip, UilTimes } from '@iconscout/react-unicons';
 // import EmojiPicker from 'emoji-picker-react';
 import { useDispatch, useSelector } from 'react-redux';
-import EmojiPicker from '../../utility/EmojiPicker';
-import Text from '../../utility/Text';
-import TextProcessorMenu from '../../utility/TextProcessorMenu';
+import { json } from 'react-router-dom';
+import EmojiPicker from '../../ui/EmojiPicker';
+import Text from '../../ui/Text';
+import TextProcessorMenu from '../../ui/TextProcessorMenu';
 import TextProcessor from '../../utility/TextProcessor';
-import FileUploader from '../../utility/FileUploader';
+import FileUploader from '../../ui/FileUploader';
 import Requests from '../../API/Requests';
 import { composerActions } from '../../features/composerSlice';
 import { editmsg } from '../../features/SelectedInfo';
-import PopUp from '../../utility/PopUp';
+import PopUp from '../../ui/PopUp';
 import Poll from './Poll';
-import UploadFile from '../../utility/UploadFile';
-import { json } from 'react-router-dom';
+import UploadFile from '../../ui/UploadFile';
 
 export default function ChatFooter({ id, chattype }) {
   const {
@@ -100,9 +100,9 @@ export default function ChatFooter({ id, chattype }) {
     dispatch(composerActions.clear());
   }
   return (
-    <div className=" flex flex-col sticky bottom-0">
+    <div className=" sticky bottom-0 flex flex-col">
       {needActoin ? (
-        <div className="flex h-[30px] w-[100%] flex-row= bg-color2 pr-2 pt-1">
+        <div className="flex-row= flex h-[30px] w-[100%] bg-color2 pr-2 pt-1">
           <button onClick={() => dispatch(composerActions.clear())}>
             <UilTimes className={'text-color3'} />
           </button>
@@ -122,9 +122,7 @@ export default function ChatFooter({ id, chattype }) {
         <div
           className={` flex  w-[100%] flex-row items-center justify-between sticky bottom-0
           ${needActoin ? '' : ''} bg-color2  p-2 text-color4`}>
-          <button className="mx-1 h-8 w-8 text-text1 " onClick={SelectRequestType} 
-
-          >
+          <button className="mx-1 h-8 w-8 text-text1 " onClick={SelectRequestType}>
             <UilMessage />
           </button>
           {/* </UilPaperclip> */}

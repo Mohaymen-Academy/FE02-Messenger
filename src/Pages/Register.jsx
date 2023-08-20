@@ -1,10 +1,10 @@
 import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
-import { getTheme } from '../utility/useLoclStorage';
-import CheckBoxData from '../utility/CheckBoxData';
-import Requests from '../API/Requests';
 import { redirect } from 'react-router-dom';
+import { getTheme } from '../utility/useLoclStorage';
+import CheckBoxData from '../ui/CheckBoxData';
+import Requests from '../API/Requests';
 import { registerUserProfile } from '../features/profileSlice';
 
 export default function Register() {
@@ -83,12 +83,12 @@ export default function Register() {
   return (
     <div dir="rtl" className="bg-complete h-screen">
       <div className="main-div">
-        <div className="flex mb-5 flex-col items-center justify-center">
+        <div className="mb-5 flex flex-col items-center justify-center">
           <a href="/">
             <img width={150} src="images/rasa.png" />
           </a>
         </div>
-        <div className="bg-color2 h-full sm:max-w-lg sm:rounded-lg w-full  overflow-hidden rounded border  px-6 py-4 shadow-md">
+        <div className="sm:max-w-lg sm:rounded-lg h-full w-full overflow-hidden  rounded border bg-color2  px-6 py-4 shadow-md">
           <div className="mb-5 text-center text-[20px] text-text1">ثبت نام</div>
           <form>
             <div>

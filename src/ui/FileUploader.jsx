@@ -8,7 +8,7 @@ import {
   UilImagePlus,
   UilMicrophone
 } from '@iconscout/react-unicons';
-import { TYPE_USER } from './Constants';
+import { TYPE_USER } from '../utility/Constants';
 
 export default function FileUploader({ openpull, openfile, chattype }) {
   const [open, setopen] = useState(false);
