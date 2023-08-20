@@ -10,11 +10,11 @@ export default function API() {
         headers: header
       })
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         return res;
       })
       .catch((err) => console.log(err));
-    console.log(res);
+    // console.log(res);
     return res;
   }
 

@@ -12,6 +12,7 @@ import TextProcessorObj from '../../utility/TextProcessor.js';
 
 const Message = memo(
   ({
+    seenObserver,
     isSeen,
     id,
     chattype,
@@ -49,15 +50,14 @@ const Message = memo(
         return;
       }
       if (shouldobserve) {
-        console.log('here')
         observer.observe(mainref.current);
       }
+      seenObserver.observe(mainref.current);
       if (textref.current) {
         console.log();
         if (entities != '') {
           processor.OutputEntity(textref, text, []);
         } else {
-          console.log('herer');
           textref.current.innerText = text;
         }
       }

@@ -17,6 +17,7 @@ export default function ChatLayout() {
   const chatType = useSelector((state) => state.selectedProf.chatType);
   const chatID = useSelector((state) => state.selectedProf.selectedChatID);
   const token = useSelector((state) => state.profile.jwt);
+  // const activechat=useSelector(state=>state.)
   const dispatch = useDispatch();
   const worker = new WorkerBuilder(Worker);
   const Chats = {
@@ -26,7 +27,7 @@ export default function ChatLayout() {
   };
 
   useEffect(() => {
-    worker.postMessage(token);
+    worker.postMessage({ token, chatID: chatID || 0 });
     worker.onmessage = (msg) => {
       dispatch(setMessages(msg.data));
     };

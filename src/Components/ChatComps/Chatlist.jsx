@@ -14,15 +14,24 @@ const Chatlist = () => {
   const lists = useSelector((store) => store.messageList.messages);
   const selectedChat = useSelector((store) => store.selectedProf.selectedChatID);
   const chattype = useSelector((store) => store.selectedProf.chatType);
+  const downfinished = useSelector((state) => state.selectedProf.downfinished);
+  const upfinished = useSelector((state) => state.selectedProf.upfinished);
+  console.log(lists);
   useEffect(() => {
-    // console.log(lists);
-    const shouldUpdate = lists.filter(
-      (ele) => ele.profile.profileID == selectedChat && ele.updated == true
-    );
+    const shouldUpdate = lists.filter((ele) => ele.profile.profileID == selectedChat);
+    console.log(shouldUpdate)
     if (shouldUpdate.length != 0) {
-      dispatch(GetMessages({ type: chattype, ID: selectedChat, message_id: 0 }));
-      // bodyref.current.scrollTop = bodyref.current.scrollHeight;
-    }
+    console.log(downfinished,upfinished)
+    } //   const profileinfo = shouldUpdate[0];
+
+    //   if (profileinfo.updates.length != 0) {
+    //     profileinfo.updates.forEach((command) => {
+    //       command;
+    //     });
+    //   } else if (profileinfo.unreadMessageCount != 0) {
+    //     dispatch(GetMessages({ type: chattype, ID: selectedChat, message_id: 0 }));
+    //   }
+    // }
   });
   const handleScroll = (listRef) => {
     // const res = HandleScroller.ReachEnd(listRef);

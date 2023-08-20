@@ -16,7 +16,25 @@ export default function ChatBody({ chatid, chattype }) {
   const dispatch = useDispatch();
   const downfinished = useSelector((state) => state.selectedProf.downfinished);
   const upfinished = useSelector((state) => state.selectedProf.upfinished);
+  // const downfinished = false;
+  // const upfinished = false;
+  console.log('zarp')
   let prevScrollPos;
+  const seenObserver = new IntersectionObserver(
+    (entries) => {
+      const visibleItems = entries
+        .filter((entry) => entry.isIntersecting)
+        .map((entry) => parseInt(entry.target.dataset.id));
+      if (visibleItems.length != 0) {
+        const maxval = Math.max(visibleItems);
+        if (maxval > MSGes.current.upper) {
+          MSGes.current.upper = Math.max(visibleItems);
+          Requests().UpdateSeen(MSGes.current.upper);
+        }
+      }
+    },
+    { rootMargin: '20px', threshold: 1.0 }
+  );
   const observer = new IntersectionObserver(
     (entries) => {
       const visibleItems = entries
@@ -24,18 +42,20 @@ export default function ChatBody({ chatid, chattype }) {
         .map((entry) => parseInt(entry.target.dataset.id));
       if (visibleItems.length != 0) {
         console.log(visibleItems);
-        handleGetMessages(visibleItems[0], dir);
+        console.log('zarp here ');
+        handleGetMessages(visibleItems[0], dir, chatid);
       }
     },
     { rootMargin: '20px', threshold: 1.0 }
   );
-  function handleGetMessages(msgid, dir) {
-    console.log(dir.current, dir.current == UP);
+  function handleGetMessages(msgid, dir, chatid) {
+    // console.log(dir.current, dir.current == UP);
     if (dir.current == UP && !upfinished) {
-      console.log('zarp');
-      dispatch(GetMessagesUp({ id: msgid }));
+      // console.log()
+      // console.log('zarp');
+      dispatch(GetMessagesUp({ msgid: msgid, chatid: chatid }));
     } else if (dir.current == DOWN && !downfinished) {
-      dispatch(GetMessagesDown({ id: msgid }));
+      dispatch(GetMessagesDown({ msgid: msgid, chatid: chatid }));
     }
   }
   const MSGes = useRef({
@@ -53,6 +73,13 @@ export default function ChatBody({ chatid, chattype }) {
       prevScrollPos = bodyref.current.scrollTop;
     }
   }, []);
+
+  // useEffect(() => {
+  //   if (bodyref) {
+  //     bodyref.current.scrollTop = bodyref.current.scrollHeight/2;
+  //     prevScrollPos = bodyref.current.scrollTop;
+  //   }
+  // });
 
   let scrolltimeout;
   const scrollValues = useRef({
@@ -112,7 +139,7 @@ export default function ChatBody({ chatid, chattype }) {
     }
     requestAnimationFrame(scrollAnimation);
   }
-  console.log(messages);
+  // console.log(messages);
   return (
     <div
       // dir="rtl"
@@ -146,6 +173,7 @@ export default function ChatBody({ chatid, chattype }) {
                         shouldobserve={index == 0 || messages.length - 1 == index}
                         key={message.messageID}
                         observer={observer}
+                        seenObserver={seenObserver}
                         isSeen={message.viewCount > 1}
                         id={message.messageID}
                         chattype={chattype}
