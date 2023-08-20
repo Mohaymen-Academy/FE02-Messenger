@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import Requests from '../API/Requests';
 // import {  } from 'react-redux';
 
@@ -10,8 +10,13 @@ const initialState = {
   forwardID: '',
   replyID: '',
   editID: '',
-  editvalue: ''
+  editvalue: '',
+  pinmessage: null
 };
+const GetPin = createAsyncThunk('composer/getpin', async (infos) => {
+  const data = Requests().GetPin(infos.chatid);
+  return data;
+});
 
 const composerSlice = createSlice({
   name: 'composer',
@@ -45,8 +50,22 @@ const composerSlice = createSlice({
     },
     resetComposer: (state) => {
       state = initialState;
+    },
+    pinmsg: (state, action) => {
+      state.pinmessage = {
+        messageID: action.payload.msgid,
+        text: action.payload.text
+      };
+    },
+    clearpin: (state, action) => {
+      state.pinmessage = null;
     }
-  }
+  },
+  extraReducers: (builder) =>
+    builder.addCase(GetPin.fulfilled, (state, action) => {
+      state.pinmessage = action.payload.data;
+    })
 });
+export { GetPin };
 export const composerActions = composerSlice.actions;
 export default composerSlice.reducer;

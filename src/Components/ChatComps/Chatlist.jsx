@@ -17,7 +17,7 @@ const Chatlist = () => {
   const chattype = useSelector((store) => store.selectedProf.chatType);
   const downfinished = useSelector((state) => state.selectedProf.downfinished);
   const upfinished = useSelector((state) => state.selectedProf.upfinished);
-  console.log(lists);
+  // console.log(lists);
   useEffect(() => {
     if (selectedChat) {
       const shouldUpdate = lists.filter((ele) => ele.profile.profileID == selectedChat);

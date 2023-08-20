@@ -26,7 +26,8 @@ const Message = memo(
     handleMediaMessage,
     entities,
     profile,
-    shouldobserve
+    shouldobserve,
+    replyinfo
   }) => {
     // console.log(entities);
     const [mousepositoin, setmousepositoin] = useState({ x_mouse: 0, y_mouse: 0 });
@@ -104,7 +105,23 @@ const Message = memo(
         ref={mainref}
         className={`relative flex w-full ${Isforme ? 'justify-start' : 'justify-end'} px-5`}
         onContextMenu={handleRightClick}>
+        {/* replyMessageInfo
+: 
+compressedContent
+: 
+null
+messageId
+: 
+6
+sender
+: 
+"hesam"
+text
+: 
+"hello" */}
+
         <MessageBody Isforme={Isforme}>
+          {replyinfo ? <MessageHeader repliedTo={replyinfo.text} /> : <></>}
           {media ? (
             <MessageImageMedia src={media.preLoadingContent} handleClick={handleMediaMessage} />
           ) : (

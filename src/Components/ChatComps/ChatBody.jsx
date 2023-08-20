@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import ChatFooter from './ChatFooter.jsx';
 import Message from '../message/Message.jsx';
 import ImagePreviewer from '../media-previewer/ImagePreviewer.jsx';
-import { DOWN, TYPE_CHANNEL, TYPE_GROUP, UP } from '../../utility/Constants.js';
+import { DOWN, TYPE_CHANNEL, TYPE_GROUP, UP, getRelativeDate } from '../../utility/Constants.js';
 import MessageDateGroup from '../message/MessageDateGroup.jsx';
 import MessageVoice from '../message/MessageVoice.jsx';
 // import { NeededId } from '../../utility/FindneededID.js';
@@ -58,7 +58,7 @@ export default function ChatBody({ chatid, chattype }) {
     }
   }
   const MSGes = useRef({
-    upper: 0,
+    upper: 0
     // lower: Infinity
   });
   const bodyref = useRef(null);
@@ -97,6 +97,7 @@ export default function ChatBody({ chatid, chattype }) {
   const scrollValues = useRef({
     lastScrollPosition: 0
   });
+  console.log(messages);
 
   function handleonScroll(e) {
     clearTimeout(scrolltimeout);
@@ -169,41 +170,48 @@ export default function ChatBody({ chatid, chattype }) {
             <UilArrowDown className="text-text1" />
           </button>
           {messages?.length ? (
-            <MessageDateGroup date={'2023-07-20'}>
-              {messages?.map((message, index) => {
-                // console.log(message.isEdited);
-                return (
-                  <>
-                    {message.sender.profileID == 1 ? (
+            messages?.map((message, index) => {
+              return (
+                <>
+                  {message.sender.profileID == 1 ? (
+                    message.messageID != 0 ? (
                       <div className="my-[1rem] w-full text-center">
                         <span className=" bg-black bg-opacity-60 text-text1 p-1 px-3 rounded-full ">
                           {message.text}
                         </span>
                       </div>
                     ) : (
-                      <Message
-                        shouldobserve={index == 0 || messages.length - 1 == index}
-                        key={message.messageID}
-                        observer={observer}
-                        seenObserver={seenObserver}
-                        isSeen={message.viewCount > 1}
-                        id={message.messageID}
-                        chattype={chattype}
-                        creator={message.sender}
-                        time={message.time}
-                        media={message.media}
-                        ispinned={message.ispinned}
-                        isEdited={message.isEdited}
-                        text={message.text}
-                        entities={message.textStyle}
-                        handleMediaMessage={() => setPreview(!preview)}
-                        profile={message.sender}
-                      />
-                    )}
-                  </>
-                );
-              })}
-            </MessageDateGroup>
+                      <div className="my-[1rem] w-full text-center">
+                        <span className="pointer-events-none sticky rounded-full bg-black bg-opacity-60 px-2 py-1 font-iRANSans text-white">
+                          {getRelativeDate(message.text)}
+                        </span>
+                        {/* {children} */}
+                      </div>
+                    )
+                  ) : (
+                    <Message
+                      shouldobserve={index == 0 || messages.length - 1 == index}
+                      key={message.messageID}
+                      observer={observer}
+                      seenObserver={seenObserver}
+                      isSeen={message.viewCount > 1}
+                      id={message.messageID}
+                      chattype={chattype}
+                      creator={message.sender}
+                      time={message.time}
+                      media={message.media}
+                      ispinned={message.ispinned}
+                      isEdited={message.isEdited}
+                      text={message.text}
+                      entities={message.textStyle}
+                      handleMediaMessage={() => setPreview(!preview)}
+                      profile={message.sender}
+                      replyinfo={message.replyMessageInfo}
+                    />
+                  )}
+                </>
+              );
+            })
           ) : (
             <>
               <div className="flex h-[100%] flex-col items-center">

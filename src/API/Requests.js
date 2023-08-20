@@ -252,10 +252,42 @@ export default function Requests(body) {
     }
   }
   async function GetupdateVal(messageId) {
-   return await API().GET(`update/${messageId}`, {}, AutorizeHeader);
+    return await API().GET(`update/${messageId}`, {}, AutorizeHeader);
     // return res;
   }
+  async function GetPin(chatid) {
+    try {
+      const res = API().GET(`getPinnedMessages/${chatid}`, {}, AutorizeHeader);
+      return res;
+    } catch (err) {
+      console.log(err);
+    }
+  }
+  async function PinMSG(msgid) {
+    const body = {
+      messageId: msgid
+    };
+    API()
+      .PUT('pinMessage', body, AutorizeHeader)
+      .then((res) => res.json())
+      .then((data) => data)
+      .catch((err) => console.log(err));
+  }
+  async function UnpinMessage(msgid) {
+    const body = {
+      messageId: msgid
+    };
+    API()
+      .PUT('unpinMessage', body, AutorizeHeader)
+      .then((res) => res.data)
+      .then((data) => console.log(data))
+      .catch((err) => console.log(err));
+  }
+
   return {
+    UnpinMessage,
+    PinMSG,
+    GetPin,
     GetupdateVal,
     GetMessagesDown,
     GetMessagesUp,

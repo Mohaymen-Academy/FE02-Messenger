@@ -13,7 +13,7 @@ import { composerActions } from '../../features/composerSlice';
 import { deletemessage } from '../../features/SelectedInfo';
 import Requests from '../../API/Requests';
 
-const MessageMenu = ({ positions, setposition, msgId, text }) => {  
+const MessageMenu = ({ positions, setposition, msgId, text }) => {
   const dispatch = useDispatch();
   const divref = useRef(null);
   function handleOutsideClick(event) {
@@ -82,7 +82,7 @@ const MessageMenu = ({ positions, setposition, msgId, text }) => {
             key={index}
             className="flex flex-row items-center gap-2 px-5 w-full hover:bg-bghovor rounded-lg"
             onClick={(e) => {
-              if (item.action) {
+              if (item.action && item.action != 'pin') {
                 dispatch(
                   composerActions.setaction({ type: item.action, text: text, messageID: msgId })
                 );
@@ -91,6 +91,11 @@ const MessageMenu = ({ positions, setposition, msgId, text }) => {
                   Requests().Deletemsg(msgId);
                 }
               }
+              if (item.action && item.action == 'pin') {
+                Requests().PinMSG(msgId);
+                dispatch(composerActions.pinmsg({ msgid: msgId, text: text }));
+              }
+              setposition({ x_mouse: 0, y_mouse: 0 });
             }}>
             <div className={`flex items-center gap-2 my-1 ${item.color}`}>{item.icon}</div>
             <p className={`text-xs px-2 ${item.color}`}>{item.title}</p>
