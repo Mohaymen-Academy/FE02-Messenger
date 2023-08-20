@@ -7,7 +7,7 @@ export default function ContactsList() {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(GetContacts());
-  });
+  },[]);
   return (
     <div className="mt-4 w-full h-full overflow-y-auto bg-color1">
       {contacts.map((cont) => (
