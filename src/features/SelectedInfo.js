@@ -37,17 +37,7 @@ const GetMessages = createAsyncThunk('selectedProf/getmessages', async (requesti
     console.log(err);
   }
 });
-// const UpdateMessages = createAsyncThunk(
-//   'selectedProf/updatemessages',
-//   async (requestinfo, params) => {
-//     try {
-//       const data = await Requests().GetChat(requestinfo.ID, params);
-//       return { msgId: data.id, newtext: data.text };
-//     } catch (err) {
-//       console.log(err);
-//     }
-//   }
-// );
+
 const SelectedProf = createSlice({
   name: 'selectedProf',
   initialState,
@@ -84,9 +74,9 @@ const SelectedProf = createSlice({
       .addCase(GetMessages.fulfilled, (state, action) => {
         console.log(action.payload);
         state.Chatmessages = action.payload?.data?.messages;
-        if (action.payload.profileinfo?.profileID) {
-          state.chatType = action.payload?.type;
-          state.selectedChatID = action.payload?.ID;
+        state.chatType = action.payload?.type;
+        state.selectedChatID = action.payload?.ID;
+        if (action.payload?.profileinfo) {
           state.profileinfo = action.payload?.profileinfo;
         }
       })
@@ -98,6 +88,6 @@ const SelectedProf = createSlice({
       })
 });
 export { GetMessages, SetLeftProf };
-export const { resetChatId, editmsg, addcontact,deletemessage } = SelectedProf.actions;
+export const { resetChatId, editmsg, addcontact, deletemessage } = SelectedProf.actions;
 // export const { setChat, setChatType } = SelectedProf.actions;
 export default SelectedProf.reducer;

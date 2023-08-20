@@ -22,7 +22,6 @@ export default function UserChat({ chatid, setChatId }) {
               <ChatHeader
                 active={active}
                 chattype={TYPE_USER}
-                // chatsetter={setChatId}
                 setActive={setActive}
                 chatid={chatid}
               />

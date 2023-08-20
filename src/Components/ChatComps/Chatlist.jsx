@@ -12,17 +12,18 @@ const Chatlist = () => {
   const dispatch = useDispatch();
   const HandleScroller = HandleScroll();
   const lists = useSelector((store) => store.messageList.messages);
-  console.log(lists);
-  // const profid = useSelector((state) => state.selectedProf.selectedChatID);
-
-  // useEffect(() => {
-  //   if (profid) {
-  //     console.log('wer')
-  //     //     const shouldUpdate = lists.filter(
-  //     //       (ele) => ele.profile.profileID == profid && ele.unreadMessageCount != 0
-  //     //     )[0];
-  //   }
-  // });
+  const selectedChat = useSelector((store) => store.selectedProf.selectedChatID);
+  const chattype = useSelector((store) => store.selectedProf.chatType);
+  useEffect(() => {
+    // console.log(lists);
+    const shouldUpdate = lists.filter(
+      (ele) => ele.profile.profileID == selectedChat && ele.updated == true
+    );
+    if (shouldUpdate.length != 0) {
+      dispatch(GetMessages({ type: chattype, ID: selectedChat, message_id: 0 }));
+      // bodyref.current.scrollTop = bodyref.current.scrollHeight;
+    }
+  });
   const handleScroll = (listRef) => {
     // const res = HandleScroller.ReachEnd(listRef);
     // if (res===true) {
@@ -53,7 +54,6 @@ const Chatlist = () => {
           unreadMessageCount={chatprev.unreadMessageCount}
           lastseen={chatprev.lastSeen}
         />
-        
       ))}
     </div>
   );

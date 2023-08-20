@@ -22,7 +22,8 @@ function Message({
   text,
   observer,
   handleMediaMessage,
-  entities
+  entities,
+  profile
 }) {
   const [mousepositoin, setmousepositoin] = useState({ x_mouse: 0, y_mouse: 0 });
   const mainref = useRef(null);
@@ -57,21 +58,21 @@ function Message({
       }
     };
   }, []);
-    // Handle touch start event
-    function handleTouchStart(event) {
-      setmousepositoin({ x_mouse: event.touches[0].clientX, y_mouse: event.touches[0].clientY });
-      // Start a timer for long press
-      this.longPressTimer = setTimeout(() => {
-        handleRightClick(event);
-      }, 500); // Adjust the timeout duration as needed
-    }
-  
-    // Handle touch end event
-    function handleTouchEnd(event) {
-      // Clear the long press timer
-      clearTimeout(this.longPressTimer);
-      setmousepositoin({ x_mouse: 0, y_mouse: 0 });
-    }
+  // Handle touch start event
+  function handleTouchStart(event) {
+    setmousepositoin({ x_mouse: event.touches[0].clientX, y_mouse: event.touches[0].clientY });
+    // Start a timer for long press
+    this.longPressTimer = setTimeout(() => {
+      handleRightClick(event);
+    }, 500); // Adjust the timeout duration as needed
+  }
+
+  // Handle touch end event
+  function handleTouchEnd(event) {
+    // Clear the long press timer
+    clearTimeout(this.longPressTimer);
+    setmousepositoin({ x_mouse: 0, y_mouse: 0 });
+  }
   function handleRightClick(event) {
     event.preventDefault();
     event.stopPropagation();
@@ -99,7 +100,11 @@ function Message({
           ref={textref}></div>
         <MessageFooter Isforme={Isforme} id={id} isSeen={isSeen} />
       </MessageBody>
-      <div className="pt-[70px]">{chattype == TYPE_GROUP ? <Avatar /> : <></>}</div>
+      <div className="pt-[70px]">{chattype == TYPE_GROUP  ? <Avatar
+      imagecolor={profile.defaultProfileColor}
+      
+      
+      isOnline={'false'} /> : <></>}</div>
       {mousepositoin.x_mouse != 0 ? (
         <MessageMenu
           msgId={id}
