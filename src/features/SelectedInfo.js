@@ -14,11 +14,22 @@ const initialState = {
   selectedProfileView: null,
   Chatmessages: [],
   lastMessage: 0,
+  upfinished: false,
+  downfinished: false,
   profileinfo: null,
   leftprof: null,
   profPics: [],
   isContact: false
 };
+const GetMessagesUp = createAsyncThunk('selectedProf/getmessagesup', async (infos) => {
+  const data = await Requests().GetMessagesUp(infos.id);
+  return data.data;
+});
+const GetMessagesDown = createAsyncThunk('selectedProf/getmessagesup', async (infos) => {
+  const data = await Requests().GetMessagesDown(infos.id);
+  return data.data;
+});
+
 const SetLeftProf = createAsyncThunk('selectedProf/setleftprof', async (infos) => {
   console.log(infos.profid);
   const data = await Requests().getleftProf(infos.profid);

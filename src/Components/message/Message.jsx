@@ -24,19 +24,21 @@ const Message = memo(
     observer,
     handleMediaMessage,
     entities,
-    profile
+    profile,
+    shouldobserve
   }) => {
-    console.log(entities);
+    // console.log(entities);
     const [mousepositoin, setmousepositoin] = useState({ x_mouse: 0, y_mouse: 0 });
     const mainref = useRef(null);
     const textref = useRef(null);
     const processor = TextProcessorObj([]);
     const userprofile = useSelector((state) => state.profile);
+    const ents = [];
     useEffect(() => {
       if (textref.current) {
-        if (entities) {
+        if (entities != '') {
           console.log(entities);
-          processor.OutputEntity(textref, text, {});
+          processor.OutputEntity(textref, text, []);
         } else {
           textref.current.innerText = text;
         }
@@ -46,14 +48,16 @@ const Message = memo(
       if (!mainref) {
         return;
       }
-      console.log();
-      observer.observe(mainref.current);
+      if (shouldobserve) {
+        console.log('here')
+        observer.observe(mainref.current);
+      }
       if (textref.current) {
-        // console.log(textref.current.innerText)
-        if (entities) {
-          console.log(entities);
-          processor.OutputEntity(textref, text, {});
+        console.log();
+        if (entities != '') {
+          processor.OutputEntity(textref, text, []);
         } else {
+          console.log('herer');
           textref.current.innerText = text;
         }
       }
@@ -112,7 +116,13 @@ const Message = memo(
             ref={textref}>
             {/* {text} */}
           </div>
-          <MessageFooter Isforme={Isforme} id={id} isSeen={isSeen} isEdited={isEdited} />
+          <MessageFooter
+            Isforme={Isforme}
+            id={id}
+            time={time}
+            isSeen={isSeen}
+            isEdited={isEdited}
+          />
         </MessageBody>
         <div className="pt-[70px]">
           {chattype == TYPE_GROUP ? (

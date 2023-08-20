@@ -250,7 +250,8 @@ export default function TextProcessorObj(containers) {
   }
 
   function OutputEntity(targetref, text, ents) {
-    const list = generateEntity(targetref, text, ents);
+    console.log(typeof JSON.parse(JSON.stringify(ents)));
+    const list = generateEntity(targetref, text, []);
     // console.log(list);
     // setentitycontainers(list);
   }
@@ -281,7 +282,7 @@ export default function TextProcessorObj(containers) {
     console.log(ents);
     let prevEnd;
     for (let i = 0; i < ents.length; i++) {
-      // if (ents.length == 1) {
+      // if (ents.length == 1) {01
       //   list_of_renderableentities.push({
       //     lower: ents[0].upper + 1,
       //     upper: text.length - 1

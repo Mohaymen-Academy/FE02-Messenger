@@ -10,7 +10,7 @@ import Pin from './Pin.jsx';
 const ChatHeader = ({ active, setActive, chatsetter, chattype, chatid }) => {
   const dispatch = useDispatch();
   const selectedProfile = useSelector((state) => state.selectedProf.profileinfo);
-  console.log(selectedProfile)
+  console.log(selectedProfile);
   const ChatInfo =
     chattype == TYPE_USER
       ? selectedProfile?.status // ShouldChange
@@ -37,20 +37,18 @@ const ChatHeader = ({ active, setActive, chatsetter, chattype, chatid }) => {
             <UilArrowRight className="h-8 w-8 cursor-pointer text-text1" />
           </button>
           <div className="h-[75%] w-[75%] flex-1 ">
-            {selectedProfile?.lastProfilePicture ? (
-              <img
-                src={`data:image/jpeg;base64,${selectedProfile?.profile.lastProfilePicture.preLoadingContent}`}
-                className="h-[50px] w-[50px] rounded-full mr-5"
-              />
-            ) : (
-              <Avatar
+            <Avatar
+              image={selectedProfile?.lastProfilePicture}
               size={50}
-                imagecolor={selectedProfile?.defaultProfileColor}
-                char={selectedProfile?.profileName[0]}
-                isOnline={selectedProfile && selectedProfile.status ? selectedProfile.status.toLowerCase() : ''}
-                // isOnline={'online'}
-              />
-            )}
+              imagecolor={selectedProfile?.defaultProfileColor}
+              char={selectedProfile?.profileName[0]}
+              isOnline={
+                selectedProfile && selectedProfile.status
+                  ? selectedProfile.status.toLowerCase()
+                  : ''
+              }
+
+            />
           </div>
           <div className="">
             <h3 className="text-lg font-semibold text-text1">{selectedProfile?.profileName} </h3>

@@ -30,6 +30,7 @@ export default function ChatBody({ chatid, chattype }) {
     },
     { threshold: 0.5 }
   );
+  function handleGetMessages(msgid, dir, shouldupdate) {}
   const MSGes = useRef({
     upper: 0
     // lower: Infinity
@@ -55,7 +56,6 @@ export default function ChatBody({ chatid, chattype }) {
 
     scrolltimeout = setTimeout(() => {
       console.log(MSGes.current.upper);
-      dispatch(GetMessages({ type: chattype, ID: chatid, message_id: MSGes.current.upper }));
     }, 200);
     if (
       Math.abs(
@@ -111,32 +111,35 @@ export default function ChatBody({ chatid, chattype }) {
           </button>
           {messages?.length ? (
             <MessageDateGroup date={'2023-07-20'}>
-              {messages?.map((message) => {
+              {messages?.map((message, index) => {
                 // console.log(message.isEdited);
                 return (
                   <>
-                    message.sender.profileID == 1 ?
-                    <div className="my-[1rem] w-full text-center">
-                      <span className=" bg-black bg-opacity-60 text-text1 p-1 px-3 rounded-full ">
-                        {message.text}
-                      </span>
-                    </div>
-                    <Message
-                      key={message.messageID}
-                      observer={observer}
-                      isSeen={message.viewCount > 1}
-                      id={message.messageID}
-                      chattype={chattype}
-                      creator={message.sender}
-                      time={message.time}
-                      media={message.media}
-                      ispinned={message.ispinned}
-                      isEdited={message.isEdited}
-                      text={message.text}
-                      entities={message.textStyle}
-                      handleMediaMessage={() => setPreview(!preview)}
-                      profile={message.sender}
-                    />
+                    {message.sender.profileID == 1 ? (
+                      <div className="my-[1rem] w-full text-center">
+                        <span className=" bg-black bg-opacity-60 text-text1 p-1 px-3 rounded-full ">
+                          {message.text}
+                        </span>
+                      </div>
+                    ) : (
+                      <Message
+                        shouldobserve={index == 0 || messages.length - 1 == index}
+                        key={message.messageID}
+                        observer={observer}
+                        isSeen={message.viewCount > 1}
+                        id={message.messageID}
+                        chattype={chattype}
+                        creator={message.sender}
+                        time={message.time}
+                        media={message.media}
+                        ispinned={message.ispinned}
+                        isEdited={message.isEdited}
+                        text={message.text}
+                        entities={message.textStyle}
+                        handleMediaMessage={() => setPreview(!preview)}
+                        profile={message.sender}
+                      />
+                    )}
                   </>
                 );
               })}

@@ -1,4 +1,4 @@
-import { TYPE_GROUP } from '../utility/Constants';
+import { DOWN, TYPE_GROUP, UP } from '../utility/Constants';
 import API from './API';
 import { BASE_URL, HEADER } from './consts';
 // import { useSelector } from 'react-redux';
@@ -116,6 +116,25 @@ export default function Requests(body) {
       console.log(err);
     }
   }
+  async function GetMessagesUp(endpoint) {
+    const params = { direction: UP };
+    try {
+      const res = await API().GET(`${endpoint}`, params, AutorizeHeader);
+      return res;
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  async function GetMessagesDown(endpoint) {
+    const params = { direction: DOWN };
+    try {
+      const res = await API().GET(`${endpoint}`, params, AutorizeHeader);
+      return res;
+    } catch (err) {
+      console.log(err);
+    }
+  }
   // async function Replymsg()
   // async function UpdateSeen(MsgID) {
   //   try {
@@ -221,8 +240,9 @@ export default function Requests(body) {
       .catch((err) => console.log(err));
   }
 
-
   return {
+    GetMessagesDown,
+    GetMessagesUp,
     pinChat,
     Deletemsg,
     AddContact,
