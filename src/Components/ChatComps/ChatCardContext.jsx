@@ -6,8 +6,7 @@ import Requests from '../../API/Requests';
 function ChatCardContext({ openContext, setOpenContext, type, chatid }) {
   useEffect(
     () => () => {
-      document.addEventListener('click', () => {
-        // console.log('hello');
+      document.addEventListener('mousedown', () => {
         setOpenContext(false);
       });
     },

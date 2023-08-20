@@ -69,6 +69,9 @@ export default function Requests(body) {
       console.error(err);
     }
   }
+  async function editMessage(msgid) {
+    API().POST()
+  }
   async function UpdateChat(receiveID) {
     try {
       const res = await API().GET(receiveID, {}, AutorizeHeader);
