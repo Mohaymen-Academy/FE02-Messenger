@@ -28,6 +28,12 @@ const chatCardPreviewSlice = createSlice({
     },
     removeActiveMessage: (state) => {
       state.activeMessage = null;
+    },
+    ReplaceImage : (state, action) => {
+      const underlyingObject = state.messages.find((message) => message.messageID === action.payload.messageID)[[target]];
+      const newmassage = {... state.messages}
+      console.log(underlyingObject)
+      newmassage.find((message) => message.messageID === action.payload.messageID).media.preLoadingContent = action.payload.image ;
     }
   },
   extraReducers: (builder) =>
@@ -37,5 +43,5 @@ const chatCardPreviewSlice = createSlice({
     })
 });
 export { GetContacts };
-export const { setMessages, setActiveMessage, removeActiveMessage } = chatCardPreviewSlice.actions;
+export const { setMessages, setActiveMessage, removeActiveMessage, ReplaceImage } = chatCardPreviewSlice.actions;
 export default chatCardPreviewSlice.reducer;

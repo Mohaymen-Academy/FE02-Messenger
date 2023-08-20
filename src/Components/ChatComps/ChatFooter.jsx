@@ -62,7 +62,13 @@ export default function ChatFooter({ id, chattype }) {
   const dispatch = useDispatch();
   const [mousepositoin, setmousepositoin] = useState({ x: 0, y: 0 });
   const needActoin = Isactive.isEditting || Isactive.isReplying || Isactive.isForwarding;
-
+  function handleKeyDown(event) {
+    handleKeyLeftRight(event);
+    if (event.key === 'Enter' && !event.shiftKey) {
+      event.preventDefault(); // Prevents the default Enter behavior (usually adding a new line)
+      SelectRequestType(); // Call the function
+    }
+  }
   async function SelectRequestType() {
     if (Isactive.isEditting) {
       console.log();
@@ -116,7 +122,9 @@ export default function ChatFooter({ id, chattype }) {
         <div
           className={` flex  w-[100%] flex-row items-center justify-between sticky bottom-0
           ${needActoin ? '' : ''} bg-color2  p-2 text-color4`}>
-          <button className="mx-1 h-8 w-8 text-text1 " onClick={SelectRequestType}>
+          <button className="mx-1 h-8 w-8 text-text1 " onClick={SelectRequestType} 
+
+          >
             <UilMessage />
           </button>
           {/* </UilPaperclip> */}
@@ -126,7 +134,7 @@ export default function ChatFooter({ id, chattype }) {
             ref={divref}
             dir="auto"
             contentEditable
-            onKeyDown={handleKeyLeftRight}
+            onKeyDown={handleKeyDown} // Attach the onKeyDown event handler
             onClick={handleclick}
             onSelectCapture={handleSelect}
             onInput={handleonInput}

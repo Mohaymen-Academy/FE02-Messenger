@@ -68,7 +68,7 @@ export default function Settings() {
               {profile.profileData.lastProfilePicture ? (
                 <img
                   src={`data:image/jpeg;base64,${profile.profileData.lastProfilePicture.preLoadingContent}`}
-                  className="h-full w-full rounded-full bg-cover aspect-[1/1]"
+                  className="h-full w-full rounded-full bg-cover aspect-[1/1] object-cover"
                 />
               ) : (
                 <Avatar

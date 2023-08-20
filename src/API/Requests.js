@@ -160,6 +160,10 @@ export default function Requests(body) {
       .then((data) => console.log(data))
       .catch((err) => console.log(err));
   }
+  async function GetOriginalImage(mediaId) {
+      const res = await API().GET(`original/${mediaId}`, {}, AutorizeHeader)
+      return res.data
+  }
   async function EditMessage(messageId, text) {
     const body = {
       text
@@ -309,6 +313,7 @@ export default function Requests(body) {
     UpdateSeen,
     UpdateProfileImage,
     UpdateProfile,
-    sendFiles
+    sendFiles,
+    GetOriginalImage
   };
 }
