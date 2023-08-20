@@ -10,7 +10,8 @@ const initialState = {
   isForwarding: false,
   forwardID: '',
   replyID: '',
-  editID: ''
+  editID: '',
+  editvalue: ''
 };
 
 const composerSlice = createSlice({
@@ -19,6 +20,7 @@ const composerSlice = createSlice({
   reducers: {
     clear: (state, action) => {
       state.composerValue = '';
+      state.editvalue = '';
       state.isEditting = false;
       state.isReplying = false;
       state.isForwarding = false;
@@ -27,16 +29,18 @@ const composerSlice = createSlice({
       switch (action.payload.type) {
         case 'reply':
           state.isReplying = true;
+          state.composerValue = action.payload.text;
           break;
         case 'edit':
           state.isEditting = true;
           state.editID = action.payload.messageID;
+          state.editvalue = action.payload.text;
+          state.composerValue = action.payload.text;
           break;
         case 'delete':
           Requests().Deletemsg(action.payload.messageID);
           break;
       }
-      state.composerValue = action.payload.text;
     },
     setIsEditting: (state, action) => {
       state.editID = action.payload;

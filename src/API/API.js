@@ -3,17 +3,23 @@ import { BASE_URL } from './consts';
 
 export default function API() {
   // GET function
-  async function GET(endpoint, params , header) {
-    const res = await axios.get(`${BASE_URL}/${endpoint}`, {
-      params: params,
-      headers: header
-    });
-    // console.log(res);
+  async function GET(endpoint, params, header) {
+    const res = await axios
+      .get(`${BASE_URL}/${endpoint}`, {
+        params: params,
+        headers: header
+      })
+      .then((res) => {
+        console.log(res);
+        return res;
+      })
+      .catch((err) => console.log(err));
+    console.log(res);
     return res;
   }
 
   // POST function
-  async function POST(endpoint, body , header) {
+  async function POST(endpoint, body, header) {
     const res = await axios.post(`${BASE_URL}/${endpoint}`, body, {
       headers: header
     });
@@ -22,7 +28,7 @@ export default function API() {
   }
 
   // PUT function
-  async function PUT(endpoint, body , header) {
+  async function PUT(endpoint, body, header) {
     const res = await axios.put(`${BASE_URL}/${endpoint}`, body, {
       headers: header
     });
@@ -31,7 +37,7 @@ export default function API() {
   }
 
   // DELETE function
-  async function DEL(endpoint, params , header) {
+  async function DEL(endpoint, params, header) {
     const res = await axios.delete(`${BASE_URL}/${endpoint}`, {
       params: params,
       headers: header
