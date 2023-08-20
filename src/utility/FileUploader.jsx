@@ -26,12 +26,19 @@ export default function FileUploader({ openpull, openfile, chattype }) {
   // function handlefileuplodview(e) {
   // }
   function handleFileuploaded(e) {
+    console.log('say my name');
     uploadedFile.current = fileinput.current.files[0];
+    console.log(uploadedFile.current);
     const reader = new FileReader();
     reader.onload = (e) => {
       const base64string = e.target.result.split(',')[1];
       base64img.current = base64string;
-      openfile(base64string);
+      openfile({
+        content: base64string,
+        fileName: uploadedFile.current.name,
+        'media-type': uploadedFile.current.type,
+        size: uploadedFile.current.size
+      });
     };
     reader.readAsDataURL(uploadedFile.current);
   }
@@ -39,7 +46,7 @@ export default function FileUploader({ openpull, openfile, chattype }) {
     <div
       onMouseOver={openthediv}
       //   onMouseLeave={closediv}
-      className="hover:cursor-pointer mx-1 h-8 w-8 text-text1">
+      className="mx-1 h-8 w-8 text-text1 hover:cursor-pointer">
       <UilPaperclip />
 
       <div
@@ -60,6 +67,7 @@ export default function FileUploader({ openpull, openfile, chattype }) {
           className=" my-1 flex w-full flex-row items-center gap-2 rounded-lg px-4 hover:bg-gray-200"
           onClick={(e) => {
             fileinput.current.click();
+            console.log('here in uploaderrrrrrrrr button');
           }}>
           <input type="file" className="hidden" ref={fileinput} onInput={handleFileuploaded} />
 

@@ -34,7 +34,7 @@ export default function ChatFooter({ id, chattype }) {
   const Isactive = useSelector((state) => state.composer);
   const [openAttach, setOpenAttach] = useState(false);
   const [openPoll, setopenPoll] = useState(false);
-  const [fileuploaded, setfileuploaded] = useState(false);
+  const [fileuploaded, setfileuploaded] = useState(null);
 
   const emoji = useState('');
 
@@ -67,14 +67,12 @@ export default function ChatFooter({ id, chattype }) {
       console.log(Isactive.editID);
       // dispatch(editmsg({ msgId: Isactive.editID, newtext: divref.current.innerText }));
       // await Requests().EditMessage(Isactive.editID, divref.current.innerText);
+    } else if (Isactive.isReplying) {
     } else {
-      if (Isactive.isReplying) {
-      } else {
-        console.log(divref.current.innerText);
-        console.log(ProcessorValues.current.rawtext);
-        console.log(ProcessorValues.current.sorted);
-        Requests().sendText(id, ProcessorValues.current.rawtext, ProcessorValues.current.sorted);
-      }
+      console.log(divref.current.innerText);
+      console.log(ProcessorValues.current.rawtext);
+      console.log(ProcessorValues.current.sorted);
+      Requests().sendText(id, ProcessorValues.current.rawtext, ProcessorValues.current.sorted);
     }
     // ProcessorValues.current.rawtext = '';
     // divref.current.innerText = '';
@@ -119,7 +117,7 @@ export default function ChatFooter({ id, chattype }) {
             onSelectCapture={handleSelect}
             onInput={handleonInput}
             suppressContentEditableWarning={true}
-            className=" flex h-auto max-h-[50px] w-[90%] flex-row overflow-hidden 
+            className=" flex h-auto max-h-[50px] w-[90%] flex-row overflow-hidden
             whitespace-pre-wrap
             break-all border-none shadow-none outline-none focus:shadow-none active:shadow-none">
             {Isactive.editvalue ? Isactive.editvalue : ''}
@@ -140,7 +138,7 @@ export default function ChatFooter({ id, chattype }) {
 
             {fileuploaded && (
               <PopUp title="انتخاب عکس" setIsModalOpen={setfileuploaded}>
-                <UploadFile imagebase64={fileuploaded} />
+                <UploadFile id={id} fileuploaded={fileuploaded} />
               </PopUp>
             )}
             {openPoll && (

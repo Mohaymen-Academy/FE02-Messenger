@@ -130,7 +130,7 @@ export default function Requests(body) {
   }
   async function EditMessage(messageId, text) {
     const body = {
-      text: text
+      text
     };
     await API()
       .POST(`edit-message/${messageId}`, body, AutorizeHeader)
@@ -174,9 +174,9 @@ export default function Requests(body) {
   }
   async function CreateChat(name, members, type) {
     const body = {
-      type: type,
-      members: members,
-      name: name
+      type,
+      members,
+      name
     };
     await API()
       .POST('create-chat', body, AutorizeHeader)
@@ -214,7 +214,15 @@ export default function Requests(body) {
       .catch((err) => console.log(err));
   }
   async function deleteChat(chatid) {}
-
+  async function sendFiles(endpoint, body) {
+    try {
+      const res = await API().POST(`${endpoint}`, body, AutorizeHeader);
+      console.log(res);
+      return res;
+    } catch (error) {
+      console.error(error);
+    }
+  }
   return {
     pinChat,
     Deletemsg,
@@ -233,6 +241,7 @@ export default function Requests(body) {
     sendText,
     UpdateSeen,
     UpdateProfileImage,
-    UpdateProfile
+    UpdateProfile,
+    sendFiles
   };
 }
