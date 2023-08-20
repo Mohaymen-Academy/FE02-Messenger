@@ -12,7 +12,7 @@ import MessageVoice from '../message/MessageVoice.jsx';
 import Requests from '../../API/Requests.js';
 import { GetMessages } from '../../features/SelectedInfo.js';
 
-export default function ChatBody({ chatid, chattype, needupdate }) {
+export default function ChatBody({ chatid, chattype }) {
   const dispatch = useDispatch();
   const observer = new IntersectionObserver(
     (entries) => {
@@ -38,23 +38,18 @@ export default function ChatBody({ chatid, chattype, needupdate }) {
   const messages = useSelector((state) => state.selectedProf.Chatmessages);
   const [buttonhidden, setbuttonhidden] = useState(true);
   // const ChatId = useSelector((state) => state.selectedProf.selectedChatID);
-  const lists = useSelector((store) => store.messageList.messages);
-  useEffect(() => {
-    // console.log(lists);
-    const shouldUpdate = lists.filter(
-      (ele) => ele.profile.profileID == chatid && ele.updated == true
-    );
-    if (shouldUpdate.length != 0) {
-      // console.log(MSGes.current.upper);
-      dispatch(GetMessages({ type: chattype, ID: chatid, message_id: 0 }));
-      bodyref.current.scrollTop = bodyref.current.scrollHeight;
-    }
-  });
+
   useEffect(() => {
     if (bodyref) {
       bodyref.current.scrollTop = bodyref.current.scrollHeight;
     }
   }, []);
+
+  useEffect(() => {
+    if (bodyref) {
+      bodyref.current.scrollTop = bodyref.current.scrollHeight;
+    }
+  });
 
   let scrolltimeout;
   const scrollValues = useRef({
@@ -62,14 +57,11 @@ export default function ChatBody({ chatid, chattype, needupdate }) {
   });
   function handleonScroll() {
     clearTimeout(scrolltimeout);
-    // console.log(
-    //   bodyref.current?.scrollTop,
-    //   bodyref.current.scrollHeight - bodyref.current.clientHeight
-    // );
+
     scrolltimeout = setTimeout(() => {
       console.log(MSGes.current.upper);
-      dispatch(GetMessages({ type: chattype, ID: chatid, message_id: 0}));
-      // dispatch(GetMessages({ type: chattype, ID: chatid, message_id: MSGes.current.upper }));
+      dispatch(GetMessages({ type: chattype, ID: chatid, message_id: MSGes.current.upper }));
+
     }, 200);
     if (
       Math.abs(
@@ -106,7 +98,7 @@ export default function ChatBody({ chatid, chattype, needupdate }) {
     }
     requestAnimationFrame(scrollAnimation);
   }
-
+  console.log(messages)
   return (
     <div
       // dir="rtl"
@@ -143,9 +135,10 @@ export default function ChatBody({ chatid, chattype, needupdate }) {
                     ispinned={message.ispinned}
                     isEdited={message.isEdited}
                     text={message.text}
-                    entities={message.entities}
+                    entities={message.textStyle}
                     // chattype={chattype}
                     handleMediaMessage={() => setPreview(!preview)}
+                    profile={message.sender}
                   />
                 </div>
               ))}

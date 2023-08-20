@@ -102,10 +102,8 @@ export default function Requests(body) {
       .catch((err) => console.log(err));
   }
   async function sendText(endpoint, text, styles) {
-    const body = { text, styles };
+    const body = { text, textStyle: styles };
     console.log(body);
-    // console.log(text);
-    // console.log(text)
     try {
       const res = await API().POST(`${endpoint}`, body, AutorizeHeader);
       return res;
