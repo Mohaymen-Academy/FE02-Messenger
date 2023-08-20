@@ -4,6 +4,7 @@ import Avatar from './Avatar';
 import { GetMessages } from '../../features/SelectedInfo';
 import Requests from '../../API/Requests';
 import ChatCardContext from './ChatCardContext';
+import { UilLink } from '@iconscout/react-unicons';
 // import
 function bytesToBase64(bytes) {
   const binString = Array.from(bytes, (x) => String.fromCodePoint(x)).join('');
@@ -12,11 +13,10 @@ function bytesToBase64(bytes) {
 
 // TODO
 //  NEED TO ADD TIME TO IT
-const ChatCardPreview = ({ profile, lastMessage, unreadMessageCount, lastseen, pinned }) => {
+const ChatCardPreview = ({ profile, lastMessage, unreadMessageCount, pinned }) => {
   // console.log(profile?.lastProfilePicture?.preLoadingContent)
   const [openContext, setOpenContext] = useState(false);
   const dispatch = useDispatch();
-
   const handleRightClick = (e) => {
     setOpenContext(true);
   };
@@ -59,17 +59,21 @@ const ChatCardPreview = ({ profile, lastMessage, unreadMessageCount, lastseen, p
         </div>
         <div className="flex h-[50px] flex-col justify-between pl-3">
           <p className="text-xs text-text1 opacity-[50%]">{lastMessage?.time}</p>
-          {unreadMessageCount ? (
-            <div>
-              <div className="h-6 w-6 rounded-full bg-green-400  text-center text-white shadow-lg">
-                {unreadMessageCount}
+          <div className="flex flex-row justify-end">
+            {unreadMessageCount ? (
+              <div>
+                <div className="h-6 w-6 rounded-full bg-green-400  text-center text-white shadow-lg">
+                  {unreadMessageCount}
+                </div>
               </div>
-            </div>
-          ) : null}
+            ) : null}
+            {pinned ? <UilLink className={'text-text1 text-opacity-25'} /> : <></>}
+          </div>
         </div>
       </div>
       {openContext ? (
         <ChatCardContext
+          chatid={profile.profileID}
           type={profile.type}
           openContext={openContext}
           setOpenContext={setOpenContext}

@@ -174,7 +174,7 @@ export default function ChatBody({ chatid, chattype, needupdate }) {
         </div>
         {footerallowed && (
           <div className=" h-16 w-[80%] vsmmobile:mb-[3rem] smmobile:mb-[3rem]">
-            <ChatFooter id={chatid} />
+            <ChatFooter id={chatid} chattype={chattype} />
           </div>
         )}
       </div>

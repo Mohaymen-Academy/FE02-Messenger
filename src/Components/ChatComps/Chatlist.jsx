@@ -12,6 +12,7 @@ const Chatlist = () => {
   const dispatch = useDispatch();
   const HandleScroller = HandleScroll();
   const lists = useSelector((store) => store.messageList.messages);
+  console.log(lists);
   // const profid = useSelector((state) => state.selectedProf.selectedChatID);
 
   // useEffect(() => {
@@ -46,6 +47,7 @@ const Chatlist = () => {
       {lists?.map((chatprev, index) => (
         <ChatCardPreview
           key={index}
+          pinned={chatprev.pinned}
           profile={chatprev.profile}
           lastMessage={chatprev.lastMessage}
           unreadMessageCount={chatprev.unreadMessageCount}

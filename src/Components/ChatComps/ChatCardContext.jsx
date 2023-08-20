@@ -1,35 +1,42 @@
 import { useEffect, useState } from 'react';
 import { UilTrash, UilBellSlash, UilMapPinAlt } from '@iconscout/react-unicons';
 import { TYPE_CHANNEL, TYPE_GROUP, TYPE_USER } from '../../utility/Constants';
+import Requests from '../../API/Requests';
 
-function ChatCardContext({ openContext, setOpenContext, type }) {
+function ChatCardContext({ openContext, setOpenContext, type, chatid }) {
   useEffect(
     () => () => {
       document.addEventListener('click', () => {
-        console.log('hello');
+        // console.log('hello');
         setOpenContext(false);
       });
     },
     [openContext]
   );
 
+  function handlePin() {
+    Requests().pinChat(chatid);
+  }
+  function handlDelete() {}
+  function handlMute() {}
   const chatItems = [
     {
       icon: <UilMapPinAlt />,
       title: 'سنجاق به بالا',
       color: 'text-text1',
-      action: 'reply'
+      action: handlePin
     },
     {
       icon: <UilBellSlash />,
       title: 'بی صدا کردن',
       color: 'text-text1',
-      action: 'edit'
+      action: handlMute
     },
     {
       icon: <UilTrash />,
       title: 'حذف',
-      color: 'text-red-500'
+      color: 'text-red-500',
+      action: handlDelete
     }
   ];
   const channelItems = [
@@ -75,6 +82,7 @@ function ChatCardContext({ openContext, setOpenContext, type }) {
   function makeList(items) {
     return items.map((item, index) => (
       <li
+        onClick={item.action}
         key={index}
         className="flex w-full flex-row items-center gap-2 rounded-lg px-5 hover:bg-bghovor">
         <div className={`my-1 flex items-center gap-2 ${item.color}`}>{item.icon}</div>

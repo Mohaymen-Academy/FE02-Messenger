@@ -196,13 +196,29 @@ export default function Requests(body) {
     }
   }
   async function AddContact(contactId) {
-    await API().POST(`contacts/${contactId}`, {}, AutorizeHeader);
+    await API()
+      .POST(`contacts/${contactId}`, {}, AutorizeHeader)
+      .then((res) => res.json())
+      .then((data) => console.log(data))
+      .catch((err) => console.log(err));
   }
   async function Deletemsg(msgID) {
-    await API().DEL(msgID, {}, AutorizeHeader);
+    await API()
+      .DEL(msgID, {}, AutorizeHeader)
+      .then((res) => res.json())
+      .then((data) => console.log(data))
+      .catch((err) => console.log(err));
+  }
+  async function pinChat(chatid) {
+    await API()
+      .GET(chatid, {}, AutorizeHeader)
+      .then((res) => res.json())
+      .then((data) => console.log(data))
+      .catch((err) => console.log(err));
   }
 
   return {
+    pinChat,
     Deletemsg,
     AddContact,
     CreateChat,
