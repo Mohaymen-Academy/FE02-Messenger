@@ -98,7 +98,7 @@ function Message({
           className="flex break-words break-all whitespace-break-spaces"
           dir="auto"
           ref={textref}></div>
-        <MessageFooter Isforme={Isforme} id={id} isSeen={isSeen} />
+        <MessageFooter Isforme={Isforme} id={id} isSeen={isSeen} time={time} />
       </MessageBody>
       <div className="pt-[70px]">{chattype == TYPE_GROUP  ? <Avatar
       imagecolor={profile.defaultProfileColor}
