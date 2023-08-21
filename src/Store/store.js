@@ -7,6 +7,7 @@ import RightSideReducer from '../features/rightSideSlice';
 import SelectedProf from '../features/SelectedInfo';
 import chatCardPreviewReducer from '../features/chatCardPreviewSlice';
 import composerSliceReducer from '../features/composerSlice';
+import SharedMediaReducer from '../features/SharedMediaSlice';
 
 const profilePersistConfig = {
   key: 'profile',
@@ -22,7 +23,8 @@ export const store = configureStore({
     rightsideMenues: RightSideReducer,
     selectedProf: SelectedProf,
     messageList: chatCardPreviewReducer,
-    composer: composerSliceReducer
+    composer: composerSliceReducer,
+    SharedMedia :SharedMediaReducer
   },
   middleware: [thunk]
 });

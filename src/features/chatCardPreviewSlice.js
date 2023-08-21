@@ -1,4 +1,7 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import {
+  createAsyncThunk,
+  createSlice
+} from '@reduxjs/toolkit';
 import Requests from '../API/Requests';
 
 const initialState = {
@@ -29,12 +32,8 @@ const chatCardPreviewSlice = createSlice({
     removeActiveMessage: (state) => {
       state.activeMessage = null;
     },
-    ReplaceImage : (state, action) => {
-      const underlyingObject = state.messages.find((message) => message.messageID === action.payload.messageID)[[target]];
-      const newmassage = {... state.messages}
-      console.log(underlyingObject)
-      newmassage.find((message) => message.messageID === action.payload.messageID).media.preLoadingContent = action.payload.image ;
-    }
+
+
   },
   extraReducers: (builder) =>
     builder.addCase(GetContacts.fulfilled, (state, action) => {
@@ -42,6 +41,12 @@ const chatCardPreviewSlice = createSlice({
       state.contacts = action.payload.data;
     })
 });
-export { GetContacts };
-export const { setMessages, setActiveMessage, removeActiveMessage, ReplaceImage } = chatCardPreviewSlice.actions;
+export {
+  GetContacts
+};
+export const {
+  setMessages,
+  setActiveMessage,
+  removeActiveMessage,
+} = chatCardPreviewSlice.actions;
 export default chatCardPreviewSlice.reducer;

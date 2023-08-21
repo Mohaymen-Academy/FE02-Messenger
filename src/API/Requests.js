@@ -273,6 +273,14 @@ export default function Requests(body) {
       console.log(err);
     }
   }
+  async function GetSharedMedia(chatid) {
+    try {
+      const res = API().GET(`images/${chatid}`, {}, AutorizeHeader);
+      return res;
+    } catch (err) {
+      console.log(err);
+    }
+  }
   async function PinMSG(msgid) {
     const body = {
       messageId: msgid
@@ -334,6 +342,7 @@ export default function Requests(body) {
     UpdateProfileImage,
     UpdateProfile,
     sendFiles,
-    GetOriginalImage
+    GetOriginalImage,
+    GetSharedMedia
   };
 }

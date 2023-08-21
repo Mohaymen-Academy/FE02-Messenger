@@ -20,7 +20,8 @@ const initialState = {
   leftprof: null,
   profPics: [],
   isContact: false,
-  updatesList: []
+  updatesList: [],
+  downloaded: []
 };
 const GetMessagesUp = createAsyncThunk('selectedProf/getmessagesup', async (infos) => {
   console.log('iwoereuiwpr');
@@ -85,6 +86,25 @@ const SelectedProf = createSlice({
     },
     Updatecommands: (state, action) => {
       state.updatesList = state.updatesList.concat(action.payload.updates);
+    },
+    ReplaceImage: (state, action) => {
+      // state.messages; // Create a new array to avoid mutating the state directly
+      state.Chatmessages = state.Chatmessages.map((message) => {
+        console.log(message);
+        if (message.messageID === action.payload.massageId) {
+          state.downloaded = [...state.downloaded, action.payload.massageId];
+          console.log(state.downloaded);
+          return {
+            ...message,
+            media: {
+              ...message.media,
+              preLoadingContent: action.payload.image
+            }
+          };
+        }
+        return message;
+      });
+      console.log(state.Chatmessages);
     }
   },
   extraReducers: (builder) =>
@@ -120,7 +140,8 @@ const SelectedProf = createSlice({
       })
 });
 export { GetMessages, SetLeftProf, GetMessagesDown, GetMessagesUp };
-export const { resetChatId, editmsg, addcontact, deletemessage, Updatecommands } =
+export const { resetChatId, editmsg, addcontact, deletemessage, Updatecommands, ReplaceImage } =
   SelectedProf.actions;
+// export const { resetChatId, editmsg, addcontact, deletemessage,ReplaceImage } = SelectedProf.actions;
 // export const { setChat, setChatType } = SelectedProf.actions;
 export default SelectedProf.reducer;
