@@ -20,22 +20,22 @@ const Chatlist = () => {
   const updatesList = useSelector((state) => state.selectedProf.updatesList);
   // console.error(lists);
   useEffect(() => {
-    if (selectedChat) {
-      const shouldUpdate = lists.filter((ele) => ele.profile.profileID == selectedChat);
-      const profileinfo = shouldUpdate[0];
-      console.log(profileinfo);
-      if (profileinfo.updates && profileinfo.updates.length != 0) {
-        // console.log(profileinfo.updates);
-        const maxid = Math.max(...profileinfo?.updates.map((command) => command.id));
-        if (maxid && maxid != -Infinity) {
-          console.error(profileinfo.updates);
-          // Requests().UpdateResponse(maxid, selectedChat);
-          // dispatch(Updatecommands({ updates: profileinfo.updates }));
-        }
-      } else if (profileinfo.unreadMessageCount != 0) {
-        // dispatch(GetMessages({ type: chattype, ID: selectedChat, message_id: 0 }));
-      }
-    }
+    // if (selectedChat) {
+    //   const shouldUpdate = lists.filter((ele) => ele.profile.profileID == selectedChat);
+    //   const profileinfo = shouldUpdate[0];
+    //   console.log(profileinfo);
+    //   if (profileinfo.updates && profileinfo.updates.length != 0) {
+    //     // console.log(profileinfo.updates);
+    //     const maxid = Math.max(...profileinfo?.updates.map((command) => command.id));
+    //     if (maxid && maxid != -Infinity) {
+    //       console.error(profileinfo.updates);
+    //       // Requests().UpdateResponse(maxid, selectedChat);
+    //       // dispatch(Updatecommands({ updates: profileinfo.updates }));
+    //     }
+    //   } else if (profileinfo.unreadMessageCount != 0) {
+    //     // dispatch(GetMessages({ type: chattype, ID: selectedChat, message_id: 0 }));
+    //   }
+    // }
   });
   const handleScroll = (listRef) => {
     // const res = HandleScroller.ReachEnd(listRef);
