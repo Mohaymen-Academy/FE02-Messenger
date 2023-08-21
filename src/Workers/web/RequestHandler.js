@@ -6,17 +6,17 @@ export default (e) => {
     // http://185.60.136.206:8080
     // console.log(msg.data);
     fetch(
-      `http://185.60.136.206:8080?${new URLSearchParams({
-        active_chat: msg.data.chatID
+      `http://192.168.70.223:8080?${new URLSearchParams({
+        active_chat: msg.data.chatID,
       })}`,
       {
         headers: {
           'Content-Type': 'application/json',
           'Access-Control-Allow-Origin': '*',
-          Authorization: `${msg.data.token}`
+          Authorization: `${msg.data.token}`,
         },
-        method: 'GET'
-      }
+        method: 'GET',
+      },
     )
       .then((resp) => resp.json())
       .then((data) => postMessage(data));
