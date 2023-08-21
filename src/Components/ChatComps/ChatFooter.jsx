@@ -82,6 +82,15 @@ export default function ChatFooter({ id, chattype }) {
           JSON.stringify(ProcessorValues.current.sorted),
           Isactive.replyID
         );
+      }
+      if (Isactive.isForwarding) {
+        Requests().sendText(
+          id,
+          ProcessorValues.current.rawtext,
+          JSON.stringify(ProcessorValues.current.sorted),
+          null,
+          Isactive.forwardID
+        );
       } else {
         console.log(id);
         Requests().sendText(
@@ -122,9 +131,7 @@ export default function ChatFooter({ id, chattype }) {
         <div
           className={` flex  w-[100%] flex-row items-center justify-between sticky bottom-0
           ${needActoin ? '' : ''} bg-color2  p-2 text-color4`}>
-          <button className="mx-1 h-8 w-8 text-text1 " onClick={SelectRequestType} 
-
-          >
+          <button className="mx-1 h-8 w-8 text-text1 " onClick={SelectRequestType}>
             <UilMessage />
           </button>
           {/* </UilPaperclip> */}

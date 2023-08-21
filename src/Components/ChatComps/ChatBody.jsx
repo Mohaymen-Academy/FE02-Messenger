@@ -95,7 +95,10 @@ export default function ChatBody({ chatid, chattype }) {
     // console.log(prevScrollPos, currentScrollPos);
     if (prevScrollPos == currentScrollPos) {
       const maxid = messages.map((ele) => parseInt(ele.messageID));
-      // Requests().UpdateSeen(Math.max(...maxid));
+      Requests().UpdateSeen(Math.max(...maxid));
+    }
+    if (prevScrollPos == 0) {
+      bodyref.current.scrollTop = 20;
     }
   });
 
@@ -103,7 +106,6 @@ export default function ChatBody({ chatid, chattype }) {
   const scrollValues = useRef({
     lastScrollPosition: 0
   });
-  console.log(messages);
 
   function handleonScroll(e) {
     clearTimeout(scrolltimeout);
@@ -181,13 +183,13 @@ export default function ChatBody({ chatid, chattype }) {
                 <>
                   {message.sender.profileID == 1 ? (
                     message.messageID != 0 ? (
-                      <div className="my-[1rem] w-full text-center">
+                      <div key={message.messageID} className="my-[1rem] w-full text-center">
                         <span className=" bg-black bg-opacity-60 text-text1 p-1 px-3 rounded-full ">
                           {message.text}
                         </span>
                       </div>
                     ) : (
-                      <div className="my-[1rem] w-full text-center">
+                      <div key={message.messageID} className="my-[1rem] w-full text-center">
                         <span className="pointer-events-none sticky rounded-full bg-black bg-opacity-60 px-2 py-1 font-iRANSans text-white">
                           {getRelativeDate(message.text)}
                         </span>
