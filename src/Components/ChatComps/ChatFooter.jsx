@@ -167,7 +167,7 @@ export default function ChatFooter({ id, chattype }) {
 } */}
 
             {fileuploaded && (
-              <PopUp title="انتخاب عکس" setIsModalOpen={setfileuploaded}>
+              <PopUp title="انتخاب فایل" setIsModalOpen={setfileuploaded}>
                 <UploadFile id={id} fileuploaded={fileuploaded} />
               </PopUp>
             )}

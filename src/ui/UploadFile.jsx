@@ -1,11 +1,13 @@
 import React, { useRef } from 'react';
 import Requests from '../API/Requests';
-
+import FilePreviewer from './FilePreviewer';
+import { Files } from '../Components/LeftSideBar/ProfileParts';
 export default function UploadFile({ id, fileuploaded }) {
   const captionRef = useRef(null);
   function handleChange(event) {
     captionRef.current.value = event.target.value;
   }
+  console.log(fileuploaded)
   function sendMedia() {
     if (captionRef !== null) {
       Requests().sendFiles(id, { ...fileuploaded, text: captionRef.current.value });
@@ -14,11 +16,27 @@ export default function UploadFile({ id, fileuploaded }) {
     }
   }
   return (
-    <div>
-      <img
-        src={`data:image/jpeg;base64,${fileuploaded}`}
-        className="h-[250px] w-[250px] rounded-lg"
-      />
+    <div className='flex flex-col justify-center'>
+      {
+      fileuploaded["media-type"].startsWith('image/') && (
+          <img
+             src={`data:image/jpeg;base64,${fileuploaded.content}`}
+             className=" w-full rounded-lg place-content-center justify-center flex"
+           />
+        )
+      }
+      {
+      fileuploaded["media-type"].startsWith('application/') && (
+         // <embed
+          //   src={`data:application/pdf;base64,${fileuploaded.content}`}
+          //   type="application/pdf"
+          //   width="100%"
+          //   height="600px"
+          // />
+          <Files file={fileuploaded} />
+        )
+      }
+      {/* <FilePreviewer file={fileuploaded} /> */}
       <label htmlFor="fileCaption" className="mt-3 block text-sm font-medium text-text1">
         توضیحات
       </label>

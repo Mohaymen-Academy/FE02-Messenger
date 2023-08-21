@@ -177,7 +177,7 @@ export default function ChatBody({ chatid, chattype }) {
       className={`flex h-[100%] flex-col items-center`}>
       <div className="flex h-[72%]  w-full flex-col items-center overflow-hidden">
         <div
-          className="mb-[2] h-[105vh] w-[100%]  overflow-auto px-5 pt-3"
+          className="mb-[25rem] h-[105vh] w-[100%]  overflow-auto px-5 pt-3"
           onScroll={handleonScroll}
           ref={bodyref}>
           <button
