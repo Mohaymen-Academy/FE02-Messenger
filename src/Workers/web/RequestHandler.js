@@ -5,6 +5,7 @@ export default (e) => {
     let interval;
 
     if (msg.data.token) {
+      // console.error(msg.data)
       interval = setInterval(async () => {
         fetch(
           `http://192.168.70.223:8080?` +

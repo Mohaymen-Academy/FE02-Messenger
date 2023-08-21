@@ -30,7 +30,7 @@ export default function ChatLayout() {
       worker.postMessage({});
       worker.terminate();
       console.error(chatID);
-      worker.postMessage({token,chatID});
+      // worker.postMessage({token,chatID});
     }
   }, [chatID]);
   useEffect(() => {
