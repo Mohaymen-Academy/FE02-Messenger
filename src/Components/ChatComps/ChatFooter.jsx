@@ -82,6 +82,15 @@ export default function ChatFooter({ id, chattype }) {
           JSON.stringify(ProcessorValues.current.sorted),
           Isactive.replyID
         );
+      }
+      if (Isactive.isForwarding) {
+        Requests().sendText(
+          id,
+          ProcessorValues.current.rawtext,
+          JSON.stringify(ProcessorValues.current.sorted),
+          null,
+          Isactive.forwardID
+        );
       } else {
         console.log(id);
         Requests().sendText(

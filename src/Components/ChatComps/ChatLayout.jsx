@@ -44,8 +44,10 @@ export default function ChatLayout() {
       clearInterval(interval);
     };
   }, []);
+  console.log('zarp')
   useEffect(() => {
     clearInterval(interval);
+    // worker.terminate();
     interval = setInterval(async () => {
       // console.log(chatID);
       worker.postMessage({ token, chatID: chatID || 0 });

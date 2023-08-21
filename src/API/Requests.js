@@ -106,8 +106,13 @@ export default function Requests(body) {
       .then((data) => console.log(data))
       .catch((err) => console.log(err));
   }
-  async function sendText(endpoint, text, styles, replymsg) {
-    const body = { text, text_style: styles, reply_message: replymsg };
+  async function sendText(endpoint, text, styles, replymsg, forward_message) {
+    const body = {
+      text,
+      text_style: styles,
+      reply_message: replymsg,
+      forward_message: forward_message
+    };
     console.log(body);
     try {
       const res = await API().POST(`${endpoint}`, body, AutorizeHeader);
@@ -161,8 +166,8 @@ export default function Requests(body) {
       .catch((err) => console.log(err));
   }
   async function GetOriginalImage(mediaId) {
-      const res = await API().GET(`original/${mediaId}`, {}, AutorizeHeader)
-      return res.data
+    const res = await API().GET(`original/${mediaId}`, {}, AutorizeHeader);
+    return res.data;
   }
   async function EditMessage(messageId, text) {
     const body = {
@@ -238,6 +243,7 @@ export default function Requests(body) {
       .catch((err) => console.log(err));
   }
   async function pinChat(chatid) {
+    console.log('here pin chat zarp');
     await API()
       .PUT(`pin-chat/${chatid}`, {}, AutorizeHeader)
       .then((res) => res.json())
@@ -287,8 +293,12 @@ export default function Requests(body) {
       .then((data) => console.log(data))
       .catch((err) => console.log(err));
   }
-
+  async function Forward(msgid) {
+    const body = {};
+  }
+  async function UpdateResponse() {}
   return {
+    UpdateResponse,
     UnpinMessage,
     PinMSG,
     GetPin,
