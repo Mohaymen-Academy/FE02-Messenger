@@ -26,24 +26,24 @@ const Chatlist = () => {
       //   console.log(downfinished, upfinished);
       // }
       const profileinfo = shouldUpdate[0];
-      // console.log('fuck1');
-      // if (profileinfo?.updates) {
-      //   // console.log(profileinfo?.updates);
-      //   // profileinfo.updates.forEach((command) => {
-      //   //   switch (command.updateType) {
-      //   //     case 'DELETE':
-      //   //       dispatch(deletemessage({ msgid: command.MessageId }));
-      //   //     case 'EDIT':
-      //   //       Requests()
-      //   //         .GetupdateVal(command.MessageId)
-      //   //         .then((res) => res.json())
-      //   //         .then((msg) => dispatch(editmsg({ msgId: command.MessageId, newtext: msg })))
-      //   //         .catch((err) => console.log(err));
-      //   //   }
-      //   // });
-      // } else if (profileinfo.unreadMessageCount != 0) {
-      //   dispatch(GetMessages({ type: chattype, ID: selectedChat, message_id: 0 }));
-      // }
+      if (profileinfo?.updates) {
+        console.log(profileinfo?.updates);
+        Requests().UpdateResponse();
+        profileinfo.updates.forEach((command) => {
+          switch (command.updateType) {
+            case 'DELETE':
+              dispatch(deletemessage({ msgid: command.MessageId }));
+            case 'EDIT':
+              Requests()
+                .GetupdateVal(command.MessageId)
+                .then((res) => res.json())
+                .then((msg) => dispatch(editmsg({ msgId: command.MessageId, newtext: msg })))
+                .catch((err) => console.log(err));
+          }
+        });
+      } else if (profileinfo.unreadMessageCount != 0) {
+        dispatch(GetMessages({ type: chattype, ID: selectedChat, message_id: 0 }));
+      }
     }
   });
   const handleScroll = (listRef) => {
