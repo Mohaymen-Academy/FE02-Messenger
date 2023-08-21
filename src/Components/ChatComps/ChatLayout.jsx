@@ -29,40 +29,31 @@ export default function ChatLayout() {
 
   useEffect(() => {
     // interval = setInterval(async () => {
-      worker.postMessage({ token, chatID: chatID || 0 });
-      worker.onmessage = (msg) => {
-        dispatch(setMessages(msg.data));
-      };
-    }, 1000);
+    worker.postMessage({ token, chatID: chatID || 0 });
+    worker.onmessage = (msg) => {
+      dispatch(setMessages(msg.data));
+    };
+    // }, 1000);
     dispatch(GetContacts());
+
     document.addEventListener('keydown', (e) => {
       if (e.key == 'Escape') {
         dispatch(resetChatId());
       }
     });
-    () => {
-      clearInterval(interval);
-    };
   }, []);
-  console.log('zarp')
   useEffect(() => {
-    clearInterval(interval);
     worker.terminate();
-    interval = setInterval(async () => {
-      worker.postMessage({ token, chatID: chatID || 0 });
-      worker.onmessage = (msg) => {
-        dispatch(setMessages(msg.data));
-      };
-    }, 1000);
-    dispatch(GetContacts());
-    document.addEventListener('keydown', (e) => {
-      if (e.key == 'Escape') {
-        dispatch(resetChatId());
-      }
-    });
-    () => {
-      clearInterval(interval);
-    };
+    console.log('zarp')
+    // if (chatID) {
+    //   worker.postMessage({ token, chatID: chatID });
+    // } else {
+    //   worker.postMessage({ token, chatID: 0 });
+    // }
+    // worker.onmessage = (msg) => {
+    //   dispatch(setMessages(msg.data));
+    // };
+    // dispatch(GetContacts());
   });
 
   return Chats[chatType];

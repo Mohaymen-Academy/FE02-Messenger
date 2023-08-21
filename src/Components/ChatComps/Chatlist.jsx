@@ -33,7 +33,7 @@ const Chatlist = () => {
         //  Math.max(...
           profileinfo?.updates.map((command) => command.MessageId)
           // );
-        console.log(maxid);
+        // console.log(maxid);
       }
       //   console.log(profileinfo?.updates);
       // if (updatesList)
