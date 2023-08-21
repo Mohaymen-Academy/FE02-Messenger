@@ -16,7 +16,7 @@ export default function ChatBody({ chatid, chattype }) {
   const dispatch = useDispatch();
   const downfinished = useSelector((state) => state.selectedProf.downfinished);
   const upfinished = useSelector((state) => state.selectedProf.upfinished);
-  const [previewImages, setPreviewImages] = useState([]); // State to store media content
+  const [previewImages, setPreviewImages] = useState(); // State to store media content
   const [massageIdpreview, setMassageIdpreview] = useState(0); // State to store media content
   function handleMediaMessage(images, imageId) {
     setPreviewImages(images); // Store media content in state
@@ -250,7 +250,7 @@ export default function ChatBody({ chatid, chattype }) {
   ? createPortal(
     <ImagePreviewer
       handleClose={() => setPreview(false)}
-      images={[previewImages]} // Pass media content to the component
+      imageshow={previewImages} // Pass media content to the component
       imageId={previewImages.mediaId}
       chatId={chatid}
       massageId={massageIdpreview}

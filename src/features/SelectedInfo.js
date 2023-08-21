@@ -19,7 +19,8 @@ const initialState = {
   profileinfo: null,
   leftprof: null,
   profPics: [],
-  isContact: false
+  isContact: false,
+  downloaded: []
 };
 const GetMessagesUp = createAsyncThunk('selectedProf/getmessagesup', async (infos) => {
   console.log('iwoereuiwpr');
@@ -87,6 +88,8 @@ const SelectedProf = createSlice({
       state.Chatmessages = state.Chatmessages.map((message) => {
         console.log(message)
         if (message.messageID === action.payload.massageId) {
+          state.downloaded = [...state.downloaded, action.payload.massageId]
+          console.log(state.downloaded)
           return {
             ...message,
             media: {
