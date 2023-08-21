@@ -26,15 +26,15 @@ export default function ChatLayout() {
   };
   useCallback();
   useEffect(() => {
-    if (chatID){
-      worker.postMessage({});
-      worker.terminate();
+    if (chatID) {
       console.error(chatID);
-      // worker.postMessage({token,chatID});
+      worker.postMessage({ chatID });
+      worker.terminate();
     }
   }, [chatID]);
+
   useEffect(() => {
-    worker.postMessage({token});
+    worker.postMessage({ token, chatID: 0 });
     worker.onmessage = (msg) => {
       dispatch(setMessages(msg.data));
     };

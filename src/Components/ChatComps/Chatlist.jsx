@@ -24,7 +24,7 @@ const Chatlist = () => {
       const shouldUpdate = lists.filter((ele) => ele.profile.profileID == selectedChat);
       const profileinfo = shouldUpdate[0];
       console.log(profileinfo);
-      if (profileinfo.updates.length != 0) {
+      if (profileinfo?.updates.length != 0) {
         console.log(profileinfo.updates);
         const maxid = Math.max(...profileinfo?.updates.map((command) => command.id));
         if (maxid && maxid != -Infinity) {

@@ -1,11 +1,8 @@
 // import Requests from '../../API/Requests';
 export default (e) => {
-  // const RequestHandler = Requests();
   self.onmessage = (msg) => {
-    let interval;
-
-    if (msg.data.token) {
-      // console.error(msg.data)
+    // if (msg.data.chatID!=0) self.close();
+    if (!msg.data.shoulddead) {
       interval = setInterval(async () => {
         fetch(
           `http://192.168.70.223:8080?` +
@@ -25,9 +22,6 @@ export default (e) => {
           .then((data) => postMessage(data));
       }, 1000);
     } else {
-      console.error(msg.data);
-      console.error(interval);
-      clearInterval(interval);
     }
   };
 };

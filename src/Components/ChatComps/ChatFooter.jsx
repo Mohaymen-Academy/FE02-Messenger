@@ -10,7 +10,7 @@ import TextProcessor from '../../utility/TextProcessor';
 import FileUploader from '../../ui/FileUploader';
 import Requests from '../../API/Requests';
 import { composerActions } from '../../features/composerSlice';
-import { editmsg } from '../../features/SelectedInfo';
+import { GetMessages, editmsg } from '../../features/SelectedInfo';
 import PopUp from '../../ui/PopUp';
 import Poll from './Poll';
 import UploadFile from '../../ui/UploadFile';
@@ -99,6 +99,7 @@ export default function ChatFooter({ id, chattype }) {
           JSON.stringify(ProcessorValues.current.sorted)
         );
       }
+      // dispatch(GetMessages({ type: chattype, ID: id, message_id: 0 }));
       console.log(Isactive.editID);
       // dispatch(editmsg({ msgId: Isactive.editID, newtext: divref.current.innerText }));
       // await Requests().EditMessage(Isactive.editID, divref.current.innerText);
