@@ -9,6 +9,8 @@ import MessageBody from './MessageBody.jsx';
 import { Avatar } from '../ChatComps';
 import { TYPE_GROUP, TYPE_USER } from '../../utility/Constants.js';
 import TextProcessorObj from '../../utility/TextProcessor.js';
+import PopUp from '../../ui/PopUp';
+import ForwardComponent from '../../ui/ForwardComponent';
 
 const Message = memo(
   ({
@@ -31,6 +33,7 @@ const Message = memo(
   }) => {
     // console.log(entities);
     const [mousepositoin, setmousepositoin] = useState({ x_mouse: 0, y_mouse: 0 });
+    const [openForward, setopenForward] = useState(false);
     const mainref = useRef(null);
     const textref = useRef(null);
     const processor = TextProcessorObj([]);
@@ -154,7 +157,15 @@ text
             text={text}
             positions={mousepositoin}
             setposition={setmousepositoin}
+            setopenForward={setopenForward}
           />
+        ) : (
+          <></>
+        )}
+        {openForward ? (
+          <PopUp title={'هدایت'} setIsModalOpen={setopenForward}>
+            <ForwardComponent text={text} messageid={id} />
+          </PopUp>
         ) : (
           <></>
         )}

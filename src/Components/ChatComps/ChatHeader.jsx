@@ -11,12 +11,12 @@ const ChatHeader = ({ active, setActive, chatsetter, chattype, chatid }) => {
   const dispatch = useDispatch();
   const selectedProfile = useSelector((state) => state.selectedProf.profileinfo);
   console.log(selectedProfile);
-  const ChatInfo =
-    chattype == TYPE_USER
-      ? selectedProfile?.status // ShouldChange
-      : chattype == TYPE_GROUP
-      ? 4
-      : 1200;
+  const ChatInfo =selectedProfile?.status
+    // chattype == TYPE_USER
+    //   ? selectedProfile?.status // ShouldChange
+    //   : chattype == TYPE_GROUP
+    //   ? 4
+    //   : 1200;
   return (
     <>
       <div
@@ -47,7 +47,6 @@ const ChatHeader = ({ active, setActive, chatsetter, chattype, chatid }) => {
                   ? selectedProfile.status.toLowerCase()
                   : ''
               }
-
             />
           </div>
           <div className="">
@@ -62,7 +61,7 @@ const ChatHeader = ({ active, setActive, chatsetter, chattype, chatid }) => {
           {<ChatHeaderSettings active={active} />}
         </div>
       </div>
-      <Pin chatid={chatid} />            
+      <Pin chatid={chatid} />
     </>
   );
 };

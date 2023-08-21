@@ -1,7 +1,7 @@
 // import Requests from '../../API/Requests';
 export default (e) => {
   self.onmessage = (msg) => {
-    // if (msg.data.chatID!=0) self.close();
+    let interval;
     if (!msg.data.shoulddead) {
       interval = setInterval(async () => {
         fetch(
@@ -21,7 +21,6 @@ export default (e) => {
           .then((resp) => resp.json())
           .then((data) => postMessage(data));
       }, 1000);
-    } else {
     }
   };
 };

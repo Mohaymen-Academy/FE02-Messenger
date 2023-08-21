@@ -79,28 +79,31 @@ export default function ChatBody({ chatid, chattype }) {
   const [buttonhidden, setbuttonhidden] = useState(true);
   const dir = useRef(null);
 
-  // useEffect(() => {
-  //   if (bodyref) {
-  //     bodyref.current.scrollTop = bodyref.current.scrollHeight;
-  //     prevScrollPos = bodyref.current.scrollTop;
-  //   }
-  //   const currentScrollPos = bodyref.current.scrollTop;
-  //   // console.log(prevScrollPos, currentScrollPos);
-  //   if (prevScrollPos == currentScrollPos) {
-  //     const maxid = messages.map((ele) => parseInt(ele.messageID));
-  //     console.log(maxid);
-  //     // Requests().UpdateSeen(Math.max(...maxid));
-  //   }
-  // }, []);
-
-  console.error(messages);
-
   useEffect(() => {
-    dispatch(GetSharedMedia(chatid));
     if (bodyref) {
       bodyref.current.scrollTop = bodyref.current.scrollHeight;
       prevScrollPos = bodyref.current.scrollTop;
     }
+    //   const currentScrollPos = bodyref.current.scrollTop;
+    //   // console.log(prevScrollPos, currentScrollPos);
+    //! if the scroll was in the down of the page
+    if (prevScrollPos == 0) {
+      console.error('zarperwr');
+      const maxid = messages.map((ele) => parseInt(ele.messageID));
+      // console.error(Math.max(...maxid));
+      Requests().UpdateSeen(Math.max(...maxid));
+    }
+    //   }
+  }, []);
+
+  console.error(messages);
+
+  useEffect(() => {
+    console.error(bodyref.current.scrollHeight, bodyref.current.scrollTop);
+    // if (bodyref) {
+    //   bodyref.current.scrollTop = bodyref.current.scrollHeight;
+    //   prevScrollPos = bodyref.current.scrollTop;
+    // }
     const currentScrollPos = bodyref.current.scrollTop;
     // console.log(prevScrollPos, currentScrollPos);
     if (prevScrollPos == currentScrollPos) {
@@ -113,9 +116,9 @@ export default function ChatBody({ chatid, chattype }) {
   });
 
   let scrolltimeout;
-  const scrollValues = useRef({
-    lastScrollPosition: 0
-  });
+  // const scrollValues = useRef({
+  //   lastScrollPosition: 0
+  // });
 
   function handleonScroll(e) {
     clearTimeout(scrolltimeout);
@@ -128,13 +131,9 @@ export default function ChatBody({ chatid, chattype }) {
       dir.current = UP;
     }
     prevScrollPos = currentScrollPos;
-    console.log(prevScrollPos, currentScrollPos);
-    // Update previous scroll position
-    prevScrollPos = currentScrollPos;
-
-    scrolltimeout = setTimeout(() => {
-      // console.log(MSGes.current.upper);
-    }, 200);
+    // scrolltimeout = setTimeout(() => {
+    //   // console.log(MSGes.current.upper);
+    // }, 200);
     if (
       Math.abs(
         bodyref.current?.scrollTop - (bodyref.current.scrollHeight - bodyref.current.clientHeight)
