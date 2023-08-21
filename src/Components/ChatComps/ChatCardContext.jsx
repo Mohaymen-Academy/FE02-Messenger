@@ -23,7 +23,7 @@ const ChatCardContext = memo(({ setOpenContext, type, chatid }) => {
       icon: <UilMapPinAlt />,
       title: 'سنجاق به بالا',
       color: 'text-text1',
-      action: 'handlePin'
+      action: handlePin
     },
     {
       icon: <UilBellSlash />,
@@ -43,7 +43,7 @@ const ChatCardContext = memo(({ setOpenContext, type, chatid }) => {
       icon: <UilMapPinAlt />,
       title: 'سنجاق به بالا',
       color: 'text-text1',
-      action: 'reply'
+      action: handlePin
     },
     {
       icon: <UilBellSlash />,
@@ -62,7 +62,7 @@ const ChatCardContext = memo(({ setOpenContext, type, chatid }) => {
       icon: <UilMapPinAlt />,
       title: 'سنجاق به بالا',
       color: 'text-text1',
-      action: 'reply'
+      action: handlePin
     },
     {
       icon: <UilBellSlash />,
@@ -79,14 +79,17 @@ const ChatCardContext = memo(({ setOpenContext, type, chatid }) => {
 
   let contextMenuItems;
   function makeList(items) {
-    return items.map((item, index) => (
-      <button
-        onClick={() => handlePin()}
-        key={index}
-        className="flex w-full flex-row items-center gap-2 rounded-lg px-5 hover:bg-bghovor">
-        <div className={`my-1 flex items-center gap-2 ${item.color}`}>{item.icon}</div>
-        <p className={`px-2 text-xs ${item.color}`}>{item.title}</p>
-      </button>
+    return items.map((item) => (
+      <div key={item.title} onClick={item.action}>
+        <button className="flex w-full flex-row items-center gap-2 rounded-lg px-5 hover:bg-bghovor">
+          <div
+            onClick={() => console.log('zarp inwerwer')}
+            className={`my-1 flex items-center gap-2 ${item.color}`}>
+            {item.icon}
+          </div>
+          <p className={`px-2 text-xs ${item.color}`}>{item.title}</p>
+        </button>
+      </div>
     ));
   }
   if (type === TYPE_USER) {
