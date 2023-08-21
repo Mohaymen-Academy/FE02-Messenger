@@ -16,7 +16,7 @@ export default (e) => {
           headers: {
           'Content-Type': 'application/json',
           'Access-Control-Allow-Origin': '*',
-          Authorization: `${msg.data.token}`
+          Authorization: `${msg.data.token}`,
         },
         method: 'GET'
       }

@@ -32,7 +32,6 @@ export default function UploadFile({ id, fileuploaded }) {
       <button
         onClick={sendMedia}
         className="w-full rounded-md bg-[rgb(0,132,105)] px-4 py-2 tracking-wide text-white transition-colors duration-200 hover:bg-[#7fc2cf] focus:bg-[#135461] focus:outline-none">
-        {' '}
         فرستادن
       </button>
     </div>

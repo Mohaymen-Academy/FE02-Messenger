@@ -1,12 +1,12 @@
 import { useRef, useState } from 'react';
 import { TEXT_STYLES } from './Constants';
+
 export default function TextProcessorObj(containers) {
   const customSort = (a, b) => {
     if (a.lower != b.lower) {
       return a.lower - b.lower;
-    } else {
-      return a.upper - b.upper;
     }
+    return a.upper - b.upper;
   };
   const ProcessorValues = useRef({
     sorted: containers.sort(customSort),
@@ -49,9 +49,9 @@ export default function TextProcessorObj(containers) {
     }
     divref.current.childNodes.forEach((child) => {
       if (child.data) {
-        charcounter = charcounter + child.data.length;
+        charcounter += child.data.length;
       } else {
-        const id = child.dataset.id;
+        const { id } = child.dataset;
         const newlower = charcounter;
         if (child.innerText == '\n') {
           ProcessorValues.current.sorted = ProcessorValues.current.sorted.filter(
@@ -59,7 +59,7 @@ export default function TextProcessorObj(containers) {
           );
           return;
         }
-        charcounter = charcounter + child.innerText.length;
+        charcounter += child.innerText.length;
         const newupper = charcounter;
         ProcessorValues.current.sorted = ProcessorValues.current.sorted.map((obj) => {
           if (obj.id == id) {
@@ -83,9 +83,9 @@ export default function TextProcessorObj(containers) {
     let text = '';
     divref.current.childNodes.forEach((element) => {
       if (element.innerText) {
-        text = text + element.innerText;
+        text += element.innerText;
       } else {
-        text = text + element.data;
+        text += element.data;
       }
     });
     return text;
@@ -137,9 +137,9 @@ export default function TextProcessorObj(containers) {
   }
 
   function rangefun() {
-    var selection = window.getSelection();
-    let range = window.getSelection().getRangeAt(0);
-    let length = selection.toString().length;
+    const selection = window.getSelection();
+    const range = window.getSelection().getRangeAt(0);
+    let { length } = selection.toString();
     if (length != 0) {
       setOpenTextProcessor(true);
       const preSelectionRange = range.cloneRange();
@@ -199,7 +199,7 @@ export default function TextProcessorObj(containers) {
         HeadContainer.upper = rangeSet[1] - 1;
         replaceInArray(HeadContainer);
         ProcessorValues.current.counter += 1;
-        let objmiddle = {
+        const objmiddle = {
           id: ProcessorValues.current.counter,
           lower: rangeSet[1],
           upper: rangeSet[2],

@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
 import ContactAddTo from './ContactAddTo';
 import ContactSmall from './ContactSmall';
-import PopUp from '../../utility/PopUp';
+import PopUp from '../../ui/PopUp';
 import GroupSettings from './GroupSettings';
 import ChannelSettings from './ChannelSetting';
-import { useSelector } from 'react-redux';
 
 export default function GroupChannelAdd({ type }) {
   const [selected, setselected] = useState([]);
@@ -12,22 +12,28 @@ export default function GroupChannelAdd({ type }) {
   const contacts = useSelector((state) => state.messageList.contacts);
 
   return (
-    <div className="w-full h-full overflow-y-auto bg-color1">
-      <div className="text-text1 flex flex-row flex-wrap max-h-[200px] overflow-y-scroll">
+    <div className="h-full w-full overflow-y-auto bg-color1">
+      <div className="flex max-h-[200px] flex-row flex-wrap overflow-y-scroll text-text1">
         {
-          //for over selected and show contactsmall for each
+          // for over selected and show contactsmall for each
           selected.map((cont) => (
-            <ContactSmall chatid={cont.chatid} name={cont.name} image={cont.image} color={cont.color} setselected={setselected} />
+            <ContactSmall
+              chatid={cont.chatid}
+              name={cont.name}
+              image={cont.image}
+              color={cont.color}
+              setselected={setselected}
+            />
           ))
         }
       </div>
-      <div className="text-text1 p-5">
+      <div className="p-5 text-text1">
         {
-          //if selected is empty show nothing
+          // if selected is empty show nothing
           selected.length == 0 ? null : (
             <div>
               <button
-                className="w-[90%] h-12 rounded-xl bg-blue-400 text-white text-xl font-semibold"
+                className="h-12 w-[90%] rounded-xl bg-blue-400 text-xl font-semibold text-white"
                 onClick={() => setOpenModel(true)}>
                 {type == 'group' ? 'ایجاد گروه' : 'ایجاد کانال'}
               </button>
