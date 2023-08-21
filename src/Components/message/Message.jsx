@@ -2,7 +2,7 @@ import { useEffect, useState, useRef, memo } from 'react';
 import { useSelector } from 'react-redux';
 import MessageMenu from './MessageMenu.jsx';
 import MessageHeader from './MessageHeader.jsx';
-import MessageImageMedia from './MessageImageMedia.jsx';
+import MessageMedia from './MessageMedia.jsx';
 import MessageFooter from './MessageFooter.jsx';
 import ImagePreviewer from '../media-previewer/ImagePreviewer';
 import MessageBody from './MessageBody.jsx';
@@ -123,7 +123,7 @@ text
         <MessageBody Isforme={Isforme}>
           {replyinfo ? <MessageHeader repliedTo={replyinfo.text} /> : <></>}
           {media ? (
-            <MessageImageMedia src={media.preLoadingContent} handleClick={handleMediaMessage} />
+            <MessageMedia src={media.preLoadingContent} handleClick={handleMediaMessage} />
           ) : (
             <></>
           )}

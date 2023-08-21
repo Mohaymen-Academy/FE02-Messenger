@@ -1,4 +1,4 @@
-function MessageImageMedia({ src, handleClick }) {
+function MessageMedia({ src, handleClick }) {
 //  console.log(src)
   return (
     <div className="w-full rounded-md" onClick={handleClick}>
@@ -7,4 +7,4 @@ function MessageImageMedia({ src, handleClick }) {
   );
 }
 
-export default MessageImageMedia;
+export default MessageMedia;

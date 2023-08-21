@@ -29,7 +29,7 @@ const Chatlist = () => {
       const profileinfo = shouldUpdate[0];
       // console.log(profileinfo)
       if (profileinfo?.updates) {
-        console.error(profileinfo?.updates)
+        // console.error(profileinfo?.updates)
         const maxid = Math.max(...profileinfo?.updates.map((command) => command.MessageId));
         console.log(maxid);
         // if (maxid && maxid != -Infinity) {
