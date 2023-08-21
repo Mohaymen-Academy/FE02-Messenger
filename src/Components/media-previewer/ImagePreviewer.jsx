@@ -3,7 +3,7 @@ import { UilStepForward } from '@iconscout/react-unicons';
 import Avatar from '../ChatComps/Avatar';
 import Requests from '../../API/Requests';
 import { useSelector, useDispatch } from 'react-redux';
-import { ReplaceImage } from '../../features/chatCardPreviewSlice';
+import { ReplaceImage } from '../../features/SelectedInfo';
 // const images = [
 //   './images/profile.jpg',
 //   './images/person.png',

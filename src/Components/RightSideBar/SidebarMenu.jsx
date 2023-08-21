@@ -37,21 +37,13 @@ export default function SidebarMenu({ profileImage, username, divref }) {
             className="flex w-[100%] object-cover h-[100%] flex-col justify-end place-items-end px-5 bg-gradient-to-r from-bghovor  to-[#005C4B] b pb-6  bg-cover  bg-center " 
             // style={{ backgroundImage: 'var(backgroundPattern)', backgroundBlendMode:'soft-light' }}          
             >
-            {profile.profileData.lastProfilePicture ? (
-              <img
-                src={`data:image/jpeg;base64,${profile.profileData.lastProfilePicture.preLoadingContent}`}
-                className="h-[90px] bg-center aspect-[1/1] rounded-full p-0.5 bg-white my-0 object-cover"
-                alt=""
-              />
-
-            ) : (
-              <Avatar
-                size={90}
-                imagecolor={profile.profileData.defaultProfileColor}
-                char={profile.profileData.profileName[0]}
-                // isOnline={true}
-              />
-            )}
+            <Avatar
+              image={profile.profileData.lastProfilePicture}
+              size={90}
+              imagecolor={profile.profileData.defaultProfileColor}
+              char={profile.profileData.profileName[0]}
+              // isOnline={true}
+            />
             <p className="text-white text-end mt-4 m-6">{profile.profileData.profileName}</p>
           </div>
         </div>

@@ -81,6 +81,25 @@ const SelectedProf = createSlice({
       state.Chatmessages = state.Chatmessages.filter(
         (msg) => msg.messageID != action.payload.msgid
       );
+    },
+    ReplaceImage: (state, action) => {
+      // state.messages; // Create a new array to avoid mutating the state directly
+      state.Chatmessages = state.Chatmessages.map((message) => {
+        console.log(message)
+        if (message.messageID === action.payload.massageId) {
+          return {
+            ...message,
+            media: {
+              ...message.media,
+              preLoadingContent: action.payload.image
+            }
+          };
+        }
+        return message;
+
+      })
+      console.log(state.Chatmessages)
+
     }
   },
   extraReducers: (builder) =>
@@ -116,6 +135,6 @@ const SelectedProf = createSlice({
       })
 });
 export { GetMessages, SetLeftProf, GetMessagesDown, GetMessagesUp };
-export const { resetChatId, editmsg, addcontact, deletemessage } = SelectedProf.actions;
+export const { resetChatId, editmsg, addcontact, deletemessage,ReplaceImage } = SelectedProf.actions;
 // export const { setChat, setChatType } = SelectedProf.actions;
 export default SelectedProf.reducer;

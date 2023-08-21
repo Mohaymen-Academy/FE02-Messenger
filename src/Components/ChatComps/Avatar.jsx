@@ -11,7 +11,7 @@ const Avatar = ({ image, isOnline, char, imagecolor, size }) => (
       {image?.preLoadingContent ? (
         <img
           src={`data:image/jpeg;base64,${image.preLoadingContent}`}
-          className="h-[50px] w-[50px] rounded-full"
+          className="h-[${size}px] w-[${size}px] rounded-full"
         />
       ) : (
         <p className=" h-[100%] flex place-items-center text-center text-2xl font-normal text-white">

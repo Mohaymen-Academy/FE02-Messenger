@@ -10,7 +10,7 @@ import MessageDateGroup from '../message/MessageDateGroup.jsx';
 import MessageVoice from '../message/MessageVoice.jsx';
 // import { NeededId } from '../../utility/FindneededID.js';
 import Requests from '../../API/Requests.js';
-import { GetMessages, GetMessagesDown, GetMessagesUp } from '../../features/SelectedInfo.js';
+import { GetMessages, GetMessagesDown, GetMessagesUp ,ReplaceImage} from '../../features/SelectedInfo.js';
 
 export default function ChatBody({ chatid, chattype }) {
   const dispatch = useDispatch();
@@ -165,7 +165,7 @@ export default function ChatBody({ chatid, chattype }) {
       className={`flex h-[100%] flex-col items-center`}>
       <div className="flex h-[72%]  w-full flex-col items-center overflow-hidden">
         <div
-          className="mb-2 h-[105vh] w-[100%]  overflow-auto px-5 pt-3"
+          className="mb-[25.5rem] h-[105vh] w-[100%]  overflow-auto px-5 pt-3"
           onScroll={handleonScroll}
           ref={bodyref}>
           <button
@@ -210,7 +210,7 @@ export default function ChatBody({ chatid, chattype }) {
                       isEdited={message.isEdited}
                       text={message.text}
                       entities={message.textStyle}
-                      handleMediaMessage={() => setPreview(!preview)}
+                      handleMediaMessage={() => handleMediaMessage(message.media , message.messageID)}
                       profile={message.sender}
                       replyinfo={message.replyMessageInfo}
                     />
