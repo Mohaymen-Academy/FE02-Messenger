@@ -296,7 +296,17 @@ export default function Requests(body) {
   async function Forward(msgid) {
     const body = {};
   }
-  async function UpdateResponse() {}
+  async function UpdateResponse(upid, chatid) {
+    const params = {
+      update_id: upid,
+      chat_id: chatid
+    };
+    API()
+      .PUT('update', params, AutorizeHeader)
+      .then((res) => res.data)
+      .then((data) => console.log(data))
+      .catch((err) => console.log(err));
+  }
   return {
     UpdateResponse,
     UnpinMessage,

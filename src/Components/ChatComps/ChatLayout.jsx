@@ -28,7 +28,7 @@ export default function ChatLayout() {
   };
 
   useEffect(() => {
-    interval = setInterval(async () => {
+    // interval = setInterval(async () => {
       worker.postMessage({ token, chatID: chatID || 0 });
       worker.onmessage = (msg) => {
         dispatch(setMessages(msg.data));
@@ -47,9 +47,8 @@ export default function ChatLayout() {
   console.log('zarp')
   useEffect(() => {
     clearInterval(interval);
-    // worker.terminate();
+    worker.terminate();
     interval = setInterval(async () => {
-      // console.log(chatID);
       worker.postMessage({ token, chatID: chatID || 0 });
       worker.onmessage = (msg) => {
         dispatch(setMessages(msg.data));

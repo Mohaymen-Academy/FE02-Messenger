@@ -19,7 +19,8 @@ const initialState = {
   profileinfo: null,
   leftprof: null,
   profPics: [],
-  isContact: false
+  isContact: false,
+  updatesList: []
 };
 const GetMessagesUp = createAsyncThunk('selectedProf/getmessagesup', async (infos) => {
   console.log('iwoereuiwpr');

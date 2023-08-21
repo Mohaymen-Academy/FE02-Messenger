@@ -86,6 +86,7 @@ export default function ChatBody({ chatid, chattype }) {
     }
   }, []);
 
+  // console.log(messages)
   useEffect(() => {
     if (bodyref) {
       bodyref.current.scrollTop = bodyref.current.scrollHeight;

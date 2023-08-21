@@ -1,13 +1,17 @@
-import { memo, useEffect, useState } from 'react';
+import { memo, useEffect, useRef, useState } from 'react';
 import { UilTrash, UilBellSlash, UilMapPinAlt } from '@iconscout/react-unicons';
 import { TYPE_CHANNEL, TYPE_GROUP, TYPE_USER } from '../../utility/Constants';
 import Requests from '../../API/Requests';
 
 const ChatCardContext = memo(({ setOpenContext, type, chatid }) => {
+  const liref = useRef(null);
   useEffect(() => {
-    document.addEventListener('mousedown', () => {
-      setOpenContext(false);
+    // if (liref) {
+    document.addEventListener('mousedown', (e) => {
+      if (e.target != liref.current) setOpenContext(false);
     });
+
+    // }
   }, []);
 
   function handlePin() {
@@ -80,10 +84,12 @@ const ChatCardContext = memo(({ setOpenContext, type, chatid }) => {
   let contextMenuItems;
   function makeList(items) {
     return items.map((item) => (
-      <div key={item.title} onClick={item.action}>
-        <button className="flex w-full flex-row items-center gap-2 rounded-lg px-5 hover:bg-bghovor">
+      <div key={item.title}>
+        <button
+          className="flex w-full flex-row items-center gap-2 rounded-lg px-5 hover:bg-bghovor"
+          onMouseDown={item.action}>
           <div
-            onClick={() => console.log('zarp inwerwer')}
+            // onClick={() => console.log('zarp inwerwer')}
             className={`my-1 flex items-center gap-2 ${item.color}`}>
             {item.icon}
           </div>

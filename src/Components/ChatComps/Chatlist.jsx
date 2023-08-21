@@ -17,18 +17,27 @@ const Chatlist = () => {
   const chattype = useSelector((store) => store.selectedProf.chatType);
   const downfinished = useSelector((state) => state.selectedProf.downfinished);
   const upfinished = useSelector((state) => state.selectedProf.upfinished);
+  const updatesList = useSelector((state) => state.selectedProf.updatesList);
   // console.log(lists);
   useEffect(() => {
     if (selectedChat) {
       const shouldUpdate = lists.filter((ele) => ele.profile.profileID == selectedChat);
       // console.log(shouldUpdate[0]?.unreadMessageCount);
-      // if (shouldUpdate.length != 0) {
-      //   console.log(downfinished, upfinished);
-      // }
-      // const profileinfo = shouldUpdate[0];
-      // if (profileinfo?.updates) {
+      if (shouldUpdate.length != 0) {
+        // console.log(downfinished, upfinished);
+      }
+      const profileinfo = shouldUpdate[0];
+      // console.log(profileinfo)
+      if (profileinfo?.updates) {
+        const maxid =
+        //  Math.max(...
+          profileinfo?.updates.map((command) => command.MessageId)
+          // );
+        console.log(maxid);
+      }
       //   console.log(profileinfo?.updates);
-      //   Requests().UpdateResponse();
+      // if (updatesList)
+      //   Requests().UpdateResponse(,selectedChat);
       //   profileinfo.updates.forEach((command) => {
       //     switch (command.updateType) {
       //       case 'DELETE':
