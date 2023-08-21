@@ -310,7 +310,7 @@ export default function Requests(body) {
       chat_id: chatid
     };
     API()
-      .PUT('update', params, AutorizeHeader)
+      .PUT('update', body, AutorizeHeader)
       .then((res) => res.data)
       .then((data) => console.log(data))
       .catch((err) => console.log(err));

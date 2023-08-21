@@ -1,5 +1,5 @@
 // import { useState } from "react";
-import React, { useEffect, useContext, useState, useRef, useMemo } from 'react';
+import React, { useEffect, useContext, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import UserChat from '../User/UserChat';
 import GroupChat from '../Group/GroupChat';
@@ -17,56 +17,34 @@ export default function ChatLayout() {
   const chatType = useSelector((state) => state.selectedProf.chatType);
   const chatID = useSelector((state) => state.selectedProf.selectedChatID);
   const token = useSelector((state) => state.profile.jwt);
-  const interval = useRef(
-    setInterval(async () => {
-      fetch(
-        'http://192.168.70.223:8080?' +
-          new URLSearchParams({
-            active_chat: chatID != null ? chatID : 0
-          }),
-        {
-          headers: {
-            'Content-Type': 'application/json',
-            'Access-Control-Allow-Origin': '*',
-            Authorization: `${token}`
-          },
-          method: 'GET'
-        }
-      )
-        .then((resp) => resp.json())
-        .then((data) => dispatch(setMessages(data)));
-    }, 1000)
-  );
-  console.error(interval.current);
-  // const activechat=useSelector(state=>state.)
   const dispatch = useDispatch();
-  // const worker = new WorkerBuilder(Worker);
-  // let interval;
+  const worker = new WorkerBuilder(Worker);
   const Chats = {
     [TYPE_USER]: <UserChat chatid={chatID} />,
     [TYPE_GROUP]: <GroupChat chatid={chatID} />,
     [TYPE_CHANNEL]: <ChannelChat chatid={chatID} />
   };
-
+  useCallback();
   useEffect(() => {
+    if (chatID){
+      worker.postMessage({});
+      worker.terminate();
+      console.error(chatID);
+      worker.postMessage({token,chatID});
+    }
+  }, [chatID]);
+  useEffect(() => {
+    worker.postMessage({token});
+    worker.onmessage = (msg) => {
+      dispatch(setMessages(msg.data));
+    };
     dispatch(GetContacts());
     document.addEventListener('keydown', (e) => {
       if (e.key == 'Escape') {
         dispatch(resetChatId());
       }
     });
-    () => {
-      clearInterval(interval.current);
-    };
   }, []);
-
-  useEffect(() => {
-    clearInterval(interval.current);
-    if (chatID) {
-      console.error('zarp');
-      console.error(interval);
-    }
-  });
 
   return Chats[chatType];
 }

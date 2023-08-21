@@ -18,43 +18,23 @@ const Chatlist = () => {
   const downfinished = useSelector((state) => state.selectedProf.downfinished);
   const upfinished = useSelector((state) => state.selectedProf.upfinished);
   const updatesList = useSelector((state) => state.selectedProf.updatesList);
-  console.log(lists);
+  // console.error(lists);
   useEffect(() => {
     if (selectedChat) {
       const shouldUpdate = lists.filter((ele) => ele.profile.profileID == selectedChat);
-      // console.log(shouldUpdate[0]?.unreadMessageCount);
-      if (shouldUpdate.length != 0) {
-        // console.log(downfinished, upfinished);
-      }
       const profileinfo = shouldUpdate[0];
-      // console.log(profileinfo)
-      if (profileinfo?.updates) {
-        console.error(profileinfo?.updates)
-        const maxid = Math.max(...profileinfo?.updates.map((command) => command.MessageId));
-        console.log(maxid);
-        // if (maxid && maxid != -Infinity) {
-        //   Requests().UpdateResponse(maxid, selectedChat);
-        //   dispatch(Updatecommands({ updates: profileinfo?.updates }));
-        
-        // }
+      console.log(profileinfo);
+      if (profileinfo.updates.length != 0) {
+        console.log(profileinfo.updates);
+        const maxid = Math.max(...profileinfo?.updates.map((command) => command.id));
+        if (maxid && maxid != -Infinity) {
+          console.error(profileinfo.updates);
+          Requests().UpdateResponse(maxid, selectedChat);
+          dispatch(Updatecommands({ updates: profileinfo.updates }));
+        }
+      } else if (profileinfo.unreadMessageCount != 0) {
+        dispatch(GetMessages({ type: chattype, ID: selectedChat, message_id: 0 }));
       }
-      //   console.log(profileinfo?.updates);
-      // if (updatesList)
-      //   profileinfo.updates.forEach((command) => {
-      //     switch (command.updateType) {
-      //       case 'DELETE':
-      //         dispatch(deletemessage({ msgid: command.MessageId }));
-      //       case 'EDIT':
-      //         Requests()
-      //           .GetupdateVal(command.MessageId)
-      //           .then((res) => res.json())
-      //           .then((msg) => dispatch(editmsg({ msgId: command.MessageId, newtext: msg })))
-      //           .catch((err) => console.log(err));
-      //     }
-      //   });
-      // } else if (profileinfo.unreadMessageCount != 0) {
-      //   dispatch(GetMessages({ type: chattype, ID: selectedChat, message_id: 0 }));
-      // }
     }
   });
   const handleScroll = (listRef) => {

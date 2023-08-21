@@ -21,7 +21,8 @@ const initialState = {
   profPics: [],
   isContact: false,
   updatesList: [],
-  downloaded: []
+  downloaded: [],
+  needupdate:false,
 };
 const GetMessagesUp = createAsyncThunk('selectedProf/getmessagesup', async (infos) => {
   console.log('iwoereuiwpr');
@@ -52,6 +53,17 @@ const GetMessages = createAsyncThunk('selectedProf/getmessages', async (requesti
   }
 });
 
+const deletemsg = (messages, msgIdToDelete) => {
+  return messages.filter((msg) => msg.messageID != msgIdToDelete);
+};
+const editmsgfunc = (messages, newmsg) => {
+  messages.map((ele) => {
+    if (ele.messageID == newmsg.messageID) {
+      return newmsg;
+    }
+    return ele;
+  });
+};
 const SelectedProf = createSlice({
   name: 'selectedProf',
   initialState,
@@ -80,13 +92,23 @@ const SelectedProf = createSlice({
       state.isContact = true;
     },
     deletemessage: (state, action) => {
-      state.Chatmessages = state.Chatmessages.filter(
-        (msg) => msg.messageID != action.payload.msgid
-      );
+      state.Chatmessages = deletemsg(state.Chatmessages, action.payload.msgid);
     },
     Updatecommands: (state, action) => {
-      state.updatesList = state.updatesList.concat(action.payload.updates);
+      // state.updatesList = state.updatesList.concat();
+      action.payload.updates.forEach((command) => {
+        console.log(command)
+        state.Chatmessages = deletemsg(state.Chatmessages, command.MessageId);
+        // switch (command.updateType.toLowerCase()) {
+        //   case 'delete':
+        //   case 'edit':
+        //     state.Chatmessages = editmsgfunc(state.Chatmessages, command.message);
+        //   case 'pin':
+        //     break;
+        }
+      );
     },
+
     ReplaceImage: (state, action) => {
       // state.messages; // Create a new array to avoid mutating the state directly
       state.Chatmessages = state.Chatmessages.map((message) => {

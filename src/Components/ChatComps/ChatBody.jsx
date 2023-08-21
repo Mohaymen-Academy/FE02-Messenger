@@ -10,7 +10,12 @@ import MessageDateGroup from '../message/MessageDateGroup.jsx';
 import MessageVoice from '../message/MessageVoice.jsx';
 // import { NeededId } from '../../utility/FindneededID.js';
 import Requests from '../../API/Requests.js';
-import { GetMessages, GetMessagesDown, GetMessagesUp ,ReplaceImage} from '../../features/SelectedInfo.js';
+import {
+  GetMessages,
+  GetMessagesDown,
+  GetMessagesUp,
+  ReplaceImage
+} from '../../features/SelectedInfo.js';
 import { GetSharedMedia } from '../../features/SharedMediaSlice.js';
 
 export default function ChatBody({ chatid, chattype }) {
@@ -70,6 +75,7 @@ export default function ChatBody({ chatid, chattype }) {
   });
   const bodyref = useRef(null);
   const messages = useSelector((state) => state.selectedProf.Chatmessages);
+  // console.error(messages);
   const [buttonhidden, setbuttonhidden] = useState(true);
   const dir = useRef(null);
 
@@ -215,7 +221,9 @@ export default function ChatBody({ chatid, chattype }) {
                       isEdited={message.isEdited}
                       text={message.text}
                       entities={message.textStyle}
-                      handleMediaMessage={() => handleMediaMessage(message.media , message.messageID)}
+                      handleMediaMessage={() =>
+                        handleMediaMessage(message.media, message.messageID)
+                      }
                       profile={message.sender}
                       replyinfo={message.replyMessageInfo}
                     />
@@ -253,15 +261,15 @@ export default function ChatBody({ chatid, chattype }) {
       )} */}
       {preview
         ? createPortal(
-          <ImagePreviewer
-            handleClose={() => setPreview(false)}
-            imageshow={previewImages} // Pass media content to the component
-            imageId={previewImages.mediaId}
-            chatId={chatid}
-            massageId={massageIdpreview}
-          />,
-          document.getElementById('app-holder')
-        )
+            <ImagePreviewer
+              handleClose={() => setPreview(false)}
+              imageshow={previewImages} // Pass media content to the component
+              imageId={previewImages.mediaId}
+              chatId={chatid}
+              massageId={massageIdpreview}
+            />,
+            document.getElementById('app-holder')
+          )
         : null}
     </div>
   );
