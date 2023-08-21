@@ -11,6 +11,7 @@ import MessageVoice from '../message/MessageVoice.jsx';
 // import { NeededId } from '../../utility/FindneededID.js';
 import Requests from '../../API/Requests.js';
 import { GetMessages, GetMessagesDown, GetMessagesUp ,ReplaceImage} from '../../features/SelectedInfo.js';
+import { GetSharedMedia } from '../../features/SharedMediaSlice.js';
 
 export default function ChatBody({ chatid, chattype }) {
   const dispatch = useDispatch();
@@ -72,21 +73,22 @@ export default function ChatBody({ chatid, chattype }) {
   const [buttonhidden, setbuttonhidden] = useState(true);
   const dir = useRef(null);
 
-  useEffect(() => {
-    if (bodyref) {
-      bodyref.current.scrollTop = bodyref.current.scrollHeight;
-      prevScrollPos = bodyref.current.scrollTop;
-    }
-    const currentScrollPos = bodyref.current.scrollTop;
-    // console.log(prevScrollPos, currentScrollPos);
-    if (prevScrollPos == currentScrollPos) {
-      const maxid = messages.map((ele) => parseInt(ele.messageID));
-      console.log(maxid);
-      // Requests().UpdateSeen(Math.max(...maxid));
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (bodyref) {
+  //     bodyref.current.scrollTop = bodyref.current.scrollHeight;
+  //     prevScrollPos = bodyref.current.scrollTop;
+  //   }
+  //   const currentScrollPos = bodyref.current.scrollTop;
+  //   // console.log(prevScrollPos, currentScrollPos);
+  //   if (prevScrollPos == currentScrollPos) {
+  //     const maxid = messages.map((ele) => parseInt(ele.messageID));
+  //     console.log(maxid);
+  //     // Requests().UpdateSeen(Math.max(...maxid));
+  //   }
+  // }, []);
 
   useEffect(() => {
+    dispatch(GetSharedMedia(chatid));
     if (bodyref) {
       bodyref.current.scrollTop = bodyref.current.scrollHeight;
       prevScrollPos = bodyref.current.scrollTop;
@@ -167,7 +169,7 @@ export default function ChatBody({ chatid, chattype }) {
       className={`flex h-[100%] flex-col items-center`}>
       <div className="flex h-[72%]  w-full flex-col items-center overflow-hidden">
         <div
-          className="mb-[25.5rem] h-[105vh] w-[100%]  overflow-auto px-5 pt-3"
+          className="mb-[2] h-[105vh] w-[100%]  overflow-auto px-5 pt-3"
           onScroll={handleonScroll}
           ref={bodyref}>
           <button
@@ -249,16 +251,16 @@ export default function ChatBody({ chatid, chattype }) {
           </div>
       )} */}
       {preview
-  ? createPortal(
-    <ImagePreviewer
-      handleClose={() => setPreview(false)}
-      imageshow={previewImages} // Pass media content to the component
-      imageId={previewImages.mediaId}
-      chatId={chatid}
-      massageId={massageIdpreview}
-    />,
-    document.getElementById('app-holder')
-  )
+        ? createPortal(
+          <ImagePreviewer
+            handleClose={() => setPreview(false)}
+            imageshow={previewImages} // Pass media content to the component
+            imageId={previewImages.mediaId}
+            chatId={chatid}
+            massageId={massageIdpreview}
+          />,
+          document.getElementById('app-holder')
+        )
         : null}
     </div>
   );
