@@ -4,13 +4,12 @@ import Requests from '../../API/Requests';
 import { useDispatch, useSelector } from 'react-redux';
 import { GetPin, composerActions } from '../../features/composerSlice';
 export default function Pin({ chatid }) {
-  // const [pinmessage, setpinmessage] = useState(null);
   const dispatch = useDispatch();
   const pinmessage = useSelector((state) => state.composer.pinmessage);
   useEffect(() => {
     dispatch(GetPin({ chatid: chatid }));
   }, []);
-  console.log(pinmessage);
+  // self.__WB_DISABLE_DEV_LOGS = true;
   return (
     <>
       {pinmessage ? (
@@ -30,7 +29,6 @@ export default function Pin({ chatid }) {
               onClick={() => {
                 Requests().UnpinMessage(pinmessage.messageID);
                 dispatch(composerActions.clearpin());
-              
               }}>
               <UilTimes />
             </button>

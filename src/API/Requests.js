@@ -238,6 +238,7 @@ export default function Requests(body) {
       .catch((err) => console.log(err));
   }
   async function pinChat(chatid) {
+    console.log('here pin chat zarp')
     await API()
       .PUT(`pin-chat/${chatid}`, {}, AutorizeHeader)
       .then((res) => res.json())

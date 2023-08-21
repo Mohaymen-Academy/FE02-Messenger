@@ -181,7 +181,7 @@ export default function ChatBody({ chatid, chattype }) {
                 <>
                   {message.sender.profileID == 1 ? (
                     message.messageID != 0 ? (
-                      <div className="my-[1rem] w-full text-center">
+                      <div key={message.messageID} className="my-[1rem] w-full text-center">
                         <span className=" bg-black bg-opacity-60 text-text1 p-1 px-3 rounded-full ">
                           {message.text}
                         </span>
@@ -247,16 +247,16 @@ export default function ChatBody({ chatid, chattype }) {
           </div>
       )} */}
       {preview
-  ? createPortal(
-    <ImagePreviewer
-      handleClose={() => setPreview(false)}
-      images={[previewImages]} // Pass media content to the component
-      imageId={previewImages.mediaId}
-      chatId={chatid}
-      massageId={massageIdpreview}
-    />,
-    document.getElementById('app-holder')
-  )
+        ? createPortal(
+            <ImagePreviewer
+              handleClose={() => setPreview(false)}
+              images={[previewImages]} // Pass media content to the component
+              imageId={previewImages.mediaId}
+              chatId={chatid}
+              massageId={massageIdpreview}
+            />,
+            document.getElementById('app-holder')
+          )
         : null}
     </div>
   );

@@ -1,5 +1,5 @@
 import { useDispatch } from 'react-redux';
-import { useState } from 'react';
+import { memo, useState } from 'react';
 import { UilLink } from '@iconscout/react-unicons';
 import Avatar from './Avatar';
 import { GetMessages } from '../../features/SelectedInfo';
@@ -87,7 +87,7 @@ function getRelativeDate(inputDate) {
 }
 // TODO
 //  NEED TO ADD TIME TO IT
-const ChatCardPreview = ({ profile, lastMessage, unreadMessageCount, pinned }) => {
+const ChatCardPreview = memo(({ profile, lastMessage, unreadMessageCount, pinned }) => {
   // console.log(profile?.lastProfilePicture?.preLoadingContent)
   const [openContext, setOpenContext] = useState(false);
   const dispatch = useDispatch();
@@ -143,16 +143,11 @@ const ChatCardPreview = ({ profile, lastMessage, unreadMessageCount, pinned }) =
         </div>
       </div>
       {openContext ? (
-        <ChatCardContext
-          chatid={profile.profileID}
-          type={profile.type}
-          openContext={openContext}
-          setOpenContext={setOpenContext}
-        />
+        <ChatCardContext chatid={0} type={0} setOpenContext={setOpenContext} />
       ) : (
         <></>
       )}
     </div>
   );
-};
+});
 export default ChatCardPreview;

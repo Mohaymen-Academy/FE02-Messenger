@@ -90,8 +90,8 @@ const SelectedProf = createSlice({
         state.Chatmessages = action.payload?.data?.messages;
         state.downfinished = action.payload?.data?.downFinished;
         state.upfinished = action.payload?.data?.upFinished;
-        state.chatType = action.payload?.type;
-        state.selectedChatID = action.payload?.ID;
+        if (state.chatType != action.payload?.type) state.chatType = action.payload?.type;
+        if (state.selectedChatID != action.payload?.ID) state.selectedChatID = action.payload?.ID;
         if (action.payload?.profileinfo) {
           state.profileinfo = action.payload?.profileinfo;
         }

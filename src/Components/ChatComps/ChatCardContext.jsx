@@ -1,29 +1,29 @@
-import { useEffect, useState } from 'react';
+import { memo, useEffect, useState } from 'react';
 import { UilTrash, UilBellSlash, UilMapPinAlt } from '@iconscout/react-unicons';
 import { TYPE_CHANNEL, TYPE_GROUP, TYPE_USER } from '../../utility/Constants';
 import Requests from '../../API/Requests';
 
-function ChatCardContext({ openContext, setOpenContext, type, chatid }) {
-  useEffect(
-    () => () => {
-      document.addEventListener('mousedown', () => {
-        setOpenContext(false);
-      });
-    },
-    [openContext]
-  );
+const ChatCardContext = memo(({ setOpenContext, type, chatid }) => {
+  useEffect(() => {
+    document.addEventListener('mousedown', () => {
+      setOpenContext(false);
+    });
+  }, []);
 
   function handlePin() {
+    console.log('zarp az inja');
     Requests().pinChat(chatid);
   }
-  function handlDelete() {}
+  function handlDelete() {
+    console.log('delete');
+  }
   function handlMute() {}
   const chatItems = [
     {
       icon: <UilMapPinAlt />,
       title: 'سنجاق به بالا',
       color: 'text-text1',
-      action: handlePin
+      action: 'handlePin'
     },
     {
       icon: <UilBellSlash />,
@@ -80,13 +80,13 @@ function ChatCardContext({ openContext, setOpenContext, type, chatid }) {
   let contextMenuItems;
   function makeList(items) {
     return items.map((item, index) => (
-      <li
-        onClick={item.action}
+      <button
+        onClick={() => handlePin()}
         key={index}
         className="flex w-full flex-row items-center gap-2 rounded-lg px-5 hover:bg-bghovor">
         <div className={`my-1 flex items-center gap-2 ${item.color}`}>{item.icon}</div>
         <p className={`px-2 text-xs ${item.color}`}>{item.title}</p>
-      </li>
+      </button>
     ));
   }
   if (type === TYPE_USER) {
@@ -101,6 +101,6 @@ function ChatCardContext({ openContext, setOpenContext, type, chatid }) {
       {contextMenuItems}
     </ul>
   );
-}
+});
 
 export default ChatCardContext;
