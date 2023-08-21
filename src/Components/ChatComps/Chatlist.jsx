@@ -4,7 +4,7 @@ import { TYPE_USER } from '../../utility/Constants.js';
 import ChatCardPreview from './ChatCardPreview.jsx';
 import HandleScroll from '../../utility/HandleScroll.js';
 import store from '../../Store/store.js';
-import { GetMessages, deletemessage } from '../../features/SelectedInfo.js';
+import { GetMessages, Updatecommands, deletemessage } from '../../features/SelectedInfo.js';
 import { setActiveMessage } from '../../features/chatCardPreviewSlice.js';
 import Requests from '../../API/Requests.js';
 
@@ -18,7 +18,7 @@ const Chatlist = () => {
   const downfinished = useSelector((state) => state.selectedProf.downfinished);
   const upfinished = useSelector((state) => state.selectedProf.upfinished);
   const updatesList = useSelector((state) => state.selectedProf.updatesList);
-  // console.log(lists);
+  console.log(lists);
   useEffect(() => {
     if (selectedChat) {
       const shouldUpdate = lists.filter((ele) => ele.profile.profileID == selectedChat);
@@ -29,15 +29,17 @@ const Chatlist = () => {
       const profileinfo = shouldUpdate[0];
       // console.log(profileinfo)
       if (profileinfo?.updates) {
-        const maxid =
-        //  Math.max(...
-          profileinfo?.updates.map((command) => command.MessageId)
-          // );
-        // console.log(maxid);
+        console.error(profileinfo?.updates)
+        const maxid = Math.max(...profileinfo?.updates.map((command) => command.MessageId));
+        console.log(maxid);
+        // if (maxid && maxid != -Infinity) {
+        //   Requests().UpdateResponse(maxid, selectedChat);
+        //   dispatch(Updatecommands({ updates: profileinfo?.updates }));
+        
+        // }
       }
       //   console.log(profileinfo?.updates);
       // if (updatesList)
-      //   Requests().UpdateResponse(,selectedChat);
       //   profileinfo.updates.forEach((command) => {
       //     switch (command.updateType) {
       //       case 'DELETE':

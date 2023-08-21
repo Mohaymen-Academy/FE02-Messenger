@@ -297,7 +297,7 @@ export default function Requests(body) {
     const body = {};
   }
   async function UpdateResponse(upid, chatid) {
-    const params = {
+    const body = {
       update_id: upid,
       chat_id: chatid
     };

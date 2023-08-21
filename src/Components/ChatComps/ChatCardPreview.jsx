@@ -143,7 +143,11 @@ const ChatCardPreview = memo(({ profile, lastMessage, unreadMessageCount, pinned
         </div>
       </div>
       {openContext ? (
-        <ChatCardContext chatid={0} type={0} setOpenContext={setOpenContext} />
+        <ChatCardContext
+          chatid={profile.profileID}
+          type={profile.type}
+          setOpenContext={setOpenContext}
+        />
       ) : (
         <></>
       )}

@@ -58,9 +58,9 @@ export default function ChatBody({ chatid, chattype }) {
     if (dir.current == UP && !upfinished) {
       // console.log()
       // console.log('zarp');
-      dispatch(GetMessagesUp({ msgid: msgid, chatid: chatid }));
+      // dispatch(GetMessagesUp({ msgid: msgid, chatid: chatid }));
     } else if (dir.current == DOWN && !downfinished) {
-      dispatch(GetMessagesDown({ msgid: msgid, chatid: chatid }));
+      // dispatch(GetMessagesDown({ msgid: msgid, chatid: chatid }));
     }
   }
   const MSGes = useRef({

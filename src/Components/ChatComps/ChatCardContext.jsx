@@ -4,6 +4,7 @@ import { TYPE_CHANNEL, TYPE_GROUP, TYPE_USER } from '../../utility/Constants';
 import Requests from '../../API/Requests';
 
 const ChatCardContext = memo(({ setOpenContext, type, chatid }) => {
+  console.log(chatid)
   const liref = useRef(null);
   useEffect(() => {
     // if (liref) {
@@ -15,7 +16,7 @@ const ChatCardContext = memo(({ setOpenContext, type, chatid }) => {
   }, []);
 
   function handlePin() {
-    console.log('zarp az inja');
+    console.log(chatid);
     Requests().pinChat(chatid);
   }
   function handlDelete() {
