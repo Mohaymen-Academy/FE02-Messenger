@@ -24,14 +24,6 @@ export default function ChatLayout() {
     [TYPE_GROUP]: <GroupChat chatid={chatID} />,
     [TYPE_CHANNEL]: <ChannelChat chatid={chatID} />
   };
-  useCallback();
-  useEffect(() => {
-    if (chatID) {
-      console.error(chatID);
-      worker.postMessage({ chatID });
-      worker.terminate();
-    }
-  }, [chatID]);
 
   useEffect(() => {
     worker.postMessage({ token, chatID: 0 });

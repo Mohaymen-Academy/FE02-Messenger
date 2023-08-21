@@ -24,16 +24,16 @@ const Chatlist = () => {
       const shouldUpdate = lists.filter((ele) => ele.profile.profileID == selectedChat);
       const profileinfo = shouldUpdate[0];
       console.log(profileinfo);
-      if (profileinfo?.updates.length != 0) {
-        console.log(profileinfo.updates);
+      if (profileinfo.updates && profileinfo.updates.length != 0) {
+        // console.log(profileinfo.updates);
         const maxid = Math.max(...profileinfo?.updates.map((command) => command.id));
         if (maxid && maxid != -Infinity) {
           console.error(profileinfo.updates);
-          Requests().UpdateResponse(maxid, selectedChat);
-          dispatch(Updatecommands({ updates: profileinfo.updates }));
+          // Requests().UpdateResponse(maxid, selectedChat);
+          // dispatch(Updatecommands({ updates: profileinfo.updates }));
         }
       } else if (profileinfo.unreadMessageCount != 0) {
-        dispatch(GetMessages({ type: chattype, ID: selectedChat, message_id: 0 }));
+        // dispatch(GetMessages({ type: chattype, ID: selectedChat, message_id: 0 }));
       }
     }
   });

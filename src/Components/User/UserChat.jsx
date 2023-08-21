@@ -3,7 +3,7 @@ import { ChatBody, ChatHeader , ChatFooter } from '../ChatComps';
 import LeftLayout from '../LeftSideBar/LeftLayout';
 import { TYPE_USER } from '../../utility/Constants';
 import Requests from '../../API/Requests';
-export default function UserChat({ chatid, setChatId }) {
+export default function UserChat({ chatid }) {
   const [active, setActive] = useState(false);
   
   return (

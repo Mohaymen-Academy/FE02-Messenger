@@ -93,7 +93,8 @@ export default function ChatBody({ chatid, chattype }) {
   //   }
   // }, []);
 
-  // console.log(messages)
+  console.error(messages);
+
   useEffect(() => {
     dispatch(GetSharedMedia(chatid));
     if (bodyref) {
@@ -104,7 +105,7 @@ export default function ChatBody({ chatid, chattype }) {
     // console.log(prevScrollPos, currentScrollPos);
     if (prevScrollPos == currentScrollPos) {
       const maxid = messages.map((ele) => parseInt(ele.messageID));
-      Requests().UpdateSeen(Math.max(...maxid));
+      // Requests().UpdateSeen(Math.max(...maxid));
     }
     if (prevScrollPos == 0) {
       bodyref.current.scrollTop = 20;
