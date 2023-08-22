@@ -51,7 +51,8 @@ const MessageMenu = ({ positions, setposition, msgId, text ,setopenForward}) => 
     {
       icon: <UilCopy />,
       title: 'کپی ',
-      color: 'text-text1'
+      color: 'text-text1',
+      action: 'copy'
     },
     {
       icon: <UilCornerUpRightAlt />,
@@ -101,6 +102,10 @@ const MessageMenu = ({ positions, setposition, msgId, text ,setopenForward}) => 
                 if (item.action === 'forward') {
                   console.error('zerwerwr');
                   setopenForward(true);
+                }
+                if (item.action === 'copy') {
+                  console.error('copy');
+                  navigator.clipboard.writeText(text);
                 }
                 // setposition({ x_mouse: 0, y_mouse: 0 });
               }}>
