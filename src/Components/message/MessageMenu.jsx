@@ -106,6 +106,7 @@ const MessageMenu = ({ positions, setposition, msgId, text ,setopenForward}) => 
                 if (item.action === 'copy') {
                   console.error('copy');
                   navigator.clipboard.writeText(text);
+                  alert(`You have copied "${text}"`);
                 }
                 // setposition({ x_mouse: 0, y_mouse: 0 });
               }}>
