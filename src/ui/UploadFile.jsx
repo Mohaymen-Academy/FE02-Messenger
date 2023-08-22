@@ -26,7 +26,13 @@ export default function UploadFile({ id, fileuploaded }) {
         )
       }
       {
-      fileuploaded["media-type"].startsWith('application/') && (
+      fileuploaded["media-type"].startsWith('video/') && (
+        <video src={`data:video/mp4;base64,${fileuploaded.content}`} 
+        className=" w-full rounded-lg place-content-center justify-center flex" autoPlay controls />)
+      }      
+      {
+      fileuploaded["media-type"].startsWith('application/')
+      ? (
         fileuploaded["media-type"].startsWith('application/pdf') ? (
           <embed
               src={`data:application/pdf;base64,${fileuploaded.content}`}
@@ -36,7 +42,9 @@ export default function UploadFile({ id, fileuploaded }) {
             />)
             :
             <Files file={fileuploaded} />
-        )
+            )
+            : 
+            fileuploaded["media-type"].startsWith('text/') && <Files file={fileuploaded} />
       }
       {/* <FilePreviewer file={fileuploaded} /> */}
       <label htmlFor="fileCaption" className="mt-3 block text-sm font-medium text-text1">
