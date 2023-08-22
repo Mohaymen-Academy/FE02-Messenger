@@ -77,7 +77,7 @@ export default function ChatBody({ chatid, chattype, bodyref, messages }) {
     // lower: Infinity
   });
 
-  // console.error(messages);
+  console.error(messages);
   const [buttonhidden, setbuttonhidden] = useState(true);
   const dir = useRef(null);
 
@@ -161,7 +161,7 @@ export default function ChatBody({ chatid, chattype, bodyref, messages }) {
     }
     requestAnimationFrame(scrollAnimation);
   }
-  console.log(messages);
+  console.error(messages);
   return (
     <div
       // dir="rtl"
@@ -198,6 +198,7 @@ export default function ChatBody({ chatid, chattype, bodyref, messages }) {
                   )
                 ) : (
                   <Message
+                  
                     forwardedfrom={message.forwardMessageSender}
                     shouldobserve={index == 0 || messages.length - 1 == index}
                     key={message.messageID}
@@ -222,8 +223,10 @@ export default function ChatBody({ chatid, chattype, bodyref, messages }) {
                         })
                       )
                     }
+                    messages={messages}
                     profile={message.sender}
                     replyinfo={message.replyMessageInfo}
+                    bodyref={bodyref}
                   />
                 )}
               </>

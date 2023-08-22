@@ -125,9 +125,10 @@ export default function Requests(body) {
       reply_message: replymsg,
       forward_message
     };
-    console.log(body);
+    console.error(body);
     try {
       const res = await API().POST(`${endpoint}`, body, AutorizeHeader);
+      console.error(res)
       return res;
     } catch (err) {
       console.log(err);

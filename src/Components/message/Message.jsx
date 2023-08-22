@@ -1,5 +1,5 @@
 import { useEffect, useState, useRef, memo } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import MessageMenu from './MessageMenu.jsx';
 import MessageHeader from './MessageHeader.jsx';
 import MessageMedia from './MessageMedia.jsx';
@@ -11,10 +11,12 @@ import { TYPE_GROUP, TYPE_USER } from '../../utility/Constants.js';
 import TextProcessorObj from '../../utility/TextProcessor.js';
 import PopUp from '../../ui/PopUp';
 import ForwardComponent from '../../ui/ForwardComponent';
+import GoHnalder from '../../utility/GoTomessage.js';
 
 const Message =
   // memo(
   ({
+    messages,
     forwardedfrom,
     seenObserver,
     isSeen,
@@ -31,7 +33,8 @@ const Message =
     entities,
     profile,
     shouldobserve,
-    replyinfo
+    replyinfo,
+    bodyref
   }) => {
     // console.error(forwardedfrom);
     const [mousepositoin, setmousepositoin] = useState({ x_mouse: 0, y_mouse: 0 });
@@ -41,6 +44,18 @@ const Message =
     const processor = TextProcessorObj([]);
     const userprofile = useSelector((state) => state.profile);
     const ents = [];
+    const dispatch = useDispatch();
+    const handleReply = () => {
+      console.error('first');
+      GoHnalder().GoTo(
+        messages,
+        replyinfo.messageId,
+        bodyref,
+        dispatch,
+        profile.profileID,
+        chattype
+      );
+    };
     useEffect(() => {
       if (textref.current) {
         if (entities != '') {
@@ -88,6 +103,35 @@ const Message =
         handleRightClick(event);
       }, 500); // Adjust the timeout duration as needed
     }
+    /*
+    forwardMessageSender
+: 
+null
+isEdited
+: 
+false
+media
+: 
+null
+messageID
+: 
+32
+replyMessageInfo
+: 
+compressedContent
+: 
+null
+messageId
+: 
+30
+sender
+: 
+"hes"
+text
+: 
+"1 payam"
+    
+    */
 
     // Handle touch end event
     function handleTouchEnd(event) {
@@ -103,8 +147,8 @@ const Message =
       const y_mouse = event.clientY;
       setmousepositoin({ x_mouse, y_mouse });
     }
-    console.log('werwerkwjriopup');
-    console.log(forwardedfrom);
+    // console.log('werwerkwjriopup');
+    console.error();
     const Isforme = creator.profileID === userprofile.profileData.profileID;
     return (
       <div
@@ -113,7 +157,12 @@ const Message =
         className={`relative flex w-full ${Isforme ? 'justify-start' : 'justify-end'} px-5`}
         onContextMenu={handleRightClick}>
         <MessageBody Isforme={Isforme}>
-          <MessageHeader forewardedFrom={forwardedfrom} repliedTo={replyinfo} />
+          <MessageHeader
+            forewardedFrom={forwardedfrom}
+            repliedTo={replyinfo}
+            handlerreply={handleReply}
+            isReciver={2}
+          />
           {media ? (
             <MessageMedia src={media.preLoadingContent} handleClick={handleMediaMessage} />
           ) : (

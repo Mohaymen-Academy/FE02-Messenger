@@ -1,12 +1,15 @@
 import { UilCornerUpRightAlt } from '@iconscout/react-unicons';
 
-const MessageHeader = ({ isReciver, forewardedFrom, repliedTo }) => {
+const MessageHeader = ({ isReciver, forewardedFrom, repliedTo, handlerreply }) => {
+  // console.error(handlerreply)
   return (
     <div>
       {forewardedFrom ? (
         <div
           dir="auto"
-          className={`flex flex-row gap-1  ${isReciver ? 'justify-start' : 'justify-end'} text-opacity-80`}>
+          className={`flex flex-row gap-1  ${
+            isReciver ? 'justify-start' : 'justify-end'
+          } text-opacity-80`}>
           <span className="font-semibold italic opacity-100">
             {/* <br /> */}
             {forewardedFrom}
@@ -17,8 +20,9 @@ const MessageHeader = ({ isReciver, forewardedFrom, repliedTo }) => {
       ) : null}
       {repliedTo ? (
         <div
+          onClick={handlerreply}
           dir="auto"
-          className="line-clamp-1 text-xs p-1 border-r-2 border-white bg-color3 bg-opacity-25 ">
+          className="line-clamp-1 cursor-pointer text-xs p-1 border-r-2 border-white bg-color3 bg-opacity-25 ">
           {repliedTo.text}
         </div>
       ) : null}

@@ -82,7 +82,7 @@ export default function ChatFooter({ id, chattype }) {
             rawtext: ProcessorValues.current.rawtext,
             styles: JSON.stringify(ProcessorValues.current.sorted),
             reply: Isactive.replyID,
-            forwar: null
+            forward: null
           })
         );
       }
@@ -93,39 +93,22 @@ export default function ChatFooter({ id, chattype }) {
             rawtext: ProcessorValues.current.rawtext,
             styles: JSON.stringify(ProcessorValues.current.sorted),
             reply: null,
-            forwar: Isactive.forwardID
+            forward: Isactive.forwardID
           })
         );
-
-        // Requests().sendText(
-        //   id,
-        //   ProcessorValues.current.rawtext,
-        //   JSON.stringify(ProcessorValues.current.sorted),
-        //   null,
-        //   Isactive.forwardID
-        // );
       }
       // !ONLY SEND A MESSAGE
-      else {
-        console.error(id);
+      else if(!needActoin) {
         dispatch(
           Savenewmsg({
             id: id,
             rawtext: ProcessorValues.current.rawtext,
             styles: JSON.stringify(ProcessorValues.current.sorted),
             reply: null,
-            forwar: null
+            forward: null
           })
         );
-        // Requests().sendText(
-        //   id,
-        //   ProcessorValues.current.rawtext,
-        //   JSON.stringify(ProcessorValues.current.sorted)
-        // );
       }
-      // console.log(Isactive.editID);
-      // dispatch(editmsg({ msgId: Isactive.editID, newtext: divref.current.innerText }));
-      // await Requests().EditMessage(Isactive.editID, divref.current.innerText);
     }
 
     ProcessorValues.current.rawtext = '';
