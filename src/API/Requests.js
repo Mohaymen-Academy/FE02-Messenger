@@ -111,7 +111,7 @@ export default function Requests(body) {
       text,
       text_style: styles,
       reply_message: replymsg,
-      forward_message: forward_message
+      forward_message
     };
     console.log(body);
     try {
@@ -282,20 +282,22 @@ export default function Requests(body) {
   }
   async function GetSharedMedia(chatid) {
     try {
-      const res = API().GET(`images/${chatid}`, {}, AutorizeHeader);
-      return res;
+      const res = await API().GET(`media/${chatid}`, {}, AutorizeHeader);
+      console.log(res);
+      return res.data;
     } catch (err) {
       console.log(err);
     }
   }
   async function PinMSG(msgid) {
+    console.error(msgid);
     const body = {
       messageId: msgid
     };
     API()
       .PUT('pinMessage', body, AutorizeHeader)
-      .then((res) => res.json())
-      .then((data) => data)
+      .then((res) => res.data)
+      .then((data) => console.error(data))
       .catch((err) => console.log(err));
   }
   async function UnpinMessage(msgid) {
@@ -322,7 +324,14 @@ export default function Requests(body) {
       .then((data) => console.log(data))
       .catch((err) => console.log(err));
   }
+  async function DeleteChat(chatid) {
+    const body = {
+      chatid: chatid
+    };
+    API().DEL(`delete-chat`, body, AutorizeHeader);
+  }
   return {
+    DeleteChat,
     UnpinChat,
     UpdateResponse,
     UnpinMessage,

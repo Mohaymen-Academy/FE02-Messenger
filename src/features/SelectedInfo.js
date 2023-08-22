@@ -88,6 +88,12 @@ const SelectedProf = createSlice({
       });
       // state.Chatmessages = temp;
     },
+    deleteChat: (state, action) => {
+      if (action.payload.chatid == state.selectedChatID) {
+        state.selectedChatID = null;
+        state.chatType = null;
+      }
+    },
     addcontact: (state, action) => {
       state.isContact = true;
     },
@@ -135,7 +141,7 @@ const SelectedProf = createSlice({
         state.Chatmessages = action.payload?.data?.messages;
         state.downfinished = action.payload?.data?.downFinished;
         state.upfinished = action.payload?.data?.upFinished;
-        console.error(state.chatType ,state.selectedChatID,action.payload.type,action.payload.ID);
+        console.error(state.chatType, state.selectedChatID, action.payload.type, action.payload.ID);
         if (state.chatType != action.payload.type) state.chatType = action.payload.type;
         if (state.selectedChatID != action.payload.ID) state.selectedChatID = action.payload.ID;
         if (action.payload?.profileinfo) state.profileinfo = action.payload?.profileinfo;
@@ -160,7 +166,7 @@ const SelectedProf = createSlice({
       })
 });
 export { GetMessages, SetLeftProf, GetMessagesDown, GetMessagesUp };
-export const { resetChatId, editmsg, addcontact, deletemessage, Updatecommands, ReplaceImage } =
+export const { resetChatId, editmsg, addcontact, deletemessage, Updatecommands, ReplaceImage ,deleteChat} =
   SelectedProf.actions;
 // export const { resetChatId, editmsg, addcontact, deletemessage,ReplaceImage } = SelectedProf.actions;
 // export const { setChat, setChatType } = SelectedProf.actions;

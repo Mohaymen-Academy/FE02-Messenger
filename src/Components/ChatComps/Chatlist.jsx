@@ -17,14 +17,14 @@ const Chatlist = () => {
   const chattype = useSelector((store) => store.selectedProf.chatType);
   const downfinished = useSelector((state) => state.selectedProf.downfinished);
   const upfinished = useSelector((state) => state.selectedProf.upfinished);
-  const updatesList = useSelector((state) => state.selectedProf.updatesList); 
-  // console.error(lists);
+  const updatesList = useSelector((state) => state.selectedProf.updatesList);
+  // console.log(lists);
   useEffect(() => {
     if (selectedChat) {
       // console.error('zwerewr')
       const profile = lists.filter((ele) => ele.profile.profileID == selectedChat)[0];
       if (profile && profile.length != 0) {
-        const updates = profile.updates;
+        const { updates } = profile;
         if (updates.length != 0) {
           const maxid = Math.max(...updates.map((command) => command.id));
         }

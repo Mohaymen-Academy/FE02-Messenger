@@ -97,7 +97,7 @@ export default function ChatFooter({ id, chattype }) {
       }
       // ONLY SEND A MESSAGE 
       else {
-        console.log(id);
+        console.error(id);
         Requests().sendText(
           id,
           ProcessorValues.current.rawtext,
@@ -113,7 +113,7 @@ export default function ChatFooter({ id, chattype }) {
     divref.current.innerText = '';
     setentitycontainers([]);
     dispatch(composerActions.clear());
-    setTimeout(dispatch(GetMessages({ type: chattype, ID: id, message_id: 0 })), 1000);
+    // setTimeout(dispatch(GetMessages({ type: chattype, ID: id, message_id: 0 })), 1000);
   }
   return (
     <div className=" sticky bottom-0 flex flex-col">

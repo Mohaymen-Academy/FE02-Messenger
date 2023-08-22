@@ -16,12 +16,13 @@ import {
   GetMessagesUp,
   ReplaceImage
 } from '../../features/SelectedInfo.js';
-import { GetSharedMedia } from '../../features/SharedMediaSlice.js';
+import { GetSharedMedia, resetPreview, setPreview } from '../../features/SharedMediaSlice.js';
 
-export default function ChatBody({ chatid, chattype }) {
+export default function ChatBody({ chatid, chattype ,bodyref,messages}) {
   const dispatch = useDispatch();
   const downfinished = useSelector((state) => state.selectedProf.downfinished);
   const upfinished = useSelector((state) => state.selectedProf.upfinished);
+  const preview = useSelector((state) => state.SharedMedia.preview);
   const [previewImages, setPreviewImages] = useState(); // State to store media content
   const [massageIdpreview, setMassageIdpreview] = useState(0); // State to store media content
   function handleMediaMessage(images, imageId) {
@@ -73,8 +74,8 @@ export default function ChatBody({ chatid, chattype }) {
     upper: 0
     // lower: Infinity
   });
-  const bodyref = useRef(null);
-  const messages = useSelector((state) => state.selectedProf.Chatmessages);
+
+
   // console.error(messages);
   const [buttonhidden, setbuttonhidden] = useState(true);
   const dir = useRef(null);
@@ -137,7 +138,6 @@ export default function ChatBody({ chatid, chattype }) {
 
   // TODO
   const footerallowed = chattype == TYPE_CHANNEL ? false : chattype == TYPE_GROUP ? true : true;
-  const [preview, setPreview] = useState(false);
 
   function scrolltobottom() {
     const startPosition = bodyref.current.scrollTop;
@@ -163,66 +163,70 @@ export default function ChatBody({ chatid, chattype }) {
   return (
     <div
       // dir="rtl"
-      className={`flex h-[100%] flex-col items-center`}>
+      className={'flex h-[100%] flex-col items-center'}>
       <div className="flex h-[72%]  w-full flex-col items-center overflow-hidden">
         <div
           className="mb-[25rem] h-[105vh] w-[100%]  overflow-auto px-5 pt-3"
           onScroll={handleonScroll}
           ref={bodyref}>
+
           <button
             onClick={scrolltobottom}
             className={`${
               buttonhidden ? 'hidden' : ''
-            } absolute right-[50%] top-[75%] z-10 rounded-full bg-color2 border border-text1 p-3`}>
+            } absolute right-[50%] top-[75%] z-10 rounded-full border border-text1 bg-color2 p-3`}>
             <UilArrowDown className="text-text1" />
           </button>
           {messages?.length ? (
-            messages?.map((message, index) => {
-              return (
-                <>
-                  {message.sender.profileID == 1 ? (
-                    message.messageID != 0 ? (
-                      <div key={message.messageID} className="my-[1rem] w-full text-center">
-                        <span className=" bg-black bg-opacity-60 text-text1 p-1 px-3 rounded-full ">
-                          {message.text}
-                        </span>
-                      </div>
-                    ) : (
-                      <div key={message.messageID} className="my-[1rem] w-full text-center">
-                        <span className="pointer-events-none sticky rounded-full bg-black bg-opacity-60 px-2 py-1 font-iRANSans text-white">
-                          {getRelativeDate(message.text)}
-                        </span>
-                        {/* {children} */}
-                      </div>
-                    )
+            messages?.map((message, index) => (
+              <>
+                {message.sender.profileID == 1 ? (
+                  message.messageID != 0 ? (
+                    <div key={message.messageID} className="my-[1rem] w-full text-center">
+                      <span className=" rounded-full bg-black bg-opacity-60 p-1 px-3 text-text1 ">
+                        {message.text}
+                      </span>
+                    </div>
                   ) : (
-                    <Message
-                      // forwardedfrom={messages.forwardMessageSender}
-                      forwardedfrom={message.forwardMessageSender}
-                      shouldobserve={index == 0 || messages.length - 1 == index}
-                      key={message.messageID}
-                      observer={observer}
-                      seenObserver={seenObserver}
-                      isSeen={message.viewCount > 1}
-                      id={message.messageID}
-                      chattype={chattype}
-                      creator={message.sender}
-                      time={message.time}
-                      media={message.media}
-                      ispinned={message.ispinned}
-                      isEdited={message.isEdited}
-                      text={message.text}
-                      entities={message.textStyle}
-                      handleMediaMessage={() =>
-                        handleMediaMessage(message.media, message.messageID)
-                      }
-                      profile={message.sender}
-                      replyinfo={message.replyMessageInfo}
-                    />
-                  )}
-                </>
-              );
-            })
+                    <div key={message.messageID} className="my-[1rem] w-full text-center">
+                      <span className="pointer-events-none sticky rounded-full bg-black bg-opacity-60 px-2 py-1 font-iRANSans text-white">
+                        {getRelativeDate(message.text)}
+                      </span>
+                      {/* {children} */}
+                    </div>
+                  )
+                ) : (
+                  <Message
+                    forwardedfrom={message.forwardMessageSender}
+                    shouldobserve={index == 0 || messages.length - 1 == index}
+                    key={message.messageID}
+                    observer={observer}
+                    seenObserver={seenObserver}
+                    isSeen={message.viewCount > 1}
+                    id={message.messageID}
+                    chattype={chattype}
+                    creator={message.sender}
+                    time={message.time}
+                    media={message.media}
+                    ispinned={message.ispinned}
+                    isEdited={message.isEdited}
+                    text={message.text}
+                    entities={message.textStyle}
+                    handleMediaMessage={() =>
+                      dispatch(
+                        setPreview({
+                          open: true,
+                          media: message.media,
+                          messageID: message.messageID
+                        })
+                      )
+                    }
+                    profile={message.sender}
+                    replyinfo={message.replyMessageInfo}
+                  />
+                )}
+              </>
+            ))
           ) : (
             <>
               <div className="flex h-[100%] flex-col items-center">
@@ -251,14 +255,12 @@ export default function ChatBody({ chatid, chattype }) {
           <ChatFooter id={chatid} chattype={chattype} />
           </div>
       )} */}
-      {preview
+      {preview.open
         ? createPortal(
             <ImagePreviewer
-              handleClose={() => setPreview(false)}
-              imageshow={previewImages} // Pass media content to the component
-              imageId={previewImages.mediaId}
-              chatId={chatid}
-              massageId={massageIdpreview}
+              handleClose={() => dispatch(resetPreview)}
+              imageshow={preview.media} // Pass media content to the component
+              massageId={preview.messageID}
             />,
             document.getElementById('app-holder')
           )
