@@ -7,7 +7,7 @@ export default function LeftLayout({ active, setActive , chatid }) {
   //   console.log(setlayout)
   const Pages = [
     <LeftSide isActive={active} setActive={setActive} setlayout={setlayout} chatid={chatid} />,
-    <ProfileEdit isActive={active} setActive={setActive} setlayout={setlayout} />
+    <ProfileEdit isActive={active} setActive={setActive} setlayout={setlayout} chatid={chatid} />
   ];
   // const
 
