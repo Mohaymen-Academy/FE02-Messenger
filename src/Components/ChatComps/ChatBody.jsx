@@ -21,12 +21,10 @@ import { GetSharedMedia, resetPreview, setPreview } from '../../features/SharedM
 
 export default function ChatBody({ chatid, chattype, bodyref, messages }) {
   const dispatch = useDispatch();
-  const downfinished = useSelector((state) => state.selectedProf.downfinished);
-  const upfinished = useSelector((state) => state.selectedProf.upfinished);
+  // const downfinished = useSelector((state) => state.selectedProf.downfinished);
+  // const upfinished = useSelector((state) => state.selectedProf.upfinished);
   const preview = useSelector((state) => state.SharedMedia.preview);
   // const lastmsgId = useSelector((state) => state.selectedProf.LastmsgId);
-  const [previewImages, setPreviewImages] = useState(); // State to store media content
-  const [massageIdpreview, setMassageIdpreview] = useState(0); // State to store media content
   dispatch(GetSharedMedia(chatid));
 
   // function handleMediaMessage(images, imageId) {
@@ -44,7 +42,6 @@ export default function ChatBody({ chatid, chattype, bodyref, messages }) {
         .map((entry) => parseInt(entry.target.dataset.id));
       if (visibleItems.length != 0) {
         const maxval = Math.max(...visibleItems);
-        console.error(maxval);
         if (maxval > MSGes.current.upper) {
           dispatch(setLastmsgId({ msgid: maxval }));
           MSGes.current.upper = maxval;
@@ -61,12 +58,13 @@ export default function ChatBody({ chatid, chattype, bodyref, messages }) {
         .map((entry) => parseInt(entry.target.dataset.id));
       if (visibleItems.length != 0) {
         console.log(visibleItems);
-        handleGetMessages(Math.max(visibleItems), dir, chatid);
+        handleGetMessages(Math.max(...visibleItems), dir, chatid);
       }
     },
     { rootMargin: '20px', threshold: 1.0 }
   );
   function handleGetMessages(msgid, dir, chatid) {
+    console.error(msgid);
     // console.log(dir.current, dir.current == UP);
     if (dir.current == UP && !upfinished) {
       // console.log()
@@ -88,8 +86,10 @@ export default function ChatBody({ chatid, chattype, bodyref, messages }) {
 
   useEffect(() => {
     console.error('first');
+    // bodyref.current.scrollTop = bodyref.current.scrollHeight;
     if (bodyref) {
-      bodyref.current.scrollTop = bodyref.current.scrollHeight;
+      console.error('szwerpw');
+      bodyref.current.scrollTop = bodyref.current.scrollTop + bodyref.current.scrollHeight;
       const maxid = messages.map((ele) => parseInt(ele.messageID));
       Requests().UpdateSeen(Math.max(...maxid));
     }
@@ -109,27 +109,26 @@ export default function ChatBody({ chatid, chattype, bodyref, messages }) {
   });
 
   useEffect(() => {
-    bodyref.current.scrollTop = bodyref.current.scrollHeight;
     console.error('second');
     MSGes.current.upper = 0;
-    const currentScrollPos = bodyref.current.scrollTop;
-    console.error(bodyref.current.scrollTop);
-    console.error(bodyref.current.scrollHeight);
-    if (prevScrollPos == 0) {
-      bodyref.current.scrollTop = 20;
+    console.error();
+    // const currentScrollPos = bodyref.current.scrollTop;
+    if (isScrollAtBottom(bodyref)) {
       const maxid = Math.max(...messages.map((ele) => parseInt(ele.messageID)));
+      MSGes.current.upper = maxid;
       Requests().UpdateSeen(maxid);
     }
   });
 
   // let scrolltimeout;
 
+  function isScrollAtBottom(bodyref) {
+    return bodyref.current.scrollTop + bodyref.current.clientHeight >= bodyref.current.scrollHeight;
+  }
+
   function handleonScroll(e) {
     // clearTimeout(scrolltimeout);
     const currentScrollPos = bodyref.current.scrollTop;
-    // console.error(currentScrollPos)
-    // console.error(bodyref.current)
-    // console.log(currentScrollPos, prevScrollPos);
     if (currentScrollPos > prevScrollPos) {
       dir.current = DOWN;
     } else {
