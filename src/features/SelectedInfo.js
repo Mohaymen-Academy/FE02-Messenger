@@ -13,7 +13,7 @@ const initialState = {
   chatType: null,
   selectedProfileView: null,
   Chatmessages: [],
-  unreadMessages: 0,
+  LastmsgId: 0,
   upfinished: false,
   downfinished: false,
   profileinfo: null,
@@ -99,8 +99,8 @@ const SelectedProf = createSlice({
       });
       // state.Chatmessages = temp;
     },
-    setunreadMessages: (state, action) => {
-      state.unreadMessages= action.payload.count;
+    setLastmsgId: (state, action) => {
+      state.LastmsgId= action.payload.msgid;
     },
     deleteChat: (state, action) => {
       if (action.payload.chatid == state.selectedChatID) {
@@ -213,7 +213,7 @@ export const {
   Updatecommands,
   ReplaceImage,
   deleteChat,
-  setunreadMessages
+  setLastmsgId
 } = SelectedProf.actions;
 // export const { resetChatId, editmsg, addcontact, deletemessage,ReplaceImage } = SelectedProf.actions;
 // export const { setChat, setChatType } = SelectedProf.actions;

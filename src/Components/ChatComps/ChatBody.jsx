@@ -14,7 +14,8 @@ import {
   GetMessages,
   GetMessagesDown,
   GetMessagesUp,
-  ReplaceImage
+  ReplaceImage,
+  setLastmsgId
 } from '../../features/SelectedInfo.js';
 import { GetSharedMedia, resetPreview, setPreview } from '../../features/SharedMediaSlice.js';
 
@@ -23,7 +24,7 @@ export default function ChatBody({ chatid, chattype, bodyref, messages }) {
   const downfinished = useSelector((state) => state.selectedProf.downfinished);
   const upfinished = useSelector((state) => state.selectedProf.upfinished);
   const preview = useSelector((state) => state.SharedMedia.preview);
-  const unreadMessages = useSelector((state) => state.selectedProf.unreadMessages);
+  const lastmsgId = useSelector((state) => state.selectedProf.LastmsgId);
   const [previewImages, setPreviewImages] = useState(); // State to store media content
   const [massageIdpreview, setMassageIdpreview] = useState(0); // State to store media content
   dispatch(GetSharedMedia(chatid));
@@ -45,6 +46,7 @@ export default function ChatBody({ chatid, chattype, bodyref, messages }) {
         const maxval = Math.max(...visibleItems);
         console.error(maxval);
         if (maxval > MSGes.current.upper) {
+          dispatch(setLastmsgId({ msgid: maxval }));
           MSGes.current.upper = maxval;
           Requests().UpdateSeen(MSGes.current.upper);
         }
@@ -89,7 +91,6 @@ export default function ChatBody({ chatid, chattype, bodyref, messages }) {
     if (bodyref) {
       bodyref.current.scrollTop = bodyref.current.scrollHeight;
       const maxid = messages.map((ele) => parseInt(ele.messageID));
-
       Requests().UpdateSeen(Math.max(...maxid));
     }
     console.log(bodyref.current.scrollHeight);
@@ -103,11 +104,17 @@ export default function ChatBody({ chatid, chattype, bodyref, messages }) {
   }, []);
 
   // console.error(messages);
+  useEffect(() => {
+    console.log('weiruo');
+  });
 
   useEffect(() => {
+    bodyref.current.scrollTop = bodyref.current.scrollHeight;
     console.error('second');
     MSGes.current.upper = 0;
     const currentScrollPos = bodyref.current.scrollTop;
+    console.error(bodyref.current.scrollTop);
+    console.error(bodyref.current.scrollHeight);
     if (prevScrollPos == 0) {
       bodyref.current.scrollTop = 20;
       const maxid = Math.max(...messages.map((ele) => parseInt(ele.messageID)));
@@ -115,11 +122,10 @@ export default function ChatBody({ chatid, chattype, bodyref, messages }) {
     }
   });
 
-  let scrolltimeout;
+  // let scrolltimeout;
 
   function handleonScroll(e) {
-    clearTimeout(scrolltimeout);
-    // console.log(bodyref.current.scrollHeight);
+    // clearTimeout(scrolltimeout);
     const currentScrollPos = bodyref.current.scrollTop;
     // console.error(currentScrollPos)
     // console.error(bodyref.current)
