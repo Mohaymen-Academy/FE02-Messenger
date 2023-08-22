@@ -37,6 +37,7 @@ export default function Requests(body) {
     try {
       // console.log('Sending request to sign up...');
       const res = await API().POST('access/signup', body, HEADER);
+      localStorage.setItem('token', res.data.jwt);
       return res;
     } catch (err) {
       console.log(err);
@@ -54,7 +55,6 @@ export default function Requests(body) {
       console.log(err);
     }
   }
-  // eyJ0eXAiOiJKV1QiLCJhbGciOiJub25lIn0.eyJpZCI6MTAwMCwiZXhwIjoxNjkyMTY0NDM4fQ.wbxoM2ylQRZwFGNnh8-qI3XLya9z4bgDxlNkHQsSJHM\""
   // profileData
 
   async function GetChat(receiverID, params) {
