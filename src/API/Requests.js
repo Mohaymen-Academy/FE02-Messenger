@@ -1,6 +1,13 @@
-import { DOWN, TYPE_GROUP, UP } from '../utility/Constants';
+import {
+  DOWN,
+  TYPE_GROUP,
+  UP
+} from '../utility/Constants';
 import API from './API';
-import { BASE_URL, HEADER } from './consts';
+import {
+  BASE_URL,
+  HEADER
+} from './consts';
 // import { useSelector } from 'react-redux';
 
 export default function Requests(body) {
@@ -64,6 +71,7 @@ export default function Requests(body) {
     };
     try {
       const res = await API().GET(receiverID, param, AutorizeHeader);
+      console.error(res)
       return res;
     } catch (err) {
       console.error(err);
@@ -81,7 +89,9 @@ export default function Requests(body) {
     }
   }
   async function GetChatList(limit) {
-    const body = { limit };
+    const body = {
+      limit
+    };
     try {
       const res = await API().GET('/', body, AutorizeHeader);
       return res;
@@ -90,7 +100,9 @@ export default function Requests(body) {
     }
   }
   async function SearchAll(text) {
-    const body = { search_entry: text };
+    const body = {
+      search_entry: text
+    };
 
     try {
       const res = await API().GET('search/', body, AutorizeHeader);

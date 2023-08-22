@@ -25,6 +25,7 @@ export default function ChatBody({ chatid, chattype, bodyref, messages }) {
   const preview = useSelector((state) => state.SharedMedia.preview);
   const [previewImages, setPreviewImages] = useState(); // State to store media content
   const [massageIdpreview, setMassageIdpreview] = useState(0); // State to store media content
+  dispatch(GetSharedMedia(chatid))
   function handleMediaMessage(images, imageId) {
     setPreviewImages(images); // Store media content in state
     setMassageIdpreview(imageId); // Store media content in state
@@ -91,9 +92,9 @@ export default function ChatBody({ chatid, chattype, bodyref, messages }) {
     if (prevScrollPos == 0) {
       console.error('here in');
       console.error('zarperwr');
-      const maxid = messages.map((ele) => parseInt(ele.messageID));
+      // const maxid = messages.map((ele) => parseInt(ele.messageID));
       // console.error(Math.max(...maxid));
-      Requests().UpdateSeen(Math.max(...maxid));
+      // Requests().UpdateSeen(Math.max(...maxid));
     }
     //   }
   }, []);
@@ -103,7 +104,6 @@ export default function ChatBody({ chatid, chattype, bodyref, messages }) {
   useEffect(() => {
     MSGes.current.upper = 0;
     const currentScrollPos = bodyref.current.scrollTop;
-
     if (prevScrollPos == 0) {
       bodyref.current.scrollTop = 20;
       const maxid = Math.max(...messages.map((ele) => parseInt(ele.messageID)));
@@ -259,7 +259,7 @@ export default function ChatBody({ chatid, chattype, bodyref, messages }) {
       {preview.open
         ? createPortal(
             <ImagePreviewer
-              handleClose={() => dispatch(resetPreview)}
+              // handleClose={() => dispatch(resetPreview)}
               imageshow={preview.media} // Pass media content to the component
               massageId={preview.messageID}
             />,
