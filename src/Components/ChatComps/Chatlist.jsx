@@ -18,7 +18,7 @@ const Chatlist = () => {
   const downfinished = useSelector((state) => state.selectedProf.downfinished);
   const upfinished = useSelector((state) => state.selectedProf.upfinished);
   const updatesList = useSelector((state) => state.selectedProf.updatesList);
-  console.log(lists);
+  // console.log(lists);
   useEffect(() => {
     if (selectedChat) {
       const shouldUpdate = lists.filter((ele) => ele.profile.profileID == selectedChat);
@@ -29,13 +29,13 @@ const Chatlist = () => {
       const profileinfo = shouldUpdate[0];
       // console.log(profileinfo)
       if (profileinfo?.updates) {
-        console.error(profileinfo?.updates)
+        // console.error(profileinfo?.updates);
         const maxid = Math.max(...profileinfo?.updates.map((command) => command.MessageId));
-        console.log(maxid);
+        // console.log(maxid);
         // if (maxid && maxid != -Infinity) {
         //   Requests().UpdateResponse(maxid, selectedChat);
         //   dispatch(Updatecommands({ updates: profileinfo?.updates }));
-        
+
         // }
       }
       //   console.log(profileinfo?.updates);
