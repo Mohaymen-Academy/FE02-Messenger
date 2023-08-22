@@ -33,6 +33,16 @@ const profileSlice = createSlice({
       console.log('hello');
     },
     UpdateImage: (state, action) => {
+      if (!state.profileData.lastProfilePicture) {
+        state.profileData.lastProfilePicture = {
+          preLoadingContent: '',
+          content: '',
+          type: '',
+          size: 0,
+          name: '',
+          lastModified: 0
+        };
+      }
         state.profileData.lastProfilePicture.preLoadingContent = action.payload
     } ,
     UpdateProfile: (state , action) => {
