@@ -16,7 +16,7 @@ function MessageMedia({ src, handleClick }) {
     {
       src.contentType === 'application/pdf' && (
         <div className="w-[100%] rounded-md" >
-        <Files file={src} filename={src.mediaName} size={src.contentSize}/>
+        <Files file={src} filename={src.mediaName} size={src.contentSize} download={true} mediaID={src.mediaId}/>
         </div>
         )
     }

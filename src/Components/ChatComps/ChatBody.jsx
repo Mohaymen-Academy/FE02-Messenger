@@ -171,14 +171,14 @@ export default function ChatBody({ chatid, chattype, bodyref, messages }) {
       className={'flex h-[100%] flex-col items-center'}>
       <div className="flex h-[72%]  w-full flex-col items-center overflow-hidden">
         <div
-          className="mb-[25rem] h-[105vh] w-[100%]  overflow-auto px-5 pt-3"
+          className="mb-[5rem] h-[105vh] w-[100%]  overflow-auto px-5 pt-3"
           onScroll={handleonScroll}
           ref={bodyref}>
           <button
             onClick={scrolltobottom}
             className={`${
               buttonhidden ? 'hidden' : ''
-            } absolute right-[50%] top-[75%] z-10 rounded-full border border-text1 bg-color2 p-3`}>
+            } absolute right-[50%] top-[70%] z-10 rounded-full border border-text1 bg-color2 p-3`}>
             <UilArrowDown className="text-text1" />
           </button>
           {messages?.length ? (

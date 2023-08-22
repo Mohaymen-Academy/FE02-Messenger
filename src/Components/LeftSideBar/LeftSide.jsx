@@ -7,7 +7,7 @@ import {
   UilBellSlash,
   UilUserPlus
 } from '@iconscout/react-unicons';
-import { Files, Links, Medias, Musics, Voices } from './ProfileParts';
+import { Files, Links, Medias, Musics, Voices, FilePartition } from './ProfileParts';
 import { useDispatch, useSelector } from 'react-redux';
 import Requests from '../../API/Requests';
 import { addcontact } from '../../features/SelectedInfo';
@@ -166,7 +166,7 @@ export default function LeftSide({
           {filepart[0] == 1 ? (
             <Medias />
           ) : filepart[1] == 1 ? (
-            <Files />
+            <FilePartition />
           ) : filepart[2] == 1 ? (
             <Links />
           ) : filepart[3] == 1 ? (
