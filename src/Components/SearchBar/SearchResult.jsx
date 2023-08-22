@@ -12,7 +12,7 @@ export default function SearchResult({ profile, text, massage_id }) {
             GetMessages({
               type: profile.type,
               profid: profile.profileID,
-              message_id: 0,
+              message_id: 0 || massage_id,
               profileinfo: profile
             })
           )
