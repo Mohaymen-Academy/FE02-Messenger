@@ -2,7 +2,6 @@ import { useState, createContext, useEffect, useReducer } from 'react';
 import { useSelector } from 'react-redux';
 import { getTheme } from '../utility/useLoclStorage';
 import RightSide from './RightSideBar/Rightside';
-import { TYPE_USER } from '../utility/Constants';
 
 // const LayoutContext = createContext(null);
 // function reducer(state, action) {

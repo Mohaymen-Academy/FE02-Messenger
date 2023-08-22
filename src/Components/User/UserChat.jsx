@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { ChatBody, ChatHeader , ChatFooter } from '../ChatComps';
+import { ChatBody, ChatHeader, ChatFooter } from '../ChatComps';
 import LeftLayout from '../LeftSideBar/LeftLayout';
 import { TYPE_USER } from '../../utility/Constants';
 import Requests from '../../API/Requests';
-export default function UserChat({ chatid, setChatId }) {
+export default function UserChat({ chatid }) {
   const [active, setActive] = useState(false);
-  
+
   return (
     <>
       <div className="flex flex-row">
@@ -26,10 +26,14 @@ export default function UserChat({ chatid, setChatId }) {
                 chatid={chatid}
               />
               <ChatBody chattype={TYPE_USER} chatid={chatid} />
-              <ChatFooter id={chatid}  />
-
+              <ChatFooter id={chatid} chattype={TYPE_USER} />
             </div>
-            <LeftLayout CHATTYPE={TYPE_USER} chatid={chatid} active={active} setActive={setActive} />
+            <LeftLayout
+              CHATTYPE={TYPE_USER}
+              chatid={chatid}
+              active={active}
+              setActive={setActive}
+            />
           </>
         ) : (
           <></>

@@ -1,10 +1,10 @@
 import { memo, useEffect, useRef, useState } from 'react';
-import { UilTrash, UilBellSlash, UilMapPinAlt } from '@iconscout/react-unicons';
+import { UilTrash, UilBellSlash, UilMapPinAlt, UilCommentAltSlash } from '@iconscout/react-unicons';
 import { TYPE_CHANNEL, TYPE_GROUP, TYPE_USER } from '../../utility/Constants';
 import Requests from '../../API/Requests';
 
-const ChatCardContext = memo(({ setOpenContext, type, chatid }) => {
-  console.log(chatid)
+const ChatCardContext = memo(({ setOpenContext, type, chatid, pinned }) => {
+  console.log(chatid);
   const liref = useRef(null);
   useEffect(() => {
     // if (liref) {
@@ -17,7 +17,8 @@ const ChatCardContext = memo(({ setOpenContext, type, chatid }) => {
 
   function handlePin() {
     console.log(chatid);
-    Requests().pinChat(chatid);
+    if (!pinned) Requests().pinChat(chatid);
+    else Requests().UnpinChat(chatid);
   }
   function handlDelete() {
     console.log('delete');
@@ -25,8 +26,8 @@ const ChatCardContext = memo(({ setOpenContext, type, chatid }) => {
   function handlMute() {}
   const chatItems = [
     {
-      icon: <UilMapPinAlt />,
-      title: 'سنجاق به بالا',
+      icon: pinned ? <UilCommentAltSlash /> : <UilMapPinAlt />,
+      title: pinned ? 'برداشتن سنجاق' : 'سنجاق به بالا',
       color: 'text-text1',
       action: handlePin
     },
@@ -45,8 +46,8 @@ const ChatCardContext = memo(({ setOpenContext, type, chatid }) => {
   ];
   const channelItems = [
     {
-      icon: <UilMapPinAlt />,
-      title: 'سنجاق به بالا',
+      icon: pinned ? <UilCommentAltSlash /> : <UilMapPinAlt />,
+      title: pinned ? 'برداشتن سنجاق' : 'سنجاق به بالا',
       color: 'text-text1',
       action: handlePin
     },
@@ -64,8 +65,8 @@ const ChatCardContext = memo(({ setOpenContext, type, chatid }) => {
   ];
   const groupItems = [
     {
-      icon: <UilMapPinAlt />,
-      title: 'سنجاق به بالا',
+      icon: pinned ? <UilCommentAltSlash /> : <UilMapPinAlt />,
+      title: pinned ? 'برداشتن سنجاق' : 'سنجاق به بالا',
       color: 'text-text1',
       action: handlePin
     },

@@ -21,39 +21,25 @@ const Chatlist = () => {
   // console.log(lists);
   useEffect(() => {
     if (selectedChat) {
-      const shouldUpdate = lists.filter((ele) => ele.profile.profileID == selectedChat);
-      // console.log(shouldUpdate[0]?.unreadMessageCount);
-      if (shouldUpdate.length != 0) {
-        // console.log(downfinished, upfinished);
+      // console.error('zwerewr')
+      const profile = lists.filter((ele) => ele.profile.profileID == selectedChat)[0];
+      if (profile && profile.length != 0) {
+        const { updates } = profile;
+        if (updates.length != 0) {
+          const maxid = Math.max(...updates.map((command) => command.id));
+        }
       }
-      const profileinfo = shouldUpdate[0];
-      // console.log(profileinfo)
-      if (profileinfo?.updates) {
-        // console.error(profileinfo?.updates);
-        const maxid = Math.max(...profileinfo?.updates.map((command) => command.MessageId));
-        // console.log(maxid);
-        // if (maxid && maxid != -Infinity) {
-        //   Requests().UpdateResponse(maxid, selectedChat);
-        //   dispatch(Updatecommands({ updates: profileinfo?.updates }));
-
-        // }
+      if (profile && profile.unreadMessageCount != 0) {
+        // console.error('zerwewr')
+        dispatch(GetMessages({ type: chattype, ID: profile.profileID, message_id: 0 }));
       }
-      //   console.log(profileinfo?.updates);
-      // if (updatesList)
-      //   profileinfo.updates.forEach((command) => {
-      //     switch (command.updateType) {
-      //       case 'DELETE':
-      //         dispatch(deletemessage({ msgid: command.MessageId }));
-      //       case 'EDIT':
-      //         Requests()
-      //           .GetupdateVal(command.MessageId)
-      //           .then((res) => res.json())
-      //           .then((msg) => dispatch(editmsg({ msgId: command.MessageId, newtext: msg })))
-      //           .catch((err) => console.log(err));
+      //   console.log(profileinfo);
+      //   if (profileinfo.updates && profileinfo.updates.length != 0) {
+      // console.log(profileinfo.updates);
+      //     if (maxid && maxid != -Infinity) {
+      //       console.error(profileinfo.updates);
+      // dispatch(Updatecommands({ updates: profileinfo.updates }));
       //     }
-      //   });
-      // } else if (profileinfo.unreadMessageCount != 0) {
-      //   dispatch(GetMessages({ type: chattype, ID: selectedChat, message_id: 0 }));
       // }
     }
   });

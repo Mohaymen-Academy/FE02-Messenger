@@ -2,16 +2,20 @@ import { useEffect, useState, useRef, memo } from 'react';
 import { useSelector } from 'react-redux';
 import MessageMenu from './MessageMenu.jsx';
 import MessageHeader from './MessageHeader.jsx';
-import MessageImageMedia from './MessageImageMedia.jsx';
+import MessageMedia from './MessageMedia.jsx';
 import MessageFooter from './MessageFooter.jsx';
 import ImagePreviewer from '../media-previewer/ImagePreviewer';
 import MessageBody from './MessageBody.jsx';
 import { Avatar } from '../ChatComps';
 import { TYPE_GROUP, TYPE_USER } from '../../utility/Constants.js';
 import TextProcessorObj from '../../utility/TextProcessor.js';
+import PopUp from '../../ui/PopUp';
+import ForwardComponent from '../../ui/ForwardComponent';
 
-const Message = memo(
+const Message =
+  // memo(
   ({
+    forwardedfrom,
     seenObserver,
     isSeen,
     id,
@@ -29,8 +33,9 @@ const Message = memo(
     shouldobserve,
     replyinfo
   }) => {
-    // console.log(entities);
+    // console.error(forwardedfrom);
     const [mousepositoin, setmousepositoin] = useState({ x_mouse: 0, y_mouse: 0 });
+    const [openForward, setopenForward] = useState(false);
     const mainref = useRef(null);
     const textref = useRef(null);
     const processor = TextProcessorObj([]);
@@ -98,6 +103,8 @@ const Message = memo(
       const y_mouse = event.clientY;
       setmousepositoin({ x_mouse, y_mouse });
     }
+    console.log('werwerkwjriopup');
+    console.log(forwardedfrom);
     const Isforme = creator.profileID === userprofile.profileData.profileID;
     return (
       <div
@@ -105,25 +112,10 @@ const Message = memo(
         ref={mainref}
         className={`relative flex w-full ${Isforme ? 'justify-start' : 'justify-end'} px-5`}
         onContextMenu={handleRightClick}>
-        {/* replyMessageInfo
-: 
-compressedContent
-: 
-null
-messageId
-: 
-6
-sender
-: 
-"hesam"
-text
-: 
-"hello" */}
-
         <MessageBody Isforme={Isforme}>
-          {replyinfo ? <MessageHeader repliedTo={replyinfo.text} /> : <></>}
+          <MessageHeader forewardedFrom={forwardedfrom} repliedTo={replyinfo} />
           {media ? (
-            <MessageImageMedia src={media.preLoadingContent} handleClick={handleMediaMessage} />
+            <MessageMedia src={media.preLoadingContent} handleClick={handleMediaMessage} />
           ) : (
             <></>
           )}
@@ -154,14 +146,23 @@ text
             text={text}
             positions={mousepositoin}
             setposition={setmousepositoin}
+            setopenForward={setopenForward}
+            // forwardedfrom
           />
+        ) : (
+          <></>
+        )}
+        {openForward ? (
+          <PopUp title={'هدایت'} setIsModalOpen={setopenForward}>
+            <ForwardComponent text={text} messageid={id} />
+          </PopUp>
         ) : (
           <></>
         )}
       </div>
       // <></>
     );
-  }
-);
+  };
+// );
 
 export default Message;

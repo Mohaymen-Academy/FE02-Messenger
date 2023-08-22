@@ -10,7 +10,7 @@ import TextProcessor from '../../utility/TextProcessor';
 import FileUploader from '../../ui/FileUploader';
 import Requests from '../../API/Requests';
 import { composerActions } from '../../features/composerSlice';
-import { editmsg } from '../../features/SelectedInfo';
+import { GetMessages, editmsg } from '../../features/SelectedInfo';
 import PopUp from '../../ui/PopUp';
 import Poll from './Poll';
 import UploadFile from '../../ui/UploadFile';
@@ -70,11 +70,13 @@ export default function ChatFooter({ id, chattype }) {
     }
   }
   async function SelectRequestType() {
+    // IF IS EDITING 
     if (Isactive.isEditting) {
       console.log();
       dispatch(editmsg({ msgId: Isactive.editID, newtext: ProcessorValues.current.rawtext }));
       await Requests().EditMessage(Isactive.editID, ProcessorValues.current.rawtext);
     } else {
+      // IF REPLIED TO SOMETHING 
       if (Isactive.isReplying) {
         Requests().sendText(
           id,
@@ -83,6 +85,7 @@ export default function ChatFooter({ id, chattype }) {
           Isactive.replyID
         );
       }
+      // IF FORWARDED FROM 
       if (Isactive.isForwarding) {
         Requests().sendText(
           id,
@@ -91,7 +94,9 @@ export default function ChatFooter({ id, chattype }) {
           null,
           Isactive.forwardID
         );
-      } else {
+      }
+      // ONLY SEND A MESSAGE 
+      else {
         console.log(id);
         Requests().sendText(
           id,
@@ -99,14 +104,16 @@ export default function ChatFooter({ id, chattype }) {
           JSON.stringify(ProcessorValues.current.sorted)
         );
       }
-      console.log(Isactive.editID);
+      // console.log(Isactive.editID);
       // dispatch(editmsg({ msgId: Isactive.editID, newtext: divref.current.innerText }));
       // await Requests().EditMessage(Isactive.editID, divref.current.innerText);
     }
+
     ProcessorValues.current.rawtext = '';
     divref.current.innerText = '';
     setentitycontainers([]);
     dispatch(composerActions.clear());
+    setTimeout(dispatch(GetMessages({ type: chattype, ID: id, message_id: 0 })), 1000);
   }
   return (
     <div className=" sticky bottom-0 flex flex-col">
@@ -166,7 +173,7 @@ export default function ChatFooter({ id, chattype }) {
 } */}
 
             {fileuploaded && (
-              <PopUp title="انتخاب عکس" setIsModalOpen={setfileuploaded}>
+              <PopUp title="انتخاب فایل" setIsModalOpen={setfileuploaded}>
                 <UploadFile id={id} fileuploaded={fileuploaded} />
               </PopUp>
             )}

@@ -242,11 +242,18 @@ export default function Requests(body) {
       .then((data) => console.log(data))
       .catch((err) => console.log(err));
   }
+  async function UnpinChat(chatid) {
+    API()
+      .PUT(`unpin-chat/${chatid}`, {}, AutorizeHeader)
+      .then((res) => res.data)
+      .then((data) => console.log(data))
+      .catch((err) => console.log(err));
+  }
   async function pinChat(chatid) {
-    console.log('here pin chat zarp');
+    // console.log('here pin chat zarp');
     await API()
       .PUT(`pin-chat/${chatid}`, {}, AutorizeHeader)
-      .then((res) => res.json())
+      .then((res) => res.data)
       .then((data) => console.log(data))
       .catch((err) => console.log(err));
   }
@@ -311,12 +318,13 @@ export default function Requests(body) {
       chat_id: chatid
     };
     API()
-      .PUT('update', params, AutorizeHeader)
+      .PUT('update', body, AutorizeHeader)
       .then((res) => res.data)
       .then((data) => console.log(data))
       .catch((err) => console.log(err));
   }
   return {
+    UnpinChat,
     UpdateResponse,
     UnpinMessage,
     PinMSG,

@@ -8,6 +8,7 @@ const initialState = {
   isReplying: false,
   isForwarding: false,
   forwardID: '',
+  forwardval: '',
   replyID: '',
   editID: '',
   editvalue: '',
@@ -25,6 +26,7 @@ const composerSlice = createSlice({
     clear: (state, action) => {
       state.composerValue = '';
       state.editvalue = '';
+      state.forwardval = '';
       state.isEditting = false;
       state.isReplying = false;
       state.isForwarding = false;
@@ -46,7 +48,8 @@ const composerSlice = createSlice({
     },
     forwardMessage: (state, action) => {
       state.isForwarding = true;
-      state.forwardID = action.payload;
+      state.forwardID = action.payload.id;
+      state.composerValue = action.payload.text;
     },
     resetComposer: (state) => {
       state = initialState;
