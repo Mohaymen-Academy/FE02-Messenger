@@ -4,13 +4,15 @@ import { useSelector, useDispatch } from 'react-redux';
 import Avatar from '../ChatComps/Avatar';
 import Requests from '../../API/Requests';
 import { ReplaceImage } from '../../features/SelectedInfo';
+import { GetSharedMedia, resetPreview, setPreview } from '../../features/SharedMediaSlice.js';
+
 // const images = [
 //   './images/profile.jpg',
 //   './images/person.png',
 //   './images/setting.png',
 //   './images/profile.jpg'
 // ];
-function ImagePreviewer({ handleClose, massageId, imageshow }) {
+function ImagePreviewer({  massageId, imageshow }) {
   const [image, setImage] = useState([]);
   const dispatch = useDispatch();
   const info = useSelector((state) => state.selectedProf);
@@ -25,6 +27,9 @@ function ImagePreviewer({ handleClose, massageId, imageshow }) {
     } else {
       setImage(imageshow.preLoadingContent);
     }
+  };
+  const handleClose = () => {
+    dispatch(resetPreview());
   };
   useEffect(() => {
     req();

@@ -159,6 +159,8 @@ export default function ChatBody({ chatid, chattype ,bodyref,messages}) {
     }
     requestAnimationFrame(scrollAnimation);
   }
+  // console.log(preview.open)
+
   // console.log(messages);
   return (
     <div
@@ -258,7 +260,7 @@ export default function ChatBody({ chatid, chattype ,bodyref,messages}) {
       {preview.open
         ? createPortal(
             <ImagePreviewer
-              handleClose={() => dispatch(resetPreview)}
+              // handleClose={() => dispatch(resetPreview)}
               imageshow={preview.media} // Pass media content to the component
               massageId={preview.messageID}
             />,

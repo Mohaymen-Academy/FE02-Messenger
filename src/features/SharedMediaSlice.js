@@ -22,9 +22,11 @@ const SharedMedia = createSlice({
   reducers: {
     setPreview: (state, action) => {
       state.preview = action.payload;
+
     },
     resetPreview: (state) => {
       state.preview = { open: false, mediaID: null, messageID: 0 };
+      console.log("salam", state.preview)
     }
   },
   extraReducers: (builder) =>
