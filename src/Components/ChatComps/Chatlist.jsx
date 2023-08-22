@@ -68,7 +68,15 @@ const Chatlist = () => {
         <ChatCardPreview
           key={index}
           pinned={chatprev.pinned}
-          profile={chatprev.profile}
+          profid={chatprev.profile.profileID}
+          type={chatprev.profile.type}
+          image={chatprev.profile.lastProfilePicture}
+          size={50}
+          // profileName
+          profileName={chatprev.profile.profileName}
+          imagecolor={chatprev.profile.defaultProfileColor}
+          char={chatprev.profile.profileName[0]}
+          isOnline={chatprev.profile.status?.toLowerCase()}
           lastMessage={chatprev.lastMessage}
           unreadMessageCount={chatprev.unreadMessageCount}
           lastseen={chatprev.lastSeen}

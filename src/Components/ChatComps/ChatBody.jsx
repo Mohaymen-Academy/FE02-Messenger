@@ -18,7 +18,7 @@ import {
 } from '../../features/SelectedInfo.js';
 import { GetSharedMedia, resetPreview, setPreview } from '../../features/SharedMediaSlice.js';
 
-export default function ChatBody({ chatid, chattype ,bodyref,messages}) {
+export default function ChatBody({ chatid, chattype, bodyref, messages }) {
   const dispatch = useDispatch();
   const downfinished = useSelector((state) => state.selectedProf.downfinished);
   const upfinished = useSelector((state) => state.selectedProf.upfinished);
@@ -37,16 +37,17 @@ export default function ChatBody({ chatid, chattype ,bodyref,messages}) {
       const visibleItems = entries
         .filter((entry) => entry.isIntersecting)
         .map((entry) => parseInt(entry.target.dataset.id));
+      console.error('wer');
       if (visibleItems.length != 0) {
         const maxval = Math.max(...visibleItems);
+        console.error(maxval);
         if (maxval > MSGes.current.upper) {
           MSGes.current.upper = maxval;
-          console.log(MSGes.current.upper);
-          // Requests().UpdateSeen(MSGes.current.upper);
+          Requests().UpdateSeen(MSGes.current.upper);
         }
       }
     },
-    { rootMargin: '20px', threshold: 1.0 }
+    { rootMargin: '5px', threshold: 0.5 }
   );
   const observer = new IntersectionObserver(
     (entries) => {
@@ -75,7 +76,6 @@ export default function ChatBody({ chatid, chattype ,bodyref,messages}) {
     // lower: Infinity
   });
 
-
   // console.error(messages);
   const [buttonhidden, setbuttonhidden] = useState(true);
   const dir = useRef(null);
@@ -89,6 +89,7 @@ export default function ChatBody({ chatid, chattype ,bodyref,messages}) {
     //   // console.log(prevScrollPos, currentScrollPos);
     //! if the scroll was in the down of the page
     if (prevScrollPos == 0) {
+      console.error('here in');
       console.error('zarperwr');
       const maxid = messages.map((ele) => parseInt(ele.messageID));
       // console.error(Math.max(...maxid));
@@ -100,12 +101,13 @@ export default function ChatBody({ chatid, chattype ,bodyref,messages}) {
   // console.error(messages);
 
   useEffect(() => {
+    MSGes.current.upper = 0;
     const currentScrollPos = bodyref.current.scrollTop;
-    if (prevScrollPos == currentScrollPos) {
-      const maxid = messages.map((ele) => parseInt(ele.messageID));
-    }
+
     if (prevScrollPos == 0) {
       bodyref.current.scrollTop = 20;
+      const maxid = Math.max(...messages.map((ele) => parseInt(ele.messageID)));
+      Requests().UpdateSeen(maxid)
     }
   });
 
@@ -159,7 +161,7 @@ export default function ChatBody({ chatid, chattype ,bodyref,messages}) {
     }
     requestAnimationFrame(scrollAnimation);
   }
-  // console.log(messages);
+  console.log(messages);
   return (
     <div
       // dir="rtl"
@@ -169,7 +171,6 @@ export default function ChatBody({ chatid, chattype ,bodyref,messages}) {
           className="mb-[25rem] h-[105vh] w-[100%]  overflow-auto px-5 pt-3"
           onScroll={handleonScroll}
           ref={bodyref}>
-
           <button
             onClick={scrolltobottom}
             className={`${
@@ -190,7 +191,7 @@ export default function ChatBody({ chatid, chattype ,bodyref,messages}) {
                   ) : (
                     <div key={message.messageID} className="my-[1rem] w-full text-center">
                       <span className="pointer-events-none sticky rounded-full bg-black bg-opacity-60 px-2 py-1 font-iRANSans text-white">
-                        {getRelativeDate(message.text)}
+                        {getRelativeDate(message.time)}
                       </span>
                       {/* {children} */}
                     </div>

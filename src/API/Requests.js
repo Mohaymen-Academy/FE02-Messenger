@@ -58,7 +58,7 @@ export default function Requests(body) {
   // profileData
 
   async function GetChat(receiverID, params) {
-    console.log();
+    console.error(params,receiverID);
     const param = {
       message_id: params
     };
@@ -326,7 +326,7 @@ export default function Requests(body) {
   }
   async function DeleteChat(chatid) {
     const body = {
-      chatid: chatid
+      chatId: String(chatid)
     };
     API().DEL(`delete-chat`, body, AutorizeHeader);
   }

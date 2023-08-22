@@ -6,7 +6,7 @@ export default (e) => {
     if (!msg.data.shoulddead) {
       interval = setInterval(async () => {
         fetch(
-          `http://192.168.70.231:8080?` +
+          `http://192.168.70.223:8080?` +
             new URLSearchParams({
               active_chat: 0
             }),

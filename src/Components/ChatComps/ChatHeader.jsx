@@ -7,7 +7,7 @@ import ChatHeaderSettings from './ChatHeaderSettings.jsx';
 import { SetLeftProf, resetChatId } from '../../features/SelectedInfo.js';
 import Pin from './Pin.jsx';
 
-const ChatHeader = ({ active, setActive, chatsetter, chattype, chatid, messages, bodyref }) => {
+const ChatHeader = ({ active, setActive, chattype, chatid, messages, bodyref }) => {
   const dispatch = useDispatch();
   const selectedProfile = useSelector((state) => state.selectedProf.profileinfo);
   console.log(selectedProfile);
@@ -61,7 +61,7 @@ const ChatHeader = ({ active, setActive, chatsetter, chattype, chatid, messages,
           {<ChatHeaderSettings active={active} />}
         </div>
       </div>
-      <Pin bodyref={bodyref} chatid={chatid} messages={messages} />
+      <Pin bodyref={bodyref} chatid={chatid} chattype={chattype} messages={messages} />
     </>
   );
 };

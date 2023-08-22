@@ -8,7 +8,7 @@ export default function GoHnalder() {
    *
    **/
   function MsgIsInList(messages, msgid) {
-    console.error(messages);
+    console.error(messages, msgid);
     return messages.filter((msg) => msg.messageID == msgid).length > 0;
   }
   /**
@@ -17,7 +17,7 @@ export default function GoHnalder() {
    *  @param {Number} msgid
   //  *  @param {HTMLElement} Listref
    **/
-  function GoTo(messages, msgid, Listref, dispatch) {
+  function GoTo(messages, msgid, Listref, dispatch, chatid, chattype) {
     if (MsgIsInList(messages, msgid)) {
       // console.error(Listref);
       // console.error(Listref.current.childNodes);
@@ -25,17 +25,14 @@ export default function GoHnalder() {
       let selectedchild;
       for (let i = 0; i < Listref.current.childNodes.length; i++) {
         const childNode = Listref.current.childNodes[i];
-        console.log(childNode.getAttribute('data-id'));
-        if (childNode.dataset.id == msgid){
-          selectedchild=childNode
+        console.error(childNode.getAttribute('data-id'));
+        if (childNode.getAttribute('data-id') == msgid) {
+          selectedchild = childNode;
         }
-          // Perform operations on the child node
       }
-      // const childNodeWithDataId = parentElement.querySelector(`[data-id="${dataId}"]`);
-      // Listref.childNodes.item((item) => console.error(item.dataset.id));
+      Listref.current.scrollTop = selectedchild.scrollTop;
     } else {
-      console.error('false');
-      //   // dispatch(GetMessages());
+      dispatch(GetMessages({ type: chattype, ID: chatid, message_id: msgid }));
     }
   }
   return { GoTo };

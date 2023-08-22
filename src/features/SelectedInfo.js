@@ -24,8 +24,18 @@ const initialState = {
   downloaded: [],
   needupdate: false
 };
+const Savenewmsg = createAsyncThunk('selectedProf/Savenewmsg', async (msginfo) => {
+  const data = await Requests().sendText(
+    msginfo.id,
+    msginfo.rawtext,
+    msginfo.styles,
+    msginfo.reply,
+    msginfo.forward
+  );
+  return { msgdata: data.data, media: msginfo.media };
+});
+
 const GetMessagesUp = createAsyncThunk('selectedProf/getmessagesup', async (infos) => {
-  console.log('iwoereuiwpr');
   const data = await Requests().GetMessagesUp(infos.chatid, infos.msgid);
   return data.data;
 });
@@ -41,12 +51,13 @@ const SetLeftProf = createAsyncThunk('selectedProf/setleftprof', async (infos) =
 });
 const GetMessages = createAsyncThunk('selectedProf/getmessages', async (requestinfo) => {
   try {
-    const data = await Requests().GetChat(requestinfo.ID, requestinfo.message_id);
+    console.error(requestinfo);
+    const data = await Requests().GetChat(requestinfo.profid, requestinfo.message_id);
     return {
-      data: data?.data,
-      ID: requestinfo.ID,
+      data: data.data,
+      profid: requestinfo.profid,
       type: requestinfo.type,
-      profileinfo: requestinfo?.profileinfo
+      profileinfo: requestinfo.profileinfo
     };
   } catch (err) {
     console.log(err);
@@ -142,8 +153,10 @@ const SelectedProf = createSlice({
         state.downfinished = action.payload?.data?.downFinished;
         state.upfinished = action.payload?.data?.upFinished;
         console.error(state.chatType, state.selectedChatID, action.payload.type, action.payload.ID);
-        if (state.chatType != action.payload.type) state.chatType = action.payload.type;
-        if (state.selectedChatID != action.payload.ID) state.selectedChatID = action.payload.ID;
+        state.chatType = action.payload.type;
+        state.selectedChatID = action.payload.profid;
+        console.error(state.chatType, state.selectedChatID, action.payload.type, action.payload.profid);
+        // console.error()
         if (action.payload?.profileinfo) state.profileinfo = action.payload?.profileinfo;
       })
       .addCase(SetLeftProf.fulfilled, (state, action) => {
@@ -160,14 +173,36 @@ const SelectedProf = createSlice({
         console.log();
       })
       .addCase(GetMessagesDown.fulfilled, (state, action) => {
-        // console.log('down');
         state.Chatmessages = [].concat(state.Chatmessages, action.payload.messages);
         state.downfinished = action.payload?.downFinished;
       })
+      .addCase(Savenewmsg.fulfilled, (state, action) => {
+        console.error(action.payload);
+        const message = state.Chatmessages.filter(
+          (msg) => msg.messageID == action.payload.msgdata.messageID
+        );
+        if (message.length != 0) {
+          state.Chatmessages.map((msg) => {
+            if (msg.messageID == action.payload.msgdata.messageID) {
+              // TODO NEED TO MODIFY FOR THE MEDIA TYPE
+              return action.payload.msgdata;
+            } else msg;
+          });
+        } else {
+          state.Chatmessages = [].concat(state.Chatmessages, action.payload.msgdata);
+        }
+      })
 });
-export { GetMessages, SetLeftProf, GetMessagesDown, GetMessagesUp };
-export const { resetChatId, editmsg, addcontact, deletemessage, Updatecommands, ReplaceImage ,deleteChat} =
-  SelectedProf.actions;
+export { GetMessages, SetLeftProf, GetMessagesDown, GetMessagesUp, Savenewmsg };
+export const {
+  resetChatId,
+  editmsg,
+  addcontact,
+  deletemessage,
+  Updatecommands,
+  ReplaceImage,
+  deleteChat
+} = SelectedProf.actions;
 // export const { resetChatId, editmsg, addcontact, deletemessage,ReplaceImage } = SelectedProf.actions;
 // export const { setChat, setChatType } = SelectedProf.actions;
 export default SelectedProf.reducer;

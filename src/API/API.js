@@ -39,9 +39,11 @@ export default function API() {
   // DELETE function
   async function DEL(endpoint, params, header) {
     const res = await axios.delete(`${BASE_URL}/${endpoint}`, {
-      params: params,
-      headers: header
+      data: params,
+      headers: header,
+      
     });
+
     // console.log(res);
     return res;
   }

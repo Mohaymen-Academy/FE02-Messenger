@@ -10,7 +10,7 @@ import TextProcessor from '../../utility/TextProcessor';
 import FileUploader from '../../ui/FileUploader';
 import Requests from '../../API/Requests';
 import { composerActions } from '../../features/composerSlice';
-import { GetMessages, editmsg } from '../../features/SelectedInfo';
+import { Savenewmsg, editmsg } from '../../features/SelectedInfo';
 import PopUp from '../../ui/PopUp';
 import Poll from './Poll';
 import UploadFile from '../../ui/UploadFile';
@@ -70,39 +70,58 @@ export default function ChatFooter({ id, chattype }) {
     }
   }
   async function SelectRequestType() {
-    // IF IS EDITING 
+    // IF IS EDITING
     if (Isactive.isEditting) {
-      console.log();
       dispatch(editmsg({ msgId: Isactive.editID, newtext: ProcessorValues.current.rawtext }));
       await Requests().EditMessage(Isactive.editID, ProcessorValues.current.rawtext);
     } else {
-      // IF REPLIED TO SOMETHING 
       if (Isactive.isReplying) {
-        Requests().sendText(
-          id,
-          ProcessorValues.current.rawtext,
-          JSON.stringify(ProcessorValues.current.sorted),
-          Isactive.replyID
+        dispatch(
+          Savenewmsg({
+            id: id,
+            rawtext: ProcessorValues.current.rawtext,
+            styles: JSON.stringify(ProcessorValues.current.sorted),
+            reply: Isactive.replyID,
+            forwar: null
+          })
         );
       }
-      // IF FORWARDED FROM 
       if (Isactive.isForwarding) {
-        Requests().sendText(
-          id,
-          ProcessorValues.current.rawtext,
-          JSON.stringify(ProcessorValues.current.sorted),
-          null,
-          Isactive.forwardID
+        dispatch(
+          Savenewmsg({
+            id: id,
+            rawtext: ProcessorValues.current.rawtext,
+            styles: JSON.stringify(ProcessorValues.current.sorted),
+            reply: null,
+            forwar: Isactive.forwardID
+          })
         );
+
+        // Requests().sendText(
+        //   id,
+        //   ProcessorValues.current.rawtext,
+        //   JSON.stringify(ProcessorValues.current.sorted),
+        //   null,
+        //   Isactive.forwardID
+        // );
       }
-      // ONLY SEND A MESSAGE 
+      // !ONLY SEND A MESSAGE
       else {
         console.error(id);
-        Requests().sendText(
-          id,
-          ProcessorValues.current.rawtext,
-          JSON.stringify(ProcessorValues.current.sorted)
+        dispatch(
+          Savenewmsg({
+            id: id,
+            rawtext: ProcessorValues.current.rawtext,
+            styles: JSON.stringify(ProcessorValues.current.sorted),
+            reply: null,
+            forwar: null
+          })
         );
+        // Requests().sendText(
+        //   id,
+        //   ProcessorValues.current.rawtext,
+        //   JSON.stringify(ProcessorValues.current.sorted)
+        // );
       }
       // console.log(Isactive.editID);
       // dispatch(editmsg({ msgId: Isactive.editID, newtext: divref.current.innerText }));
@@ -113,7 +132,6 @@ export default function ChatFooter({ id, chattype }) {
     divref.current.innerText = '';
     setentitycontainers([]);
     dispatch(composerActions.clear());
-    // setTimeout(dispatch(GetMessages({ type: chattype, ID: id, message_id: 0 })), 1000);
   }
   return (
     <div className=" sticky bottom-0 flex flex-col">

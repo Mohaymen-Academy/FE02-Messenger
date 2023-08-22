@@ -22,9 +22,7 @@ export default function LeftSide({
 }) {
   const dispatch = useDispatch();
   const pics = useSelector((state) => state.selectedProf.profPics);
-  // const selectedProfile = useSelector((state) => state.selectedProf.leftprof);
   const selectedProfile = useSelector((state) => state.selectedProf.profileinfo);
-
   const iscontact = useSelector((state) => state.selectedProf.isContact);
   const [filepart, setfilepart] = React.useState({
     0: 1,
@@ -91,7 +89,7 @@ export default function LeftSide({
             {' '}
             {selectedProfile?.profileName}{' '}
           </div>
-          <div className="p-7 pt-0 text-white text-[15px]">{selectedProfile.status}</div>
+          <div className="p-7 pt-0 text-white text-[15px]">{selectedProfile?.status}</div>
           {/* //should change with the member or subs number */}
         </div>
         <div className="absolute bottom-0 w-full h-1/3 bg-gradient-to-b from-transparent to-black"></div>
