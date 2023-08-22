@@ -164,7 +164,7 @@ text
             isReciver={2}
           />
           {media ? (
-            <MessageMedia src={media.preLoadingContent} handleClick={handleMediaMessage} />
+            <MessageMedia src={media} handleClick={handleMediaMessage} />
           ) : (
             <></>
           )}

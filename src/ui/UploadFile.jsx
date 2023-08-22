@@ -27,13 +27,15 @@ export default function UploadFile({ id, fileuploaded }) {
       }
       {
       fileuploaded["media-type"].startsWith('application/') && (
-         // <embed
-          //   src={`data:application/pdf;base64,${fileuploaded.content}`}
-          //   type="application/pdf"
-          //   width="100%"
-          //   height="600px"
-          // />
-          <Files file={fileuploaded} />
+        fileuploaded["media-type"].startsWith('application/pdf') ? (
+          <embed
+              src={`data:application/pdf;base64,${fileuploaded.content}`}
+              type="application/pdf"
+              width="100%"
+              height="600px"
+            />)
+            :
+            <Files file={fileuploaded} />
         )
       }
       {/* <FilePreviewer file={fileuploaded} /> */}

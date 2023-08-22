@@ -16,7 +16,6 @@ export default function Medias() {
     dispatch(setPreview({ open: true, media: image.media, messageID: image.messageID }))
   }
   function getImage(media) {
-    console.log("getImage", media)
     const img = info.downloaded.find((item) => item.id === media.messageID);
     if (img) {
       return img.image;
