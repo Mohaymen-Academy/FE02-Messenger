@@ -115,7 +115,7 @@ const ChatCardContext = memo(({ setOpenContext, type, chatid, pinned }) => {
     contextMenuItems = makeList(channelItems);
   }
   return (
-    <ul className="absolute -left-2 top-1/2 z-50 w-[150px] rounded-lg bg-color1 text-color4 opacity-90 shadow-2xl">
+    <ul className="absolute -left-2 top-1/2 z-50 w-[180px] rounded-lg bg-color1 text-color4 opacity-100 shadow-2xl">
       {contextMenuItems}
     </ul>
   );

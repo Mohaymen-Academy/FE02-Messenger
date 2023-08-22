@@ -253,3 +253,7 @@ input[type='checkbox']:checked::before {
   font-family: 'Shabnam';
   src: url('./assets/fonts/Shabnam-Medium.ttf');
 }
+@font-face {
+  font-family: 'Vazir';
+  src: url('./assets/fonts/Vazirmatn-FD-Light.ttf');
+}
