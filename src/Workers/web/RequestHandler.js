@@ -1,5 +1,6 @@
 // import Requests from '../../API/Requests';
 export default (e) => {
+  // const RequestHandler = Requests();
   self.onmessage = (msg) => {
     let interval;
     if (!msg.data.shoulddead) {

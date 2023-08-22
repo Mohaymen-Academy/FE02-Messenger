@@ -111,7 +111,7 @@ export default function Requests(body) {
       text,
       text_style: styles,
       reply_message: replymsg,
-      forward_message: forward_message
+      forward_message
     };
     console.log(body);
     try {
@@ -282,8 +282,9 @@ export default function Requests(body) {
   }
   async function GetSharedMedia(chatid) {
     try {
-      const res = API().GET(`images/${chatid}`, {}, AutorizeHeader);
-      return res;
+      const res = await API().GET(`media/${chatid}`, {}, AutorizeHeader);
+      console.log(res);
+      return res.data;
     } catch (err) {
       console.log(err);
     }
