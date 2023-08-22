@@ -25,6 +25,7 @@ export default function ChatBody({ chatid, chattype ,bodyref,messages}) {
   const preview = useSelector((state) => state.SharedMedia.preview);
   const [previewImages, setPreviewImages] = useState(); // State to store media content
   const [massageIdpreview, setMassageIdpreview] = useState(0); // State to store media content
+  dispatch(GetSharedMedia(chatid))
   function handleMediaMessage(images, imageId) {
     setPreviewImages(images); // Store media content in state
     setMassageIdpreview(imageId); // Store media content in state

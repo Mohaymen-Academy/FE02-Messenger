@@ -13,20 +13,21 @@ import { GetSharedMedia, resetPreview, setPreview } from '../../features/SharedM
 //   './images/profile.jpg'
 // ];
 function ImagePreviewer({  massageId, imageshow }) {
+  console.log(massageId , imageshow)
   const [image, setImage] = useState([]);
   const dispatch = useDispatch();
   const info = useSelector((state) => state.selectedProf);
   console.log(info);
   const req = async () => {
     // if massagId is not in downloaded
-    if (!info.downloaded.includes(massageId)) {
+    // if (!info.downloaded.includes(massageId)) {
       const res = await Requests().GetOriginalImage(imageshow.mediaId);
       console.log('nmn');
       setImage(res.content);
       dispatch(ReplaceImage({ massageId, image: res.content }));
-    } else {
-      setImage(imageshow.preLoadingContent);
-    }
+    // } else {
+    //   setImage(imageshow.preLoadingContent);
+    // }
   };
   const handleClose = () => {
     dispatch(resetPreview());
@@ -38,7 +39,7 @@ function ImagePreviewer({  massageId, imageshow }) {
   return (
     <div className="absolute left-0 top-0 flex h-full w-full flex-col justify-center bg-black bg-opacity-60 text-white">
       <button onClick={handleClose}>close</button>
-      <div className="flex h-2/3 w-full justify-between opacity-100">
+      <div className="flex h-2/3 w-full justify-center opacity-100">
         {/* <button onClick={() => setImageToShow((perv) => (perv + 1) % images.length)}>
           <UilStepForward />
         </button> */}

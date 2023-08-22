@@ -1,19 +1,27 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
+import { GetSharedMedia, setPreview , resetPreview } from '../../../features/SharedMediaSlice.js';
 
+import { useDispatch } from 'react-redux';
 export default function Medias() {
-  const medias = useSelector((state) => state.SharedMedia.images)
-  console.log(medias)
-
+  const images = useSelector((state) => state.SharedMedia.images)
+  // console.log(images)
+  const dispatch = useDispatch()
+  const handleClick = (image) =>
+  {
+    console.log(image)
+    dispatch(setPreview({ open: true, media: image.media, messageID: image.messageID }))
+  }
   return (
     <div className="flex flex-row flex-wrap pr-2 pt-2">
-      {medias.map((media) => (
+      {images.map((image) => (
         <div
           className='m-0.5 flex w-[32%] items-center justify-center rounded-sm bg-color2 '
-          key={media.media.midiaId}
-        >
+          key={image.media.midiaId}
+          onClick={() => handleClick(image)}
+          >
           <img
-            src={`data:image/jpeg;base64,${media.media.content}`}
+            src={`data:image/jpeg;base64,${image.media.content}`}
             className='aspect-[1/1] h-full w-full rounded-sm object-cover hover:opacity-70 '
           />
         </div>
