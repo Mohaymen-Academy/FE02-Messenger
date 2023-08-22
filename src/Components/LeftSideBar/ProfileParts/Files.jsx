@@ -1,7 +1,8 @@
 import React from 'react'
 import { UilFileQuestion } from '@iconscout/react-unicons'
-export default function Files({file}) {
-            
+export default function Files({file , filename , size}) {
+  const fileName = filename || file.fileName; // If filename is not provided, use the name from the file object
+  const fileSize = size || file.size; // If size is not provided, use the size from the file object
   // Function to convert file size from string to MB
   const convertSizeToMB = (sizeStr) => {
     const sizeInMB = parseFloat(sizeStr) / 1024000; // Assuming the sizeStr is in KB
@@ -15,10 +16,10 @@ export default function Files({file}) {
       </div>
       <div className="flex flex-col text-color3 text-sm mt-3">
         <a>
-          <p className="text-text1 font-bold">{file.fileName}</p>
+          <p className="text-text1 font-bold">{fileName}</p>
         </a>
         <a>
-          <p>{convertSizeToMB(file.size)} مگابایت</p> {/* Convert and display size in MB */}
+          <p>{convertSizeToMB(fileSize)} مگابایت</p> {/* Convert and display size in MB */}
         </a>
       </div>
     </div>

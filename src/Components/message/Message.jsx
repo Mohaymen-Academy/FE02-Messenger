@@ -115,7 +115,7 @@ const Message =
         <MessageBody Isforme={Isforme}>
           <MessageHeader forewardedFrom={forwardedfrom} repliedTo={replyinfo} />
           {media ? (
-            <MessageMedia src={media.preLoadingContent} handleClick={handleMediaMessage} />
+            <MessageMedia src={media} handleClick={handleMediaMessage} />
           ) : (
             <></>
           )}
