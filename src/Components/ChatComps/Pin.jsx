@@ -13,7 +13,7 @@ export default function Pin({ chatid }) {
   return (
     <>
       {pinmessage ? (
-        <div className=" w-full pr-3 py-3 bg-color1 flex flex-row items-center">
+        <div className=" absolute z-10 w-full pr-3 py-3 bg-color1 flex flex-row items-center">
           <div className=" w-[95%] rounded-lg h-fit cursor-pointer hover:bg-color2 ">
             <div className=" pr-2 border-r-2  border-color3">
               <p className="text-color3 font-iRANSans text-sm">پیام سنجاق شده</p>

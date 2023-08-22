@@ -18,7 +18,7 @@ import {
 } from '../../features/SelectedInfo.js';
 import { GetSharedMedia } from '../../features/SharedMediaSlice.js';
 
-export default function ChatBody({ chatid, chattype }) {
+export default function ChatBody({ chatid, chattype ,bodyref}) {
   const dispatch = useDispatch();
   const downfinished = useSelector((state) => state.selectedProf.downfinished);
   const upfinished = useSelector((state) => state.selectedProf.upfinished);
@@ -73,7 +73,7 @@ export default function ChatBody({ chatid, chattype }) {
     upper: 0
     // lower: Infinity
   });
-  const bodyref = useRef(null);
+
   const messages = useSelector((state) => state.selectedProf.Chatmessages);
   // console.error(messages);
   const [buttonhidden, setbuttonhidden] = useState(true);
@@ -169,6 +169,7 @@ export default function ChatBody({ chatid, chattype }) {
           className="mb-[25rem] h-[105vh] w-[100%]  overflow-auto px-5 pt-3"
           onScroll={handleonScroll}
           ref={bodyref}>
+
           <button
             onClick={scrolltobottom}
             className={`${

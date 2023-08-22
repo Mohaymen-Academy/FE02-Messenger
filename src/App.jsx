@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import WorkerBuilder from './Workers/web/WorkerBuilder';
 import Worker from './Workers/web/RequestHandler';
 import { GetContacts, setMessages } from './features/chatCardPreviewSlice';
+import ChatContainer from './Components/ChatComps/ChatContainer';
 
 // import { layoutContext } from './Components/Layout.jsx';
 function App() {
@@ -27,7 +28,7 @@ function App() {
   // const chatID = useSelector((state) => state.selectedProf.selectedChatID);
   return (
     <Layout>
-      <ChatLayout />
+      <ChatContainer />
     </Layout>
   );
 }
