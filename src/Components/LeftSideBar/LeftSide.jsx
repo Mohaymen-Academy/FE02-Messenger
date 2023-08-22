@@ -23,7 +23,9 @@ export default function LeftSide({
   const dispatch = useDispatch();
   const pics = useSelector((state) => state.selectedProf.profPics);
   const selectedProfile = useSelector((state) => state.selectedProf.profileinfo);
+  console.error(selectedProfile);
   const iscontact = useSelector((state) => state.selectedProf.isContact);
+  console.error(iscontact);
   const [filepart, setfilepart] = React.useState({
     0: 1,
     1: 0,
@@ -66,10 +68,12 @@ export default function LeftSide({
             <button onClick={() => setlayout(1)}>
               <UilPen className=" text-text1 cursor-pointer" />
             </button>
-          ) : (
+          ) : !isGroupOrChannel ? (
             <button onClick={handleAdd}>
               <UilUserPlus className=" text-text1 cursor-pointer" />
             </button>
+          ) : (
+            <></>
           )}
         </div>
       </div>

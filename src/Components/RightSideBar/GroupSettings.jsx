@@ -3,14 +3,20 @@ import ContactCardPreview from './ContactCardPreview';
 import { UilArrowRight, UilCameraPlus, UilTrashAlt } from '@iconscout/react-unicons';
 import { TYPE_GROUP, TYPE_USER } from '../../utility/Constants';
 import Requests from '../../API/Requests';
+import { useDispatch } from 'react-redux';
+import { clearEverything } from '../../features/rightSideSlice';
+
 
 export default function GroupSettings({ selected, setOpenModel }) {
   const [groupname, setgroupname] = React.useState('');
+  const dispatch =useDispatch();
+
   function CreateGroup() {
     const memebers = selected.map((cont) => cont.chatid);
     const name = groupname;
     Requests().CreateChat(name, memebers, TYPE_GROUP);
     setOpenModel(false);
+    dispatch(clearEverything())
   }
   const handleGroupname = (e) => {
     setgroupname(e);

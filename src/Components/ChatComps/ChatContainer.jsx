@@ -10,7 +10,6 @@ export default function ChatContainer() {
   const chatType = useSelector((state) => state.selectedProf.chatType);
   const chatID = useSelector((state) => state.selectedProf.selectedChatID);
   const dispatch = useDispatch();
-  const number_of_unread = useRef(0);
   const bodyref = useRef(null);
   const messages = useSelector((state) => state.selectedProf.Chatmessages);
   console.error(chatID);
@@ -46,7 +45,7 @@ export default function ChatContainer() {
               <ChatBody  bodyref={bodyref} chattype={chatType} chatid={chatID} messages={messages} />
               <ChatFooter chattype={chatType} id={chatID} />
             </div>
-            <LeftLayout chatid={chatID} active={active} setActive={setActive} />
+            <LeftLayout chattype={chatType} chatid={chatID} active={active} setActive={setActive} />
           </>
         ) : (
           <></>
