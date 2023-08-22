@@ -86,6 +86,7 @@ export default function ChatBody({ chatid, chattype, bodyref, messages }) {
   const dir = useRef(null);
 
   useEffect(() => {
+    console.error('first')
     if (bodyref) {
       bodyref.current.scrollTop = bodyref.current.scrollHeight;
       const maxid = messages.map((ele) => parseInt(ele.messageID));
@@ -93,8 +94,6 @@ export default function ChatBody({ chatid, chattype, bodyref, messages }) {
       Requests().UpdateSeen(Math.max(...maxid));
     }
     console.log(bodyref.current.scrollHeight);
-    //   const currentScrollPos = bodyref.current.scrollTop;
-    //   // console.log(prevScrollPos, currentScrollPos);
     //! if the scroll was in the down of the page
     if (prevScrollPos == 0) {
       const maxid = messages.map((ele) => parseInt(ele.messageID));
@@ -107,6 +106,7 @@ export default function ChatBody({ chatid, chattype, bodyref, messages }) {
   // console.error(messages);
 
   useEffect(() => {
+    console.error('second')
     MSGes.current.upper = 0;
     const currentScrollPos = bodyref.current.scrollTop;
     if (prevScrollPos == 0) {

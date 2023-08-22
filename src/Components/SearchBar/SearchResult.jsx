@@ -11,9 +11,9 @@ export default function SearchResult({ profile, text, massage_id }) {
           dispatch(
             GetMessages({
               type: profile.type,
-              ID: profile.profileID,
-              profileinfo: profile,
-              message_id: massage_id || 0
+              profid: profile.profileID,
+              message_id: 0,
+              profileinfo: profile
             })
           )
         }
