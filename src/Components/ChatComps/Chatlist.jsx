@@ -8,7 +8,7 @@ import {
   GetMessages,
   Updatecommands,
   deletemessage,
-  setunreadMessages
+  // setunreadMessages
 } from '../../features/SelectedInfo.js';
 import { setActiveMessage } from '../../features/chatCardPreviewSlice.js';
 import Requests from '../../API/Requests.js';
@@ -23,7 +23,7 @@ const Chatlist = () => {
   const downfinished = useSelector((state) => state.selectedProf.downfinished);
   const upfinished = useSelector((state) => state.selectedProf.upfinished);
   const updatesList = useSelector((state) => state.selectedProf.updatesList);
-  const unreadMessages = useSelector((state) => state.selectedProf.unreadMessages);
+  // const unreadMessages = useSelector((state) => state.selectedProf.unreadMessages);
   // console.log(lists);
   useEffect(() => {
     if (selectedChat) {
@@ -38,9 +38,9 @@ const Chatlist = () => {
       }
       if (profile && profile.unreadMessageCount != 0) {
         console.error(selectedChat);
-        if (unreadMessages != profile.unreadMessageCount) {
-          dispatch(setunreadMessages({ count: profile.unreadMessageCount }));
-        }
+        // if (unreadMessages != profile.unreadMessageCount) {
+          // dispatch(setunreadMessages({ count: profile.unreadMessageCount }));
+        // }
 
         // dispatch(GetMessages({ type: chattype, profid: selectedChat, message_id: 0 }));
       }
