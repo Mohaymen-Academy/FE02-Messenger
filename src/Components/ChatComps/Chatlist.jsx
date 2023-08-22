@@ -27,10 +27,10 @@ const Chatlist = () => {
         const { updates } = profile;
         if (updates.length != 0) {
           const maxid = Math.max(...updates.map((command) => command.id));
+          console.error(maxid)
         }
       }
       if (profile && profile.unreadMessageCount != 0) {
-        // console.error('zerwewr')
         dispatch(GetMessages({ type: chattype, ID: profile.profileID, message_id: 0 }));
       }
       //   console.log(profileinfo);

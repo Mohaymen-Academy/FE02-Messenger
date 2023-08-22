@@ -86,6 +86,7 @@ export default function ChatBody({ chatid, chattype, bodyref, messages }) {
       bodyref.current.scrollTop = bodyref.current.scrollHeight;
       prevScrollPos = bodyref.current.scrollTop;
     }
+    console.log(bodyref.current.scrollHeight)
     //   const currentScrollPos = bodyref.current.scrollTop;
     //   // console.log(prevScrollPos, currentScrollPos);
     //! if the scroll was in the down of the page
@@ -117,6 +118,8 @@ export default function ChatBody({ chatid, chattype, bodyref, messages }) {
     clearTimeout(scrolltimeout);
     // console.log(bodyref.current.scrollHeight);
     const currentScrollPos = bodyref.current.scrollTop;
+    // console.error(currentScrollPos)
+    // console.error(bodyref.current)
     // console.log(currentScrollPos, prevScrollPos);
     if (currentScrollPos > prevScrollPos) {
       dir.current = DOWN;

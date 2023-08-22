@@ -24,18 +24,24 @@ export default function GoHnalder() {
       // Loop through the child nodes of the parent element
       let selectedchild;
       // console.error(Listref.current.childNodes);
+
+      const firstchild = Listref.current.childNodes[0];
+      console.error(firstchild);
+      console.error(firstchild.scrollTop);
+      console.error(firstchild.clientHeight);
       for (let i = 0; i < Listref.current.childNodes.length; i++) {
         const childNode = Listref.current.childNodes[i];
-        // console.error(childNode.getAttribute('data-id'));
+        // console.error(Listref.current.scrollTop + childNode.getBoundingClientRect().top);
         if (childNode.getAttribute('data-id') == msgid) {
           selectedchild = childNode;
         }
       }
       // console.error(selectedchild);
-      console.error(selectedchild.scrollHeight);
+      console.error(selectedchild);
       console.error(selectedchild.scrollTop);
       console.error(selectedchild.clientHeight);
-      // Listref.current.scrollTop = selectedchild.scrollHeight;
+      Listref.current.scrollTop =
+        Listref.current.scrollTop + selectedchild.getBoundingClientRect().top-300;
     } else {
       dispatch(GetMessages({ type: chattype, ID: chatid, message_id: msgid }));
     }
