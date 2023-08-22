@@ -11,6 +11,8 @@ export default function ChatContainer() {
   const chatID = useSelector((state) => state.selectedProf.selectedChatID);
   const dispatch = useDispatch();
   const bodyref = useRef(null);
+  const messages = useSelector((state) => state.selectedProf.Chatmessages);
+  console.error(chatID);
   useEffect(() => {
     document.addEventListener('keydown', (e) => {
       if (e.key == 'Escape') {
@@ -32,13 +34,16 @@ export default function ChatContainer() {
             ${active ? 'vsmmobile:w-0' : 'vsmmobile:w-full'}
             `}>
               <ChatHeader
+                bodyref={bodyref}
                 active={active}
                 setActive={setActive}
                 chattype={chatType}
                 chatid={chatID}
+                messages={messages}
               />
-              <ChatBody bodyref={bodyref} chattype={chatType} chatid={chatID} />
-              <ChatFooter chattype={chatType} chatid={chatID} />
+
+              <ChatBody bodyref={bodyref} chattype={chatType} chatid={chatID} messages={messages} />
+              <ChatFooter chattype={chatType} id={chatID} />
             </div>
             <LeftLayout chatid={chatID} active={active} setActive={setActive} />
           </>

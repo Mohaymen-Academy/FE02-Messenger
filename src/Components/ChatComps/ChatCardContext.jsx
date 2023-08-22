@@ -16,7 +16,7 @@ const ChatCardContext = memo(({ setOpenContext, type, chatid, pinned }) => {
   }, []);
 
   function handlePin() {
-    console.log(chatid);
+    console.error(chatid);
     if (!pinned) Requests().pinChat(chatid);
     else Requests().UnpinChat(chatid);
   }

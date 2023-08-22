@@ -289,13 +289,14 @@ export default function Requests(body) {
     }
   }
   async function PinMSG(msgid) {
+    console.error(msgid);
     const body = {
       messageId: msgid
     };
     API()
       .PUT('pinMessage', body, AutorizeHeader)
-      .then((res) => res.json())
-      .then((data) => data)
+      .then((res) => res.data)
+      .then((data) => console.error(data))
       .catch((err) => console.log(err));
   }
   async function UnpinMessage(msgid) {

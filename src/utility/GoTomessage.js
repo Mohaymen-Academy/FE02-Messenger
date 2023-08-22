@@ -1,6 +1,6 @@
-import { GetMessages } from "../features/SelectedInfo";
+import { GetMessages } from '../features/SelectedInfo';
 
-function GoHnalder() {
+export default function GoHnalder() {
   /**
    *
    *  @param {Array} messages
@@ -8,19 +8,35 @@ function GoHnalder() {
    *
    **/
   function MsgIsInList(messages, msgid) {
-    return messages.filter((msg) => msg.MessageID == msgid).length > 0;
+    console.error(messages);
+    return messages.filter((msg) => msg.messageID == msgid).length > 0;
   }
   /**
    *
    *  @param {Array} messages
    *  @param {Number} msgid
-   *  @param {HTMLElement} Listref
+  //  *  @param {HTMLElement} Listref
    **/
   function GoTo(messages, msgid, Listref, dispatch) {
     if (MsgIsInList(messages, msgid)) {
-      Listref.childNodes.forEach((item) => console.log(item.dataset.id));
+      // console.error(Listref);
+      // console.error(Listref.current.childNodes);
+      // Loop through the child nodes of the parent element
+      let selectedchild;
+      for (let i = 0; i < Listref.current.childNodes.length; i++) {
+        const childNode = Listref.current.childNodes[i];
+        console.log(childNode.getAttribute('data-id'));
+        if (childNode.dataset.id == msgid){
+          selectedchild=childNode
+        }
+          // Perform operations on the child node
+      }
+      // const childNodeWithDataId = parentElement.querySelector(`[data-id="${dataId}"]`);
+      // Listref.childNodes.item((item) => console.error(item.dataset.id));
     } else {
-        dispatch(GetMessages())
+      console.error('false');
+      //   // dispatch(GetMessages());
     }
   }
+  return { GoTo };
 }

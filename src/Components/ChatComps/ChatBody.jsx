@@ -18,7 +18,7 @@ import {
 } from '../../features/SelectedInfo.js';
 import { GetSharedMedia } from '../../features/SharedMediaSlice.js';
 
-export default function ChatBody({ chatid, chattype ,bodyref}) {
+export default function ChatBody({ chatid, chattype ,bodyref,messages}) {
   const dispatch = useDispatch();
   const downfinished = useSelector((state) => state.selectedProf.downfinished);
   const upfinished = useSelector((state) => state.selectedProf.upfinished);
@@ -74,7 +74,7 @@ export default function ChatBody({ chatid, chattype ,bodyref}) {
     // lower: Infinity
   });
 
-  const messages = useSelector((state) => state.selectedProf.Chatmessages);
+
   // console.error(messages);
   const [buttonhidden, setbuttonhidden] = useState(true);
   const dir = useRef(null);

@@ -3,18 +3,26 @@ import { UilTimes } from '@iconscout/react-unicons';
 import Requests from '../../API/Requests';
 import { useDispatch, useSelector } from 'react-redux';
 import { GetPin, composerActions } from '../../features/composerSlice';
-export default function Pin({ chatid }) {
+import GoHnalder from '../../utility/GoTomessage';
+export default function Pin({ chatid, messages, bodyref }) {
   const dispatch = useDispatch();
   const pinmessage = useSelector((state) => state.composer.pinmessage);
   useEffect(() => {
     dispatch(GetPin({ chatid: chatid }));
   }, []);
+  console.error(pinmessage);
   // self.__WB_DISABLE_DEV_LOGS = true;
+
   return (
     <>
       {pinmessage ? (
         <div className=" absolute z-10 w-full pr-3 py-3 bg-color1 flex flex-row items-center">
-          <div className=" w-[95%] rounded-lg h-fit cursor-pointer hover:bg-color2 ">
+          <div
+            onClick={() => {
+              console.error('here we go');
+              GoHnalder().GoTo(messages, pinmessage.messageID, bodyref, dispatch);
+            }}
+            className=" w-[95%] rounded-lg h-fit cursor-pointer hover:bg-color2 ">
             <div className=" pr-2 border-r-2  border-color3">
               <p className="text-color3 font-iRANSans text-sm">پیام سنجاق شده</p>
               <div className="text-text1">
