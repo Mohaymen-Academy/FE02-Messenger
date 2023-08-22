@@ -91,9 +91,9 @@ export default function ChatBody({ chatid, chattype ,bodyref,messages}) {
     //! if the scroll was in the down of the page
     if (prevScrollPos == 0) {
       console.error('zarperwr');
-      const maxid = messages.map((ele) => parseInt(ele.messageID));
+      // const maxid = messages.map((ele) => parseInt(ele.messageID));
       // console.error(Math.max(...maxid));
-      Requests().UpdateSeen(Math.max(...maxid));
+      // Requests().UpdateSeen(Math.max(...maxid));
     }
     //   }
   }, []);
@@ -103,7 +103,7 @@ export default function ChatBody({ chatid, chattype ,bodyref,messages}) {
   useEffect(() => {
     const currentScrollPos = bodyref.current.scrollTop;
     if (prevScrollPos == currentScrollPos) {
-      const maxid = messages.map((ele) => parseInt(ele.messageID));
+      // const maxid = messages.map((ele) => parseInt(ele.messageID));
     }
     if (prevScrollPos == 0) {
       bodyref.current.scrollTop = 20;

@@ -9,7 +9,6 @@ const initialState = {
   audios: [],
   voises: [],
   preview: { open: false, media: null, messageID: 0 }
-  
 };
 
 const GetSharedMedia = createAsyncThunk('SharedMedia/getSharedMedia', async (chatID) => {
@@ -30,26 +29,8 @@ const SharedMedia = createSlice({
     resetPreview: (state) => {
       state.preview = { open: false, media: null, messageID: 0 };
       console.log("salam", state.preview)
-    },
-    ReplaceImage: (state, action) => {
-      // state.messages; // Create a new array to avoid mutating the state directly
-      state.Chatmessages = state.Chatmessages.map((message) => {
-        console.log(message);
-        if (message.messageID === action.payload.massageId) {
-          state.downloaded = [...state.downloaded, action.payload.massageId];
-          console.log(state.downloaded);
-          return {
-            ...message,
-            media: {
-              ...message.media,
-              preLoadingContent: action.payload.image
-            }
-          };
-        }
-        return message;
-      });
-      console.log(state.Chatmessages);
     }
+    
   },
   extraReducers: (builder) =>
     builder.addCase(GetSharedMedia.fulfilled, (state, action) => {

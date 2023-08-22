@@ -19,12 +19,24 @@ function ImagePreviewer({  massageId, imageshow }) {
   const info = useSelector((state) => state.selectedProf);
   console.log(info);
   const req = async () => {
-    // if massagId is not in downloaded
-    // if (!info.downloaded.includes(massageId)) {
+    // if massagId is not in downloaded -- downledded is an array of {id , image}
+    const img = info.downloaded.find((item) => item.id === massageId);
+    if (img) {
+      setImage(img.image);
+    } else {
       const res = await Requests().GetOriginalImage(imageshow.mediaId);
-      console.log('nmn');
       setImage(res.content);
       dispatch(ReplaceImage({ massageId, image: res.content }));
+    }
+
+
+
+    // if massagId is not in downloaded
+    // if (!info.downloaded.includes(massageId)) {
+    //   const res = await Requests().GetOriginalImage(imageshow.mediaId);
+    //   console.log('nmn');
+    //   setImage(res.content);
+    //   dispatch(ReplaceImage({ massageId, image: res.content }));
     // } else {
     //   setImage(imageshow.preLoadingContent);
     // }

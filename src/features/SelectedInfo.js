@@ -119,7 +119,7 @@ const SelectedProf = createSlice({
       state.Chatmessages = state.Chatmessages.map((message) => {
         console.log(message);
         if (message.messageID === action.payload.massageId) {
-          state.downloaded = [...state.downloaded, action.payload.massageId];
+          state.downloaded = [...state.downloaded, {id: action.payload.massageId , image: action.payload.image}];
           console.log(state.downloaded);
           return {
             ...message,
