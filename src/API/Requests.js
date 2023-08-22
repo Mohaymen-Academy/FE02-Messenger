@@ -323,7 +323,14 @@ export default function Requests(body) {
       .then((data) => console.log(data))
       .catch((err) => console.log(err));
   }
+  async function DeleteChat(chatid) {
+    const body = {
+      chatid: chatid
+    };
+    API().DEL(`delete-chat`, body, AutorizeHeader);
+  }
   return {
+    DeleteChat,
     UnpinChat,
     UpdateResponse,
     UnpinMessage,

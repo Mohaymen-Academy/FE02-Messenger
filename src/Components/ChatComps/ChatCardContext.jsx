@@ -2,9 +2,13 @@ import { memo, useEffect, useRef, useState } from 'react';
 import { UilTrash, UilBellSlash, UilMapPinAlt, UilCommentAltSlash } from '@iconscout/react-unicons';
 import { TYPE_CHANNEL, TYPE_GROUP, TYPE_USER } from '../../utility/Constants';
 import Requests from '../../API/Requests';
+import { useDispatch } from 'react-redux';
+import { deleteChat } from '../../features/SelectedInfo';
+
 
 const ChatCardContext = memo(({ setOpenContext, type, chatid, pinned }) => {
   console.log(chatid);
+  const dispatch=useDispatch()
   const liref = useRef(null);
   useEffect(() => {
     // if (liref) {
@@ -22,6 +26,9 @@ const ChatCardContext = memo(({ setOpenContext, type, chatid, pinned }) => {
   }
   function handlDelete() {
     console.log('delete');
+    dispatch(deleteChat({chatid}))
+    Requests().DeleteChat(chatid)
+  
   }
   function handlMute() {}
   const chatItems = [
