@@ -72,6 +72,7 @@ const Chatlist = () => {
           type={chatprev.profile.type}
           image={chatprev.profile.lastProfilePicture}
           size={50}
+          profile={chatprev.profile}
           // profileName
           profileName={chatprev.profile.profileName}
           imagecolor={chatprev.profile.defaultProfileColor}

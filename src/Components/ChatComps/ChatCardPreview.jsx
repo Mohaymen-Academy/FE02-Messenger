@@ -90,6 +90,7 @@ function getRelativeDate(inputDate) {
 //  NEED TO ADD TIME TO IT
 const ChatCardPreview = memo(
   ({
+    profile,
     profileName,
     profid,
     type,
@@ -120,7 +121,8 @@ const ChatCardPreview = memo(
             GetMessages({
               type,
               profid,
-              message_id: 0
+              message_id: 0,
+              profileinfo:profile
             })
             // dispatch(GetPin())
           );
