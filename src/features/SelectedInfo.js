@@ -13,7 +13,7 @@ const initialState = {
   chatType: null,
   selectedProfileView: null,
   Chatmessages: [],
-  lastMessage: 0,
+  unreadMessages: 0,
   upfinished: false,
   downfinished: false,
   profileinfo: null,
@@ -99,6 +99,9 @@ const SelectedProf = createSlice({
       });
       // state.Chatmessages = temp;
     },
+    setunreadMessages: (state, action) => {
+      state.unreadMessages= action.payload.count;
+    },
     deleteChat: (state, action) => {
       if (action.payload.chatid == state.selectedChatID) {
         state.selectedChatID = null;
@@ -130,7 +133,10 @@ const SelectedProf = createSlice({
       state.Chatmessages = state.Chatmessages.map((message) => {
         console.log(message);
         if (message.messageID === action.payload.massageId) {
-          state.downloaded = [...state.downloaded, {id: action.payload.massageId , image: action.payload.image}];
+          state.downloaded = [
+            ...state.downloaded,
+            { id: action.payload.massageId, image: action.payload.image }
+          ];
           console.log(state.downloaded);
           return {
             ...message,
@@ -155,7 +161,12 @@ const SelectedProf = createSlice({
         console.error(state.chatType, state.selectedChatID, action.payload.type, action.payload.ID);
         state.chatType = action.payload.type;
         state.selectedChatID = action.payload.profid;
-        console.error(state.chatType, state.selectedChatID, action.payload.type, action.payload.profid);
+        console.error(
+          state.chatType,
+          state.selectedChatID,
+          action.payload.type,
+          action.payload.profid
+        );
         // console.error()
         if (action.payload?.profileinfo) state.profileinfo = action.payload?.profileinfo;
       })
@@ -201,7 +212,8 @@ export const {
   deletemessage,
   Updatecommands,
   ReplaceImage,
-  deleteChat
+  deleteChat,
+  setunreadMessages
 } = SelectedProf.actions;
 // export const { resetChatId, editmsg, addcontact, deletemessage,ReplaceImage } = SelectedProf.actions;
 // export const { setChat, setChatType } = SelectedProf.actions;

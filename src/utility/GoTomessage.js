@@ -41,7 +41,7 @@ export default function GoHnalder() {
       console.error(selectedchild.scrollTop);
       console.error(selectedchild.clientHeight);
       Listref.current.scrollTop =
-        Listref.current.scrollTop + selectedchild.getBoundingClientRect().top-300;
+        Listref.current.scrollTop + selectedchild.getBoundingClientRect().top - 300;
     } else {
       dispatch(GetMessages({ type: chattype, ID: chatid, message_id: msgid }));
     }

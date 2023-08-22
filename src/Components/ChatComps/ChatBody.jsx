@@ -23,15 +23,18 @@ export default function ChatBody({ chatid, chattype, bodyref, messages }) {
   const downfinished = useSelector((state) => state.selectedProf.downfinished);
   const upfinished = useSelector((state) => state.selectedProf.upfinished);
   const preview = useSelector((state) => state.SharedMedia.preview);
+  const unreadMessages = useSelector((state) => state.selectedProf.unreadMessages);
   const [previewImages, setPreviewImages] = useState(); // State to store media content
   const [massageIdpreview, setMassageIdpreview] = useState(0); // State to store media content
-  dispatch(GetSharedMedia(chatid))
-  function handleMediaMessage(images, imageId) {
-    setPreviewImages(images); // Store media content in state
-    setMassageIdpreview(imageId); // Store media content in state
-    console.log(images, imageId);
-    setPreview(!preview);
-  }
+  dispatch(GetSharedMedia(chatid));
+
+  // function handleMediaMessage(images, imageId) {
+  //   setPreviewImages(images); // Store media content in state
+  //   setMassageIdpreview(imageId); // Store media content in state
+  //   console.log(images, imageId);
+  //   setPreview(!preview);
+  // }
+
   let prevScrollPos;
   const seenObserver = new IntersectionObserver(
     (entries) => {
@@ -72,6 +75,7 @@ export default function ChatBody({ chatid, chattype, bodyref, messages }) {
       // dispatch(GetMessagesDown({ msgid: msgid, chatid: chatid }));
     }
   }
+  const maxmsg = useRef(0);
   const MSGes = useRef({
     upper: 0
     // lower: Infinity
@@ -84,18 +88,18 @@ export default function ChatBody({ chatid, chattype, bodyref, messages }) {
   useEffect(() => {
     if (bodyref) {
       bodyref.current.scrollTop = bodyref.current.scrollHeight;
-      prevScrollPos = bodyref.current.scrollTop;
+      const maxid = messages.map((ele) => parseInt(ele.messageID));
+
+      Requests().UpdateSeen(Math.max(...maxid));
     }
-    console.log(bodyref.current.scrollHeight)
+    console.log(bodyref.current.scrollHeight);
     //   const currentScrollPos = bodyref.current.scrollTop;
     //   // console.log(prevScrollPos, currentScrollPos);
     //! if the scroll was in the down of the page
     if (prevScrollPos == 0) {
-      console.error('here in');
-      console.error('zarperwr');
-      // const maxid = messages.map((ele) => parseInt(ele.messageID));
+      const maxid = messages.map((ele) => parseInt(ele.messageID));
       // console.error(Math.max(...maxid));
-      // Requests().UpdateSeen(Math.max(...maxid));
+      Requests().UpdateSeen(Math.max(...maxid));
     }
     //   }
   }, []);
@@ -108,7 +112,7 @@ export default function ChatBody({ chatid, chattype, bodyref, messages }) {
     if (prevScrollPos == 0) {
       bodyref.current.scrollTop = 20;
       const maxid = Math.max(...messages.map((ele) => parseInt(ele.messageID)));
-      Requests().UpdateSeen(maxid)
+      Requests().UpdateSeen(maxid);
     }
   });
 
@@ -201,7 +205,6 @@ export default function ChatBody({ chatid, chattype, bodyref, messages }) {
                   )
                 ) : (
                   <Message
-                  
                     forwardedfrom={message.forwardMessageSender}
                     shouldobserve={index == 0 || messages.length - 1 == index}
                     key={message.messageID}

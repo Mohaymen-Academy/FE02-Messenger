@@ -4,7 +4,12 @@ import { TYPE_USER } from '../../utility/Constants.js';
 import ChatCardPreview from './ChatCardPreview.jsx';
 import HandleScroll from '../../utility/HandleScroll.js';
 import store from '../../Store/store.js';
-import { GetMessages, Updatecommands, deletemessage } from '../../features/SelectedInfo.js';
+import {
+  GetMessages,
+  Updatecommands,
+  deletemessage,
+  setunreadMessages
+} from '../../features/SelectedInfo.js';
 import { setActiveMessage } from '../../features/chatCardPreviewSlice.js';
 import Requests from '../../API/Requests.js';
 
@@ -18,6 +23,7 @@ const Chatlist = () => {
   const downfinished = useSelector((state) => state.selectedProf.downfinished);
   const upfinished = useSelector((state) => state.selectedProf.upfinished);
   const updatesList = useSelector((state) => state.selectedProf.updatesList);
+  const unreadMessages = useSelector((state) => state.selectedProf.unreadMessages);
   // console.log(lists);
   useEffect(() => {
     if (selectedChat) {
@@ -27,11 +33,16 @@ const Chatlist = () => {
         const { updates } = profile;
         if (updates.length != 0) {
           const maxid = Math.max(...updates.map((command) => command.id));
-          console.error(maxid)
+          console.error(maxid);
         }
       }
       if (profile && profile.unreadMessageCount != 0) {
-        dispatch(GetMessages({ type: chattype, ID: profile.profileID, message_id: 0 }));
+        console.error(selectedChat);
+        if (unreadMessages != profile.unreadMessageCount) {
+          dispatch(setunreadMessages({ count: profile.unreadMessageCount }));
+        }
+
+        // dispatch(GetMessages({ type: chattype, profid: selectedChat, message_id: 0 }));
       }
       //   console.log(profileinfo);
       //   if (profileinfo.updates && profileinfo.updates.length != 0) {
