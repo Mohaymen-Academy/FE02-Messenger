@@ -12,8 +12,10 @@ import TextProcessorObj from '../../utility/TextProcessor.js';
 import PopUp from '../../ui/PopUp';
 import ForwardComponent from '../../ui/ForwardComponent';
 
-const Message = memo(
+const Message =
+  // memo(
   ({
+    forwardedfrom,
     seenObserver,
     isSeen,
     id,
@@ -31,7 +33,7 @@ const Message = memo(
     shouldobserve,
     replyinfo
   }) => {
-    // console.log(entities);
+    // console.error(forwardedfrom);
     const [mousepositoin, setmousepositoin] = useState({ x_mouse: 0, y_mouse: 0 });
     const [openForward, setopenForward] = useState(false);
     const mainref = useRef(null);
@@ -101,6 +103,8 @@ const Message = memo(
       const y_mouse = event.clientY;
       setmousepositoin({ x_mouse, y_mouse });
     }
+    console.log('werwerkwjriopup');
+    console.log(forwardedfrom);
     const Isforme = creator.profileID === userprofile.profileData.profileID;
     return (
       <div
@@ -108,23 +112,8 @@ const Message = memo(
         ref={mainref}
         className={`relative flex w-full ${Isforme ? 'justify-start' : 'justify-end'} px-5`}
         onContextMenu={handleRightClick}>
-        {/* replyMessageInfo
-: 
-compressedContent
-: 
-null
-messageId
-: 
-6
-sender
-: 
-"hesam"
-text
-: 
-"hello" */}
-
         <MessageBody Isforme={Isforme}>
-          {replyinfo ? <MessageHeader repliedTo={replyinfo.text} /> : <></>}
+          <MessageHeader forewardedFrom={forwardedfrom} repliedTo={replyinfo} />
           {media ? (
             <MessageMedia src={media.preLoadingContent} handleClick={handleMediaMessage} />
           ) : (
@@ -158,6 +147,7 @@ text
             positions={mousepositoin}
             setposition={setmousepositoin}
             setopenForward={setopenForward}
+            // forwardedfrom
           />
         ) : (
           <></>
@@ -172,7 +162,7 @@ text
       </div>
       // <></>
     );
-  }
-);
+  };
+// );
 
 export default Message;

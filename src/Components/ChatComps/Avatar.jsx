@@ -2,16 +2,14 @@ import React from 'react';
 
 const Avatar = ({ image, isOnline, char, imagecolor, size }) => (
   <div>
-    {/* 
-              image={profile.lastProfilePicture.preLoadingContent}
- */}
     <div
-      className={`flex h-[${size}px] w-[${size}px]  items-center justify-center rounded-full `}
-      style={{ backgroundColor: `${imagecolor}` }}>
+      className={`flex  items-center justify-center rounded-full `}
+      style={{ backgroundColor: `${imagecolor}`, width: `${size}px`, height: `${size}px` }}>
       {image?.preLoadingContent ? (
         <img
           src={`data:image/jpeg;base64,${image.preLoadingContent}`}
-          className="h-[${size}px] w-[${size}px] rounded-full"
+          className={`rounded-full`}
+          style={{ width: `${size}px`, height: `${size}px` }}
         />
       ) : (
         <p className=" h-[100%] flex place-items-center text-center text-2xl font-normal text-white">

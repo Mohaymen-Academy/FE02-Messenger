@@ -96,19 +96,12 @@ export default function ChatBody({ chatid, chattype }) {
     //   }
   }, []);
 
-  console.error(messages);
+  // console.error(messages);
 
   useEffect(() => {
-    console.error(bodyref.current.scrollHeight, bodyref.current.scrollTop);
-    // if (bodyref) {
-    //   bodyref.current.scrollTop = bodyref.current.scrollHeight;
-    //   prevScrollPos = bodyref.current.scrollTop;
-    // }
     const currentScrollPos = bodyref.current.scrollTop;
-    // console.log(prevScrollPos, currentScrollPos);
     if (prevScrollPos == currentScrollPos) {
       const maxid = messages.map((ele) => parseInt(ele.messageID));
-      // Requests().UpdateSeen(Math.max(...maxid));
     }
     if (prevScrollPos == 0) {
       bodyref.current.scrollTop = 20;
@@ -116,9 +109,6 @@ export default function ChatBody({ chatid, chattype }) {
   });
 
   let scrolltimeout;
-  // const scrollValues = useRef({
-  //   lastScrollPosition: 0
-  // });
 
   function handleonScroll(e) {
     clearTimeout(scrolltimeout);
@@ -207,6 +197,8 @@ export default function ChatBody({ chatid, chattype }) {
                     )
                   ) : (
                     <Message
+                      // forwardedfrom={messages.forwardMessageSender}
+                      forwardedfrom={message.forwardMessageSender}
                       shouldobserve={index == 0 || messages.length - 1 == index}
                       key={message.messageID}
                       observer={observer}

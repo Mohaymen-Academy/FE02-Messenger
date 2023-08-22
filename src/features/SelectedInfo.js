@@ -22,7 +22,7 @@ const initialState = {
   isContact: false,
   updatesList: [],
   downloaded: [],
-  needupdate:false,
+  needupdate: false
 };
 const GetMessagesUp = createAsyncThunk('selectedProf/getmessagesup', async (infos) => {
   console.log('iwoereuiwpr');
@@ -97,7 +97,7 @@ const SelectedProf = createSlice({
     Updatecommands: (state, action) => {
       // state.updatesList = state.updatesList.concat();
       action.payload.updates.forEach((command) => {
-        console.log(command)
+        console.log(command);
         state.Chatmessages = deletemsg(state.Chatmessages, command.MessageId);
         // switch (command.updateType.toLowerCase()) {
         //   case 'delete':
@@ -105,8 +105,7 @@ const SelectedProf = createSlice({
         //     state.Chatmessages = editmsgfunc(state.Chatmessages, command.message);
         //   case 'pin':
         //     break;
-        }
-      );
+      });
     },
 
     ReplaceImage: (state, action) => {
@@ -136,11 +135,10 @@ const SelectedProf = createSlice({
         state.Chatmessages = action.payload?.data?.messages;
         state.downfinished = action.payload?.data?.downFinished;
         state.upfinished = action.payload?.data?.upFinished;
-        if (state.chatType != action.payload?.type) state.chatType = action.payload?.type;
-        if (state.selectedChatID != action.payload?.ID) state.selectedChatID = action.payload?.ID;
-        if (action.payload?.profileinfo) {
-          state.profileinfo = action.payload?.profileinfo;
-        }
+        console.error(state.chatType ,state.selectedChatID,action.payload.type,action.payload.ID);
+        if (state.chatType != action.payload.type) state.chatType = action.payload.type;
+        if (state.selectedChatID != action.payload.ID) state.selectedChatID = action.payload.ID;
+        if (action.payload?.profileinfo) state.profileinfo = action.payload?.profileinfo;
       })
       .addCase(SetLeftProf.fulfilled, (state, action) => {
         console.log(action.payload);

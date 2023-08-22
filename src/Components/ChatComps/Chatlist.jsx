@@ -17,23 +17,21 @@ const Chatlist = () => {
   const chattype = useSelector((store) => store.selectedProf.chatType);
   const downfinished = useSelector((state) => state.selectedProf.downfinished);
   const upfinished = useSelector((state) => state.selectedProf.upfinished);
-  const updatesList = useSelector((state) => state.selectedProf.updatesList);
+  const updatesList = useSelector((state) => state.selectedProf.updatesList); 
   // console.error(lists);
   useEffect(() => {
     if (selectedChat) {
+      // console.error('zwerewr')
       const profile = lists.filter((ele) => ele.profile.profileID == selectedChat)[0];
-      // console.error(profile)
-      if (profile.length != 0) {
+      if (profile && profile.length != 0) {
         const updates = profile.updates;
-        // console.error(updates);
         if (updates.length != 0) {
           const maxid = Math.max(...updates.map((command) => command.id));
-          // console.error(maxid);
-          // Requests().UpdateResponse(maxid, selectedChat);
         }
       }
-      if (profile.unreadMessageCount != 0) {
-        // dispatch(GetMessages({ type: chattype, ID: selectedChat, message_id: 0 }));
+      if (profile && profile.unreadMessageCount != 0) {
+        // console.error('zerwewr')
+        dispatch(GetMessages({ type: chattype, ID: profile.profileID, message_id: 0 }));
       }
       //   console.log(profileinfo);
       //   if (profileinfo.updates && profileinfo.updates.length != 0) {
