@@ -24,7 +24,7 @@ export default function ChatBody({ chatid, chattype, bodyref, messages }) {
   const downfinished = useSelector((state) => state.selectedProf.downfinished);
   const upfinished = useSelector((state) => state.selectedProf.upfinished);
   const preview = useSelector((state) => state.SharedMedia.preview);
-  const lastmsgId = useSelector((state) => state.selectedProf.LastmsgId);
+  // const lastmsgId = useSelector((state) => state.selectedProf.LastmsgId);
   const [previewImages, setPreviewImages] = useState(); // State to store media content
   const [massageIdpreview, setMassageIdpreview] = useState(0); // State to store media content
   dispatch(GetSharedMedia(chatid));

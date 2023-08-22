@@ -2,7 +2,7 @@ import { useState, createContext, useEffect, useReducer } from 'react';
 import { useSelector } from 'react-redux';
 import { getTheme } from '../utility/useLoclStorage';
 import RightSide from './RightSideBar/Rightside';
-
+// import { darkback } from '../../public/images/DarkBackground.png';
 // const LayoutContext = createContext(null);
 // function reducer(state, action) {
 //   switch (action.type) {
