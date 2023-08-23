@@ -5,10 +5,9 @@ import Requests from '../../API/Requests';
 import { useDispatch } from 'react-redux';
 import { deleteChat } from '../../features/SelectedInfo';
 
-
 const ChatCardContext = memo(({ setOpenContext, type, chatid, pinned }) => {
   console.log(chatid);
-  const dispatch=useDispatch()
+  const dispatch = useDispatch();
   const liref = useRef(null);
   useEffect(() => {
     // if (liref) {
@@ -26,9 +25,8 @@ const ChatCardContext = memo(({ setOpenContext, type, chatid, pinned }) => {
   }
   function handlDelete() {
     console.log('delete');
-    dispatch(deleteChat({chatid}))
-    Requests().DeleteChat(chatid)
-  
+    dispatch(deleteChat({ chatid }));
+    Requests().DeleteChat(chatid);
   }
   function handlMute() {}
   const chatItems = [
@@ -86,7 +84,8 @@ const ChatCardContext = memo(({ setOpenContext, type, chatid, pinned }) => {
     {
       icon: <UilTrash />,
       title: 'ترک گروه',
-      color: 'text-red-500'
+      color: 'text-red-500',
+      action: handlDelete
     }
   ];
 

@@ -42,10 +42,10 @@ export default function ChatContainer() {
                 messages={messages}
               />
 
-              <ChatBody bodyref={bodyref} chattype={chatType} chatid={chatID} messages={messages} />
+              <ChatBody  bodyref={bodyref} chattype={chatType} chatid={chatID} messages={messages} />
               <ChatFooter chattype={chatType} id={chatID} />
             </div>
-            <LeftLayout chatid={chatID} active={active} setActive={setActive} />
+            <LeftLayout chattype={chatType} chatid={chatID} active={active} setActive={setActive} />
           </>
         ) : (
           <></>

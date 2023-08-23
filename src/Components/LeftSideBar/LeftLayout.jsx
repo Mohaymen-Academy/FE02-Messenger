@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
 import {LeftSide ,ProfileEdit} from './';
+import { TYPE_CHANNEL, TYPE_GROUP } from '../../utility/Constants';
 
-export default function LeftLayout({ active, setActive , chatid }) {
+export default function LeftLayout({ active, setActive , chatid ,chattype}) {
   const [layout, setlayout] = useState(0);
   //   const [active, ] = useState(false);
   //   console.log(setlayout)
   const Pages = [
-    <LeftSide isActive={active} setActive={setActive} setlayout={setlayout} chatid={chatid} />,
-    <ProfileEdit isActive={active} setActive={setActive} setlayout={setlayout} />
+    <LeftSide isGroupOrChannel={chattype == TYPE_CHANNEL || chattype == TYPE_GROUP } isActive={active} setActive={setActive} setlayout={setlayout} chatid={chatid} />,
+    <ProfileEdit isActive={active} setActive={setActive} setlayout={setlayout} chatid={chatid} />
   ];
   // const
 

@@ -28,8 +28,15 @@ const rightsidemenues = createSlice({
         state.RightView = NUM_SIDEBAR_CHAT;
         // state.isOpen = false;
       }
+    },
+    clearEverything: (state, action) => {
+      state.ParentType = NUM_SIDEBAR_DEFAULT;
+      state.ChildType = 0;
+      state.isOpen = false;
+      state.RightView = NUM_SIDEBAR_CHAT;
     }
   }
 });
-export const { setChild, setParent, setsidebarState, BackHandler } = rightsidemenues.actions;
+export const { setChild, setParent, setsidebarState, BackHandler, clearEverything } =
+  rightsidemenues.actions;
 export default rightsidemenues.reducer;

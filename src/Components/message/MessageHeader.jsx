@@ -1,9 +1,10 @@
 import { UilCornerUpRightAlt } from '@iconscout/react-unicons';
 
-const MessageHeader = ({ isReciver, forewardedFrom, repliedTo, handlerreply }) => {
+const MessageHeader = ({ sender, isReciver, forewardedFrom, repliedTo, handlerreply }) => {
   // console.error(handlerreply)
   return (
     <div>
+      {sender}
       {forewardedFrom ? (
         <div
           dir="auto"

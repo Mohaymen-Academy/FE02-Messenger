@@ -28,7 +28,6 @@ const Message =
     ispinned,
     isEdited,
     text,
-    observer,
     handleMediaMessage,
     entities,
     profile,
@@ -70,9 +69,6 @@ const Message =
       if (!mainref) {
         return;
       }
-      if (shouldobserve) {
-        observer.observe(mainref.current);
-      }
       seenObserver.observe(mainref.current);
       if (textref.current) {
         console.log();
@@ -103,36 +99,6 @@ const Message =
         handleRightClick(event);
       }, 500); // Adjust the timeout duration as needed
     }
-    /*
-    forwardMessageSender
-: 
-null
-isEdited
-: 
-false
-media
-: 
-null
-messageID
-: 
-32
-replyMessageInfo
-: 
-compressedContent
-: 
-null
-messageId
-: 
-30
-sender
-: 
-"hes"
-text
-: 
-"1 payam"
-    
-    */
-
     // Handle touch end event
     function handleTouchEnd(event) {
       // Clear the long press timer
@@ -158,16 +124,13 @@ text
         onContextMenu={handleRightClick}>
         <MessageBody Isforme={Isforme}>
           <MessageHeader
+            sender={chattype == TYPE_GROUP ? profile.profileName : ''}
             forewardedFrom={forwardedfrom}
             repliedTo={replyinfo}
             handlerreply={handleReply}
             isReciver={2}
           />
-          {media ? (
-            <MessageMedia src={media} handleClick={handleMediaMessage} />
-          ) : (
-            <></>
-          )}
+          {media ? <MessageMedia src={media} handleClick={handleMediaMessage} /> : <></>}
           <div
             className="flex break-words break-all whitespace-break-spaces"
             dir="auto"
@@ -191,6 +154,7 @@ text
         </div>
         {mousepositoin.x_mouse != 0 ? (
           <MessageMenu
+            isforme={Isforme}
             msgId={id}
             text={text}
             positions={mousepositoin}

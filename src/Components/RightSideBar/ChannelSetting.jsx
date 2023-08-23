@@ -1,16 +1,20 @@
 import React from 'react';
 import ContactCardPreview from './ContactCardPreview';
 import { UilArrowRight, UilCameraPlus, UilTrashAlt } from '@iconscout/react-unicons';
-import { TYPE_CHANNEL , TYPE_USER } from '../../utility/Constants';
+import { TYPE_CHANNEL, TYPE_USER } from '../../utility/Constants';
 import Requests from '../../API/Requests';
+import { useDispatch } from 'react-redux';
+import { clearEverything } from '../../features/rightSideSlice';
 
-export default function ChannelSetting({ selected, setOpenModel}) {
+export default function ChannelSetting({ selected, setOpenModel }) {
   const [channelname, setchannelname] = React.useState('');
+  const dispatch = useDispatch();
   function CreateChannel() {
     const memebers = selected.map((cont) => cont.chatid);
     const name = channelname;
     Requests().CreateChat(name, memebers, TYPE_CHANNEL);
     setOpenModel(false);
+    dispatch(clearEverything());
   }
   const handlechannelname = (e) => {
     setchannelname(e);
@@ -47,8 +51,9 @@ export default function ChannelSetting({ selected, setOpenModel}) {
         </div>
         {channelname !== '' && (
           <div id={1}>
-            <button className="w-[100%] h-12 rounded-xl bg-blue-400 text-white text-xl font-semibold"
-            onClick={CreateChannel}>
+            <button
+              className="w-[100%] h-12 rounded-xl bg-blue-400 text-white text-xl font-semibold"
+              onClick={CreateChannel}>
               {' '}
               ایجاد کانال
             </button>
@@ -56,8 +61,7 @@ export default function ChannelSetting({ selected, setOpenModel}) {
         )}
         <div className="h-0.5 w-full flex bg-bghovor m-5"></div>
         <p className="text-text1">{selected.length} عضو</p>
-        <div
-        className='add_to_x_list'>
+        <div className="add_to_x_list">
           {selected.map((cont) => (
             <ContactCardPreview
               name={cont.name}

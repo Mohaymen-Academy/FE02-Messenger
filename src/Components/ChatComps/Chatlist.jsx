@@ -8,7 +8,9 @@ import {
   GetMessages,
   Updatecommands,
   deletemessage,
-  setunreadMessages
+  doupdates,
+  setUnreadCount
+  // setunreadMessages
 } from '../../features/SelectedInfo.js';
 import { setActiveMessage } from '../../features/chatCardPreviewSlice.js';
 import Requests from '../../API/Requests.js';
@@ -23,53 +25,21 @@ const Chatlist = () => {
   const downfinished = useSelector((state) => state.selectedProf.downfinished);
   const upfinished = useSelector((state) => state.selectedProf.upfinished);
   const updatesList = useSelector((state) => state.selectedProf.updatesList);
-  const unreadMessages = useSelector((state) => state.selectedProf.unreadMessages);
-  // console.log(lists);
   useEffect(() => {
     if (selectedChat) {
-      // console.error('zwerewr')
       const profile = lists.filter((ele) => ele.profile.profileID == selectedChat)[0];
+      // console.error(profile)
       if (profile && profile.length != 0) {
-        const { updates } = profile;
-        if (updates.length != 0) {
-          const maxid = Math.max(...updates.map((command) => command.id));
-          console.error(maxid);
+        // console.error(profile)
+        if (profile.updates.length != 0) {
+          const maxid = profile.updates.map((command) => command.id);
+          // console.error(maxid);
+          // dispatch(doupdates({ updates: profile.updates ,upid:maxid,chatid:selectedChat}));
         }
+        dispatch(setUnreadCount({ count: profile.unreadMessageCount }));
       }
-      if (profile && profile.unreadMessageCount != 0) {
-        console.error(selectedChat);
-        if (unreadMessages != profile.unreadMessageCount) {
-          dispatch(setunreadMessages({ count: profile.unreadMessageCount }));
-        }
-
-        // dispatch(GetMessages({ type: chattype, profid: selectedChat, message_id: 0 }));
-      }
-      //   console.log(profileinfo);
-      //   if (profileinfo.updates && profileinfo.updates.length != 0) {
-      // console.log(profileinfo.updates);
-      //     if (maxid && maxid != -Infinity) {
-      //       console.error(profileinfo.updates);
-      // dispatch(Updatecommands({ updates: profileinfo.updates }));
-      //     }
-      // }
     }
   });
-  const handleScroll = (listRef) => {
-    // const res = HandleScroller.ReachEnd(listRef);
-    // if (res===true) {
-    //   const additionalChatPreviews = [...Array(10)].map((_, i) => (
-    //     <ChatCardPreview
-    //       key={i + chatPreviews.length}
-    //       chattype={TYPE_USER}
-    //       chatid={i + chatPreviews.length}
-    //       setter={dispatch}
-    //       unreadmessage={5}
-    //     />
-    //   ));
-    //   setChatPreviews(prevPreviews => [...prevPreviews, ...additionalChatPreviews]);
-    // }
-  };
-
   return (
     <div
       ref={listRef}
