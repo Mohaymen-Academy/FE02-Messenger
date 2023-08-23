@@ -56,11 +56,20 @@ function ImagePreviewer({  massageId, imageshow }) {
           <UilStepForward />
         </button> */}
         {/* {images.map((image, index) => ( */}
-        <img
-          src={`data:image/jpeg;base64,${image}`}
-          className={'block object-cover opacity-100'}
-          // key={index}
-        />
+        {
+          imageshow.contentType === "image/jpeg" && 
+          <img
+            src={`data:image/jpeg;base64,${image}`}
+            className={'block object-cover opacity-100'}
+            // key={index}
+          />
+        }
+        {
+          imageshow.contentType === "video/mp4" && 
+          <video src={`data:video/mp4;base64,${image}`} 
+          className={'block object-cover opacity-100'} autoPlay controls />
+           
+        }
         {/* ))} */}
         {/* <button
           onClick={() => {

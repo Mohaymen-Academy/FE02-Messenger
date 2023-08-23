@@ -5,7 +5,9 @@ function MessageMedia({ src, handleClick }) {
     <>
     {
       src.contentType === 'video/mp4' && (
-        <video src={`data:video/mp4;base64,${src.preLoadingContent}`} className="cursor-pointer w-[200px] h-[200px]" controls />
+        <div className="w-full rounded-md" onClick={handleClick}>
+        <video src={`data:video/mp4;base64,${src.preLoadingContent}`} className="cursor-pointer w-[200px] h-auto" autoPlay />
+        </div>
       ) 
     }
     {
@@ -14,11 +16,11 @@ function MessageMedia({ src, handleClick }) {
       )
     }
     {
-      src.contentType === 'application/pdf' && (
-        <div className="w-[100%] rounded-md" >
-        <Files file={src} filename={src.mediaName} size={src.contentSize} download={true} mediaID={src.mediaId}/>
+      src.contentType.startsWith("application") && (
+        <div className="w-[100%] rounded-md">
+          <Files file={src} filename={src.mediaName} size={src.contentSize} download={true} mediaID={src.mediaId} />
         </div>
-        )
+      )
     }
     {
       src.contentType === 'image/jpeg' && (

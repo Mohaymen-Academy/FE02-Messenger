@@ -11,7 +11,9 @@ export default function ContactAddTo({
   setselected,
   selected
 }) {
-  const isChecked = selected.includes(chatid);
+  const isChecked = selected.find((elem) => elem.chatid === chatid)
+
+  console.log(selected)
   return (
     <div>
       <div
