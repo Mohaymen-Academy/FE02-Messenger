@@ -34,7 +34,7 @@ export default function RightSide({ chatId }) {
   };
   function handleSearch(value) {
     if (menu == NUM_SIDEBAR_CHAT) {
-      Requests().SearchAll(value)
+      Requests().SearchAll(value);
     }
   }
 
@@ -59,7 +59,7 @@ export default function RightSide({ chatId }) {
       } `}>
       <div className="flex justify-between px-2 py-1 ">
         <div>
-          {menu == NUM_SIDEBAR_CHAT ? (
+          {menu === NUM_SIDEBAR_CHAT ? (
             <button
               className="relative"
               onClick={(e) => dispatch(setsidebarState({ state: !isopen }))}>
@@ -71,15 +71,11 @@ export default function RightSide({ chatId }) {
             </button>
           )}
         </div>
-        <Search menu={menu}/>
+        <Search menu={menu} />
+        {isopen ? <SidebarMenu divref={divref} /> : <></>}
       </div>
 
       {Items[menu]}
-      {open ? (
-        <SidebarMenu profileImage={'images/profile.jpg'} username={'Zahra'} divref={divref} />
-      ) : (
-        <></>
-      )}
     </div>
   );
 }
