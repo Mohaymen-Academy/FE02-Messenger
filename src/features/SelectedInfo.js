@@ -183,13 +183,14 @@ const SelectedProf = createSlice({
         state.profPics = action.payload.profilePictures;
       })
       .addCase(GetMessagesUp.fulfilled, (state, action) => {
-        // console.log('up');
+        console.error(action.payload);
         state.Chatmessages = [].concat(action.payload.messages, state.Chatmessages);
-        state.upfinished = action.payload?.upFinished;
+        state.upfinished = action.payload.upFinished;
         state.needupdate = false;
       })
       .addCase(GetMessagesDown.fulfilled, (state, action) => {
         state.Chatmessages = [].concat(state.Chatmessages, action.payload.messages);
+        console.error(action.payload);
         console.error('to ro kohda')
         state.downfinished = action.payload.downFinished;
         state.needupdate = false;

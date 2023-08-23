@@ -118,6 +118,7 @@ export default function ChatBody({ chatid, chattype, bodyref, messages }) {
 
   function handleonScroll(e) {
     // console.error(bodyref.current.scrollTop)
+    console.error(bodyref.current.scrollTop )
     if (bodyref.current.scrollTop == 0) {
       dispatch(setUpdate({ dir: UP }));
     } else if (isScrollAtBottom(bodyref)) {

@@ -251,7 +251,7 @@ export default function TextProcessorObj(containers) {
 
   function OutputEntity(targetref, text, ents) {
     const list = generateEntity(targetref, text, ents);
-    return list
+    return list;
   }
   function generateEntity(ref, text, ents) {
     let list_of_renderableentities = [];
@@ -329,6 +329,16 @@ export default function TextProcessorObj(containers) {
       if (element.style) {
         const ptag = document.createElement('p');
         element.style.forEach((stl) => ptag.classList.add(stl));
+        ptag.addEventListener('click', () => {
+        // console.error('jkhqwuieroy')
+        //   const classarray = Array.from(ptag.classList);
+        //   ptag.classList = classarray.map((style) =>
+        //     style == 'spoiler' ? '!' + style : style == '!spoiler' ? 'spoiler' : style
+        //   );
+          ptag.classList.toggle('spoiler')
+          ptag.classList.toggle('spoiler_')
+        
+        });
         ptag.textContent = element.content;
         ref.current.appendChild(ptag);
       } else {
