@@ -32,6 +32,7 @@ export default function ChatContainer() {
             laptop:w-[100%]
             smmobile:w-[100%]
             mobile:w-[100%]
+            tablet:w-[100%]
             ${active ? 'vsmmobile:w-0' : 'vsmmobile:w-full'}
             `}>
               <ChatHeader
@@ -43,7 +44,7 @@ export default function ChatContainer() {
                 messages={messages}
               />
 
-              <ChatBody  bodyref={bodyref} chattype={chatType} chatid={chatID} messages={messages} />
+              <ChatBody bodyref={bodyref} chattype={chatType} chatid={chatID} messages={messages} />
               <ChatFooter chattype={chatType} id={chatID} />
             </div>
             <LeftLayout chattype={chatType} chatid={chatID} active={active} setActive={setActive} />
