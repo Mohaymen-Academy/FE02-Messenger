@@ -33,6 +33,7 @@ export default function ChatContainer() {
             laptop:w-[100%]
             smmobile:w-[100%]
             mobile:w-[100%]
+            tablet:w-[100%]
             ${active ? 'vsmmobile:w-0' : 'vsmmobile:w-full'}
             `}>
               <ChatHeader
