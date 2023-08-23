@@ -55,8 +55,15 @@ const ChatBody = memo(({ chatid, chattype, bodyref, messages, lastmassage }) => 
 
   useEffect(() => {
     if (bodyref) {
-      console.error('alo');
-      bodyref.current.scrollTop = bodyref.current.scrollTop + bodyref.current.scrollHeight - 100;
+      // //! if there is no scroll
+      if (bodyref.current.scrollHeight == bodyref.current.clientHeight) {
+        Requests().UpdateSeen(SetMaxMin(messages).max);
+        //   //! if the scroll is up
+      } else if (bodyref.current.scrollTop == 0) {
+        //   //! if the scroll is down
+      } else if (isScrollAtBottom(bodyref)) {
+        Requests().UpdateSeen(SetMaxMin(messages).max);
+      }
       dispatch(SetIDs(SetMaxMin(messages)));
       // if (bodyref.current.scrollTop == 0) {
       //   dispatch(setUpdate({ dir: UP }));
@@ -70,23 +77,15 @@ const ChatBody = memo(({ chatid, chattype, bodyref, messages, lastmassage }) => 
   }, []);
   useEffect(() => {
     if (bodyref) {
-      // bodyref.current.scrollTop = bodyref.current.scrollTop + bodyref.current.scrollHeight - 100;
-      // dispatch(SetIDs(SetMaxMin(messages)));
       // //! if there is no scroll
-      // if (bodyref.current.scrollHeight == bodyref.current.clientHeight) {
-      //   console.error('first');
-      //   dispatch(setUpdate({ dir: DOWN }));
-      //   Requests().UpdateSeen(SetMaxMin(messages).max);
-      //   //! if the scroll is up
-      // } else if (bodyref.current.scrollTop == 0) {
-      //   console.error('second');
-      //   dispatch(setUpdate({ dir: UP }));
-      //   //! if the scroll is down
-      // } else if (isScrollAtBottom(bodyref)) {
-      //   console.error('third');
-      //   Requests().UpdateSeen(SetMaxMin(messages).max);
-      //   setTimeout(dispatch(setUpdate({ dir: DOWN })), 1000);
-      // }
+      if (bodyref.current.scrollHeight == bodyref.current.clientHeight) {
+        Requests().UpdateSeen(SetMaxMin(messages).max);
+        //   //! if the scroll is up
+      } else if (bodyref.current.scrollTop == 0) {
+        //   //! if the scroll is down
+      } else if (isScrollAtBottom(bodyref)) {
+        Requests().UpdateSeen(SetMaxMin(messages).max);
+      }
       if (lastmassage == 0) {
         GoHnalder().GoTo(messages, SetMaxMin(messages).min, bodyref, dispatch, chatid, chattype);
       } else {
