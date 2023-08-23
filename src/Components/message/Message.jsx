@@ -28,7 +28,6 @@ const Message =
     ispinned,
     isEdited,
     text,
-    observer,
     handleMediaMessage,
     entities,
     profile,
@@ -69,9 +68,6 @@ const Message =
     useEffect(() => {
       if (!mainref) {
         return;
-      }
-      if (shouldobserve) {
-        observer.observe(mainref.current);
       }
       seenObserver.observe(mainref.current);
       if (textref.current) {
@@ -158,16 +154,13 @@ text
         onContextMenu={handleRightClick}>
         <MessageBody Isforme={Isforme}>
           <MessageHeader
+            sender={chattype == TYPE_GROUP ? profile.profileName : ''}
             forewardedFrom={forwardedfrom}
             repliedTo={replyinfo}
             handlerreply={handleReply}
             isReciver={2}
           />
-          {media ? (
-            <MessageMedia src={media} handleClick={handleMediaMessage} />
-          ) : (
-            <></>
-          )}
+          {media ? <MessageMedia src={media} handleClick={handleMediaMessage} /> : <></>}
           <div
             className="flex break-words break-all whitespace-break-spaces"
             dir="auto"

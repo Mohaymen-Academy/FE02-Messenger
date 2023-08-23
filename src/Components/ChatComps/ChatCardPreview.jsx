@@ -122,12 +122,12 @@ const ChatCardPreview = memo(
               type,
               profid,
               message_id: 0,
-              profileinfo:profile
+              profileinfo: profile
             })
             // dispatch(GetPin())
           );
           dispatch(GetPin({ chatid: profid }));
-
+          dispatch(SetLeftProf({ profid: profid }));
           // await Requests().GetProfileMedium(profile.profileID);
         }}
         className="h-18 relative mx-2 flex w-[97%] cursor-pointer flex-row items-center justify-start rounded-lg p-3  hover:bg-bghovor">

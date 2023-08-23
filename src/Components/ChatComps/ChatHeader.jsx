@@ -10,7 +10,6 @@ import Pin from './Pin.jsx';
 const ChatHeader = ({ active, setActive, chattype, chatid, messages, bodyref }) => {
   const dispatch = useDispatch();
   const selectedProfile = useSelector((state) => state.selectedProf.profileinfo);
-  console.log(selectedProfile);
   const ChatInfo = selectedProfile?.status;
   // chattype == TYPE_USER
   //   ? selectedProfile?.status // ShouldChange
@@ -61,7 +60,7 @@ const ChatHeader = ({ active, setActive, chattype, chatid, messages, bodyref }) 
           {<ChatHeaderSettings active={active} />}
         </div>
       </div>
-      <Pin bodyref={bodyref} chatid={chatid} chattype={chattype} messages={messages} />
+
     </>
   );
 };

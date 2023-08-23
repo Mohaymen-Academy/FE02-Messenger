@@ -17,7 +17,6 @@ export default function PersonalMenu() {
   const image = useRef(null);
   // handle : null,
   // biography : null,
-  // profilePicture : null
 
   useEffect(() => {
     // console.log(editProfile.current)
@@ -26,16 +25,17 @@ export default function PersonalMenu() {
       name.current.value = profile.profileData.profileName;
       handle.current.value = profile.profileData.handle;
       biography.current.value = profile.profileData.biography;
-      // editProfile.current.profilePicture = profile.profileData.lastProfilePicture;
     }
   }, []);
-  const [profilePicture, setprofilePicture] = useState(null);
+  const [profilePicture, setprofilePicture] = useState(
+    profile.profileData.lastProfilePicture.preLoadingContent
+  );
   const uploadedFile = useRef(null);
   const base64img = useRef(null);
   const handleclick = () => {
     image.current.click();
   };
-  
+
   const handleImageChange = (event) => {
     const selectedFile = event.target.files[0];
     if (selectedFile) {
@@ -43,34 +43,38 @@ export default function PersonalMenu() {
       reader.onload = (e) => {
         const base64string = e.target.result.split(',')[1];
         base64img.current = base64string;
-        console.log(e)
-        // setprofilePicture(base64string);
+        setprofilePicture(base64string);
         const body = {
-          "content" : base64string,
-          "size" : selectedFile.size,
-          "media-type" : selectedFile.type,
-          "fileName" : selectedFile.name
-        }
-        console.log(body)
-        dispatch(UpdateImage(base64string))
-        const res = Requests().UpdateProfileImage(body, profile.profileData.profileID)
-        
+          content: base64string,
+          size: selectedFile.size,
+          'media-type': selectedFile.type,
+          fileName: selectedFile.name
+        };
+        console.log(body);
+        dispatch(UpdateImage(base64string));
+        const res = Requests().UpdateProfileImage(body, profile.profileData.profileID);
       };
       reader.readAsDataURL(selectedFile);
     }
   };
-  
-  const  submit = async () => {
+
+  const submit = async () => {
     const res = await Requests().UpdateProfile(
       {
-        "name": name.current.value,
-        "username": handle.current.value,
-        "biography": biography.current.value
+        name: name.current.value,
+        username: handle.current.value,
+        biography: biography.current.value
       },
       profile.profileData.profileID
     );
-    dispatch(UpdateProfile({name : name.current.value,handle : handle.current.value, biography :biography.current.value}))
-    console.log(res)
+    dispatch(
+      UpdateProfile({
+        name: name.current.value,
+        handle: handle.current.value,
+        biography: biography.current.value
+      })
+    );
+    console.log(res);
   };
   console.log(profile);
   return (
@@ -80,6 +84,14 @@ export default function PersonalMenu() {
         <div className="p-1 pt-0 cardP">ویرایش پروفایل</div>
       </div>
       <div className="flex flex-col  justify-start items-center gap-3 w-full p-5">
+        <input
+          ref={image}
+          type="file"
+          id="upload"
+          accept="image/jpeg, image/png, image/jpg"
+          className="hidden"
+          onChange={handleImageChange}
+        />
         {profilePicture == null ? (
           <div
             className={`w-[250px] h-[250px] my-7 flex  justify-center items-center rounded-full cursor-pointer `}
@@ -91,24 +103,17 @@ export default function PersonalMenu() {
               }`,
               backgroundColor: `${profile.profileData.defaultProfileColor}`,
               backgroundRepeat: 'no-repeat',
-              backgroundSize: 'cover',
+              backgroundSize: 'cover'
             }}>
-            <input
-              ref={image}
-              type="file"
-              id="upload"
-              accept="image/jpeg, image/png, image/jpg"
-              className="hidden"
-              onChange={handleImageChange}
-            />
             <UilCameraPlus className={'w-[50%] h-[50%] hover:w-[55%] hover:h-[55%] text-white'} />
           </div>
         ) : (
           <div
+            onClick={handleclick}
             className={`w-[250px] h-[250px] my-7 flex justify-center items-center rounded-full cursor-pointer `}>
             <img
               className=" w-full h-full object-cover aspect-[1/1] rounded-full cursor-pointer"
-              src={profile.profileData.lastProfilePicture.preLoadingContent}
+              src={`data:image/jpeg;base64,${profile.profileData.lastProfilePicture.preLoadingContent}`}
               alt=""
             />
           </div>
