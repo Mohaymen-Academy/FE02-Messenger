@@ -95,7 +95,7 @@ const SelectedProf = createSlice({
       state.selectedChatID = null;
     },
     editmsg: (state, action) => {
-      console.log(action.payload.msgId);
+      // console.log(action.payload.msgId);
       state.Chatmessages = state.Chatmessages.map((ele) => {
         if (ele.messageID == action.payload.msgId) {
           return {
@@ -141,13 +141,12 @@ const SelectedProf = createSlice({
     ReplaceImage: (state, action) => {
       // state.messages; // Create a new array to avoid mutating the state directly
       state.Chatmessages = state.Chatmessages.map((message) => {
-        console.log(message);
         if (message.messageID === action.payload.massageId) {
           state.downloaded = [
             ...state.downloaded,
             { id: action.payload.massageId, image: action.payload.image }
           ];
-          console.log(state.downloaded);
+
           return {
             ...message,
             media: {
@@ -158,7 +157,6 @@ const SelectedProf = createSlice({
         }
         return message;
       });
-      console.log(state.Chatmessages);
     }
   },
   extraReducers: (builder) =>
@@ -183,7 +181,6 @@ const SelectedProf = createSlice({
         state.Chatmessages = [].concat(action.payload.messages, state.Chatmessages);
         state.upfinished = action.payload?.upFinished;
         state.needupdate = false;
-        console.log();
       })
       .addCase(GetMessagesDown.fulfilled, (state, action) => {
         state.Chatmessages = [].concat(state.Chatmessages, action.payload.messages);

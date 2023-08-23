@@ -58,7 +58,7 @@ const Message =
     useEffect(() => {
       if (textref.current) {
         if (entities != '') {
-          console.log(entities);
+          // console.log(entities);
           processor.OutputEntity(textref, text, []);
         } else {
           textref.current.innerText = text;

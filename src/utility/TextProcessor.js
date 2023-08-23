@@ -250,7 +250,7 @@ export default function TextProcessorObj(containers) {
   }
 
   function OutputEntity(targetref, text, ents) {
-    console.log(typeof JSON.parse(JSON.stringify(ents)));
+    // console.log(typeof JSON.parse(JSON.stringify(ents)));
     const list = generateEntity(targetref, text, []);
     // console.log(list);
     // setentitycontainers(list);
