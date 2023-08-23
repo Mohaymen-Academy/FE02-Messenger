@@ -13,8 +13,16 @@ import { composerActions } from '../../features/composerSlice';
 import { deletemessage } from '../../features/SelectedInfo';
 import Requests from '../../API/Requests';
 
-const MessageMenu = ({ positions, setposition, msgId, text ,setopenForward}) => {
-
+const MessageMenu = ({
+  positions,
+  setposition,
+  msgId,
+  text,
+  setopenForward,
+  chattype,
+  isforme
+}) => {
+  console.error(isforme)
   const dispatch = useDispatch();
   const divref = useRef(null);
   function handleOutsideClick(event) {
@@ -34,42 +42,49 @@ const MessageMenu = ({ positions, setposition, msgId, text ,setopenForward}) => 
       icon: <UilCornerUpLeftAlt />,
       title: 'پاسخ',
       color: 'text-text1',
-      action: 'reply'
+      action: 'reply',
+      allowed: true
     },
     {
       icon: <UilPen />,
       title: 'ویرایش',
       color: 'text-text1',
-      action: 'edit'
+      action: 'edit',
+      allowed: true
     },
     {
       icon: <UilLink />,
       title: 'سنجاق کردن',
       color: 'text-text1',
-      action: 'pin'
+      action: 'pin',
+      allowed: true
     },
     {
       icon: <UilCopy />,
       title: 'کپی ',
       color: 'text-text1',
-      action: 'copy'
+      action: 'copy',
+      allowed: true
     },
     {
       icon: <UilCornerUpRightAlt />,
       title: 'هدایت ',
       color: 'text-text1',
-      action: 'forward'
+      action: 'forward',
+      allowed: true
     },
     {
       icon: <UilCheckCircle />,
       title: 'انتخاب ',
-      color: 'text-text1'
+      color: 'text-text1',
+      allowed: true
     },
     {
       icon: <UilTrash />,
       title: 'حذف ',
       color: 'text-red-500',
-      action: 'delete'
+      action: 'delete',
+      allowed: isforme
     }
   ]);
   // console.log(positions);
@@ -82,6 +97,7 @@ const MessageMenu = ({ positions, setposition, msgId, text ,setopenForward}) => 
         className="absolute z-10 shadow-2xl w-[150px] bg-color1 text-color4 rounded-lg opacity-90">
         {items.map((item, index) => {
           return (
+            item.allowed?
             <button
               key={index}
               className="flex flex-row items-center gap-2 px-5 w-full hover:bg-bghovor rounded-lg"
@@ -113,10 +129,10 @@ const MessageMenu = ({ positions, setposition, msgId, text ,setopenForward}) => 
               <div className={`flex items-center gap-2 my-1 ${item.color}`}>{item.icon}</div>
               <p className={`text-xs px-2 ${item.color}`}>{item.title}</p>
             </button>
+            :<></>
           );
         })}
       </ul>
-
     </>
   );
 };

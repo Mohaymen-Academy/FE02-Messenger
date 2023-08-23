@@ -99,36 +99,6 @@ const Message =
         handleRightClick(event);
       }, 500); // Adjust the timeout duration as needed
     }
-    /*
-    forwardMessageSender
-: 
-null
-isEdited
-: 
-false
-media
-: 
-null
-messageID
-: 
-32
-replyMessageInfo
-: 
-compressedContent
-: 
-null
-messageId
-: 
-30
-sender
-: 
-"hes"
-text
-: 
-"1 payam"
-    
-    */
-
     // Handle touch end event
     function handleTouchEnd(event) {
       // Clear the long press timer
@@ -184,6 +154,7 @@ text
         </div>
         {mousepositoin.x_mouse != 0 ? (
           <MessageMenu
+            isforme={Isforme}
             msgId={id}
             text={text}
             positions={mousepositoin}

@@ -30,7 +30,7 @@ const Chatlist = () => {
       const profile = lists.filter((ele) => ele.profile.profileID == selectedChat)[0];
       // console.error(profile)
       if (profile && profile.length != 0) {
-        // console.error(profile.updates);
+        // console.error(profile)
         if (profile.updates.length != 0) {
           const maxid = profile.updates.map((command) => command.id);
           // console.error(maxid);

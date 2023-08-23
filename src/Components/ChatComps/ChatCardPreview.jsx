@@ -2,7 +2,7 @@ import { useDispatch } from 'react-redux';
 import { memo, useState } from 'react';
 import { UilLink } from '@iconscout/react-unicons';
 import Avatar from './Avatar';
-import { GetMessages } from '../../features/SelectedInfo';
+import { GetMessages, SetLeftProf } from '../../features/SelectedInfo';
 import Requests from '../../API/Requests';
 import ChatCardContext from './ChatCardContext';
 import { GetPin } from '../../features/composerSlice';
@@ -126,6 +126,7 @@ const ChatCardPreview = memo(
             })
             // dispatch(GetPin())
           );
+          
           dispatch(GetPin({ chatid: profid }));
           dispatch(SetLeftProf({ profid: profid }));
           // await Requests().GetProfileMedium(profile.profileID);
