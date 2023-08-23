@@ -14,20 +14,19 @@ export default function ShowUnread() {
   const needupdate = useSelector((state) => state.selectedProf.needupdate);
   const dir = useSelector((state) => state.selectedProf.dir);
   useEffect(() => {
-    // console.error(
-    //   selectedChat,
-    //   upfinished,
-    //   downfinished,
-    //   minID,
-    //   maxID,
-    //   unreadcount,
-    //   needupdate,
-    //   dir
-    // );
+    console.error(
+      selectedChat,
+      upfinished,
+      downfinished,
+      minID,
+      maxID,
+      unreadcount,
+      needupdate,
+      dir
+    );
     if (needupdate) {
       if (dir == UP && !upfinished) {
         console.error('2');
-        //   console.error('1')
         dispatch(GetMessagesUp({ msgid: minID, chatid: selectedChat }));
       } else if (dir == DOWN && !downfinished) {
         console.error('1');

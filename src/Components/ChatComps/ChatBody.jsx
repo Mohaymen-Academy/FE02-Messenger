@@ -37,13 +37,12 @@ export default function ChatBody({ chatid, chattype, bodyref, messages }) {
       console.error(visibleItems);
       if (visibleItems.length != 0) {
         const maxval = Math.max(...visibleItems);
-        if (maxval > MSGes.current.upper) {
-          MSGes.current.upper = maxval;
+        if (maxval) {
           Requests().UpdateSeen(MSGes.current.upper);
         }
       }
     },
-    { rootMargin: '1px', threshold: 0.5 }
+    { rootMargin: '1px', threshold: 1 }
   );
 
   function handleGetMessages(msgid, dir, chatid) {
@@ -61,7 +60,6 @@ export default function ChatBody({ chatid, chattype, bodyref, messages }) {
 
   const [buttonhidden, setbuttonhidden] = useState(true);
   const dir = useRef(null);
-
   /**
    * @param {Array} messages
    * */
@@ -84,18 +82,33 @@ export default function ChatBody({ chatid, chattype, bodyref, messages }) {
     }
     //   }
   }, []);
+  useEffect(() => {
+    if (bodyref) {
+      bodyref.current.scrollTop = bodyref.current.scrollTop + bodyref.current.scrollHeight - 100;
+      console.error(bodyref.current.scrollTop,bodyref.current.scrollHeight,bodyref.current.clientHeight)
+      dispatch(SetIDs(SetMaxMin(messages)));
+      if (bodyref.current.scrollHeight==bodyref.current.clientHeight) {
+        dispatch(setUpdate({ dir: DOWN }));
+        Requests().UpdateSeen(SetMaxMin(messages).max);
+      } else if (bodyref.current.scrollTop == 0) {
+        dispatch(setUpdate({ dir: UP }));
+      } else if (isScrollAtBottom(bodyref)) {
+        Requests().UpdateSeen(SetMaxMin(messages).max);
+        setTimeout(dispatch(setUpdate({ dir: DOWN })), 1000);
+      }
+    }
+    //   }
+  });
 
   function isScrollAtBottom(bodyref) {
-    console.error(
-      bodyref.current.scrollTop + bodyref.current.clientHeight >= bodyref.current.scrollHeight
+    return (
+      bodyref.current.scrollTop + bodyref.current.clientHeight > bodyref.current.scrollHeight - 40
     );
-    return false;
   }
 
   function handleonScroll(e) {
     // console.error(bodyref.current.scrollTop)
     if (bodyref.current.scrollTop == 0) {
-      // console.error('zarp az inja')
       dispatch(setUpdate({ dir: UP }));
     } else if (isScrollAtBottom(bodyref)) {
       Requests().UpdateSeen(SetMaxMin(messages).max);

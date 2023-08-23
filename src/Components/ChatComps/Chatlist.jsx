@@ -32,7 +32,7 @@ const Chatlist = () => {
       if (profile && profile.length != 0) {
         // console.error(profile)
         if (profile.updates.length != 0) {
-          const maxid = profile.updates.map((command) => command.id);
+          const maxid = Math.max(...profile.updates.map((command) => command.id));
           // console.error(maxid);
           // dispatch(doupdates({ updates: profile.updates ,upid:maxid,chatid:selectedChat}));
         }
