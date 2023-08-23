@@ -22,7 +22,7 @@ export default function ChatContainer() {
   }, []);
   return (
     <>
-      <div className="flex flex-row">
+      <div className="flex flex-row flex-1">
         {chatID ? (
           <>
             <div
@@ -31,6 +31,7 @@ export default function ChatContainer() {
             desktop:w-[100%]
             laptop:w-[100%]
             smmobile:w-[100%]
+            mobile:w-[100%]
             ${active ? 'vsmmobile:w-0' : 'vsmmobile:w-full'}
             `}>
               <ChatHeader

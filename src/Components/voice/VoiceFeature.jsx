@@ -92,7 +92,6 @@ function VoiceFeature() {
 
   return (
     <>
-      <p>recording</p>
       <VoiceControl
         startRecording={() => startRecording(setRecorderState)}
         cancelRecording={() => setRecorderState(initialState)}
