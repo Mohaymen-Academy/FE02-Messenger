@@ -48,17 +48,14 @@ export default function Login() {
           <div className="mb-5 text-[20px] text-center text-text1">ورود</div>
           <form>
             <div>
-              <label
-                htmlFor="name"
-                className="undefined mt-3 block text-sm font-medium text-text1">
-                                ایمیل
-
-                </label>
+              <label htmlFor="name" className="undefined mt-3 block text-sm font-medium text-text1">
+                ایمیل
+              </label>
               <div className="flex flex-col items-start">
                 <input
                   type="email"
                   name="email"
-                  className="input-div"
+                  className="input-div text-text1"
                   onChange={(e) => {
                     changeinput('email', e.target.value);
                   }}
@@ -73,7 +70,7 @@ export default function Login() {
                 <input
                   type="password"
                   name="password"
-                  className="input-div"
+                  className="input-div text-text1"
                   onChange={(e) => {
                     changeinput('password', e.target.value);
                   }}

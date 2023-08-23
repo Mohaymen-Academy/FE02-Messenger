@@ -98,7 +98,7 @@ export default function ChatFooter({ id, chattype }) {
         );
       }
       // !ONLY SEND A MESSAGE
-      else if(!needActoin) {
+      else if (!needActoin) {
         dispatch(
           Savenewmsg({
             id: id,

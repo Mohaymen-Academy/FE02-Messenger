@@ -62,7 +62,7 @@ export default function RightSide({ chatId }) {
           {menu === NUM_SIDEBAR_CHAT ? (
             <button
               className="relative"
-              onClick={(e) => dispatch(setsidebarState({ state: !isopen }))}>
+              onClick={() => dispatch(setsidebarState({ state: !isopen }))}>
               <UilBars className="text-text1 w-10 h-10 mx-1 m-1  " />
             </button>
           ) : (

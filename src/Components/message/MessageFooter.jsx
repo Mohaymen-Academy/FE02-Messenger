@@ -7,7 +7,7 @@ function MessageFooter({ id, isSeen, Isforme, time, isEdited }) {
   const extractedTime = `${hours}:${minutes}`;
   return (
     <div className=" flex w-full items-end justify-between text-sm text-zinc-400">
-      <p className="text-color3">{extractedTime}</p>
+      <p className="text-text1">{extractedTime}</p>
       <div className="text-bluetext1 flex flex-row-reverse">
         {Isforme ? (
           isSeen ? (
