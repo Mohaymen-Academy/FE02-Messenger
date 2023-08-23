@@ -34,6 +34,7 @@ export default function ChatBody({ chatid, chattype, bodyref, messages }) {
       const visibleItems = entries
         .filter((entry) => entry.isIntersecting)
         .map((entry) => parseInt(entry.target.dataset.id));
+      console.error(visibleItems);
       if (visibleItems.length != 0) {
         const maxval = Math.max(...visibleItems);
         if (maxval > MSGes.current.upper) {
@@ -42,7 +43,7 @@ export default function ChatBody({ chatid, chattype, bodyref, messages }) {
         }
       }
     },
-    { rootMargin: '5px', threshold: 0.5 }
+    { rootMargin: '1px', threshold: 0.5 }
   );
 
   function handleGetMessages(msgid, dir, chatid) {
@@ -65,46 +66,40 @@ export default function ChatBody({ chatid, chattype, bodyref, messages }) {
    * @param {Array} messages
    * */
   function SetMaxMin(messages) {
-    const max = Math.max(messages.map((ele) => parseInt(ele.messageID)));
-    const min = Math.min(messages.map((ele) => parseInt(ele.messageID)));
+    const max = Math.max(...messages.map((ele) => parseInt(ele.messageID)));
+    const min = Math.min(...messages.map((ele) => parseInt(ele.messageID)));
     return { max, min };
   }
 
   useEffect(() => {
     if (bodyref) {
-      bodyref.current.scrollTop = bodyref.current.scrollTop + bodyref.current.scrollHeight;
+      bodyref.current.scrollTop = bodyref.current.scrollTop + bodyref.current.scrollHeight - 100;
       dispatch(SetIDs(SetMaxMin(messages)));
-    }
-    if (prevScrollPos == 0) {
-      const maxid = messages.map((ele) => parseInt(ele.messageID));
+      if (bodyref.current.scrollTop == 0) {
+        dispatch(setUpdate({ dir: UP }));
+      } else if (isScrollAtBottom(bodyref)) {
+        Requests().UpdateSeen(SetMaxMin(messages).max);
+        setTimeout(dispatch(setUpdate({ dir: DOWN })), 1000);
+      }
     }
     //   }
   }, []);
 
-  // console.error(messages);
-  useEffect(() => {
-    dispatch(SetIDs(SetMaxMin(messages)));
-  });
-  console.error('zarp');
-  // useEffect(() => {
-  //   if (isScrollAtBottom(bodyref)) {
-  //     const maxid = Math.max(...messages.map((ele) => parseInt(ele.messageID)));
-  //     MSGes.current.upper = maxid;
-  //     // Requests().UpdateSeen(maxid);
-  //   }
-  // });
-
-  // let scrolltimeout;
-
   function isScrollAtBottom(bodyref) {
-    return bodyref.current.scrollTop + bodyref.current.clientHeight >= bodyref.current.scrollHeight;
+    console.error(
+      bodyref.current.scrollTop + bodyref.current.clientHeight >= bodyref.current.scrollHeight
+    );
+    return false;
   }
 
   function handleonScroll(e) {
+    // console.error(bodyref.current.scrollTop)
     if (bodyref.current.scrollTop == 0) {
+      // console.error('zarp az inja')
       dispatch(setUpdate({ dir: UP }));
     } else if (isScrollAtBottom(bodyref)) {
-      dispatch(setUpdate({ dir: DOWN }));
+      Requests().UpdateSeen(SetMaxMin(messages).max);
+      setTimeout(dispatch(setUpdate({ dir: DOWN })), 1000);
     }
     if (
       Math.abs(

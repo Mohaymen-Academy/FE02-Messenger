@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import Requests from '../API/Requests';
+import { DOWN } from '../utility/Constants';
 
 function CustomsortInc(a, b) {
   // console.log(a.messageID,b.messageID)
@@ -20,7 +21,7 @@ const initialState = {
   maxID: 0,
   unreadcount: 0,
   needupdate: false,
-  dir: null,
+  dir: DOWN,
   profileinfo: null,
   leftprof: null,
   profPics: [],
@@ -130,6 +131,7 @@ const SelectedProf = createSlice({
     setUpdate: (state, action) => {
       state.needupdate = true;
       state.dir = action.payload.dir;
+
     },
     SetIDs: (state, action) => {
       state.maxID = action.payload.max;
@@ -137,6 +139,9 @@ const SelectedProf = createSlice({
     },
     setUnreadCount: (state, action) => {
       state.unreadcount = action.payload.count;
+      if (action.payload.count != 0) {
+        state.downfinished = false;
+      }
     },
     ReplaceImage: (state, action) => {
       // state.messages; // Create a new array to avoid mutating the state directly
@@ -187,7 +192,8 @@ const SelectedProf = createSlice({
       })
       .addCase(GetMessagesDown.fulfilled, (state, action) => {
         state.Chatmessages = [].concat(state.Chatmessages, action.payload.messages);
-        state.downfinished = action.payload?.downFinished;
+        console.error('to ro kohda')
+        state.downfinished = action.payload.downFinished;
         state.needupdate = false;
       })
       .addCase(Savenewmsg.fulfilled, (state, action) => {
@@ -220,7 +226,7 @@ const SelectedProf = createSlice({
         });
       })
 });
-export { GetMessages, SetLeftProf, GetMessagesDown, GetMessagesUp, Savenewmsg,doupdates };
+export { GetMessages, SetLeftProf, GetMessagesDown, GetMessagesUp, Savenewmsg, doupdates };
 export const {
   resetChatId,
   editmsg,
