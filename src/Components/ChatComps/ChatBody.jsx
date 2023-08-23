@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState, memo } from 'react';
 import { createPortal } from 'react-dom';
 import { UilArrowDown } from '@iconscout/react-unicons';
 import { useDispatch, useSelector } from 'react-redux';
@@ -14,21 +14,19 @@ import { ReplaceImage, SetIDs, setUpdate } from '../../features/SelectedInfo.js'
 import { GetSharedMedia, resetPreview, setPreview } from '../../features/SharedMediaSlice.js';
 import ShowUnread from './ShowUnread.jsx';
 import Pin from './Pin.jsx';
+import GoHnalder from '../../utility/GoTomessage.js';
 
-export default function ChatBody({ chatid, chattype, bodyref, messages }) {
-  console.error('chatbody')
+const ChatBody = memo(({ chatid, chattype, bodyref, messages, lastmassage }) => {
   const dispatch = useDispatch();
   const preview = useSelector((state) => state.SharedMedia.preview);
   dispatch(GetSharedMedia(chatid));
+  console.error(lastmassage);
 
-
-  let prevScrollPos;
   const seenObserver = new IntersectionObserver(
     (entries) => {
       const visibleItems = entries
         .filter((entry) => entry.isIntersecting)
         .map((entry) => parseInt(entry.target.dataset.id));
-      console.error(visibleItems);
       if (visibleItems.length != 0) {
         const maxval = Math.max(...visibleItems);
         if (maxval) {
@@ -57,14 +55,16 @@ export default function ChatBody({ chatid, chattype, bodyref, messages }) {
 
   useEffect(() => {
     if (bodyref) {
+      console.error('alo');
       bodyref.current.scrollTop = bodyref.current.scrollTop + bodyref.current.scrollHeight - 100;
       dispatch(SetIDs(SetMaxMin(messages)));
-      if (bodyref.current.scrollTop == 0) {
-        dispatch(setUpdate({ dir: UP }));
-      } else if (isScrollAtBottom(bodyref)) {
-        Requests().UpdateSeen(SetMaxMin(messages).max);
-        setTimeout(dispatch(setUpdate({ dir: DOWN })), 1000);
-      }
+      // if (bodyref.current.scrollTop == 0) {
+      //   dispatch(setUpdate({ dir: UP }));
+      // } else if (isScrollAtBottom(bodyref)) {
+      //   Requests().UpdateSeen(SetMaxMin(messages).max);
+      //   setTimeout(dispatch(setUpdate({ dir: DOWN })), 1000);
+      // }
+      GoHnalder().GoTo(messages, lastmassage, bodyref, dispatch, chatid, chattype);
     }
     //   }
   }, []);
@@ -76,21 +76,27 @@ export default function ChatBody({ chatid, chattype, bodyref, messages }) {
         bodyref.current.scrollHeight,
         bodyref.current.clientHeight
       );
-      dispatch(SetIDs(SetMaxMin(messages)));
-      //! if there is no scroll
-      if (bodyref.current.scrollHeight == bodyref.current.clientHeight) {
-        console.error('first');
-        dispatch(setUpdate({ dir: DOWN }));
-        Requests().UpdateSeen(SetMaxMin(messages).max);
-        //! if the scroll is up
-      } else if (bodyref.current.scrollTop == 0) {
-        console.error('second');
-        dispatch(setUpdate({ dir: UP }));
-        //! if the scroll is down
-      } else if (isScrollAtBottom(bodyref)) {
-        console.error('third');
-        Requests().UpdateSeen(SetMaxMin(messages).max);
-        setTimeout(dispatch(setUpdate({ dir: DOWN })), 1000);
+
+      // dispatch(SetIDs(SetMaxMin(messages)));
+      // //! if there is no scroll
+      // if (bodyref.current.scrollHeight == bodyref.current.clientHeight) {
+      //   console.error('first');
+      //   dispatch(setUpdate({ dir: DOWN }));
+      //   Requests().UpdateSeen(SetMaxMin(messages).max);
+      //   //! if the scroll is up
+      // } else if (bodyref.current.scrollTop == 0) {
+      //   console.error('second');
+      //   dispatch(setUpdate({ dir: UP }));
+      //   //! if the scroll is down
+      // } else if (isScrollAtBottom(bodyref)) {
+      //   console.error('third');
+      //   Requests().UpdateSeen(SetMaxMin(messages).max);
+      //   setTimeout(dispatch(setUpdate({ dir: DOWN })), 1000);
+      // }
+      if (lastmassage == 0) {
+        GoHnalder().GoTo(messages, messages[0].messageID, bodyref, dispatch, chatid, chattype);
+      } else {
+        GoHnalder().GoTo(messages, lastmassage, bodyref, dispatch, chatid, chattype);
       }
     }
     //   }
@@ -107,27 +113,27 @@ export default function ChatBody({ chatid, chattype, bodyref, messages }) {
       dispatch(setUpdate({ dir: UP }));
     } else if (isScrollAtBottom(bodyref)) {
       Requests().UpdateSeen(SetMaxMin(messages).max);
-      // setTimeout(dispatch(setUpdate({ dir: DOWN })), 1000);
+      setTimeout(dispatch(setUpdate({ dir: DOWN })), 1000);
     }
-    if (
-      Math.abs(
-        bodyref.current?.scrollTop - (bodyref.current.scrollHeight - bodyref.current.clientHeight)
-      ) < 10
-    ) {
-      // if (currentScrollPos > prevScrollPos) {
-      //   dir.current = DOWN;
-      // } else {
-      //   dir.current = UP;
-      // }
-      setbuttonhidden(true);
-    } else if (buttonhidden) {
-      setbuttonhidden(false);
-    }
+    // if (
+    //   Math.abs(
+    //     bodyref.current?.scrollTop - (bodyref.current.scrollHeight - bodyref.current.clientHeight)
+    //   ) < 10
+    // ) {
+    //   // if (currentScrollPos > prevScrollPos) {
+    //   //   dir.current = DOWN;
+    //   // } else {
+    //   //   dir.current = UP;
+    //   // }
+    //   // setbuttonhidden(true);
+    // } else if (buttonhidden) {
+    //   // setbuttonhidden(false);
+    // }
   }
 
   // TODO
   const footerallowed = chattype == TYPE_CHANNEL ? false : chattype == TYPE_GROUP ? true : true;
-
+  // console.error(footerallowed)
   function scrolltobottom() {
     const startPosition = bodyref.current.scrollTop;
     const endPosition = bodyref.current.scrollHeight - bodyref.current.clientHeight;
@@ -138,6 +144,7 @@ export default function ChatBody({ chatid, chattype, bodyref, messages }) {
       const progress = Math.min(elapsed / duration, 1);
       const easedProgress = easeInOutCubic(progress); // Apply easing function if desired
       const newPosition = startPosition + (endPosition - startPosition) * easedProgress;
+      console.error('hello');
       bodyref.current.scrollTop = newPosition;
       if (progress < 1) {
         requestAnimationFrame(scrollAnimation);
@@ -148,7 +155,7 @@ export default function ChatBody({ chatid, chattype, bodyref, messages }) {
     }
     requestAnimationFrame(scrollAnimation);
   }
-  console.error(messages);
+
   return (
     <>
       <Pin bodyref={bodyref} chatid={chatid} chattype={chattype} messages={messages} />
@@ -264,4 +271,5 @@ export default function ChatBody({ chatid, chattype, bodyref, messages }) {
       </div>
     </>
   );
-}
+});
+export default ChatBody;

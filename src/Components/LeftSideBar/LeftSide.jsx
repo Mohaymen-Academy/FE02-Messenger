@@ -18,7 +18,7 @@ export default function LeftSide({
   isgroup,
   selectedProfile
 }) {
-  console.error(selectedProfile);
+  // console.error(selectedProfile);
   const dispatch = useDispatch();
   const pics = useSelector((state) => state.selectedProf.profPics);
   // console.error(selectedProfile);

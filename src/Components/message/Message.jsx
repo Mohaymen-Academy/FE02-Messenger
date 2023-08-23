@@ -60,7 +60,7 @@ const Message =
             const styles = JSON.parse(entities);
             processor.OutputEntity(textref, text, styles);
           } catch (err) {
-            console.error(err);
+            // console.error(err);
             // "[{\"id\":4,\"lower\":2,\"upper\":3,\"style\":[\"spoiler\"]},{\"id\":6,\"lower\":6,\"upper\":6,\"style\":[\"spoiler\"]},{\"id\":7,\"lower\":7,\"upper\":10,\"style\":[\"spoiler\",\"spoiler\"]},{\"id\":5,\"lower\":11,\"upper\":11,\"style\":[\"spoiler\"]}]"
           }
         } else {
@@ -119,7 +119,7 @@ const Message =
       setmousepositoin({ x_mouse, y_mouse });
     }
     // console.log('werwerkwjriopup');
-    console.error(profile);
+    // console.error(profile);
     const Isforme = creator.profileID === userprofile.profileData.profileID;
     return (
       <div
