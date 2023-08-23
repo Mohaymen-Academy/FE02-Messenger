@@ -5,11 +5,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import { GetPin, composerActions } from '../../features/composerSlice';
 import GoHnalder from '../../utility/GoTomessage';
 export default function Pin({ chatid, messages, bodyref, chattype }) {
-  console.log('zarewr')
+  // console.log('zarewr')
   const dispatch = useDispatch();
   const pinmessage = useSelector((state) => state.composer.pinmessage);
   useEffect(() => {
-    console.log('hello')
+    // console.log('hello')
     dispatch(GetPin({ chatid: chatid }));
   }, []);
 

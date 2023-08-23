@@ -28,7 +28,7 @@ export default function PersonalMenu() {
     }
   }, []);
   const [profilePicture, setprofilePicture] = useState(
-    profile.profileData.lastProfilePicture.preLoadingContent
+    profile.profileData.lastProfilePicture?.preLoadingContent
   );
   const uploadedFile = useRef(null);
   const base64img = useRef(null);
@@ -99,7 +99,7 @@ export default function PersonalMenu() {
             style={{
               backgroundImage: `${
                 profile.profileData.lastProfilePicture &&
-                `url('data:image/jpeg;base64,${profile.profileData.lastProfilePicture.preLoadingContent}')`
+                `url('data:image/jpeg;base64,${profile.profileData.lastProfilePicture?.preLoadingContent}')`
               }`,
               backgroundColor: `${profile.profileData.defaultProfileColor}`,
               backgroundRepeat: 'no-repeat',

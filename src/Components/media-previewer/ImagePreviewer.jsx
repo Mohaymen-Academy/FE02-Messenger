@@ -6,23 +6,19 @@ import Requests from '../../API/Requests';
 import { ReplaceImage } from '../../features/SelectedInfo';
 import { GetSharedMedia, resetPreview, setPreview } from '../../features/SharedMediaSlice.js';
 
-// const images = [
-//   './images/profile.jpg',
-//   './images/person.png',
-//   './images/setting.png',
-//   './images/profile.jpg'
-// ];
 function ImagePreviewer({  massageId, imageshow }) {
-  console.log(massageId , imageshow)
+  // console.log(massageId , imageshow)
   const [image, setImage] = useState([]);
   const dispatch = useDispatch();
   const info = useSelector((state) => state.selectedProf);
-  console.log(info);
+  // console.log(info);
   const req = async () => {
     // if massagId is not in downloaded -- downledded is an array of {id , image}
     const img = info.downloaded.find((item) => item.id === massageId);
     if (img) {
       setImage(img.image);
+      dispatch(ReplaceImage({ massageId, image: img.image }));
+
     } else {
       const res = await Requests().GetOriginalImage(imageshow.mediaId);
       setImage(res.content);
@@ -57,7 +53,7 @@ function ImagePreviewer({  massageId, imageshow }) {
         </button> */}
         {/* {images.map((image, index) => ( */}
         {
-          imageshow.contentType === "image/jpeg" && 
+          imageshow.contentType.startsWith("image") && 
           <img
             src={`data:image/jpeg;base64,${image}`}
             className={'block object-cover opacity-100'}
@@ -65,7 +61,7 @@ function ImagePreviewer({  massageId, imageshow }) {
           />
         }
         {
-          imageshow.contentType === "video/mp4" && 
+          imageshow.contentType.startsWith("video") && 
           <video src={`data:video/mp4;base64,${image}`} 
           className={'block object-cover opacity-100'} autoPlay controls />
            
