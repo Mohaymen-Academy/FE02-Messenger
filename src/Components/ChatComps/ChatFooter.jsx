@@ -35,6 +35,8 @@ export default function ChatFooter({ id, chattype }) {
   const Isactive = useSelector((state) => state.composer);
   const [openAttach, setOpenAttach] = useState(false);
   const [openPoll, setopenPoll] = useState(false);
+  const [openuploud, setopenuploud] = useState(false);
+
   const [fileuploaded, setfileuploaded] = useState(null);
 
   const emoji = useState('');
@@ -116,6 +118,7 @@ export default function ChatFooter({ id, chattype }) {
     setentitycontainers([]);
     dispatch(composerActions.clear());
   }
+  
   return (
     <div className=" sticky bottom-0 flex flex-col">
       {needActoin ? (
@@ -154,8 +157,8 @@ export default function ChatFooter({ id, chattype }) {
             onSelectCapture={handleSelect}
             onInput={handleonInput}
             suppressContentEditableWarning={true}
-            className=" flex h-auto max-h-[50px] w-[90%] flex-row overflow-hidden
-            whitespace-pre-wrap
+            className=" flex max-h-[150px] w-[90%] flex-row overflow-hidden overflow-y-auto
+            whitespace-pre-wrap text-text1 mx-5 bg-color1 py-2 px-3 rounded-xl
             break-all border-none shadow-none outline-none focus:shadow-none active:shadow-none">
             {Isactive.editvalue ? Isactive.editvalue : ''}
           </div>
@@ -175,7 +178,7 @@ export default function ChatFooter({ id, chattype }) {
 
             {fileuploaded && (
               <PopUp title="انتخاب فایل" setIsModalOpen={setfileuploaded}>
-                <UploadFile id={id} fileuploaded={fileuploaded} />
+                <UploadFile id={id} fileuploaded={fileuploaded} setIsModalOpen={setfileuploaded} />
               </PopUp>
             )}
             {openPoll && (

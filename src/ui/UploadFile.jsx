@@ -2,7 +2,7 @@ import React, { useRef } from 'react';
 import Requests from '../API/Requests';
 import FilePreviewer from './FilePreviewer';
 import { Files } from '../Components/LeftSideBar/ProfileParts';
-export default function UploadFile({ id, fileuploaded }) {
+export default function UploadFile({ id, fileuploaded , setIsModalOpen }) {
   const captionRef = useRef(null);
   function handleChange(event) {
     captionRef.current.value = event.target.value;
@@ -14,6 +14,7 @@ export default function UploadFile({ id, fileuploaded }) {
     } else {
       Requests().sendFiles(id, fileuploaded);
     }
+    setIsModalOpen(false);
   }
   return (
     <div className='flex flex-col justify-center'>
