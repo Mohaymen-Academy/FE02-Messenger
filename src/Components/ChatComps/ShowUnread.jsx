@@ -25,7 +25,6 @@ export default function ShowUnread() {
       dir
     );
     if (needupdate) {
-
       if (dir == UP && !upfinished) {
         console.error('2');
         dispatch(GetMessagesUp({ msgid: minID, chatid: selectedChat }));

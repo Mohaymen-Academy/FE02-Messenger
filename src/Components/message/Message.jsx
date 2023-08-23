@@ -119,7 +119,7 @@ const Message =
       setmousepositoin({ x_mouse, y_mouse });
     }
     // console.log('werwerkwjriopup');
-    console.error();
+    console.error(profile);
     const Isforme = creator.profileID === userprofile.profileData.profileID;
     return (
       <div
@@ -150,26 +150,28 @@ const Message =
             isEdited={isEdited}
           />
         </MessageBody>
-        <div className="pt-[70px]">
+        <div className="hidden">
           {chattype == TYPE_GROUP ? (
-            <Avatar imagecolor={profile.defaultProfileColor} isOnline={'false'} />
+            <Avatar
+              size={100}
+              imagecolor={profile.defaultProfileColor}
+              image={profile.lastProfilePicture}
+              isOnline={'false'}
+              char={profile.profileName}
+            />
           ) : (
             <></>
           )}
         </div>
-        {mousepositoin.x_mouse != 0 ? (
-          <MessageMenu
-            isforme={Isforme}
-            msgId={id}
-            text={text}
-            positions={mousepositoin}
-            setposition={setmousepositoin}
-            setopenForward={setopenForward}
-            // forwardedfrom
-          />
-        ) : (
-          <></>
-        )}
+        <MessageMenu
+          isforme={Isforme}
+          msgId={id}
+          text={text}
+          positions={mousepositoin}
+          setposition={setmousepositoin}
+          setopenForward={setopenForward}
+        />
+
         {openForward ? (
           <PopUp title={'هدایت'} setIsModalOpen={setopenForward}>
             <ForwardComponent text={text} messageid={id} />

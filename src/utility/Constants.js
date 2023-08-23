@@ -45,7 +45,8 @@ const TEXT_STYLES = {
   3: 'underline',
   4: 'italic',
   5: 'bold',
-  6: 'spoiler'
+  6: 'spoiler',
+  0:'link',
 };
 export { TEXT_STYLES };
 const TYPE_USER = 0,

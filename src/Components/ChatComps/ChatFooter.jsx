@@ -40,14 +40,12 @@ export default function ChatFooter({ id, chattype, isallowed }) {
 
   useEffect(() => {
     if (divref.current) {
-      console.error('wer')
-      // console.error();
-      ProcessorValues.current.sorted=[];
+      ProcessorValues.current.sorted = [];
       ProcessorValues.current.rawtext = '';
       divref.current.innerText = '';
       setentitycontainers([]);
     }
-  },[id]);
+  }, [id]);
 
   function closeTextProcessor() {
     setOpenTextProcessor(false);
@@ -103,6 +101,16 @@ export default function ChatFooter({ id, chattype, isallowed }) {
             rawtext: ProcessorValues.current.rawtext,
             styles: JSON.stringify(ProcessorValues.current.sorted),
             reply: null,
+            forward: null
+          })
+        );
+
+        dispatch(
+          Savenewmsg({
+            id: id,
+            rawtext: null,
+            styles: null,
+            reply: null,
             forward: Isactive.forwardID
           })
         );
@@ -131,7 +139,7 @@ export default function ChatFooter({ id, chattype, isallowed }) {
   return (
     <div className=" sticky bottom-0 flex flex-col">
       {needActoin ? (
-        <div className="flex-row= flex h-[30px] w-[100%] bg-color2 pr-2 pt-1">
+        <div className="flex-row items-center flex h-[40px] w-[100%] bg-color2 pr-2 pt-1">
           <button onClick={() => dispatch(composerActions.clear())}>
             <UilTimes className={'text-color3'} />
           </button>
@@ -181,9 +189,6 @@ export default function ChatFooter({ id, chattype, isallowed }) {
               <UilSmile />
             </button>
             {openTextProcessor && <TextProcessorMenu ChangeEntities={ChangeEntities} />}
-            {/* {openAttach &&
-
-} */}
 
             {fileuploaded && (
               <PopUp title="انتخاب فایل" setIsModalOpen={setfileuploaded}>

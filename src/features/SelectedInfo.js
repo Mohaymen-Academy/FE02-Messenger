@@ -63,6 +63,7 @@ const SetLeftProf = createAsyncThunk('selectedProf/setleftprof', async (infos) =
 const GetMessages = createAsyncThunk('selectedProf/getmessages', async (requestinfo) => {
   try {
     const data = await Requests().GetChat(requestinfo.profid, requestinfo.message_id);
+    console.error(data)
     return {
       data: data.data,
       profid: requestinfo.profid,

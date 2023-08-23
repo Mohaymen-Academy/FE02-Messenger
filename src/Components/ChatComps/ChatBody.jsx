@@ -16,17 +16,11 @@ import ShowUnread from './ShowUnread.jsx';
 import Pin from './Pin.jsx';
 
 export default function ChatBody({ chatid, chattype, bodyref, messages }) {
+  console.error('chatbody')
   const dispatch = useDispatch();
   const preview = useSelector((state) => state.SharedMedia.preview);
-  // const lastmsgId = useSelector((state) => state.selectedProf.LastmsgId);
   dispatch(GetSharedMedia(chatid));
 
-  // function handleMediaMessage(images, imageId) {
-  //   setPreviewImages(images); // Store media content in state
-  //   setMassageIdpreview(imageId); // Store media content in state
-  //   console.log(images, imageId);
-  //   setPreview(!preview);
-  // }
 
   let prevScrollPos;
   const seenObserver = new IntersectionObserver(
@@ -45,15 +39,6 @@ export default function ChatBody({ chatid, chattype, bodyref, messages }) {
     { rootMargin: '1px', threshold: 1 }
   );
 
-  function handleGetMessages(msgid, dir, chatid) {
-    console.error(msgid);
-    if (dir.current == UP && !upfinished) {
-      // dispatch(GetMessagesUp({ msgid: msgid, chatid: chatid }));
-    } else if (dir.current == DOWN && !downfinished) {
-      // dispatch(GetMessagesDown({ msgid: msgid, chatid: chatid }));
-    }
-  }
-
   const MSGes = useRef({
     upper: 0
   });
@@ -65,7 +50,8 @@ export default function ChatBody({ chatid, chattype, bodyref, messages }) {
    * */
   function SetMaxMin(messages) {
     const max = Math.max(...messages.map((ele) => parseInt(ele.messageID)));
-    const min = Math.min(...messages.map((ele) => parseInt(ele.messageID)));
+    const minwithout_0 = messages.filter((ele) => ele.messageID != 0);
+    const min = Math.min(...minwithout_0.map((ele) => parseInt(ele.messageID)));
     return { max, min };
   }
 
@@ -84,7 +70,7 @@ export default function ChatBody({ chatid, chattype, bodyref, messages }) {
   }, []);
   useEffect(() => {
     if (bodyref) {
-      bodyref.current.scrollTop = bodyref.current.scrollTop + bodyref.current.scrollHeight - 100;
+      // bodyref.current.scrollTop = bodyref.current.scrollTop + bodyref.current.scrollHeight - 100;
       console.error(
         bodyref.current.scrollTop,
         bodyref.current.scrollHeight,
@@ -93,16 +79,16 @@ export default function ChatBody({ chatid, chattype, bodyref, messages }) {
       dispatch(SetIDs(SetMaxMin(messages)));
       //! if there is no scroll
       if (bodyref.current.scrollHeight == bodyref.current.clientHeight) {
-        console.error('first')
+        console.error('first');
         dispatch(setUpdate({ dir: DOWN }));
         Requests().UpdateSeen(SetMaxMin(messages).max);
         //! if the scroll is up
       } else if (bodyref.current.scrollTop == 0) {
-        console.error('second')
+        console.error('second');
         dispatch(setUpdate({ dir: UP }));
         //! if the scroll is down
       } else if (isScrollAtBottom(bodyref)) {
-        console.error('third')
+        console.error('third');
         Requests().UpdateSeen(SetMaxMin(messages).max);
         setTimeout(dispatch(setUpdate({ dir: DOWN })), 1000);
       }
@@ -117,13 +103,11 @@ export default function ChatBody({ chatid, chattype, bodyref, messages }) {
   }
 
   function handleonScroll(e) {
-    // console.error(bodyref.current.scrollTop)
-    console.error(bodyref.current.scrollTop )
     if (bodyref.current.scrollTop == 0) {
       dispatch(setUpdate({ dir: UP }));
     } else if (isScrollAtBottom(bodyref)) {
       Requests().UpdateSeen(SetMaxMin(messages).max);
-      setTimeout(dispatch(setUpdate({ dir: DOWN })), 1000);
+      // setTimeout(dispatch(setUpdate({ dir: DOWN })), 1000);
     }
     if (
       Math.abs(

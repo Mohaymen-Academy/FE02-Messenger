@@ -4,7 +4,7 @@ const MessageHeader = ({ sender, isReciver, forewardedFrom, repliedTo, handlerre
   // console.error(handlerreply)
   return (
     <div>
-      {sender}
+      {sender ? <p className="pb-3 text-blue-500">{sender}</p> : <></>}
       {forewardedFrom ? (
         <div
           dir="auto"
