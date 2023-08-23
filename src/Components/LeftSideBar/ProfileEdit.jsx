@@ -2,8 +2,10 @@ import React from 'react';
 import { UilArrowRight, UilCameraPlus, UilTrashAlt } from '@iconscout/react-unicons';
 // import {Check}
 import CheckBoxParag from '../../ui/CheckBoxParag';
+import Requests from '../../API/Requests';
 
-export default function ProfileEdit({ setlayout }) {
+export default function ProfileEdit({ setlayout, selectedProfile }) {
+  console.error(selectedProfile);
   return (
     <div
       className={
@@ -29,13 +31,14 @@ export default function ProfileEdit({ setlayout }) {
               type="text"
               id="floating_outlined"
               className="peer block w-full appearance-none rounded-lg border-2 border-blue-500  bg-color2 px-2.5  pb-2.5 pt-4  text-sm text-gray-900 focus:border-blue-600 focus:outline-none focus:ring-0"
-              placeholder=" "
+              placeholder={`${selectedProfile.profileName}`}
+              value={`${selectedProfile.profileName}`}
             />
             <label className="absolute right-3 top-2 z-10 origin-[0] -translate-y-4 scale-75 bg-color2 text-sm text-gray-500 duration-300   peer-placeholder-shown:top-1/2 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:scale-100 peer-focus:top-2 peer-focus:-translate-y-4 peer-focus:scale-75 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500">
               نام (الزامی)
             </label>
           </div>
-          <div className="relative w-full">
+          {/* <div className="relative w-full">
             <input
               type="text"
               id="floating_outlined"
@@ -45,15 +48,21 @@ export default function ProfileEdit({ setlayout }) {
             <label className="absolute right-3 top-2 z-10 origin-[0] -translate-y-4 scale-75 bg-color2 text-sm text-gray-500 duration-300   peer-placeholder-shown:top-1/2 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:scale-100 peer-focus:top-2 peer-focus:-translate-y-4 peer-focus:scale-75 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500">
               نام خانوادگی (اختیاری)
             </label>
-          </div>
+          </div> */}
           <div className="p-5">
             <CheckBoxParag title={'اعلان ها'} />
           </div>
           <div className="flex h-0.5 w-full bg-bghovor"></div>
-          <div className="flex flex-row place-items-center p-3 text-red-600">
-            <UilTrashAlt className="ml-2 h-8 w-8" />
-            <p>حذف مخاطب</p>
-          </div>
+          <button
+            onClick={() => {
+              Requests().DeleteContact(selectedProfile.profileID);
+              setlayout(0);
+            }}>
+            <div className="flex flex-row place-items-center p-3 bg-color2 text-red-600 hover:opacity-75">
+              <UilTrashAlt className="ml-2 h-8 w-8" />
+              <p>حذف مخاطب</p>
+            </div>
+          </button>
         </div>
       </div>
     </div>

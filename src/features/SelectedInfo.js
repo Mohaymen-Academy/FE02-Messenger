@@ -141,6 +141,7 @@ const SelectedProf = createSlice({
       state.unreadcount = action.payload.count;
       if (action.payload.count != 0) {
         state.downfinished = false;
+        console.error(state.downfinished)
       }
     },
     ReplaceImage: (state, action) => {

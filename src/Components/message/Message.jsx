@@ -42,10 +42,8 @@ const Message =
     const textref = useRef(null);
     const processor = TextProcessorObj([]);
     const userprofile = useSelector((state) => state.profile);
-    const ents = [];
     const dispatch = useDispatch();
     const handleReply = () => {
-      console.error('first');
       GoHnalder().GoTo(
         messages,
         replyinfo.messageId,
@@ -58,8 +56,13 @@ const Message =
     useEffect(() => {
       if (textref.current) {
         if (entities != '') {
-          console.log(entities);
-          processor.OutputEntity(textref, text, []);
+          try {
+            const styles = JSON.parse(entities);
+            processor.OutputEntity(textref, text, styles);
+          } catch (err) {
+            console.error(err);
+            // "[{\"id\":4,\"lower\":2,\"upper\":3,\"style\":[\"spoiler\"]},{\"id\":6,\"lower\":6,\"upper\":6,\"style\":[\"spoiler\"]},{\"id\":7,\"lower\":7,\"upper\":10,\"style\":[\"spoiler\",\"spoiler\"]},{\"id\":5,\"lower\":11,\"upper\":11,\"style\":[\"spoiler\"]}]"
+          }
         } else {
           textref.current.innerText = text;
         }
@@ -71,9 +74,11 @@ const Message =
       }
       seenObserver.observe(mainref.current);
       if (textref.current) {
-        console.log();
         if (entities != '') {
-          processor.OutputEntity(textref, text, []);
+          try {
+            const styles = JSON.parse(entities);
+            processor.OutputEntity(textref, text, styles);
+          } catch (err) {}
         } else {
           textref.current.innerText = text;
         }

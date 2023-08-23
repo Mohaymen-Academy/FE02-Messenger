@@ -21,10 +21,7 @@ const Chatlist = () => {
   const HandleScroller = HandleScroll();
   const lists = useSelector((store) => store.messageList.messages);
   const selectedChat = useSelector((store) => store.selectedProf.selectedChatID);
-  const chattype = useSelector((store) => store.selectedProf.chatType);
-  const downfinished = useSelector((state) => state.selectedProf.downfinished);
-  const upfinished = useSelector((state) => state.selectedProf.upfinished);
-  const updatesList = useSelector((state) => state.selectedProf.updatesList);
+  // console.error(lists)
   useEffect(() => {
     if (selectedChat) {
       const profile = lists.filter((ele) => ele.profile.profileID == selectedChat)[0];

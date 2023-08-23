@@ -1,13 +1,6 @@
-import {
-  DOWN,
-  TYPE_GROUP,
-  UP
-} from '../utility/Constants';
+import { DOWN, TYPE_GROUP, UP } from '../utility/Constants';
 import API from './API';
-import {
-  BASE_URL,
-  HEADER
-} from './consts';
+import { BASE_URL, HEADER } from './consts';
 // import { useSelector } from 'react-redux';
 
 export default function Requests(body) {
@@ -65,13 +58,13 @@ export default function Requests(body) {
   // profileData
 
   async function GetChat(receiverID, params) {
-    console.error(params,receiverID);
+    console.error(params, receiverID);
     const param = {
       message_id: params
     };
     try {
       const res = await API().GET(receiverID, param, AutorizeHeader);
-      console.error(res)
+      console.error(res);
       return res;
     } catch (err) {
       console.error(err);
@@ -128,7 +121,7 @@ export default function Requests(body) {
     console.error(body);
     try {
       const res = await API().POST(`${endpoint}`, body, AutorizeHeader);
-      console.error(res)
+      console.error(res);
       return res;
     } catch (err) {
       console.log(err);
@@ -324,9 +317,16 @@ export default function Requests(body) {
       .then((data) => console.log(data))
       .catch((err) => console.log(err));
   }
-  async function Forward(msgid) {
-    const body = {};
+  async function DeleteContact(chatid) {
+    const body = {
+      id: chatid
+    };
+    API().DEL('contacts/', body, AutorizeHeader)
+    .then(res=>res.data)
+    .then(data=>console.log(data))
+    .catch(err=>console.error(err));
   }
+
   async function UpdateResponse(upid, chatid) {
     const body = {
       update_id: upid,
@@ -345,6 +345,7 @@ export default function Requests(body) {
     API().DEL(`delete-chat`, body, AutorizeHeader);
   }
   return {
+    DeleteContact,
     DeleteChat,
     UnpinChat,
     UpdateResponse,

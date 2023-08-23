@@ -85,14 +85,24 @@ export default function ChatBody({ chatid, chattype, bodyref, messages }) {
   useEffect(() => {
     if (bodyref) {
       bodyref.current.scrollTop = bodyref.current.scrollTop + bodyref.current.scrollHeight - 100;
-      console.error(bodyref.current.scrollTop,bodyref.current.scrollHeight,bodyref.current.clientHeight)
+      console.error(
+        bodyref.current.scrollTop,
+        bodyref.current.scrollHeight,
+        bodyref.current.clientHeight
+      );
       dispatch(SetIDs(SetMaxMin(messages)));
-      if (bodyref.current.scrollHeight==bodyref.current.clientHeight) {
+      //! if there is no scroll
+      if (bodyref.current.scrollHeight == bodyref.current.clientHeight) {
+        console.error('first')
         dispatch(setUpdate({ dir: DOWN }));
         Requests().UpdateSeen(SetMaxMin(messages).max);
+        //! if the scroll is up
       } else if (bodyref.current.scrollTop == 0) {
+        console.error('second')
         dispatch(setUpdate({ dir: UP }));
+        //! if the scroll is down
       } else if (isScrollAtBottom(bodyref)) {
+        console.error('third')
         Requests().UpdateSeen(SetMaxMin(messages).max);
         setTimeout(dispatch(setUpdate({ dir: DOWN })), 1000);
       }
@@ -176,18 +186,18 @@ export default function ChatBody({ chatid, chattype, bodyref, messages }) {
               messages?.map((message, index) => (
                 <>
                   {message.sender.profileID == 1 ? (
-                    message.messageID != 0 ? (
-                      <div key={message.messageID} className="my-[1rem] w-full text-center">
-                        <span className=" rounded-full bg-black bg-opacity-60 p-1 px-3 text-text1 ">
-                          {message.text}
-                        </span>
-                      </div>
-                    ) : (
+                    message.messageID == 0 ? (
                       <div key={message.messageID} className="my-[1rem] w-full text-center">
                         <span className="pointer-events-none sticky rounded-full bg-black bg-opacity-60 px-2 py-1 font-iRANSans text-white">
                           {getRelativeDate(message.time)}
                         </span>
                         {/* {children} */}
+                      </div>
+                    ) : (
+                      <div key={message.messageID} className="my-[1rem] w-full text-center">
+                        <span className=" rounded-full bg-black bg-opacity-60 p-1 px-3 text-text1 ">
+                          {message.text}
+                        </span>
                       </div>
                     )
                   ) : (

@@ -15,7 +15,7 @@ import PopUp from '../../ui/PopUp';
 import Poll from './Poll';
 import UploadFile from '../../ui/UploadFile';
 
-export default function ChatFooter({ id, chattype }) {
+export default function ChatFooter({ id, chattype, isallowed }) {
   const {
     handleEmojiPicker,
     handleSelect,
@@ -32,14 +32,22 @@ export default function ChatFooter({ id, chattype }) {
     handleKeyLeftRight,
     ProcessorValues
   } = TextProcessor([]);
-  const Isactive = useSelector((state) => state.composer);
-  const [openAttach, setOpenAttach] = useState(false);
-  const [openPoll, setopenPoll] = useState(false);
-  const [openuploud, setopenuploud] = useState(false);
+  console.error('footer');
 
+  const Isactive = useSelector((state) => state.composer);
+  const [openPoll, setopenPoll] = useState(false);
   const [fileuploaded, setfileuploaded] = useState(null);
 
-  const emoji = useState('');
+  useEffect(() => {
+    if (divref.current) {
+      console.error('wer')
+      // console.error();
+      ProcessorValues.current.sorted=[];
+      ProcessorValues.current.rawtext = '';
+      divref.current.innerText = '';
+      setentitycontainers([]);
+    }
+  },[id]);
 
   function closeTextProcessor() {
     setOpenTextProcessor(false);
@@ -100,7 +108,7 @@ export default function ChatFooter({ id, chattype }) {
         );
       }
       // !ONLY SEND A MESSAGE
-      else if(!needActoin) {
+      else if (!needActoin) {
         dispatch(
           Savenewmsg({
             id: id,
@@ -114,11 +122,12 @@ export default function ChatFooter({ id, chattype }) {
     }
 
     ProcessorValues.current.rawtext = '';
+    // ProcessorValues.current.sorted = [];
     divref.current.innerText = '';
     setentitycontainers([]);
     dispatch(composerActions.clear());
   }
-  
+
   return (
     <div className=" sticky bottom-0 flex flex-col">
       {needActoin ? (

@@ -12,17 +12,15 @@ import { useDispatch, useSelector } from 'react-redux';
 import Requests from '../../API/Requests';
 import { addcontact } from '../../features/SelectedInfo';
 export default function LeftSide({
-  isActive,
-  profile,
   setActive,
   setlayout,
   isGroupOrChannel,
   isgroup,
-  chatid
+  selectedProfile
 }) {
+  console.error(selectedProfile);
   const dispatch = useDispatch();
   const pics = useSelector((state) => state.selectedProf.profPics);
-  const selectedProfile = useSelector((state) => state.selectedProf.profileinfo);
   // console.error(selectedProfile);
   const iscontact = useSelector((state) => state.selectedProf.isContact);
   // console.error(iscontact);
@@ -80,23 +78,28 @@ export default function LeftSide({
       <div className="relative w-full h-[350px] mb-0 md:h-[350px]">
         <div
           className={`flex flex-col justify-end place-items-end w-full h-[350px]  bg-cover  bg-center bg-no-repeat`}
-          style={{
-            backgroundImage: `${
-              selectedProfile?.lastProfilePicture &&
-              `url('data:image/jpeg;base64,${selectedProfile?.lastProfilePicture.preLoadingContent}')`
-            }`,
-            backgroundColor: `${selectedProfile?.defaultProfileColor}`,
-            backgroundRepeat: 'no-repeat',
-            backgroundSize: 'cover'
-          }}>
-          <div className="p-7 pb-0 text-white font-bold text-[25px] opacity-150">
-            {' '}
-            {selectedProfile?.profileName}{' '}
+          // style={{ backgroundColor: selectedProfile.defaultProfileColor }}
+        >
+          <div className="h-[350px] w-[100%] flex flex-col">
+            <img
+              className="h-[350px] "
+              src={`data:image/jpeg;base64,${selectedProfile.lastProfilePicture?.preLoadingContent}`}
+              style={{ backgroundColor: selectedProfile.defaultProfileColor }}
+              alt=""
+            />
+            <div
+              className="absolute w-[100%]
+            flex flex-col"
+            style={{bottom:0}}>
+              <div className=" pr-10  text-white font-bold text-[25px] opacity-150 absolute">
+                {selectedProfile?.profileName}
+              </div>
+              <div className="pr-10 pt-5 text-white text-[15px]">{selectedProfile?.status}</div>
+              {/* //should change with the member or subs number */}
+              <div className="w-full h-[155px] bg-gradient-to-b from-transparent to-black"></div>
+            </div>
           </div>
-          <div className="p-7 pt-0 text-white text-[15px]">{selectedProfile?.status}</div>
-          {/* //should change with the member or subs number */}
         </div>
-        <div className="absolute bottom-0 w-full h-1/3 bg-gradient-to-b from-transparent to-black"></div>
       </div>
 
       <div>
