@@ -8,7 +8,7 @@ export default function LeftLayout({ active, setActive , chatid ,chattype}) {
   //   console.log(setlayout)
   const selectedProfile = useSelector((state) => state.selectedProf.profileinfo);
   const Pages = [
-    <LeftSide selectedProfile={selectedProfile} isGroupOrChannel={chattype == TYPE_CHANNEL || chattype == TYPE_GROUP } isActive={active} setActive={setActive} setlayout={setlayout} chatid={chatid} />,
+    <LeftSide selectedProfile={selectedProfile} isGroupOrChannel={chattype == TYPE_CHANNEL || chattype == TYPE_GROUP } isgroup={chattype == TYPE_GROUP ? true : false} isActive={active} setActive={setActive} setlayout={setlayout} chatid={chatid} />,
     <ProfileEdit selectedProfile={selectedProfile} isActive={active} setActive={setActive} setlayout={setlayout} chatid={chatid} />
   ];
   // const

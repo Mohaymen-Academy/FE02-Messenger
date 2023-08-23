@@ -8,6 +8,7 @@ export default function SearchResult({ profile, text, massage_id }) {
     <div>
       <div
         onClick={(e) =>
+          {console.error(profile)
           dispatch(
             GetMessages({
               type: profile.type,
@@ -15,7 +16,7 @@ export default function SearchResult({ profile, text, massage_id }) {
               message_id: 0 || massage_id,
               profileinfo: profile
             })
-          )
+          )}
         }
         className=" h-[70px] p-3 mx-2 flex w-[97%] cursor-pointer flex-row items-center justify-start rounded-lg  hover:bg-bghovor">
         <div className="flex w-[100%] h-full justify-between px-2">
