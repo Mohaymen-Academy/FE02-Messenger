@@ -46,7 +46,7 @@ export default function ChatFooter({ id, chattype, isallowed }) {
   const Isactive = useSelector((state) => state.composer);
   const [openPoll, setopenPoll] = useState(false);
   const [fileuploaded, setfileuploaded] = useState(null);
-  const { recorderState, ...handlers } = useRecorder();
+  const { recorderState, ...handlers } = useRecorder(id);
   const emoji = useState('');
   useEffect(() => {
     if (divref.current) {

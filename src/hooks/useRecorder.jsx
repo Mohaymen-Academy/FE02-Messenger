@@ -11,7 +11,7 @@ const initialState = {
   audio: null
 };
 
-export default function useRecorder({ id }) {
+export default function useRecorder(id) {
   const [recorderState, setRecorderState] = useState(initialState);
 
   useEffect(() => {
@@ -78,7 +78,13 @@ export default function useRecorder({ id }) {
         reader.readAsDataURL(blob);
         reader.onloadend = () => {
           const audioBase64 = reader.result.split(',')[1];
-          Requests().sendFiles(id, { content: audioBase64, text: '', type: 'audio/ogg' });
+          Requests().sendFiles(id, {
+            content: audioBase64,
+            text: '',
+            'media-type': 'audio/ogg',
+            fileName: 'the Audio',
+            size: 0
+          });
         };
         setRecorderState((prevState) => {
           if (prevState.mediaRecorder) {

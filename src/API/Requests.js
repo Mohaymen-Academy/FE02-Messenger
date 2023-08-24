@@ -266,6 +266,8 @@ export default function Requests(body) {
 
   async function deleteChat(chatid) {}
   async function sendFiles(endpoint, body) {
+    console.log('hello');
+    console.log(body);
     try {
       const res = await API().POST(`${endpoint}`, body, AutorizeHeader);
       console.log(res);
@@ -321,10 +323,11 @@ export default function Requests(body) {
     const body = {
       id: chatid
     };
-    API().DEL('contacts/', body, AutorizeHeader)
-    .then(res=>res.data)
-    .then(data=>console.log(data))
-    .catch(err=>console.error(err));
+    API()
+      .DEL('contacts/', body, AutorizeHeader)
+      .then((res) => res.data)
+      .then((data) => console.log(data))
+      .catch((err) => console.error(err));
   }
 
   async function UpdateResponse(upid, chatid) {

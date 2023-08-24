@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
-import { UilStepForward } from '@iconscout/react-unicons';
+import { UilStepForward, UilTimes } from '@iconscout/react-unicons';
 import { useSelector, useDispatch } from 'react-redux';
-import Avatar from '../ChatComps/Avatar';
 import Requests from '../../API/Requests';
 import { ReplaceImage } from '../../features/SelectedInfo';
 import { GetSharedMedia, resetPreview, setPreview } from '../../features/SharedMediaSlice.js';
@@ -42,8 +41,12 @@ function ImagePreviewer({ massageId, imageshow }) {
   }, []);
   // const [imagToShow, setImageToShow] = useState(imageId);
   return (
-    <div className="absolute left-0 top-0 flex h-full w-full flex-col justify-center bg-black bg-opacity-60 text-white">
-      <button onClick={handleClose}>close</button>
+    <div className="absolute left-0 top-0 flex h-full w-full flex-col bg-black bg-opacity-60 text-white">
+      <div className="py-2 px-1 flex">
+        <button onClick={handleClose}>
+          <UilTimes />
+        </button>
+      </div>
       <div className="flex h-2/3 w-full justify-center opacity-100">
         {/* <button onClick={() => setImageToShow((perv) => (perv + 1) % images.length)}>
           <UilStepForward />

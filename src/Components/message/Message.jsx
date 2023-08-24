@@ -137,7 +137,7 @@ const Message =
           />
           {media ? <MessageMedia src={media} handleClick={handleMediaMessage} /> : <></>}
           <div
-            className="flex break-words break-all whitespace-break-spaces font-semibold"
+            className="flex whitespace-break-spaces break-words break-all font-medium"
             dir="auto"
             ref={textref}>
             {/* {text} */}

@@ -6,7 +6,6 @@ function VoiceControl({ id, recorderState, handlers }) {
   const { recordingMinutes, recordingSeconds, initRecording } = recorderState;
   const { startRecording, sendRecording, cancelRecording, saveRecording } = handlers;
   const [media, setmedia] = useState({});
-  const sendRequest = sendRecording(id, setmedia);
   console.log(media);
   return (
     <div className="flex h-auto max-h-[50px] w-[90%] flex-row text-white bg-blue-500 rounded-full justify-between">
@@ -15,11 +14,7 @@ function VoiceControl({ id, recorderState, handlers }) {
           <button
             title="Save recording"
             disabled={recordingSeconds === 0}
-            onClick={() => {
-              sendRequest();
-              Requests().sendFile(id, media);
-              console.log('hello');
-            }}>
+            onClick={() => saveRecording()}>
             <UilMessage />
           </button>
         ) : (
