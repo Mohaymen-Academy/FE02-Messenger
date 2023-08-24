@@ -11,7 +11,7 @@ export default function ChatContainer() {
   const chatID = useSelector((state) => state.selectedProf.selectedChatID);
   const selectedProfile = useSelector((state) => state.selectedProf.profileinfo);
   const lastmassage = useSelector((state) => state.selectedProf.lastmsgId);
-  console.error(lastmassage)
+  console.error(lastmassage);
   const dispatch = useDispatch();
   const bodyref = useRef(null);
   const messages = useSelector((state) => state.selectedProf.Chatmessages);
@@ -24,7 +24,7 @@ export default function ChatContainer() {
   }, []);
   return (
     <>
-      <div className="flex flex-row flex-1">
+      <div className="flex flex-row">
         {chatID ? (
           <>
             <div
@@ -36,6 +36,7 @@ export default function ChatContainer() {
             mobile:w-[100%]
             tablet:w-[100%]
             ${active ? 'vsmmobile:w-0' : 'vsmmobile:w-full'}
+            
             `}>
               <ChatHeader
                 bodyref={bodyref}

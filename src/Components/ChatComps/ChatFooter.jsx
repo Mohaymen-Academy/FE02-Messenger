@@ -161,7 +161,7 @@ export default function ChatFooter({ id, chattype, isallowed }) {
   }
 
   return (
-    <div className=" sticky bottom-0 flex flex-col">
+    <div className="fixed bottom-0 flex flex-col w-full">
       {needActoin ? (
         <div className="flex-row items-center flex h-[40px] w-[100%] bg-color2 pr-2 pt-1">
           <button onClick={() => dispatch(composerActions.clear())}>

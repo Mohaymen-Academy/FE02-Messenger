@@ -65,7 +65,7 @@ const ChatBody = memo(({ chatid, chattype, bodyref, messages, lastmassage }) => 
   useEffect(() => {
     if (bodyref) {
       // //! if there is no scroll
-      console.error(bodyref.current.scrollTop)
+      console.error(bodyref.current.scrollTop);
       if (bodyref.current.scrollHeight == bodyref.current.clientHeight) {
         Requests().UpdateSeen(SetMaxMin(messages).max);
         dispatch(setUpdate({ dir: DOWN }));
@@ -110,7 +110,7 @@ const ChatBody = memo(({ chatid, chattype, bodyref, messages, lastmassage }) => 
   }
 
   function handleonScroll(e) {
-    console.error(bodyref.current.scrollTop)
+    console.error(bodyref.current.scrollTop);
     if (bodyref.current.scrollTop == 0) {
       dispatch(setUpdate({ dir: UP }));
       dispatch(SetIDs(SetMaxMin(messages)));
@@ -169,7 +169,7 @@ const ChatBody = memo(({ chatid, chattype, bodyref, messages, lastmassage }) => 
       <Pin bodyref={bodyref} chatid={chatid} chattype={chattype} messages={messages} />
       <div
         // dir="rtl"
-        className={'flex h-[100%] flex-col items-center'}>
+        className={'flex h-full flex-col items-center'}>
         <div className="flex h-[72%]  w-full flex-col items-center overflow-hidden">
           <div
             className="mb-[5rem] h-[90vh] w-[100%]  overflow-auto px-5 pt-3"
