@@ -46,6 +46,9 @@ export default function ChatFooter({ id, chattype, isallowed }) {
       setentitycontainers([]);
     }
   }, [id]);
+  useEffect(() => {
+    
+  }, [Isactive]);
 
   function closeTextProcessor() {
     setOpenTextProcessor(false);

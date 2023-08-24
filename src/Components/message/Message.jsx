@@ -43,6 +43,7 @@ const Message =
     const processor = TextProcessorObj([]);
     const userprofile = useSelector((state) => state.profile);
     const dispatch = useDispatch();
+    let styles;
     const handleReply = () => {
       GoHnalder().GoTo(
         messages,
@@ -57,7 +58,7 @@ const Message =
       if (textref.current) {
         if (entities != '') {
           try {
-            const styles = JSON.parse(entities);
+            styles = JSON.parse(entities);
             processor.OutputEntity(textref, text, styles);
           } catch (err) {
             // console.error(err);
@@ -137,7 +138,7 @@ const Message =
           />
           {media ? <MessageMedia src={media} handleClick={handleMediaMessage} /> : <></>}
           <div
-            className="flex break-words break-all whitespace-break-spaces font-semibold"
+            className="flex break-words break-all whitespace-pre-wrap flex-wrap font-semibold"
             dir="auto"
             ref={textref}>
             {/* {text} */}
@@ -170,6 +171,7 @@ const Message =
           positions={mousepositoin}
           setposition={setmousepositoin}
           setopenForward={setopenForward}
+          styles={JSON.parse(styles)}
         />
 
         {openForward ? (
