@@ -1,6 +1,13 @@
-import { DOWN, TYPE_GROUP, UP } from '../utility/Constants';
+import {
+  DOWN,
+  TYPE_GROUP,
+  UP
+} from '../utility/Constants';
 import API from './API';
-import { BASE_URL, HEADER } from './consts';
+import {
+  BASE_URL,
+  HEADER
+} from './consts';
 // import { useSelector } from 'react-redux';
 
 export default function Requests(body) {
@@ -343,8 +350,12 @@ export default function Requests(body) {
     };
     API().DEL(`delete-chat`, body, AutorizeHeader);
   }
+  async function GetMembers(chatid) {
+    return await API().GET(`${chatid}/members`, {}, AutorizeHeader);
+  }
   return {
     DeleteContact,
+    GetMembers,
     DeleteChat,
     UnpinChat,
     UpdateResponse,
