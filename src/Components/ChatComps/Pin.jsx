@@ -43,7 +43,7 @@ export default function Pin({ chatid, messages, bodyref, chattype }) {
                 Requests().UnpinMessage(pinmessage.messageID);
                 dispatch(composerActions.clearpin());
               }}>
-              <UilTimes />
+              <UilTimes className="text-text1" />
             </button>
           </div>
         </div>
