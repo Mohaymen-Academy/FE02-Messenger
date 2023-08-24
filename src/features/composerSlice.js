@@ -40,9 +40,9 @@ const composerSlice = createSlice({
           state.composerValue = action.payload.text;
           break;
         case 'edit':
-          console.error('zarp')
+          console.error(action.payload)
           state.isEditting = true;
-          state.editID = action.payload.messageID;
+          state.editID = action.payload.msgid;
           state.editvalue = action.payload.text;
           state.composerValue = action.payload.text;
           state.styles = action.payload.styles;

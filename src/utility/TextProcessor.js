@@ -94,9 +94,6 @@ export default function TextProcessorObj(containers) {
     e.stopPropagation();
     const result = findcursorPos();
     ProcessorValues.current.caretPosition = result[0];
-    console.error(ProcessorValues.current.sorted);
-    console.error(ProcessorValues.current.rawtext);
-    // console.log(ProcessorValues.current.caretPosition);
     ProcessorValues.current.rawtext = RawText();
     if (ProcessorValues.current.rawtext == '') ProcessorValues.current.sorted = [];
     updateEnteties(result[1]);
@@ -265,7 +262,6 @@ export default function TextProcessorObj(containers) {
    * @returns
    */
   function generateEntity(ref, text, ents) {
-    console.error(ents);
     let list_of_renderableentities = [];
 
     if (ents.length == 0) {

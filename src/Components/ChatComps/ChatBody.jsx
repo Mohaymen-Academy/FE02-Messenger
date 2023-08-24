@@ -94,14 +94,12 @@ const ChatBody = memo(({ chatid, chattype, bodyref, messages, lastmassage }) => 
       } else if (isScrollAtBottom(bodyref)) {
         Requests().UpdateSeen(SetMaxMin(messages).max);
       }
-      GoHnalder().GoTo(messages, lastmassage, bodyref, dispatch, chatid, chattype);
-      // if (lastmassage == 0) {
+      console.error(lastmassage)
+      if (lastmassage != 0) {
+        GoHnalder().GoTo(messages, SetMaxMin(messages).min, bodyref, dispatch, chatid, chattype);
+      } else {
       //   console.error(lastmassage);
-      //   // GoHnalder().GoTo(messages, SetMaxMin(messages).min, bodyref, dispatch, chatid, chattype);
-      //   bodyref.current.scrollTop = 0;
-      // } else {
-      //   console.error(lastmassage);
-      // }
+      }
     }
   }, [chatid, messages]);
 

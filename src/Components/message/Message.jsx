@@ -54,7 +54,7 @@ const Message =
         chattype
       );
     };
-    console.error()
+    console.error();
     useEffect(() => {
       if (textref.current) {
         if (entities != '') {
@@ -173,7 +173,7 @@ const Message =
           positions={mousepositoin}
           setposition={setmousepositoin}
           setopenForward={setopenForward}
-          styles={JSON.parse(entities||'')}
+          styles={entities && entities != '' ? JSON.parse(entities) : []}
         />
 
         {openForward ? (

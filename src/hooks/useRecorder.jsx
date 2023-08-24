@@ -17,7 +17,7 @@ export default function useRecorder(id) {
   useEffect(() => {
     const MAX_RECORDER_TIME = 5;
     let recordingInterval = null;
-
+    console.log('hello');
     if (recorderState.initRecording) {
       recordingInterval = setInterval(() => {
         setRecorderState((prevState) => {
@@ -105,10 +105,8 @@ export default function useRecorder(id) {
 
   return {
     recorderState,
-    handlers: {
-      startRecording: () => startRecording(setRecorderState),
-      cancelRecording: () => setRecorderState(initialState),
-      saveRecording: () => saveRecording(recorderState.mediaRecorder)
-    }
+    startRecording: () => startRecording(setRecorderState),
+    cancelRecording: () => setRecorderState(initialState),
+    saveRecording: () => saveRecording(recorderState.mediaRecorder)
   };
 }
