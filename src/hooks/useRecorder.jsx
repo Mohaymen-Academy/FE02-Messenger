@@ -105,8 +105,10 @@ export default function useRecorder(id) {
 
   return {
     recorderState,
-    startRecording: () => startRecording(setRecorderState),
-    cancelRecording: () => setRecorderState(initialState),
-    saveRecording: () => saveRecording(recorderState.mediaRecorder)
+    handlers: {
+      startRecordingkey: startRecording(setRecorderState),
+      cancelRecording: () => setRecorderState(initialState),
+      saveRecording: () => saveRecording(recorderState.mediaRecorder)
+    }
   };
 }

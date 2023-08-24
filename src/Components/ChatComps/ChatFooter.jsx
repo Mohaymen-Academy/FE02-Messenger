@@ -46,7 +46,8 @@ export default function ChatFooter({ id, chattype, isallowed }) {
   const Isactive = useSelector((state) => state.composer);
   const [openPoll, setopenPoll] = useState(false);
   const [fileuploaded, setfileuploaded] = useState(null);
-  const { recorderState, ...handlers } = useRecorder(id);
+  const { recorderState, handlers } = useRecorder(id);
+  console.log(recorderState);
   const emoji = useState('');
   useEffect(() => {
     if (divref.current) {
@@ -218,7 +219,7 @@ export default function ChatFooter({ id, chattype, isallowed }) {
               <button
                 onClick={(e) => {
                   e.stopPropagation();
-                  const { startRecording } = handlers;
+                  const startRecording = handlers.startRecording;
                   startRecording();
                 }}
                 className="mx-1 h-8 w-8 text-text1 ">
@@ -229,7 +230,9 @@ export default function ChatFooter({ id, chattype, isallowed }) {
                 onClick={(e) => {
                   e.stopPropagation();
                   const { startRecording } = handlers;
+                  console.error(startRecording);
                   startRecording();
+                  console.log('fuck you');
                 }}
                 className="mx-1 h-8 w-8 text-text1 ">
                 <UilMicrophone />
