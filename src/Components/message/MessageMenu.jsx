@@ -13,6 +13,7 @@ import { composerActions } from '../../features/composerSlice';
 import { deletemessage } from '../../features/SelectedInfo';
 import Requests from '../../API/Requests';
 import VerifyModal from '../../ui/VeifyModal';
+import { isAction } from '@reduxjs/toolkit';
 
 const MessageMenu = ({
   positions,
@@ -107,7 +108,7 @@ const MessageMenu = ({
                 key={index}
                 className="flex flex-row items-center gap-2 px-5 w-full hover:bg-bghovor rounded-lg"
                 onClick={(e) => {
-                  if (item.action && item.action != 'pin') {
+                  if (item.action && item.action != 'pin' && item.action!='edit') {
                     dispatch(
                       composerActions.setaction({ type: item.action, text: text, messageID: msgId })
                     );
@@ -125,7 +126,8 @@ const MessageMenu = ({
                     navigator.clipboard.writeText(text);
                   }
                   else if (item?.action=='edit'){
-                    dispatch(composerActions.setaction({ msgid: msgId, text: text,styles:styles }));
+                    console.error(styles)
+                    dispatch(composerActions.setaction({type: item.action, msgid: msgId, text: text,styles:styles }));
 
                   }
 

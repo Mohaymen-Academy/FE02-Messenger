@@ -94,6 +94,8 @@ export default function TextProcessorObj(containers) {
     e.stopPropagation();
     const result = findcursorPos();
     ProcessorValues.current.caretPosition = result[0];
+    console.error(ProcessorValues.current.sorted);
+    console.error(ProcessorValues.current.rawtext);
     // console.log(ProcessorValues.current.caretPosition);
     ProcessorValues.current.rawtext = RawText();
     if (ProcessorValues.current.rawtext == '') ProcessorValues.current.sorted = [];

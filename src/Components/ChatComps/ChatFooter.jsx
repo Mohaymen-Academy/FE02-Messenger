@@ -37,28 +37,32 @@ export default function ChatFooter({ id, chattype, isallowed }) {
     openemoji,
     setopenemoji,
     handleKeyLeftRight,
-    ProcessorValues
+    ProcessorValues,
+    OutputEntity
   } = TextProcessor([]);
-  console.error('footer');
-
   const Isactive = useSelector((state) => state.composer);
   const [openPoll, setopenPoll] = useState(false);
   const [fileuploaded, setfileuploaded] = useState(null);
   const { recorderState, handlers } = useRecorder(id);
-  console.log(recorderState);
   const emoji = useState('');
   useEffect(() => {
     if (divref.current) {
       ProcessorValues.current.sorted = [];
       ProcessorValues.current.rawtext = '';
       divref.current.innerText = '';
-      setentitycontainers([]);
+      // setentitycontainers([]);
     }
   }, [id]);
+  console.error(divref);
   useEffect(() => {
+    console.error(Isactive);
     if (divref.current) {
-      console.error('zarp')
-      ProcessorValues.current.sorted = Isactive.styles;
+      if (Isactive.isEditting) {
+        ProcessorValues.current.sorted = Isactive.styles;
+        ProcessorValues.current.rawtext = Isactive.editvalue;
+        let ents = OutputEntity(divref, Isactive.composerValue, ProcessorValues.current.sorted);
+        setentitycontainers(ents);
+      }
     }
   }, [Isactive]);
 
@@ -96,8 +100,18 @@ export default function ChatFooter({ id, chattype, isallowed }) {
     // IF IS EDITING
     if (ProcessorValues.current.rawtext != '') {
       if (Isactive.isEditting) {
-        dispatch(editmsg({ msgId: Isactive.editID, newtext: ProcessorValues.current.rawtext }));
-        Requests().EditMessage(Isactive.editID, ProcessorValues.current.rawtext);
+        dispatch(
+          editmsg({
+            msgId: Isactive.editID,
+            newtext: ProcessorValues.current.rawtext,
+            styles: ProcessorValues.current.sorted
+          })
+        );
+        Requests().EditMessage(
+          Isactive.editID,
+          ProcessorValues.current.rawtext,
+          ProcessorValues.current.sorted
+        );
         ProcessorValues.current.rawtext = '';
         ProcessorValues.current.sorted = [];
         divref.current.innerText = '';
@@ -210,7 +224,7 @@ export default function ChatFooter({ id, chattype, isallowed }) {
               className="mx-1 h-8 w-8 text-text1 ">
               <UilSmile />
             </button>
-            {recorderState.mediaStream ? (
+            {/* {recorderState.mediaStream ? (
               <button
                 onClick={(e) => {
                   e.stopPropagation();
@@ -232,7 +246,7 @@ export default function ChatFooter({ id, chattype, isallowed }) {
                 className="mx-1 h-8 w-8 text-text1 ">
                 <UilMicrophone />
               </button>
-            )}
+            )} */}
             {openTextProcessor && <TextProcessorMenu ChangeEntities={ChangeEntities} />}
 
             {fileuploaded && (

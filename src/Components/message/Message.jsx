@@ -54,6 +54,7 @@ const Message =
         chattype
       );
     };
+    console.error()
     useEffect(() => {
       if (textref.current) {
         if (entities != '') {
@@ -121,6 +122,7 @@ const Message =
     }
     // console.log('werwerkwjriopup');
     // console.error(profile);
+
     const Isforme = creator.profileID === userprofile.profileData.profileID;
     return (
       <div
@@ -171,7 +173,7 @@ const Message =
           positions={mousepositoin}
           setposition={setmousepositoin}
           setopenForward={setopenForward}
-          // styles={JSON.parse(styles)}
+          styles={JSON.parse(entities||'')}
         />
 
         {openForward ? (

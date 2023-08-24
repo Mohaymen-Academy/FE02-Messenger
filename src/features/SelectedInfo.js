@@ -121,6 +121,7 @@ const SelectedProf = createSlice({
           return {
             ...ele,
             text: action.payload.newtext,
+            textStyle:action.payload.style,
             isEdited: true
           };
         }
