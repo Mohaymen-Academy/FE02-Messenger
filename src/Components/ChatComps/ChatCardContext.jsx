@@ -65,7 +65,8 @@ const ChatCardContext = memo(({ setOpenContext, type, chatid, pinned }) => {
     {
       icon: <UilTrash />,
       title: 'ترک کانال',
-      color: 'text-red-500'
+      color: 'text-red-500',
+      action: handlDelete
     }
   ];
   const groupItems = [

@@ -122,7 +122,7 @@ const Message =
     }
     // console.log('werwerkwjriopup');
     // console.error(profile);
-
+    console.error(chattype == TYPE_GROUP);
     const Isforme = creator.profileID === userprofile.profileData.profileID;
     return (
       <div
@@ -153,14 +153,14 @@ const Message =
             isEdited={isEdited}
           />
         </MessageBody>
-        <div className="hidden">
-          {chattype == TYPE_GROUP ? (
+        <div className={`${Isforme ? 'hidden' : ''} pt-[20px] pr-[5px]`}>
+          {chattype === TYPE_GROUP ? (
             <Avatar
-              size={100}
+              size={50}
               imagecolor={profile.defaultProfileColor}
               image={profile.lastProfilePicture}
               isOnline={'false'}
-              char={profile.profileName}
+              char={profile.profileName[0]}
             />
           ) : (
             <></>

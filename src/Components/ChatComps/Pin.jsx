@@ -32,7 +32,7 @@ export default function Pin({ chatid, messages, bodyref, chattype }) {
               <p className="text-color3 font-iRANSans text-sm">پیام سنجاق شده</p>
               <div className="text-text1">
                 {/* Message */}
-                {pinmessage.text}
+                {pinmessage.text }
               </div>
             </div>
           </div>

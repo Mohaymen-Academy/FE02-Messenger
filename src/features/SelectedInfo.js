@@ -208,6 +208,7 @@ const SelectedProf = createSlice({
         // console.error(state.Chatmessages)
         state.upfinished = action.payload.upFinished;
         state.lastmsgId = action.payload.messageId;
+        console.error(state.lastmsgId);
         state.needupdate = false;
       })
       .addCase(GetMessagesDown.fulfilled, (state, action) => {
@@ -215,6 +216,7 @@ const SelectedProf = createSlice({
         state.Chatmessages = state.Chatmessages.concat(action.payload.messages);
         state.downfinished = action.payload.downFinished;
         state.lastmsgId = action.payload.messageId;
+        console.error(state.lastmsgId);
         state.needupdate = false;
       })
       .addCase(Savenewmsg.fulfilled, (state, action) => {

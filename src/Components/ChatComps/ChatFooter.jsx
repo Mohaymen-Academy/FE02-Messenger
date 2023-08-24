@@ -60,7 +60,7 @@ export default function ChatFooter({ id, chattype, isallowed }) {
     console.error(Isactive);
     if (divref.current) {
       ProcessorValues.current.sorted = [];
-      ProcessorValues.current.rawtext = [];
+      ProcessorValues.current.rawtext = '';
       if (Isactive.isEditting) {
         ProcessorValues.current.sorted = Isactive.styles;
         ProcessorValues.current.rawtext = Isactive.editvalue;
@@ -102,7 +102,7 @@ export default function ChatFooter({ id, chattype, isallowed }) {
   }
   async function SelectRequestType() {
     // IF IS EDITING
-    console.error(Isactive);
+    console.error(Isactive, ProcessorValues.current.rawtext);
     if (ProcessorValues.current.rawtext != '' || Isactive.isForwarding) {
       if (Isactive.isEditting) {
         dispatch(
