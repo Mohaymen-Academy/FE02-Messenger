@@ -40,7 +40,7 @@ function ImagePreviewer({ massageId, imageshow }) {
   }, []);
   // const [imagToShow, setImageToShow] = useState(imageId);
   return (
-    <div className="absolute left-0 top-0 flex h-full w-full flex-col bg-black bg-opacity-60 text-white">
+    <div className="absolute z-20 left-0 top-0 flex h-full w-full flex-col bg-black bg-opacity-60 text-white">
       <div className="flex w-full justify-between items-center px-2 py-3 opacity-100 bg-black">
         <button onClick={handleClose}>
           <UilTimes />

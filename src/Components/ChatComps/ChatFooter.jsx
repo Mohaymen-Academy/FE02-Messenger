@@ -62,7 +62,7 @@ export default function ChatFooter({ id, chattype, isallowed }) {
       ProcessorValues.current.sorted = [];
       ProcessorValues.current.rawtext = '';
       if (Isactive.isEditting) {
-        console.error(Isactive)
+        // console.error(Isactive)
         ProcessorValues.current.sorted = Isactive.styles;
         ProcessorValues.current.rawtext = Isactive.editvalue;
         let ents = OutputEntity(divref, Isactive.composerValue, ProcessorValues.current.sorted);
@@ -103,7 +103,7 @@ export default function ChatFooter({ id, chattype, isallowed }) {
   }
   async function SelectRequestType() {
     // IF IS EDITING
-    console.error(Isactive, ProcessorValues.current.rawtext);
+    // console.error(Isactive, ProcessorValues.current.rawtext);
     if (ProcessorValues.current.rawtext != '' || Isactive.isForwarding) {
       if (Isactive.isEditting) {
         dispatch(
@@ -137,6 +137,7 @@ export default function ChatFooter({ id, chattype, isallowed }) {
         }
         if (Isactive.isForwarding) {
           if (ProcessorValues.current.rawtext != '') {
+            
             dispatch(
               Savenewmsg({
                 id: id,

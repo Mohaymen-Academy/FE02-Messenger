@@ -100,7 +100,7 @@ const MessageMenu = ({
       {positions.x_mouse != 0 ? (
         <ul
           ref={divref}
-          style={{ top: `${positions.y_mouse / 4}`, left: `${positions.x_mouse}` }}
+          style={{ top: `${positions.y_mouse / 4}`, left: `${positions.x_mouse}`, bottom: 0 }}
           className="absolute z-10 shadow-2xl w-[150px] bg-color1 text-color4 rounded-lg opacity-90">
           {items.map((item, index) => {
             return item.allowed ? (

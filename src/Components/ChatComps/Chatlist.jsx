@@ -19,7 +19,6 @@ import { GetPin } from '../../features/composerSlice.js';
 const Chatlist = () => {
   const listRef = useRef(null);
   const dispatch = useDispatch();
-  const HandleScroller = HandleScroll();
   const lists = useSelector((store) => store.messageList.messages);
   const selectedChat = useSelector((store) => store.selectedProf.selectedChatID);
   useEffect(() => {

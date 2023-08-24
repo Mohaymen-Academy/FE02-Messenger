@@ -11,11 +11,6 @@ const ChatHeader = ({ active, setActive, chattype, chatid, messages, bodyref }) 
   const dispatch = useDispatch();
   const selectedProfile = useSelector((state) => state.selectedProf.profileinfo);
   const ChatInfo = selectedProfile?.status;
-  // chattype == TYPE_USER
-  //   ? selectedProfile?.status // ShouldChange
-  //   : chattype == TYPE_GROUP
-  //   ? 4
-  //   : 1200;
   return (
     <>
       <div
@@ -42,9 +37,7 @@ const ChatHeader = ({ active, setActive, chattype, chatid, messages, bodyref }) 
               imagecolor={selectedProfile?.defaultProfileColor}
               char={selectedProfile?.profileName[0]}
               isOnline={
-                selectedProfile && selectedProfile.status
-                  ? selectedProfile.status.toLowerCase()
-                  : ''
+                selectedProfile.status
               }
             />
           </div>
@@ -60,7 +53,6 @@ const ChatHeader = ({ active, setActive, chattype, chatid, messages, bodyref }) 
           {<ChatHeaderSettings active={active} />}
         </div>
       </div>
-
     </>
   );
 };

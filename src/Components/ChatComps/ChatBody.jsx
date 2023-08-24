@@ -109,12 +109,12 @@ const ChatBody = memo(({ chatid, chattype, bodyref, messages, lastmassage }) => 
   }
 
   function handleonScroll(e) {
-    console.error(bodyref.current.scrollTop);
+    // console.error(bodyref.current.scrollTop);
     if (bodyref.current.scrollTop == 0) {
       dispatch(setUpdate({ dir: UP }));
       dispatch(SetIDs(SetMaxMin(messages)));
     } else if (isScrollAtBottom(bodyref)) {
-      console.error('at bottom');
+      // console.error('at bottom');
       Requests().UpdateSeen(SetMaxMin(messages).max);
       dispatch(SetIDs(SetMaxMin(messages)));
       dispatch(setUpdate({ dir: DOWN }));

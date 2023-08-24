@@ -141,6 +141,14 @@
   /* .monospace{
         @apply monos
     } */
+    .media{
+      @apply cursor-pointer w-[100%] max-w-none max-h-[200px];
+    }
+    
+    .media-img{
+      @apply cursor-pointer w-[250px] max-w-none max-w-[250px];
+    }
+
 
   .spoiler {
     @apply blur-sm cursor-pointer whitespace-pre;

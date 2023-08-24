@@ -6,6 +6,7 @@ import { GetMessages, SetLeftProf } from '../../features/SelectedInfo';
 import Requests from '../../API/Requests';
 import ChatCardContext from './ChatCardContext';
 import { GetPin } from '../../features/composerSlice';
+import ShowEmoji from '../../ui/ShowEmoji';
 // import
 function bytesToBase64(bytes) {
   const binString = Array.from(bytes, (x) => String.fromCodePoint(x)).join('');
@@ -110,7 +111,9 @@ const ChatCardPreview = memo(
       e.preventDefault();
       setOpenContext(true);
     };
-
+    if (lastMessage.messagePreview) {
+      console.error();
+    }
     return (
       <div
         onContextMenu={handleRightClick}
@@ -144,7 +147,14 @@ const ChatCardPreview = memo(
             <div className="flex flex-col">
               <p className="font-semibold text-text1">{profileName}</p>
               <div className="line-clamp-1 pl-3 text-base text-text1 opacity-[50%]">
-                {lastMessage?.text}
+                {
+                  lastMessage.text != '' ? (
+                    lastMessage.text
+                  ) : lastMessage.messagePreview ? (
+                    <ShowEmoji textwithemoji={lastMessage.messagePreview} />
+                  ) : null
+                  // String.fromCodePoint(lastMessage.messagePreview.split(';')[0])
+                }
               </div>
             </div>
           </div>

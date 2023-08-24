@@ -4,6 +4,7 @@ import Requests from '../../API/Requests';
 import { useDispatch, useSelector } from 'react-redux';
 import { GetPin, composerActions } from '../../features/composerSlice';
 import GoHnalder from '../../utility/GoTomessage';
+import ShowEmoji from '../../ui/ShowEmoji';
 export default function Pin({ chatid, messages, bodyref, chattype }) {
   // console.log('zarewr')
   const dispatch = useDispatch();
@@ -18,7 +19,7 @@ export default function Pin({ chatid, messages, bodyref, chattype }) {
   // });
 
   // self.__WB_DISABLE_DEV_LOGS = true;
-
+  console.error(pinmessage);
   return (
     <>
       {pinmessage ? (
@@ -32,7 +33,11 @@ export default function Pin({ chatid, messages, bodyref, chattype }) {
               <p className="text-color3 font-iRANSans text-sm">پیام سنجاق شده</p>
               <div className="text-text1">
                 {/* Message */}
-                {pinmessage.text } 
+                {pinmessage.text != '' ? (
+                  pinmessage.text
+                ) : pinmessage.messagePreview ? (
+                  <ShowEmoji textwithemoji={pinmessage.messagePreview} />
+                ) : null}
               </div>
             </div>
           </div>
