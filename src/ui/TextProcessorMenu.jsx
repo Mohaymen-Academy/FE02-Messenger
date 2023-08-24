@@ -9,10 +9,11 @@ import {
   UilEyeSlash,
   UilBookMedical,
   UilCropAlt,
-  UilCopyAlt
+  UilCopyAlt,
+  UilPlusCircle
 } from '@iconscout/react-unicons';
 
-const TextProcessorMenu = ({ x_pos, y_pos, positions, setPosotion, ChangeEntities}) => {
+const TextProcessorMenu = ({ x_pos, y_pos, positions, setPosotion, ChangeEntities }) => {
   const [choice, setChoice] = useState({
     0: 0,
     1: 0,
@@ -25,10 +26,17 @@ const TextProcessorMenu = ({ x_pos, y_pos, positions, setPosotion, ChangeEntitie
     8: 0,
     9: 0
   });
-  const [items, setitem] = useState([
+  const linkref = useRef(null);
+  const [link, setlink] = useState(false);
+  function openlink(e) {
+    e.stopPropagation();
+    setlink(true);
+  }
+  const items = [
     {
       icon: <UilLinkAdd />,
-      color: 'text-text1'
+      color: 'text-text1',
+      action: 'openlink'
     },
     {
       icon: <UilMediumM />,
@@ -66,7 +74,7 @@ const TextProcessorMenu = ({ x_pos, y_pos, positions, setPosotion, ChangeEntitie
       icon: <UilCopyAlt />,
       color: 'text-text1'
     }
-  ]);
+  ];
   const divref = useRef(null);
   function handleOutsideClick(event) {
     if (divref.current && !divref.current.contains(event.target)) {
@@ -79,29 +87,44 @@ const TextProcessorMenu = ({ x_pos, y_pos, positions, setPosotion, ChangeEntitie
     }
     return () => document.addEventListener('mousedown', handleOutsideClick);
   }, [positions]);
-  // console.log(choice);
+
+  // // console.log(choice);
   return (
     <div
       dir="ltr"
       className="flex flex-row absolute z-10 shadow-2xl bg-color1 text-color4 rounded-lg opacity-90 p-1 w-fit"
       ref={divref}
-      style={{ 
-        bottom: `${70}px`, 
-      left: '10px' }}
-      >
-      {items.map((item, index) => {
-        return (
-          <button
-            key={index}
-            className={`flex flex-col items-center px-2 m-0.5 w-full ${
-              choice[index] === 1 && 'bg-blue-600'
-            } hover:bg-blue-600 hover:text-white rounded-lg`}
-            onClick={(e) => ChangeEntities(index)}>
-            <div className={`flex items-center gap-2 my-1 ${item.color}`}>{item.icon}</div>
-            <p className={`text-xs px-2 ${item.color}`}>{item.title}</p>
+      style={{
+        bottom: `${70}px`,
+        left: '10px'
+      }}>
+      {!link ? (
+        items.map((item, index) => {
+          return (
+            <button
+              key={index}
+              className={`flex flex-col items-center px-2 m-0.5 w-full ${
+                choice[index] === 1 && 'bg-blue-600'
+              } hover:bg-blue-600 hover:text-white rounded-lg`}
+              onClick={(e) => (item?.action == 'openlink' ? openlink(e) : ChangeEntities(index))}>
+              <div className={`flex items-center gap-2 my-1 ${item.color}`}>{item.icon}</div>
+              <p className={`text-xs px-2 ${item.color}`}>{item.title}</p>
+            </button>
+          );
+        })
+      ) : (
+        <div className="flex flex-row items-center gap-2 ">
+          <input
+            onClick={(e) => e.stopPropagation()}
+            ref={linkref}
+            type="text"
+            className="text-text1 bg-color1 border-2 border-color4 p-1 rounded-xl"
+          />
+          <button onClick={(e) => ChangeEntities(0, linkref.current.value)}>
+            <UilPlusCircle className={'text-text1'} />
           </button>
-        );
-      })}
+        </div>
+      )}
     </div>
   );
 };

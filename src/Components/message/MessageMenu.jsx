@@ -12,6 +12,7 @@ import { useDispatch } from 'react-redux';
 import { composerActions } from '../../features/composerSlice';
 import { deletemessage } from '../../features/SelectedInfo';
 import Requests from '../../API/Requests';
+import VerifyModal from '../../ui/VeifyModal';
 
 const MessageMenu = ({
   positions,
@@ -22,7 +23,7 @@ const MessageMenu = ({
   chattype,
   isforme
 }) => {
-  console.error(isforme)
+  const [opendeltemenu, setopendeltemenu] = useState(false);
   const dispatch = useDispatch();
   const divref = useRef(null);
   function handleOutsideClick(event) {
@@ -50,7 +51,7 @@ const MessageMenu = ({
       title: 'ویرایش',
       color: 'text-text1',
       action: 'edit',
-      allowed: true
+      allowed: isforme
     },
     {
       icon: <UilLink />,
@@ -87,52 +88,67 @@ const MessageMenu = ({
       allowed: isforme
     }
   ]);
-  // console.log(positions);
-  console.log(positions);
+
+  const handledelte = () => {
+    dispatch(deletemessage({ msgid: msgId }));
+    Requests().Deletemsg(msgId);
+  };
   return (
     <>
-      <ul
-        ref={divref}
-        style={{ top: `${positions.y_mouse / 4}`, left: `${positions.x_mouse}` }}
-        className="absolute z-10 shadow-2xl w-[150px] bg-color1 text-color4 rounded-lg opacity-90">
-        {items.map((item, index) => {
-          return (
-            item.allowed?
-            <button
-              key={index}
-              className="flex flex-row items-center gap-2 px-5 w-full hover:bg-bghovor rounded-lg"
-              onClick={(e) => {
-                if (item.action && item.action != 'pin') {
-                  dispatch(
-                    composerActions.setaction({ type: item.action, text: text, messageID: msgId })
-                  );
-                  if (item.action === 'delete') {
-                    dispatch(deletemessage({ msgid: msgId }));
-                    Requests().Deletemsg(msgId);
+      {positions.x_mouse != 0 ? (
+        <ul
+          ref={divref}
+          style={{ top: `${positions.y_mouse / 4}`, left: `${positions.x_mouse}` }}
+          className="absolute z-10 shadow-2xl w-[150px] bg-color1 text-color4 rounded-lg opacity-90">
+          {items.map((item, index) => {
+            return item.allowed ? (
+              <button
+                key={index}
+                className="flex flex-row items-center gap-2 px-5 w-full hover:bg-bghovor rounded-lg"
+                onClick={(e) => {
+                  if (item.action && item.action != 'pin') {
+                    dispatch(
+                      composerActions.setaction({ type: item.action, text: text, messageID: msgId })
+                    );
+                    if (item.action === 'delete') {
+                      setopendeltemenu(true);
+                      setposition({ x_mouse: 0, y_mouse: 0 });
+                    }
                   }
-                }
-                if (item.action && item.action == 'pin') {
-                  Requests().PinMSG(msgId);
-                  dispatch(composerActions.pinmsg({ msgid: msgId, text: text }));
-                }
-                if (item.action === 'forward') {
-                  console.error('zerwerwr');
-                  setopenForward(true);
-                }
-                if (item.action === 'copy') {
-                  console.error('copy');
-                  navigator.clipboard.writeText(text);
-                  alert(`You have copied "${text}"`);
-                }
-                // setposition({ x_mouse: 0, y_mouse: 0 });
-              }}>
-              <div className={`flex items-center gap-2 my-1 ${item.color}`}>{item.icon}</div>
-              <p className={`text-xs px-2 ${item.color}`}>{item.title}</p>
-            </button>
-            :<></>
-          );
-        })}
-      </ul>
+                  if (item.action && item.action == 'pin') {
+                    Requests().PinMSG(msgId);
+                    dispatch(composerActions.pinmsg({ msgid: msgId, text: text }));
+                  }
+                  if (item.action === 'forward') {
+                    console.error('zerwerwr');
+                    setopenForward(true);
+                  }
+                  if (item.action === 'copy') {
+                    console.error('copy');
+                    navigator.clipboard.writeText(text);
+                    alert(`You have copied "${text}"`);
+                  }
+                  // setposition({ x_mouse: 0, y_mouse: 0 });
+                }}>
+                <div className={`flex items-center gap-2 my-1 ${item.color}`}>{item.icon}</div>
+                <p className={`text-xs px-2 ${item.color}`}>{item.title}</p>
+              </button>
+            ) : (
+              <></>
+            );
+          })}
+        </ul>
+      ) : null}
+      {opendeltemenu ? (
+        <VerifyModal
+          title={'حذف پیام'}
+          describe={'در صورت تایید پیام انتخاب شده پاک میشود'}
+          dispatch={handledelte}
+          setmodal={setopendeltemenu}
+        />
+      ) : (
+        <></>
+      )}
     </>
   );
 };

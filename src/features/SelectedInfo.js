@@ -14,7 +14,7 @@ const initialState = {
   chatType: null,
   selectedProfileView: null,
   Chatmessages: [],
-  // LastmsgId: 0,
+  lastmsgId: 0,
   upfinished: false,
   downfinished: false,
   minID: 0,
@@ -42,7 +42,9 @@ const Savenewmsg = createAsyncThunk('selectedProf/Savenewmsg', async (msginfo) =
 
 const doupdates = createAsyncThunk('selectedProf/doupdates', async (updateinfos) => {
   const data = await Requests().UpdateResponse(updateinfos.upid, updateinfos.chatid);
+  console.error(data);
   return {
+    data: data,
     updates: updateinfos.updates
   };
 });
@@ -63,6 +65,7 @@ const SetLeftProf = createAsyncThunk('selectedProf/setleftprof', async (infos) =
 const GetMessages = createAsyncThunk('selectedProf/getmessages', async (requestinfo) => {
   try {
     const data = await Requests().GetChat(requestinfo.profid, requestinfo.message_id);
+    console.error(data);
     return {
       data: data.data,
       profid: requestinfo.profid,
@@ -77,14 +80,30 @@ const GetMessages = createAsyncThunk('selectedProf/getmessages', async (requesti
 const deletemsg = (messages, msgIdToDelete) => {
   return messages.filter((msg) => msg.messageID != msgIdToDelete);
 };
-const editmsgfunc = (messages, newmsg) => {
-  messages.map((ele) => {
-    if (ele.messageID == newmsg.messageID) {
-      return newmsg;
+const seenchange = (messages, msgidtoseen) => {
+  console.error('in seen');
+  return messages.map((ele) => {
+    if (ele.messageID == msgidtoseen) {
+      console.error(ele);
+      return {
+        ...ele,
+        viewCount: ele.viewCount
+      };
     }
     return ele;
   });
 };
+const editmsgfunc = (messages, newmsg) => {
+  console.error(newmsg);
+  return messages.map((ele) => {
+    if (ele.messageID == newmsg.messageID) {
+      // return newmsg;
+      return { ...ele, text: newmsg.text, isEdited: true };
+    }
+    return ele;
+  });
+};
+
 const SelectedProf = createSlice({
   name: 'selectedProf',
   initialState,
@@ -114,7 +133,7 @@ const SelectedProf = createSlice({
       state.downfinished = action.payload.down;
     },
     setLastmsgId: (state, action) => {
-      state.LastmsgId = action.payload.msgid;
+      state.lastmsgId = action.payload.msgid;
     },
     deleteChat: (state, action) => {
       if (action.payload.chatid == state.selectedChatID) {
@@ -131,7 +150,6 @@ const SelectedProf = createSlice({
     setUpdate: (state, action) => {
       state.needupdate = true;
       state.dir = action.payload.dir;
-
     },
     SetIDs: (state, action) => {
       state.maxID = action.payload.max;
@@ -141,7 +159,7 @@ const SelectedProf = createSlice({
       state.unreadcount = action.payload.count;
       if (action.payload.count != 0) {
         state.downfinished = false;
-        console.error(state.downfinished)
+        // console.error(state.downfinished);
       }
     },
     ReplaceImage: (state, action) => {
@@ -172,6 +190,7 @@ const SelectedProf = createSlice({
         state.Chatmessages = action.payload?.data?.messages;
         state.downfinished = action.payload?.data?.downFinished;
         state.upfinished = action.payload?.data?.upFinished;
+        state.lastmsgId = action.payload?.data?.messageId;
         state.chatType = action.payload.type;
         state.selectedChatID = action.payload.profid;
         if (action.payload?.profileinfo) state.profileinfo = action.payload?.profileinfo;
@@ -186,13 +205,14 @@ const SelectedProf = createSlice({
         console.error(action.payload);
         state.Chatmessages = [].concat(action.payload.messages, state.Chatmessages);
         state.upfinished = action.payload.upFinished;
+        state.lastmsgId = action.payload?.data?.messageId;
         state.needupdate = false;
       })
       .addCase(GetMessagesDown.fulfilled, (state, action) => {
-        state.Chatmessages = [].concat(state.Chatmessages, action.payload.messages);
         console.error(action.payload);
-        console.error('to ro kohda')
+        state.Chatmessages = [].concat(state.Chatmessages, action.payload.messages);
         state.downfinished = action.payload.downFinished;
+        state.lastmsgId = action.payload?.data?.messageId;
         state.needupdate = false;
       })
       .addCase(Savenewmsg.fulfilled, (state, action) => {
@@ -212,14 +232,20 @@ const SelectedProf = createSlice({
         }
       })
       .addCase(doupdates.fulfilled, (state, action) => {
-        // state.updatesList = state.updatesList.concat();
         action.payload.updates.forEach((command) => {
+          console.error(command.updateType.toLowerCase());
           switch (command.updateType.toLowerCase()) {
             case 'delete':
-              state.Chatmessages = deletemsg(state.Chatmessages, command.MessageId);
+              console.error('in delete');
+              state.Chatmessages = deletemsg(state.Chatmessages, command.messageId);
               break;
             case 'edit':
+              console.error('in edit');
               state.Chatmessages = editmsgfunc(state.Chatmessages, command.message);
+              break;
+            case 'seen':
+              console.error('in seen');
+              state.Chatmessages = seenchange(state.Chatmessages, command.messageId);
               break;
           }
         });

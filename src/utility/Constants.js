@@ -45,15 +45,17 @@ const TEXT_STYLES = {
   3: 'underline',
   4: 'italic',
   5: 'bold',
-  6: 'spoiler'
+  6: 'spoiler',
+  0:'link',
 };
 export { TEXT_STYLES };
 const TYPE_USER = 0,
   TYPE_GROUP = 1,
   TYPE_CHANNEL = 2;
 const UP = 1,
-  DOWN = 2;
-export { UP, DOWN };
+  DOWN = 2,
+  NOTHING=3;
+export { UP, DOWN,NOTHING };
 export { TYPE_CHANNEL, TYPE_GROUP, TYPE_USER };
 
 function getPersianMonthName(month) {

@@ -14,6 +14,7 @@ import {
 } from '../../features/SelectedInfo.js';
 import { setActiveMessage } from '../../features/chatCardPreviewSlice.js';
 import Requests from '../../API/Requests.js';
+import { GetPin } from '../../features/composerSlice.js';
 
 const Chatlist = () => {
   const listRef = useRef(null);
@@ -21,7 +22,7 @@ const Chatlist = () => {
   const HandleScroller = HandleScroll();
   const lists = useSelector((store) => store.messageList.messages);
   const selectedChat = useSelector((store) => store.selectedProf.selectedChatID);
-  console.error(lists)
+  // console.error(lists)
   useEffect(() => {
     if (selectedChat) {
       const profile = lists.filter((ele) => ele.profile.profileID == selectedChat)[0];
@@ -29,9 +30,15 @@ const Chatlist = () => {
       if (profile && profile.length != 0) {
         // console.error(profile)
         if (profile.updates.length != 0) {
+          const changepin = profile.updates.filter(
+            (command) => command.updateType == 'PIN' || command.updateType == 'UNPIN'
+          );
+          if (changepin.length) {
+            dispatch(GetPin({ chatid: selectedChat }));
+          }
           const maxid = Math.max(...profile.updates.map((command) => command.id));
-          // console.error(maxid);
-          // dispatch(doupdates({ updates: profile.updates ,upid:maxid,chatid:selectedChat}));
+          // console.error(profile.updates);
+          dispatch(doupdates({ updates: profile.updates ,upid:maxid,chatid:selectedChat}));
         }
         dispatch(setUnreadCount({ count: profile.unreadMessageCount }));
       }
@@ -40,7 +47,7 @@ const Chatlist = () => {
   return (
     <div
       ref={listRef}
-      onScroll={() => handleScroll(listRef)}
+      // onScroll={() => handleScroll(listRef)}
       className=" mt-4 h-full w-full overflow-y-auto">
       {lists?.map((chatprev, index) => (
         <ChatCardPreview

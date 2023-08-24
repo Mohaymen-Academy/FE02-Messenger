@@ -10,10 +10,10 @@ export default function ChatContainer() {
   const chatType = useSelector((state) => state.selectedProf.chatType);
   const chatID = useSelector((state) => state.selectedProf.selectedChatID);
   const selectedProfile = useSelector((state) => state.selectedProf.profileinfo);
+  const lastmassage = useSelector((state) => state.selectedProf.lastmsgId);
   const dispatch = useDispatch();
   const bodyref = useRef(null);
   const messages = useSelector((state) => state.selectedProf.Chatmessages);
-  console.error(selectedProfile);
   useEffect(() => {
     document.addEventListener('keydown', (e) => {
       if (e.key == 'Escape') {
@@ -45,8 +45,14 @@ export default function ChatContainer() {
                 messages={messages}
               />
 
-              <ChatBody bodyref={bodyref} chattype={chatType} chatid={chatID} messages={messages} />
-              {selectedProfile.accessPermission!=PERMISSION_TYPE_NOT_ALLOWED_ ? (
+              <ChatBody
+                bodyref={bodyref}
+                chattype={chatType}
+                chatid={chatID}
+                messages={messages}
+                lastmassage={lastmassage}
+              />
+              {selectedProfile.accessPermission != PERMISSION_TYPE_NOT_ALLOWED_ ? (
                 <ChatFooter chattype={chatType} id={chatID} />
               ) : (
                 <></>

@@ -146,7 +146,7 @@
     @apply blur-sm cursor-pointer;
   }
   .spoiler_{
-    @apply cursor-pointer
+    @apply cursor-pointer blur-0 !important;
   }
   .hover-trigger .hover-target {
     @apply hidden;
