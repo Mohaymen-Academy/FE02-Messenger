@@ -1,5 +1,12 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { UilSmile, UilMessage, UilPaperclip, UilTimes } from '@iconscout/react-unicons';
+import {
+  UilSmile,
+  UilMessage,
+  UilPaperclip,
+  UilTimes,
+  UilMicrophone,
+  UilPause
+} from '@iconscout/react-unicons';
 // import EmojiPicker from 'emoji-picker-react';
 import { useDispatch, useSelector } from 'react-redux';
 import { json } from 'react-router-dom';
@@ -14,6 +21,8 @@ import { Savenewmsg, editmsg } from '../../features/SelectedInfo';
 import PopUp from '../../ui/PopUp';
 import Poll from './Poll';
 import UploadFile from '../../ui/UploadFile';
+import useRecorder from '../../hooks/useRecorder';
+import VoiceControl from '../voice/VoiceControl';
 
 export default function ChatFooter({ id, chattype, isallowed }) {
   const {
@@ -37,13 +46,9 @@ export default function ChatFooter({ id, chattype, isallowed }) {
   const Isactive = useSelector((state) => state.composer);
   const [openPoll, setopenPoll] = useState(false);
   const [fileuploaded, setfileuploaded] = useState(null);
-<<<<<<< HEAD
-  const { recorderState, handlers } = useRecorder(id);
+  const { recorderState, ...handlers } = useRecorder(id);
   console.log(recorderState);
   const emoji = useState('');
-=======
-
->>>>>>> parent of f608d9c (Merge branch 'main' of https://github.com/Mohaymen-Academy/FE02-Messenger into leftSide)
   useEffect(() => {
     if (divref.current) {
       ProcessorValues.current.sorted = [];
@@ -176,23 +181,32 @@ export default function ChatFooter({ id, chattype, isallowed }) {
             <UilMessage />
           </button>
           {/* </UilPaperclip> */}
-          <FileUploader openpull={setopenPoll} openfile={setfileuploaded} chattype={chattype} />
+          <FileUploader
+            openpull={setopenPoll}
+            openfile={setfileuploaded}
+            chattype={chattype}
+            id={id}
+          />
           {/* <input type="text" dir='auto' /> */}
-          <div
-            ref={divref}
-            dir="auto"
-            contentEditable
-            onKeyDown={handleKeyDown} // Attach the onKeyDown event handler
-            onClick={handleclick}
-            onSelectCapture={handleSelect}
-            onInput={handleonInput}
-            suppressContentEditableWarning={true}
-            className=" flex max-h-[150px] w-[90%] flex-row overflow-hidden overflow-y-auto
-            whitespace-pre-wrap text-text1 mx-5 bg-color1 py-2 px-3 rounded-xl
+          {recorderState.mediaStream ? (
+            <VoiceControl handlers={handlers} recorderState={recorderState} id={id} />
+          ) : (
+            <div
+              ref={divref}
+              dir="auto"
+              contentEditable
+              onKeyDown={handleKeyDown} // Attach the onKeyDown event handler
+              onClick={handleclick}
+              onSelectCapture={handleSelect}
+              onInput={handleonInput}
+              suppressContentEditableWarning={true}
+              className=" flex h-auto max-h-[50px] w-[90%] flex-row overflow-hidden
+            whitespace-pre-wrap
             break-all border-none shadow-none outline-none focus:shadow-none active:shadow-none">
-            {Isactive.editvalue ? Isactive.editvalue : ''}
-          </div>
-          <div>
+              {Isactive.editvalue ? Isactive.editvalue : ''}
+            </div>
+          )}
+          <div className="flex">
             <button
               onClick={(e) => {
                 e.stopPropagation();
@@ -201,13 +215,12 @@ export default function ChatFooter({ id, chattype, isallowed }) {
               className="mx-1 h-8 w-8 text-text1 ">
               <UilSmile />
             </button>
-<<<<<<< HEAD
             {recorderState.mediaStream ? (
               <button
                 onClick={(e) => {
                   e.stopPropagation();
-                  const startRecording = handlers.startRecording;
-                  startRecording();
+                  const { cancelRecording } = handlers;
+                  cancelRecording();
                 }}
                 className="mx-1 h-8 w-8 text-text1 ">
                 <UilPause />
@@ -225,8 +238,6 @@ export default function ChatFooter({ id, chattype, isallowed }) {
                 <UilMicrophone />
               </button>
             )}
-=======
->>>>>>> parent of f608d9c (Merge branch 'main' of https://github.com/Mohaymen-Academy/FE02-Messenger into leftSide)
             {openTextProcessor && <TextProcessorMenu ChangeEntities={ChangeEntities} />}
 
             {fileuploaded && (
