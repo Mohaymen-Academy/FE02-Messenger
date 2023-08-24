@@ -42,7 +42,9 @@ const Savenewmsg = createAsyncThunk('selectedProf/Savenewmsg', async (msginfo) =
 
 const doupdates = createAsyncThunk('selectedProf/doupdates', async (updateinfos) => {
   const data = await Requests().UpdateResponse(updateinfos.upid, updateinfos.chatid);
+  console.error(data);
   return {
+    data: data,
     updates: updateinfos.updates
   };
 });
@@ -78,14 +80,30 @@ const GetMessages = createAsyncThunk('selectedProf/getmessages', async (requesti
 const deletemsg = (messages, msgIdToDelete) => {
   return messages.filter((msg) => msg.messageID != msgIdToDelete);
 };
-const editmsgfunc = (messages, newmsg) => {
-  messages.map((ele) => {
-    if (ele.messageID == newmsg.messageID) {
-      return newmsg;
+const seenchange = (messages, msgidtoseen) => {
+  console.error('in seen');
+  return messages.map((ele) => {
+    if (ele.messageID == msgidtoseen) {
+      console.error(ele);
+      return {
+        ...ele,
+        viewCount: ele.viewCount
+      };
     }
     return ele;
   });
 };
+const editmsgfunc = (messages, newmsg) => {
+  console.error(newmsg);
+  return messages.map((ele) => {
+    if (ele.messageID == newmsg.messageID) {
+      // return newmsg;
+      return { ...ele, text: newmsg.text, isEdited: true };
+    }
+    return ele;
+  });
+};
+
 const SelectedProf = createSlice({
   name: 'selectedProf',
   initialState,
@@ -141,7 +159,7 @@ const SelectedProf = createSlice({
       state.unreadcount = action.payload.count;
       if (action.payload.count != 0) {
         state.downfinished = false;
-        console.error(state.downfinished);
+        // console.error(state.downfinished);
       }
     },
     ReplaceImage: (state, action) => {
@@ -214,14 +232,20 @@ const SelectedProf = createSlice({
         }
       })
       .addCase(doupdates.fulfilled, (state, action) => {
-        // state.updatesList = state.updatesList.concat();
         action.payload.updates.forEach((command) => {
+          console.error(command.updateType.toLowerCase());
           switch (command.updateType.toLowerCase()) {
             case 'delete':
-              state.Chatmessages = deletemsg(state.Chatmessages, command.MessageId);
+              console.error('in delete');
+              state.Chatmessages = deletemsg(state.Chatmessages, command.messageId);
               break;
             case 'edit':
+              console.error('in edit');
               state.Chatmessages = editmsgfunc(state.Chatmessages, command.message);
+              break;
+            case 'seen':
+              console.error('in seen');
+              state.Chatmessages = seenchange(state.Chatmessages, command.messageId);
               break;
           }
         });

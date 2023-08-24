@@ -31,10 +31,10 @@ const Message =
     handleMediaMessage,
     entities,
     profile,
-    shouldobserve,
     replyinfo,
     bodyref
   }) => {
+    // console.error(text)
     // console.error(forwardedfrom);
     const [mousepositoin, setmousepositoin] = useState({ x_mouse: 0, y_mouse: 0 });
     const [openForward, setopenForward] = useState(false);

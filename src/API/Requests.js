@@ -179,6 +179,7 @@ export default function Requests(body) {
     const body = {
       text
     };
+    console.error(body)
     await API()
       .POST(`edit-message/${messageId}`, body, AutorizeHeader)
       .then((res) => res.json())
@@ -335,11 +336,7 @@ export default function Requests(body) {
       update_id: upid,
       chat_id: chatid
     };
-    API()
-      .PUT('update', body, AutorizeHeader)
-      .then((res) => res.data)
-      .then((data) => console.log(data))
-      .catch((err) => console.log(err));
+    return API().PUT('update', body, AutorizeHeader);
   }
   async function DeleteChat(chatid) {
     const body = {

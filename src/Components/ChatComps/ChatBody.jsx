@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import ChatFooter from './ChatFooter.jsx';
 import Message from '../message/Message.jsx';
 import ImagePreviewer from '../media-previewer/ImagePreviewer.jsx';
-import { DOWN, TYPE_CHANNEL, TYPE_GROUP, UP, getRelativeDate } from '../../utility/Constants.js';
+import { DOWN, NOTHING, TYPE_CHANNEL, TYPE_GROUP, UP, getRelativeDate } from '../../utility/Constants.js';
 import MessageDateGroup from '../message/MessageDateGroup.jsx';
 import MessageVoice from '../message/MessageVoice.jsx';
 // import { NeededId } from '../../utility/FindneededID.js';
@@ -20,7 +20,7 @@ const ChatBody = memo(({ chatid, chattype, bodyref, messages, lastmassage }) => 
   const dispatch = useDispatch();
   const preview = useSelector((state) => state.SharedMedia.preview);
   dispatch(GetSharedMedia(chatid));
-  console.error(lastmassage);
+  // console.error(lastmassage);
 
   const seenObserver = new IntersectionObserver(
     (entries) => {
@@ -29,7 +29,8 @@ const ChatBody = memo(({ chatid, chattype, bodyref, messages, lastmassage }) => 
         .map((entry) => parseInt(entry.target.dataset.id));
       if (visibleItems.length != 0) {
         const maxval = Math.max(...visibleItems);
-        if (maxval) {
+        if (maxval > MSGes.current.upper) {
+          MSGes.current.upper = maxval;
           Requests().UpdateSeen(MSGes.current.upper);
         }
       }
@@ -55,52 +56,43 @@ const ChatBody = memo(({ chatid, chattype, bodyref, messages, lastmassage }) => 
 
   useEffect(() => {
     if (bodyref) {
-      console.error('alo');
-      bodyref.current.scrollTop = bodyref.current.scrollTop + bodyref.current.scrollHeight - 100;
+      // //! if there is no scroll
+      if (bodyref.current.scrollHeight == bodyref.current.clientHeight) {
+        Requests().UpdateSeen(SetMaxMin(messages).max);
+        dispatch(setUpdate({ dir: DOWN }));
+
+        //! if the scroll is up
+      } else if (bodyref.current.scrollTop == 0) {
+        dispatch(setUpdate({ dir: UP }));
+        //   //! if the scroll is down
+      } else if (isScrollAtBottom(bodyref)) {
+        Requests().UpdateSeen(SetMaxMin(messages).max);
+        dispatch(setUpdate({ dir: DOWN }));
+      }
       dispatch(SetIDs(SetMaxMin(messages)));
-      // if (bodyref.current.scrollTop == 0) {
-      //   dispatch(setUpdate({ dir: UP }));
-      // } else if (isScrollAtBottom(bodyref)) {
-      //   Requests().UpdateSeen(SetMaxMin(messages).max);
-      //   setTimeout(dispatch(setUpdate({ dir: DOWN })), 1000);
-      // }
       GoHnalder().GoTo(messages, lastmassage, bodyref, dispatch, chatid, chattype);
     }
     //   }
   }, []);
   useEffect(() => {
     if (bodyref) {
-      // bodyref.current.scrollTop = bodyref.current.scrollTop + bodyref.current.scrollHeight - 100;
-      console.error(
-        bodyref.current.scrollTop,
-        bodyref.current.scrollHeight,
-        bodyref.current.clientHeight
-      );
-
-      // dispatch(SetIDs(SetMaxMin(messages)));
       // //! if there is no scroll
-      // if (bodyref.current.scrollHeight == bodyref.current.clientHeight) {
-      //   console.error('first');
-      //   dispatch(setUpdate({ dir: DOWN }));
-      //   Requests().UpdateSeen(SetMaxMin(messages).max);
-      //   //! if the scroll is up
-      // } else if (bodyref.current.scrollTop == 0) {
-      //   console.error('second');
-      //   dispatch(setUpdate({ dir: UP }));
-      //   //! if the scroll is down
-      // } else if (isScrollAtBottom(bodyref)) {
-      //   console.error('third');
-      //   Requests().UpdateSeen(SetMaxMin(messages).max);
-      //   setTimeout(dispatch(setUpdate({ dir: DOWN })), 1000);
-      // }
+      if (bodyref.current.scrollHeight == bodyref.current.clientHeight) {
+        Requests().UpdateSeen(SetMaxMin(messages).max);
+        //   //! if the scroll is up
+      } else if (bodyref.current.scrollTop == 0) {
+        //   //! if the scroll is down
+      } else if (isScrollAtBottom(bodyref)) {
+        Requests().UpdateSeen(SetMaxMin(messages).max);
+      }
       if (lastmassage == 0) {
-        GoHnalder().GoTo(messages, messages[0].messageID, bodyref, dispatch, chatid, chattype);
+        // GoHnalder().GoTo(messages, SetMaxMin(messages).min, bodyref, dispatch, chatid, chattype);
+        bodyref.current.scrollTop = 0;
       } else {
         GoHnalder().GoTo(messages, lastmassage, bodyref, dispatch, chatid, chattype);
       }
     }
-    //   }
-  });
+  }, [chatid, messages]);
 
   function isScrollAtBottom(bodyref) {
     return (
@@ -111,10 +103,16 @@ const ChatBody = memo(({ chatid, chattype, bodyref, messages, lastmassage }) => 
   function handleonScroll(e) {
     if (bodyref.current.scrollTop == 0) {
       dispatch(setUpdate({ dir: UP }));
+      dispatch(SetIDs(SetMaxMin(messages)));
     } else if (isScrollAtBottom(bodyref)) {
+      // console.error(SetMaxMin(messages).max);
       Requests().UpdateSeen(SetMaxMin(messages).max);
+      dispatch(SetIDs(SetMaxMin(messages)));
       setTimeout(dispatch(setUpdate({ dir: DOWN })), 1000);
+    } else {
+      dispatch(setUpdate({ dir: NOTHING }));
     }
+
     // if (
     //   Math.abs(
     //     bodyref.current?.scrollTop - (bodyref.current.scrollHeight - bodyref.current.clientHeight)
@@ -144,7 +142,7 @@ const ChatBody = memo(({ chatid, chattype, bodyref, messages, lastmassage }) => 
       const progress = Math.min(elapsed / duration, 1);
       const easedProgress = easeInOutCubic(progress); // Apply easing function if desired
       const newPosition = startPosition + (endPosition - startPosition) * easedProgress;
-      console.error('hello');
+      // console.error('hello');
       bodyref.current.scrollTop = newPosition;
       if (progress < 1) {
         requestAnimationFrame(scrollAnimation);
@@ -156,6 +154,7 @@ const ChatBody = memo(({ chatid, chattype, bodyref, messages, lastmassage }) => 
     requestAnimationFrame(scrollAnimation);
   }
 
+  // console.error(messages)
   return (
     <>
       <Pin bodyref={bodyref} chatid={chatid} chattype={chattype} messages={messages} />
@@ -195,7 +194,6 @@ const ChatBody = memo(({ chatid, chattype, bodyref, messages, lastmassage }) => 
                   ) : (
                     <Message
                       forwardedfrom={message.forwardMessageSender}
-                      shouldobserve={index == 0 || messages.length - 1 == index}
                       key={message.messageID}
                       seenObserver={seenObserver}
                       isSeen={message.viewCount > 1}

@@ -29,13 +29,12 @@ export default function GoHnalder() {
         // console.error(Listref.current.scrollTop + childNode.getBoundingClientRect().top);
         if (childNode.getAttribute('data-id') == msgid) {
           selectedchild = childNode;
+          Listref.current.scrollTop =
+            Listref.current.scrollTop + selectedchild.getBoundingClientRect().top - 300;
         }
       }
-      Listref.current.scrollTop =
-        Listref.current.scrollTop + selectedchild.getBoundingClientRect().top - 300;
     } else {
-      console.error('werwer')
-      dispatch(GetMessages({ type: chattype, ID: chatid, message_id: msgid }));
+      dispatch(GetMessages({ type: chattype, profid: chatid, message_id: msgid }));
     }
   }
   return { GoTo };

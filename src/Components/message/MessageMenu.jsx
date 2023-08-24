@@ -51,7 +51,7 @@ const MessageMenu = ({
       title: 'ویرایش',
       color: 'text-text1',
       action: 'edit',
-      allowed: true
+      allowed: isforme
     },
     {
       icon: <UilLink />,

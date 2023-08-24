@@ -96,6 +96,7 @@ export default function TextProcessorObj(containers) {
     ProcessorValues.current.caretPosition = result[0];
     // console.log(ProcessorValues.current.caretPosition);
     ProcessorValues.current.rawtext = RawText();
+    if (ProcessorValues.current.rawtext == '') ProcessorValues.current.sorted = [];
     updateEnteties(result[1]);
   }
   function handleKeyLeftRight(e) {
@@ -246,7 +247,6 @@ export default function TextProcessorObj(containers) {
     ProcessorValues.current.rawtext = RawText();
     const text = ProcessorValues.current.rawtext;
     const ents = ProcessorValues.current.sorted;
-    // console.error(ents);
     const list = generateEntity(divref, text, ents);
     setentitycontainers(list);
   }
@@ -255,7 +255,15 @@ export default function TextProcessorObj(containers) {
     const list = generateEntity(targetref, text, ents);
     return list;
   }
+  /**
+   *
+   * @param {HTMLElement} ref
+   * @param {String} text
+   * @param {Array} ents
+   * @returns
+   */
   function generateEntity(ref, text, ents) {
+    console.error(ents);
     let list_of_renderableentities = [];
 
     if (ents.length == 0) {
@@ -276,8 +284,12 @@ export default function TextProcessorObj(containers) {
             ptag.href = element.link;
           } else {
             ptag = document.createElement('p');
+            ptag.addEventListener('click', () => {
+              if (ptag.classList.contains('spoiler')) {
+                ptag.classList.toggle('spoiler_');
+              }
+            });
           }
-          element.style.forEach((stl) => ptag.classList.add(stl));
           ptag.textContent = element.content;
           ref.current.appendChild(ptag);
         } else {
@@ -286,45 +298,60 @@ export default function TextProcessorObj(containers) {
       });
       return list_of_renderableentities;
     }
-    // console.log(ents);
-    let prevEnd;
+
     for (let i = 0; i < ents.length; i++) {
-      // if (ents.length == 1) {01
+      // if (i == 0 && ents[0].lower > 0) {
+      //   list_of_renderableentities.push({
+      //     lower: 0,
+      //     upper: ents[0].lower - 1
+      //   });
+      //   prevEnd = ents[0].upper;
+      // }
+      // if (i == 0 && ents[0].lower == 0) {
       //   list_of_renderableentities.push({
       //     lower: ents[0].upper + 1,
-      //     upper: text.length - 1
+      //     upper: ents.length == 1 ? text.length - 1 : ents[1].lower - 1
       //   });
-      //   break;
+      //   prevEnd = ents[0].upper;
       // }
-      if (i == 0 && ents[0].lower > 0) {
-        list_of_renderableentities.push({
-          lower: 0,
-          upper: ents[0].lower - 1
-        });
-        prevEnd = ents[0].upper;
-      }
-      if (i == 0 && ents[0].lower == 0) {
-        list_of_renderableentities.push({
-          lower: ents[0].upper + 1,
-          upper: ents.length == 1 ? text.length - 1 : ents[1].lower - 1
-        });
-        prevEnd = ents[0].upper;
-      }
 
-      const currentRange = ents[i];
-      const gapStart = prevEnd + 1;
-      const gapEnd = currentRange.lower - 1;
-      if (gapStart <= gapEnd) {
-        list_of_renderableentities.push({ lower: gapStart, upper: gapEnd });
+      // const currentRange = ents[i];
+      // const gapStart = prevEnd + 1;
+      // const gapEnd = currentRange.lower - 1;
+      // if (gapStart <= gapEnd) {
+      //   list_of_renderableentities.push({ lower: gapStart, upper: gapEnd });
+      // }
+      // prevEnd = Math.max(prevEnd, currentRange.upper);
+
+      // the first one
+      let lower, upper, lowertext;
+      if (i == 0) {
+        lower = 0;
+        upper = ents[i].lower - 1;
+        lowertext = text.substring(lower, upper);
+        if (lowertext != '') {
+          list_of_renderableentities.push({ lower, upper });
+        }
+        lower = ents[i].upper + 1;
+        upper = ents[i + 1]?.lower - 1 || text.length - 1;
+        list_of_renderableentities.push({ lower, upper });
       }
-      prevEnd = Math.max(prevEnd, currentRange.upper);
+      // before the last one
+      else if (i != ents.length - 1) {
+        lower = ents[i].upper + 1;
+        upper = ents[i + 1].lower - 1;
+        list_of_renderableentities.push({ lower, upper });
+      } else {
+        lower = ents[i].upper + 1;
+        upper = text.length - 1;
+        lowertext = text.substring(lower, upper);
+        if (lowertext != '') {
+          list_of_renderableentities.push({ lower, upper });
+        }
+        list_of_renderableentities.push({ lower, upper });
+      }
     }
-    if (prevEnd < text.length) {
-      list_of_renderableentities.push({
-        lower: prevEnd + 1,
-        upper: text.length - 1
-      });
-    }
+
     list_of_renderableentities = list_of_renderableentities.concat(ents);
     list_of_renderableentities.sort(customSort);
     list_of_renderableentities = list_of_renderableentities.map((ent) => ({
@@ -343,8 +370,9 @@ export default function TextProcessorObj(containers) {
         } else {
           ptag = document.createElement('p');
           ptag.addEventListener('click', () => {
-            ptag.classList.toggle('spoiler');
-            ptag.classList.toggle('spoiler_');
+            if (ptag.classList.contains('spoiler')) {
+              ptag.classList.toggle('spoiler_');
+            }
           });
         }
         element.style.forEach((stl) => ptag.classList.add(stl));
