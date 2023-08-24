@@ -1,4 +1,4 @@
-import React from 'react';
+import React , {useRef, useState} from 'react';
 import ContactCardPreview from './ContactCardPreview';
 import { UilArrowRight, UilCameraPlus, UilTrashAlt } from '@iconscout/react-unicons';
 import { TYPE_GROUP, TYPE_USER } from '../../utility/Constants';
@@ -11,22 +11,71 @@ export default function GroupSettings({ selected, setOpenModel }) {
   const [groupname, setgroupname] = React.useState('');
   const dispatch =useDispatch();
 
+  const [body , setbody] = useState();
   function CreateGroup() {
     const memebers = selected.map((cont) => cont.chatid);
     const name = groupname;
-    Requests().CreateChat(name, memebers, TYPE_GROUP);
+    Requests().CreateChat(name, memebers, body, TYPE_GROUP);
     setOpenModel(false);
     dispatch(clearEverything())
   }
   const handleGroupname = (e) => {
     setgroupname(e);
   };
+  const image = useRef(null);
+  const [profilePicture, setprofilePicture] = useState();
+  const base64img = useRef(null);
+  const handleclick = () => {
+    image.current.click();
+  };
 
+  const handleImageChange = (event) => {
+    const selectedFile = event.target.files[0];
+    if (selectedFile) {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const base64string = e.target.result.split(',')[1];
+        base64img.current = base64string;
+        setprofilePicture(base64string);
+        setbody({
+          content: base64string,
+          size: selectedFile.size,
+          'media-type': selectedFile.type,
+          fileName: selectedFile.name
+        });
+      };
+      reader.readAsDataURL(selectedFile);
+    }
+  };
   return (
     <div className="flex flex-col justify-center items-center">
       <div className="w-[120px] h-[120px] my-7 flex justify-center items-center rounded-full cursor-pointer bg-blue-600">
-        <UilCameraPlus className={'w-[50%] h-[50%] hover:w-[55%] hover:h-[55%] text-white'} />
-      </div>
+      <input
+          ref={image}
+          type="file"
+          id="upload"
+          accept="image/jpeg, image/png, image/jpg"
+          className="hidden"
+          onChange={handleImageChange}
+        />
+        {profilePicture == null ? (
+          <div
+            className={`w-[120px] h-[120px] my-7 flex  justify-center items-center rounded-full cursor-pointer `}
+            onClick={handleclick}>
+            <UilCameraPlus className={'w-[50%] h-[50%] hover:w-[55%] hover:h-[55%] text-white'} />
+          </div>
+        ) : (
+          <div
+            onClick={handleclick}
+            className={`w-[120px] h-[120px] my-7 flex justify-center items-center rounded-full cursor-pointer `}>
+            <img
+              className=" w-full h-full object-cover aspect-[1/1] rounded-full cursor-pointer"
+              src={`data:image/jpeg;base64,${profilePicture}`}
+              alt=""
+            />
+          </div>
+        )}
+              </div>
       <div className="flex flex-col gap-3 w-full ">
         <div className="relative w-full">
           <input

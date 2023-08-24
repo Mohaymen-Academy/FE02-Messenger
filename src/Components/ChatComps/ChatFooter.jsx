@@ -46,6 +46,8 @@ export default function ChatFooter({ id, chattype, isallowed }) {
   const [openPoll, setopenPoll] = useState(false);
   const [fileuploaded, setfileuploaded] = useState(null);
   const { recorderState, ...handlers } = useRecorder(id);
+  const [inputDivHeight, setInputDivHeight] = useState(0);
+
   const emoji = useState('');
   useEffect(() => {
     if (divref.current) {
@@ -226,6 +228,8 @@ export default function ChatFooter({ id, chattype, isallowed }) {
               onSelectCapture={handleSelect}
               onInput={handleonInput}
               suppressContentEditableWarning={true}
+              onKeyUp={() => setInputDivHeight(divref.current.clientHeight)} // Update the input div's height
+
               className=" flex h-auto max-h-[150px] w-[90%] flex-row overflow-y-scroll
             whitespace-pre-wrap bg-color1 rounded-xl mx-2 p-2 text-text1
             break-all border-none shadow-none outline-none focus:shadow-none active:shadow-none">
@@ -263,7 +267,7 @@ export default function ChatFooter({ id, chattype, isallowed }) {
                 <UilMicrophone />
               </button>
             )}
-            {openTextProcessor && <TextProcessorMenu ChangeEntities={ChangeEntities} />}
+            {openTextProcessor && <TextProcessorMenu ChangeEntities={ChangeEntities} h={inputDivHeight} />}
 
             {fileuploaded && (
               <PopUp title="انتخاب فایل" setIsModalOpen={setfileuploaded}>
