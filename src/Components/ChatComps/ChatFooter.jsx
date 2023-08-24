@@ -57,6 +57,12 @@ export default function ChatFooter({ id, chattype, isallowed }) {
       setentitycontainers([]);
     }
   }, [id]);
+  useEffect(() => {
+    if (divref.current) {
+      console.error('zarp');
+      ProcessorValues.current.sorted = Isactive.styles;
+    }
+  }, [Isactive]);
 
   function closeTextProcessor() {
     setOpenTextProcessor(false);

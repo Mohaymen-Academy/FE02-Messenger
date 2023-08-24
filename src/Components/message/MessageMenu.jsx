@@ -21,7 +21,8 @@ const MessageMenu = ({
   text,
   setopenForward,
   chattype,
-  isforme
+  isforme,
+  styles
 }) => {
   const [opendeltemenu, setopendeltemenu] = useState(false);
   const dispatch = useDispatch();
@@ -110,25 +111,25 @@ const MessageMenu = ({
                     dispatch(
                       composerActions.setaction({ type: item.action, text: text, messageID: msgId })
                     );
-                    if (item.action === 'delete') {
-                      setopendeltemenu(true);
-                      setposition({ x_mouse: 0, y_mouse: 0 });
-                    }
-                  }
-                  if (item.action && item.action == 'pin') {
+                  } else if (item.action === 'delete') {
+                    setopendeltemenu(true);
+                    setposition({ x_mouse: 0, y_mouse: 0 });
+                  } else if (item?.action == 'pin') {
                     Requests().PinMSG(msgId);
                     dispatch(composerActions.pinmsg({ msgid: msgId, text: text }));
-                  }
-                  if (item.action === 'forward') {
+                  } else if (item?.action === 'forward') {
                     console.error('zerwerwr');
                     setopenForward(true);
-                  }
-                  if (item.action === 'copy') {
+                  } else if (item?.action === 'copy') {
                     console.error('copy');
                     navigator.clipboard.writeText(text);
-                    alert(`You have copied "${text}"`);
                   }
-                  // setposition({ x_mouse: 0, y_mouse: 0 });
+                  else if (item?.action=='edit'){
+                    dispatch(composerActions.setaction({ msgid: msgId, text: text,styles:styles }));
+
+                  }
+
+                  setposition({ x_mouse: 0, y_mouse: 0 });
                 }}>
                 <div className={`flex items-center gap-2 my-1 ${item.color}`}>{item.icon}</div>
                 <p className={`text-xs px-2 ${item.color}`}>{item.title}</p>

@@ -5,7 +5,14 @@ import { useDispatch, useSelector } from 'react-redux';
 import ChatFooter from './ChatFooter.jsx';
 import Message from '../message/Message.jsx';
 import ImagePreviewer from '../media-previewer/ImagePreviewer.jsx';
-import { DOWN, NOTHING, TYPE_CHANNEL, TYPE_GROUP, UP, getRelativeDate } from '../../utility/Constants.js';
+import {
+  DOWN,
+  NOTHING,
+  TYPE_CHANNEL,
+  TYPE_GROUP,
+  UP,
+  getRelativeDate
+} from '../../utility/Constants.js';
 import MessageDateGroup from '../message/MessageDateGroup.jsx';
 import MessageVoice from '../message/MessageVoice.jsx';
 // import { NeededId } from '../../utility/FindneededID.js';
@@ -41,6 +48,7 @@ const ChatBody = memo(({ chatid, chattype, bodyref, messages, lastmassage }) => 
   const MSGes = useRef({
     upper: 0
   });
+  console.error('zarp');
 
   const [buttonhidden, setbuttonhidden] = useState(true);
   const dir = useRef(null);
@@ -57,13 +65,14 @@ const ChatBody = memo(({ chatid, chattype, bodyref, messages, lastmassage }) => 
   useEffect(() => {
     if (bodyref) {
       // //! if there is no scroll
+      console.error(bodyref.current.scrollTop)
       if (bodyref.current.scrollHeight == bodyref.current.clientHeight) {
         Requests().UpdateSeen(SetMaxMin(messages).max);
         dispatch(setUpdate({ dir: DOWN }));
 
         //! if the scroll is up
       } else if (bodyref.current.scrollTop == 0) {
-        dispatch(setUpdate({ dir: UP }));
+        // dispatch(setUpdate({ dir: UP }));
         //   //! if the scroll is down
       } else if (isScrollAtBottom(bodyref)) {
         Requests().UpdateSeen(SetMaxMin(messages).max);
@@ -101,14 +110,14 @@ const ChatBody = memo(({ chatid, chattype, bodyref, messages, lastmassage }) => 
   }
 
   function handleonScroll(e) {
+    console.error(bodyref.current.scrollTop)
     if (bodyref.current.scrollTop == 0) {
       dispatch(setUpdate({ dir: UP }));
       dispatch(SetIDs(SetMaxMin(messages)));
     } else if (isScrollAtBottom(bodyref)) {
-      // console.error(SetMaxMin(messages).max);
       Requests().UpdateSeen(SetMaxMin(messages).max);
       dispatch(SetIDs(SetMaxMin(messages)));
-      setTimeout(dispatch(setUpdate({ dir: DOWN })), 1000);
+      dispatch(setUpdate({ dir: DOWN }));
     } else {
       dispatch(setUpdate({ dir: NOTHING }));
     }

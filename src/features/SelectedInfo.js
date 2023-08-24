@@ -203,16 +203,17 @@ const SelectedProf = createSlice({
       })
       .addCase(GetMessagesUp.fulfilled, (state, action) => {
         console.error(action.payload);
-        state.Chatmessages = [].concat(action.payload.messages, state.Chatmessages);
+        state.Chatmessages = action.payload.messages.concat(state.Chatmessages);
+        // console.error(state.Chatmessages)
         state.upfinished = action.payload.upFinished;
-        state.lastmsgId = action.payload?.data?.messageId;
+        state.lastmsgId = action.payload.messageId;
         state.needupdate = false;
       })
       .addCase(GetMessagesDown.fulfilled, (state, action) => {
         console.error(action.payload);
-        state.Chatmessages = [].concat(state.Chatmessages, action.payload.messages);
+        state.Chatmessages = state.Chatmessages.concat(action.payload.messages);
         state.downfinished = action.payload.downFinished;
-        state.lastmsgId = action.payload?.data?.messageId;
+        state.lastmsgId = action.payload.messageId;
         state.needupdate = false;
       })
       .addCase(Savenewmsg.fulfilled, (state, action) => {
