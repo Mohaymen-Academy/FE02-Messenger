@@ -37,7 +37,15 @@ export default function Login() {
     values.current[name] = value;
   };
   return (
-    <div dir="rtl" className="bg-complete">
+    <div dir="rtl" className="bg-complete bg-background bg-opacity-90 bg-url[images/pattern.png] bg-cover bg-center"
+    style={{
+      backgroundImage: 'url(images/pattern.png)',
+      backgroundBlendMode: 'soft-light',
+      backgroundRepeat: 'repeat',
+      backgroundSize: '600px',
+
+    }}
+    >
       <div className="main-div">
         <div className="flex flex-col my-5 items-center justify-center">
           <a href="/">

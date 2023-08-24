@@ -81,7 +81,15 @@ export default function Register() {
     values.current[name] = value;
   };
   return (
-    <div dir="rtl" className="bg-complete h-screen">
+    <div dir="rtl" className="bg-complete bg-background bg-opacity-90 bg-url[images/pattern.png] bg-cover bg-center"
+    style={{
+      backgroundImage: 'url(images/pattern.png)',
+      backgroundBlendMode: 'soft-light',
+      backgroundRepeat: 'repeat',
+      backgroundSize: '600px',
+
+    }}
+    >
       <div className="main-div">
         <div className="mb-5 flex flex-col items-center justify-center">
           <a href="/">

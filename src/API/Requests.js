@@ -238,6 +238,7 @@ export default function Requests(body) {
     console.log(profid);
     try {
       const res = await API().GET(`profile/info/${profid}`, {}, AutorizeHeader);
+      console.log(res)
       return res;
     } catch (err) {
       console.log(err);

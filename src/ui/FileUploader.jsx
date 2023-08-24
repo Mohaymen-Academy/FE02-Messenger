@@ -46,7 +46,7 @@ export default function FileUploader({ openpull, openfile, chattype }) {
     <div
       onClick={openthediv}
       //   onMouseLeave={closediv}
-      className="mx-1 h-8 w-8 text-text1 hover:cursor-pointer">
+      className="m-1 mt-3  h-8 w-8 text-text1 hover:cursor-pointer">
       <UilPaperclip />
 
       <div
