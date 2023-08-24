@@ -1,6 +1,7 @@
 import React from 'react'
 
 export default function imageComponent({media}) {
+  console.log(media)
   return (
         <div
         className='flex items-center justify-center m-0.5 w-[32%] bg-color2 rounded-sm '
