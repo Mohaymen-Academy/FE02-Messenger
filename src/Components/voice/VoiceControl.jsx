@@ -1,25 +1,42 @@
-function VoiceControl({ recorderState, startRecording, sendRecording, cancelRecording }) {
+import { UilPause, UilMessage } from '@iconscout/react-unicons';
+import { useState } from 'react';
+import Requests from '../../API/Requests';
+
+function VoiceControl({ id, recorderState, handlers }) {
   const { recordingMinutes, recordingSeconds, initRecording } = recorderState;
+  const { startRecording, sendRecording, cancelRecording, saveRecording } = handlers;
+  const [media, setmedia] = useState({});
+  const sendRequest = sendRecording(id, setmedia);
+  console.log(media);
   return (
-    <div>
+    <div className="flex h-auto max-h-[50px] w-[90%] flex-row text-white bg-blue-500 rounded-full justify-between">
+      <div>
+        {initRecording ? (
+          <button
+            title="Save recording"
+            disabled={recordingSeconds === 0}
+            onClick={() => {
+              sendRequest();
+              Requests().sendFile(id, media);
+              console.log('hello');
+            }}>
+            <UilMessage />
+          </button>
+        ) : (
+          <button title="Start recording" onClick={startRecording}>
+            start
+          </button>
+        )}
+      </div>
       <div>
         <span>{recordingMinutes}</span>
         <span>:</span>
         <span>{recordingSeconds}</span>
       </div>
-      <div>{initRecording && <button onClick={cancelRecording}>pause</button>}</div>
       <div>
-        {initRecording ? (
-          <button
-            className="start-button"
-            title="Save recording"
-            disabled={recordingSeconds === 0}
-            onClick={sendRecording}>
-            send
-          </button>
-        ) : (
-          <button className="start-button" title="Start recording" onClick={startRecording}>
-            start
+        {initRecording && (
+          <button onClick={saveRecording}>
+            <UilPause />
           </button>
         )}
       </div>

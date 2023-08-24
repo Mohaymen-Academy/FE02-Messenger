@@ -6,14 +6,8 @@ import Requests from '../../API/Requests';
 import { ReplaceImage } from '../../features/SelectedInfo';
 import { GetSharedMedia, resetPreview, setPreview } from '../../features/SharedMediaSlice.js';
 
-// const images = [
-//   './images/profile.jpg',
-//   './images/person.png',
-//   './images/setting.png',
-//   './images/profile.jpg'
-// ];
-function ImagePreviewer({  massageId, imageshow }) {
-  console.log(massageId , imageshow)
+function ImagePreviewer({ massageId, imageshow }) {
+  console.log(massageId, imageshow);
   const [image, setImage] = useState([]);
   const dispatch = useDispatch();
   const info = useSelector((state) => state.selectedProf);
@@ -28,8 +22,6 @@ function ImagePreviewer({  massageId, imageshow }) {
       setImage(res.content);
       dispatch(ReplaceImage({ massageId, image: res.content }));
     }
-
-
 
     // if massagId is not in downloaded
     // if (!info.downloaded.includes(massageId)) {
