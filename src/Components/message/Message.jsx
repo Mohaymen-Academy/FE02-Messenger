@@ -171,7 +171,7 @@ const Message =
           positions={mousepositoin}
           setposition={setmousepositoin}
           setopenForward={setopenForward}
-          styles={JSON.parse(styles)}
+          // styles={JSON.parse(styles)}
         />
 
         {openForward ? (

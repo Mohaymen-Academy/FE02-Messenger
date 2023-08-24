@@ -1,5 +1,12 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { UilSmile, UilMessage, UilPaperclip, UilTimes } from '@iconscout/react-unicons';
+import {
+  UilSmile,
+  UilMessage,
+  UilPaperclip,
+  UilTimes,
+  UilMicrophone,
+  UilPause
+} from '@iconscout/react-unicons';
 // import EmojiPicker from 'emoji-picker-react';
 import { useDispatch, useSelector } from 'react-redux';
 import { json } from 'react-router-dom';
@@ -14,7 +21,7 @@ import { Savenewmsg, editmsg } from '../../features/SelectedInfo';
 import PopUp from '../../ui/PopUp';
 import Poll from './Poll';
 import UploadFile from '../../ui/UploadFile';
-
+import useRecorder from '../../hooks/useRecorder';
 export default function ChatFooter({ id, chattype, isallowed }) {
   const {
     handleEmojiPicker,
@@ -37,13 +44,9 @@ export default function ChatFooter({ id, chattype, isallowed }) {
   const Isactive = useSelector((state) => state.composer);
   const [openPoll, setopenPoll] = useState(false);
   const [fileuploaded, setfileuploaded] = useState(null);
-<<<<<<< HEAD
   const { recorderState, handlers } = useRecorder(id);
   console.log(recorderState);
   const emoji = useState('');
-=======
-
->>>>>>> parent of f608d9c (Merge branch 'main' of https://github.com/Mohaymen-Academy/FE02-Messenger into leftSide)
   useEffect(() => {
     if (divref.current) {
       ProcessorValues.current.sorted = [];
@@ -53,7 +56,10 @@ export default function ChatFooter({ id, chattype, isallowed }) {
     }
   }, [id]);
   useEffect(() => {
-    
+    if (divref.current) {
+      console.error('zarp')
+      ProcessorValues.current.sorted = Isactive.styles;
+    }
   }, [Isactive]);
 
   function closeTextProcessor() {
@@ -204,7 +210,6 @@ export default function ChatFooter({ id, chattype, isallowed }) {
               className="mx-1 h-8 w-8 text-text1 ">
               <UilSmile />
             </button>
-<<<<<<< HEAD
             {recorderState.mediaStream ? (
               <button
                 onClick={(e) => {
@@ -228,8 +233,6 @@ export default function ChatFooter({ id, chattype, isallowed }) {
                 <UilMicrophone />
               </button>
             )}
-=======
->>>>>>> parent of f608d9c (Merge branch 'main' of https://github.com/Mohaymen-Academy/FE02-Messenger into leftSide)
             {openTextProcessor && <TextProcessorMenu ChangeEntities={ChangeEntities} />}
 
             {fileuploaded && (
