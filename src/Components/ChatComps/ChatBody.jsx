@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import ChatFooter from './ChatFooter.jsx';
 import Message from '../message/Message.jsx';
 import ImagePreviewer from '../media-previewer/ImagePreviewer.jsx';
-import { DOWN, TYPE_CHANNEL, TYPE_GROUP, UP, getRelativeDate } from '../../utility/Constants.js';
+import { DOWN, NOTHING, TYPE_CHANNEL, TYPE_GROUP, UP, getRelativeDate } from '../../utility/Constants.js';
 import MessageDateGroup from '../message/MessageDateGroup.jsx';
 import MessageVoice from '../message/MessageVoice.jsx';
 // import { NeededId } from '../../utility/FindneededID.js';
@@ -20,7 +20,7 @@ const ChatBody = memo(({ chatid, chattype, bodyref, messages, lastmassage }) => 
   const dispatch = useDispatch();
   const preview = useSelector((state) => state.SharedMedia.preview);
   dispatch(GetSharedMedia(chatid));
-  console.error(lastmassage);
+  // console.error(lastmassage);
 
   const seenObserver = new IntersectionObserver(
     (entries) => {
@@ -29,7 +29,8 @@ const ChatBody = memo(({ chatid, chattype, bodyref, messages, lastmassage }) => 
         .map((entry) => parseInt(entry.target.dataset.id));
       if (visibleItems.length != 0) {
         const maxval = Math.max(...visibleItems);
-        if (maxval) {
+        if (maxval > MSGes.current.upper) {
+          MSGes.current.upper = maxval;
           Requests().UpdateSeen(MSGes.current.upper);
         }
       }
@@ -104,11 +105,14 @@ const ChatBody = memo(({ chatid, chattype, bodyref, messages, lastmassage }) => 
       dispatch(setUpdate({ dir: UP }));
       dispatch(SetIDs(SetMaxMin(messages)));
     } else if (isScrollAtBottom(bodyref)) {
-      console.error(SetMaxMin(messages).max);
-      // Requests().UpdateSeen(SetMaxMin(messages).max);
+      // console.error(SetMaxMin(messages).max);
+      Requests().UpdateSeen(SetMaxMin(messages).max);
       dispatch(SetIDs(SetMaxMin(messages)));
       setTimeout(dispatch(setUpdate({ dir: DOWN })), 1000);
+    } else {
+      dispatch(setUpdate({ dir: NOTHING }));
     }
+
     // if (
     //   Math.abs(
     //     bodyref.current?.scrollTop - (bodyref.current.scrollHeight - bodyref.current.clientHeight)
@@ -138,7 +142,7 @@ const ChatBody = memo(({ chatid, chattype, bodyref, messages, lastmassage }) => 
       const progress = Math.min(elapsed / duration, 1);
       const easedProgress = easeInOutCubic(progress); // Apply easing function if desired
       const newPosition = startPosition + (endPosition - startPosition) * easedProgress;
-      console.error('hello');
+      // console.error('hello');
       bodyref.current.scrollTop = newPosition;
       if (progress < 1) {
         requestAnimationFrame(scrollAnimation);
@@ -150,6 +154,7 @@ const ChatBody = memo(({ chatid, chattype, bodyref, messages, lastmassage }) => 
     requestAnimationFrame(scrollAnimation);
   }
 
+  // console.error(messages)
   return (
     <>
       <Pin bodyref={bodyref} chatid={chatid} chattype={chattype} messages={messages} />
@@ -189,7 +194,6 @@ const ChatBody = memo(({ chatid, chattype, bodyref, messages, lastmassage }) => 
                   ) : (
                     <Message
                       forwardedfrom={message.forwardMessageSender}
-                      shouldobserve={index == 0 || messages.length - 1 == index}
                       key={message.messageID}
                       seenObserver={seenObserver}
                       isSeen={message.viewCount > 1}

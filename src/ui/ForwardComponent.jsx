@@ -6,6 +6,7 @@ import { composerActions } from '../features/composerSlice';
 export default function ForwardComponent({ text, messageid }) {
   const dispatch = useDispatch();
   const lists = useSelector((store) => store.messageList.messages);
+  console.error(lists);
   return (
     <div className="flex flex-col justify-center">
       {lists?.map((chatprev, index) => (
@@ -18,23 +19,25 @@ export default function ForwardComponent({ text, messageid }) {
               })
             )
           }>
-          <ChatCardPreview
-            key={index}
-            pinned={chatprev.pinned}
-            profid={chatprev.profile.profileID}
-            type={chatprev.profile.type}
-            image={chatprev.profile.lastProfilePicture}
-            size={50}
-            profile={chatprev.profile}
-            // profileName
-            profileName={chatprev.profile.profileName}
-            imagecolor={chatprev.profile.defaultProfileColor}
-            char={chatprev.profile.profileName[0]}
-            isOnline={chatprev.profile.status?.toLowerCase()}
-            lastMessage={chatprev.lastMessage}
-            unreadMessageCount={chatprev.unreadMessageCount}
-            lastseen={chatprev.lastSeen}
-          />
+          {chatprev.profile.accessPermission && (
+            <ChatCardPreview
+              key={index}
+              pinned={chatprev.pinned}
+              profid={chatprev.profile.profileID}
+              type={chatprev.profile.type}
+              image={chatprev.profile.lastProfilePicture}
+              size={50}
+              profile={chatprev.profile}
+              // profileName
+              profileName={chatprev.profile.profileName}
+              imagecolor={chatprev.profile.defaultProfileColor}
+              char={chatprev.profile.profileName[0]}
+              isOnline={chatprev.profile.status?.toLowerCase()}
+              lastMessage={chatprev.lastMessage}
+              unreadMessageCount={chatprev.unreadMessageCount}
+              lastseen={chatprev.lastSeen}
+            />
+          )}
         </div>
       ))}
     </div>

@@ -14,7 +14,6 @@ export default function ChatContainer() {
   const dispatch = useDispatch();
   const bodyref = useRef(null);
   const messages = useSelector((state) => state.selectedProf.Chatmessages);
-  console.error(selectedProfile);
   useEffect(() => {
     document.addEventListener('keydown', (e) => {
       if (e.key == 'Escape') {

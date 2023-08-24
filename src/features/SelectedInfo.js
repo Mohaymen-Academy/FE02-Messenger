@@ -94,7 +94,7 @@ const seenchange = (messages, msgidtoseen) => {
   });
 };
 const editmsgfunc = (messages, newmsg) => {
-  console.error('in edit');
+  console.error(newmsg);
   return messages.map((ele) => {
     if (ele.messageID == newmsg.messageID) {
       // return newmsg;

@@ -246,7 +246,6 @@ export default function TextProcessorObj(containers) {
     ProcessorValues.current.rawtext = RawText();
     const text = ProcessorValues.current.rawtext;
     const ents = ProcessorValues.current.sorted;
-    // console.error(ents);
     const list = generateEntity(divref, text, ents);
     setentitycontainers(list);
   }
@@ -256,6 +255,7 @@ export default function TextProcessorObj(containers) {
     return list;
   }
   function generateEntity(ref, text, ents) {
+    console.error(ents);
     let list_of_renderableentities = [];
 
     if (ents.length == 0) {
@@ -276,8 +276,12 @@ export default function TextProcessorObj(containers) {
             ptag.href = element.link;
           } else {
             ptag = document.createElement('p');
+            ptag.addEventListener('click', () => {
+              if (ptag.classList.contains('spoiler')) {
+                ptag.classList.toggle('spoiler_');
+              }
+            });
           }
-          element.style.forEach((stl) => ptag.classList.add(stl));
           ptag.textContent = element.content;
           ref.current.appendChild(ptag);
         } else {
@@ -286,16 +290,9 @@ export default function TextProcessorObj(containers) {
       });
       return list_of_renderableentities;
     }
-    // console.log(ents);
+
     let prevEnd;
     for (let i = 0; i < ents.length; i++) {
-      // if (ents.length == 1) {01
-      //   list_of_renderableentities.push({
-      //     lower: ents[0].upper + 1,
-      //     upper: text.length - 1
-      //   });
-      //   break;
-      // }
       if (i == 0 && ents[0].lower > 0) {
         list_of_renderableentities.push({
           lower: 0,
@@ -343,8 +340,9 @@ export default function TextProcessorObj(containers) {
         } else {
           ptag = document.createElement('p');
           ptag.addEventListener('click', () => {
-            ptag.classList.toggle('spoiler');
-            ptag.classList.toggle('spoiler_');
+            if (ptag.classList.contains('spoiler')) {
+              ptag.classList.toggle('spoiler_');
+            }
           });
         }
         element.style.forEach((stl) => ptag.classList.add(stl));

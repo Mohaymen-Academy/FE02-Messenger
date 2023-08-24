@@ -37,7 +37,7 @@ const Chatlist = () => {
             dispatch(GetPin({ chatid: selectedChat }));
           }
           const maxid = Math.max(...profile.updates.map((command) => command.id));
-          console.error(profile.updates);
+          // console.error(profile.updates);
           dispatch(doupdates({ updates: profile.updates ,upid:maxid,chatid:selectedChat}));
         }
         dispatch(setUnreadCount({ count: profile.unreadMessageCount }));

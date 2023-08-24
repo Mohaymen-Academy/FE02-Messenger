@@ -179,6 +179,7 @@ export default function Requests(body) {
     const body = {
       text
     };
+    console.error(body)
     await API()
       .POST(`edit-message/${messageId}`, body, AutorizeHeader)
       .then((res) => res.json())
