@@ -1,4 +1,5 @@
 export async function startRecording(setRecorderState) {
+  console.log('fuck you');
   try {
     const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
 

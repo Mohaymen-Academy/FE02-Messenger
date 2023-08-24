@@ -37,7 +37,13 @@ export default function ChatFooter({ id, chattype, isallowed }) {
   const Isactive = useSelector((state) => state.composer);
   const [openPoll, setopenPoll] = useState(false);
   const [fileuploaded, setfileuploaded] = useState(null);
+<<<<<<< HEAD
+  const { recorderState, handlers } = useRecorder(id);
+  console.log(recorderState);
+  const emoji = useState('');
+=======
 
+>>>>>>> parent of f608d9c (Merge branch 'main' of https://github.com/Mohaymen-Academy/FE02-Messenger into leftSide)
   useEffect(() => {
     if (divref.current) {
       ProcessorValues.current.sorted = [];
@@ -198,6 +204,32 @@ export default function ChatFooter({ id, chattype, isallowed }) {
               className="mx-1 h-8 w-8 text-text1 ">
               <UilSmile />
             </button>
+<<<<<<< HEAD
+            {recorderState.mediaStream ? (
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  const startRecording = handlers.startRecording;
+                  startRecording();
+                }}
+                className="mx-1 h-8 w-8 text-text1 ">
+                <UilPause />
+              </button>
+            ) : (
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  const { startRecording } = handlers;
+                  console.error(startRecording);
+                  startRecording();
+                  console.log('fuck you');
+                }}
+                className="mx-1 h-8 w-8 text-text1 ">
+                <UilMicrophone />
+              </button>
+            )}
+=======
+>>>>>>> parent of f608d9c (Merge branch 'main' of https://github.com/Mohaymen-Academy/FE02-Messenger into leftSide)
             {openTextProcessor && <TextProcessorMenu ChangeEntities={ChangeEntities} />}
 
             {fileuploaded && (
