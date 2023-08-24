@@ -1,4 +1,4 @@
-import React from 'react';
+import React , {useEffect} from 'react';
 import {
   UilTimes,
   UilPen,
@@ -11,6 +11,7 @@ import { Files, Links, Medias, Musics, Voices, FilePartition } from './ProfilePa
 import { useDispatch, useSelector } from 'react-redux';
 import Requests from '../../API/Requests';
 import { addcontact } from '../../features/SelectedInfo';
+import SearchResult from '../SearchBar/SearchResult';
 export default function LeftSide({
   setActive,
   setlayout,
@@ -55,6 +56,20 @@ export default function LeftSide({
     Requests().GetContacts();
     dispatch(addcontact());
   }
+  const [members , setmembers] = React.useState([])
+  useEffect(() => {
+    if(isgroup){
+      Requests().GetMembers(selectedProfile.profileID)
+      .then((res) => res.data)
+      .then(data=>{
+        console.error(data)
+        setmembers(data)}
+        )
+        .catch(err=>console.error(err))
+      
+    }
+  }, [selectedProfile])
+
   return (
     <div
       className={`flex min-w-[350px] flex-col h-screen transition-all duration-200 ease-in bg-color2 shadow-md border-r`}>
@@ -185,6 +200,12 @@ export default function LeftSide({
             <Musics />
           ) : filepart[4] == 1 ? (
             <Voices />
+          ) : filepart[5] == 1 ? (  
+            <div>
+              {/* {members.map((member) => (
+                <SearchResult profile={member} text={member.status} />  
+              ))} */}
+            </div>
           ) : (
             <></>
           )}

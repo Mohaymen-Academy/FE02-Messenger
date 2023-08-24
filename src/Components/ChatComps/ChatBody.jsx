@@ -88,17 +88,16 @@ const ChatBody = memo(({ chatid, chattype, bodyref, messages, lastmassage }) => 
       // //! if there is no scroll
       if (bodyref.current.scrollHeight == bodyref.current.clientHeight) {
         Requests().UpdateSeen(SetMaxMin(messages).max);
-        //   //! if the scroll is up
+        dispatch(setUpdate({ dir: DOWN }));
       } else if (bodyref.current.scrollTop == 0) {
-        //   //! if the scroll is down
       } else if (isScrollAtBottom(bodyref)) {
         Requests().UpdateSeen(SetMaxMin(messages).max);
+        dispatch(setUpdate({ dir: DOWN }));
       }
-      if (lastmassage == 0) {
-        // GoHnalder().GoTo(messages, SetMaxMin(messages).min, bodyref, dispatch, chatid, chattype);
-        bodyref.current.scrollTop = 0;
-      } else {
+      if (lastmassage != 0) {
         GoHnalder().GoTo(messages, lastmassage, bodyref, dispatch, chatid, chattype);
+      } else {
+        GoHnalder().GoTo(messages, SetMaxMin(messages).max, bodyref, dispatch, chatid, chattype);
       }
     }
   }, [chatid, messages]);
@@ -115,6 +114,7 @@ const ChatBody = memo(({ chatid, chattype, bodyref, messages, lastmassage }) => 
       dispatch(setUpdate({ dir: UP }));
       dispatch(SetIDs(SetMaxMin(messages)));
     } else if (isScrollAtBottom(bodyref)) {
+      console.error('at bottom');
       Requests().UpdateSeen(SetMaxMin(messages).max);
       dispatch(SetIDs(SetMaxMin(messages)));
       dispatch(setUpdate({ dir: DOWN }));
@@ -163,7 +163,7 @@ const ChatBody = memo(({ chatid, chattype, bodyref, messages, lastmassage }) => 
     requestAnimationFrame(scrollAnimation);
   }
 
-  // console.error(messages)
+  console.error(messages)
   return (
     <>
       <Pin bodyref={bodyref} chatid={chatid} chattype={chattype} messages={messages} />

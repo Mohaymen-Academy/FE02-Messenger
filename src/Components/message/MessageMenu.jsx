@@ -13,6 +13,7 @@ import { composerActions } from '../../features/composerSlice';
 import { deletemessage } from '../../features/SelectedInfo';
 import Requests from '../../API/Requests';
 import VerifyModal from '../../ui/VeifyModal';
+import { isAction } from '@reduxjs/toolkit';
 
 const MessageMenu = ({
   positions,
@@ -107,7 +108,7 @@ const MessageMenu = ({
                 key={index}
                 className="flex flex-row items-center gap-2 px-5 w-full hover:bg-bghovor rounded-lg"
                 onClick={(e) => {
-                  if (item.action && item.action != 'pin') {
+                  if (item?.action == 'reply') {
                     dispatch(
                       composerActions.setaction({ type: item.action, text: text, messageID: msgId })
                     );
@@ -117,16 +118,22 @@ const MessageMenu = ({
                   } else if (item?.action == 'pin') {
                     Requests().PinMSG(msgId);
                     dispatch(composerActions.pinmsg({ msgid: msgId, text: text }));
-                  } else if (item?.action === 'forward') {
-                    console.error('zerwerwr');
+                  } else if (item?.action == 'forward') {
+                    console.error('forwardddd');
                     setopenForward(true);
                   } else if (item?.action === 'copy') {
                     console.error('copy');
                     navigator.clipboard.writeText(text);
-                  }
-                  else if (item?.action=='edit'){
-                    dispatch(composerActions.setaction({ msgid: msgId, text: text,styles:styles }));
-
+                  } else if (item?.action == 'edit') {
+                    console.error(styles);
+                    dispatch(
+                      composerActions.setaction({
+                        type: item.action,
+                        msgid: msgId,
+                        text: text,
+                        styles: styles
+                      })
+                    );
                   }
 
                   setposition({ x_mouse: 0, y_mouse: 0 });

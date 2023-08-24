@@ -121,6 +121,7 @@ const SelectedProf = createSlice({
           return {
             ...ele,
             text: action.payload.newtext,
+            textStyle: action.payload.style,
             isEdited: true
           };
         }
@@ -207,6 +208,7 @@ const SelectedProf = createSlice({
         // console.error(state.Chatmessages)
         state.upfinished = action.payload.upFinished;
         state.lastmsgId = action.payload.messageId;
+        console.error(state.lastmsgId);
         state.needupdate = false;
       })
       .addCase(GetMessagesDown.fulfilled, (state, action) => {
@@ -214,22 +216,23 @@ const SelectedProf = createSlice({
         state.Chatmessages = state.Chatmessages.concat(action.payload.messages);
         state.downfinished = action.payload.downFinished;
         state.lastmsgId = action.payload.messageId;
+        console.error(state.lastmsgId);
         state.needupdate = false;
       })
       .addCase(Savenewmsg.fulfilled, (state, action) => {
         console.error(action.payload);
-        const message = state.Chatmessages.filter(
+        const message = state.Chatmessages.findIndex(
           (msg) => msg.messageID == action.payload.msgdata.messageID
         );
-        if (message.length != 0) {
+        console.error(message);
+        if (message !== -1) {
           state.Chatmessages.map((msg) => {
             if (msg.messageID == action.payload.msgdata.messageID) {
-              // TODO NEED TO MODIFY FOR THE MEDIA TYPE
               return action.payload.msgdata;
-            } else msg;
+            } else return msg;
           });
         } else {
-          state.Chatmessages = [].concat(state.Chatmessages, action.payload.msgdata);
+          state.Chatmessages = state.Chatmessages.concat(action.payload.msgdata);
         }
       })
       .addCase(doupdates.fulfilled, (state, action) => {

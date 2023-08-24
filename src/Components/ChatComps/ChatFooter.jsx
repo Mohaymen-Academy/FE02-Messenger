@@ -39,28 +39,34 @@ export default function ChatFooter({ id, chattype, isallowed }) {
     openemoji,
     setopenemoji,
     handleKeyLeftRight,
-    ProcessorValues
+    ProcessorValues,
+    OutputEntity
   } = TextProcessor([]);
-  console.error('footer');
-
   const Isactive = useSelector((state) => state.composer);
   const [openPoll, setopenPoll] = useState(false);
   const [fileuploaded, setfileuploaded] = useState(null);
   const { recorderState, ...handlers } = useRecorder(id);
-  console.log(recorderState);
   const emoji = useState('');
   useEffect(() => {
     if (divref.current) {
       ProcessorValues.current.sorted = [];
       ProcessorValues.current.rawtext = '';
       divref.current.innerText = '';
-      setentitycontainers([]);
+      // setentitycontainers([]);
     }
   }, [id]);
+  console.error(divref);
   useEffect(() => {
+    console.error(Isactive);
     if (divref.current) {
-      console.error('zarp');
-      ProcessorValues.current.sorted = Isactive.styles;
+      ProcessorValues.current.sorted = [];
+      ProcessorValues.current.rawtext = '';
+      if (Isactive.isEditting) {
+        ProcessorValues.current.sorted = Isactive.styles;
+        ProcessorValues.current.rawtext = Isactive.editvalue;
+        let ents = OutputEntity(divref, Isactive.composerValue, ProcessorValues.current.sorted);
+        setentitycontainers(ents);
+      }
     }
   }, [Isactive]);
 
@@ -96,10 +102,21 @@ export default function ChatFooter({ id, chattype, isallowed }) {
   }
   async function SelectRequestType() {
     // IF IS EDITING
-    if (ProcessorValues.current.rawtext != '') {
+    console.error(Isactive, ProcessorValues.current.rawtext);
+    if (ProcessorValues.current.rawtext != '' || Isactive.isForwarding) {
       if (Isactive.isEditting) {
-        dispatch(editmsg({ msgId: Isactive.editID, newtext: ProcessorValues.current.rawtext }));
-        Requests().EditMessage(Isactive.editID, ProcessorValues.current.rawtext);
+        dispatch(
+          editmsg({
+            msgId: Isactive.editID,
+            newtext: ProcessorValues.current.rawtext,
+            styles: ProcessorValues.current.sorted
+          })
+        );
+        Requests().EditMessage(
+          Isactive.editID,
+          ProcessorValues.current.rawtext,
+          ProcessorValues.current.sorted
+        );
         ProcessorValues.current.rawtext = '';
         ProcessorValues.current.sorted = [];
         divref.current.innerText = '';
@@ -118,15 +135,17 @@ export default function ChatFooter({ id, chattype, isallowed }) {
           );
         }
         if (Isactive.isForwarding) {
-          dispatch(
-            Savenewmsg({
-              id: id,
-              rawtext: ProcessorValues.current.rawtext,
-              styles: JSON.stringify(ProcessorValues.current.sorted),
-              reply: null,
-              forward: null
-            })
-          );
+          if (ProcessorValues.current.rawtext != '') {
+            dispatch(
+              Savenewmsg({
+                id: id,
+                rawtext: ProcessorValues.current.rawtext,
+                styles: JSON.stringify(ProcessorValues.current.sorted),
+                reply: null,
+                forward: null
+              })
+            );
+          }
 
           dispatch(
             Savenewmsg({
@@ -140,6 +159,7 @@ export default function ChatFooter({ id, chattype, isallowed }) {
         }
         // !ONLY SEND A MESSAGE
         else if (!needActoin) {
+          console.error('zarperwerw');
           dispatch(
             Savenewmsg({
               id: id,
