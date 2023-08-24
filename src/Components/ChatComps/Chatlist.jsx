@@ -22,13 +22,10 @@ const Chatlist = () => {
   const HandleScroller = HandleScroll();
   const lists = useSelector((store) => store.messageList.messages);
   const selectedChat = useSelector((store) => store.selectedProf.selectedChatID);
-  console.error(lists)
   useEffect(() => {
     if (selectedChat) {
       const profile = lists.filter((ele) => ele.profile.profileID == selectedChat)[0];
-      // console.error(profile)
       if (profile && profile.length != 0) {
-        // console.error(profile)
         if (profile.updates.length != 0) {
           const changepin = profile.updates.filter(
             (command) => command.updateType == 'PIN' || command.updateType == 'UNPIN'
@@ -37,7 +34,7 @@ const Chatlist = () => {
             dispatch(GetPin({ chatid: selectedChat }));
           }
           const maxid = Math.max(...profile.updates.map((command) => command.id));
-          // console.error(profile.updates);
+          console.error(profile.updates);
           dispatch(doupdates({ updates: profile.updates ,upid:maxid,chatid:selectedChat}));
         }
         dispatch(setUnreadCount({ count: profile.unreadMessageCount }));

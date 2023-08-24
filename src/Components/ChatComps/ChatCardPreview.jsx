@@ -126,7 +126,6 @@ const ChatCardPreview = memo(
             })
             // dispatch(GetPin())
           );
-          
           dispatch(GetPin({ chatid: profid }));
           dispatch(SetLeftProf({ profid: profid }));
           // await Requests().GetProfileMedium(profile.profileID);
@@ -145,7 +144,7 @@ const ChatCardPreview = memo(
             <div className="flex flex-col">
               <p className="font-semibold text-text1">{profileName}</p>
               <div className="line-clamp-1 pl-3 text-base text-text1 opacity-[50%]">
-                {lastMessage?.text }  
+                {lastMessage?.text}
               </div>
             </div>
           </div>

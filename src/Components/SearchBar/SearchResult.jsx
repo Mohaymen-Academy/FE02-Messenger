@@ -1,14 +1,15 @@
 import React from 'react';
 import { Avatar } from '../ChatComps';
-import { GetMessages } from '../../features/SelectedInfo';
+import { GetMessages, SetLeftProf } from '../../features/SelectedInfo';
 import { useDispatch } from 'react-redux';
+import { GetPin } from '../../features/composerSlice';
 export default function SearchResult({ profile, text, massage_id }) {
   const dispatch = useDispatch();
   return (
     <div>
       <div
-        onClick={(e) =>
-          {console.error(profile)
+        onClick={(e) => {
+          console.error(profile);
           dispatch(
             GetMessages({
               type: profile.type,
@@ -16,8 +17,11 @@ export default function SearchResult({ profile, text, massage_id }) {
               message_id: 0 || massage_id,
               profileinfo: profile
             })
-          )}
-        }
+          );
+          
+          dispatch(SetLeftProf({ profid: profile.profileID }));
+          dispatch(GetPin({ chatid: profile.profileID }));
+        }}
         className=" h-[70px] p-3 mx-2 flex w-[97%] cursor-pointer flex-row items-center justify-start rounded-lg  hover:bg-bghovor">
         <div className="flex w-[100%] h-full justify-between px-2">
           <div className="flex flex-row gap-2 items-center">

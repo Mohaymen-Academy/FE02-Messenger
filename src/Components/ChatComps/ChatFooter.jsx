@@ -57,11 +57,12 @@ export default function ChatFooter({ id, chattype, isallowed }) {
   }, [id]);
   console.error(divref);
   useEffect(() => {
-    console.error(Isactive);
+    // console.error(Isactive);
     if (divref.current) {
       ProcessorValues.current.sorted = [];
       ProcessorValues.current.rawtext = '';
       if (Isactive.isEditting) {
+        console.error(Isactive)
         ProcessorValues.current.sorted = Isactive.styles;
         ProcessorValues.current.rawtext = Isactive.editvalue;
         let ents = OutputEntity(divref, Isactive.composerValue, ProcessorValues.current.sorted);
