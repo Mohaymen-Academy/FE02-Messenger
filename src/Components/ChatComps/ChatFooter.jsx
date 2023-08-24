@@ -79,61 +79,68 @@ export default function ChatFooter({ id, chattype, isallowed }) {
   }
   async function SelectRequestType() {
     // IF IS EDITING
-    if (Isactive.isEditting) {
-      dispatch(editmsg({ msgId: Isactive.editID, newtext: ProcessorValues.current.rawtext }));
-      await Requests().EditMessage(Isactive.editID, ProcessorValues.current.rawtext);
-    } else {
-      if (Isactive.isReplying) {
-        dispatch(
-          Savenewmsg({
-            id: id,
-            rawtext: ProcessorValues.current.rawtext,
-            styles: JSON.stringify(ProcessorValues.current.sorted),
-            reply: Isactive.replyID,
-            forward: null
-          })
-        );
-      }
-      if (Isactive.isForwarding) {
-        dispatch(
-          Savenewmsg({
-            id: id,
-            rawtext: ProcessorValues.current.rawtext,
-            styles: JSON.stringify(ProcessorValues.current.sorted),
-            reply: null,
-            forward: null
-          })
-        );
+    if (ProcessorValues.current.rawtext != '') {
+      if (Isactive.isEditting) {
+        dispatch(editmsg({ msgId: Isactive.editID, newtext: ProcessorValues.current.rawtext }));
+        Requests().EditMessage(Isactive.editID, ProcessorValues.current.rawtext);
+        ProcessorValues.current.rawtext = '';
+        ProcessorValues.current.sorted = [];
+        divref.current.innerText = '';
+        setentitycontainers([]);
+        dispatch(composerActions.clear());
+      } else {
+        if (Isactive.isReplying) {
+          dispatch(
+            Savenewmsg({
+              id: id,
+              rawtext: ProcessorValues.current.rawtext,
+              styles: JSON.stringify(ProcessorValues.current.sorted),
+              reply: Isactive.replyID,
+              forward: null
+            })
+          );
+        }
+        if (Isactive.isForwarding) {
+          dispatch(
+            Savenewmsg({
+              id: id,
+              rawtext: ProcessorValues.current.rawtext,
+              styles: JSON.stringify(ProcessorValues.current.sorted),
+              reply: null,
+              forward: null
+            })
+          );
 
-        dispatch(
-          Savenewmsg({
-            id: id,
-            rawtext: null,
-            styles: null,
-            reply: null,
-            forward: Isactive.forwardID
-          })
-        );
+          dispatch(
+            Savenewmsg({
+              id: id,
+              rawtext: null,
+              styles: null,
+              reply: null,
+              forward: Isactive.forwardID
+            })
+          );
+        }
+        // !ONLY SEND A MESSAGE
+        else if (!needActoin) {
+          dispatch(
+            Savenewmsg({
+              id: id,
+              rawtext: ProcessorValues.current.rawtext,
+              styles: JSON.stringify(ProcessorValues.current.sorted),
+              reply: null,
+              forward: null
+            })
+          );
+        }
       }
-      // !ONLY SEND A MESSAGE
-      else if (!needActoin) {
-        dispatch(
-          Savenewmsg({
-            id: id,
-            rawtext: ProcessorValues.current.rawtext,
-            styles: JSON.stringify(ProcessorValues.current.sorted),
-            reply: null,
-            forward: null
-          })
-        );
-      }
+
+      ProcessorValues.current.rawtext = '';
+      ProcessorValues.current.sorted = [];
+      divref.current.innerText = '';
+      setentitycontainers([]);
+      dispatch(composerActions.clear());
     }
-
-    ProcessorValues.current.rawtext = '';
-    // ProcessorValues.current.sorted = [];
-    divref.current.innerText = '';
-    setentitycontainers([]);
-    dispatch(composerActions.clear());
   }
 
   return (

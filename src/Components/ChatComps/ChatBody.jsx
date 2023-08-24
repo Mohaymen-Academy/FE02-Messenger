@@ -58,19 +58,17 @@ const ChatBody = memo(({ chatid, chattype, bodyref, messages, lastmassage }) => 
       // //! if there is no scroll
       if (bodyref.current.scrollHeight == bodyref.current.clientHeight) {
         Requests().UpdateSeen(SetMaxMin(messages).max);
-        //   //! if the scroll is up
+        dispatch(setUpdate({ dir: DOWN }));
+
+        //! if the scroll is up
       } else if (bodyref.current.scrollTop == 0) {
+        dispatch(setUpdate({ dir: UP }));
         //   //! if the scroll is down
       } else if (isScrollAtBottom(bodyref)) {
         Requests().UpdateSeen(SetMaxMin(messages).max);
+        dispatch(setUpdate({ dir: DOWN }));
       }
       dispatch(SetIDs(SetMaxMin(messages)));
-      // if (bodyref.current.scrollTop == 0) {
-      //   dispatch(setUpdate({ dir: UP }));
-      // } else if (isScrollAtBottom(bodyref)) {
-      //   Requests().UpdateSeen(SetMaxMin(messages).max);
-      //   setTimeout(dispatch(setUpdate({ dir: DOWN })), 1000);
-      // }
       GoHnalder().GoTo(messages, lastmassage, bodyref, dispatch, chatid, chattype);
     }
     //   }
@@ -87,12 +85,13 @@ const ChatBody = memo(({ chatid, chattype, bodyref, messages, lastmassage }) => 
         Requests().UpdateSeen(SetMaxMin(messages).max);
       }
       if (lastmassage == 0) {
-        GoHnalder().GoTo(messages, SetMaxMin(messages).min, bodyref, dispatch, chatid, chattype);
+        // GoHnalder().GoTo(messages, SetMaxMin(messages).min, bodyref, dispatch, chatid, chattype);
+        bodyref.current.scrollTop = 0;
       } else {
         GoHnalder().GoTo(messages, lastmassage, bodyref, dispatch, chatid, chattype);
       }
     }
-  }, [chatid]);
+  }, [chatid, messages]);
 
   function isScrollAtBottom(bodyref) {
     return (
