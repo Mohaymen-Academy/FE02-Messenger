@@ -33,11 +33,7 @@ export default function LeftSide({
     4: 0,
     5: 0
   });
-  if (isgroup) {
-    filepart[0] = 0;
-    filepart[5] = 1;
-  }
-
+ 
   const changesetpat = (num) => {
     let newfilepart = {
       0: 0,
@@ -58,15 +54,34 @@ export default function LeftSide({
   }
   const [members , setmembers] = React.useState([])
   useEffect(() => {
+
     if(isgroup){
       Requests().GetMembers(selectedProfile.profileID)
       .then((res) => res.data)
       .then(data=>{
         console.error(data)
+        setfilepart({
+          0: 0,
+          1: 0,
+          2: 0,
+          3: 0,
+          4: 0,
+          5: 1
+        })
         setmembers(data)}
         )
         .catch(err=>console.error(err))
       
+    }
+    else{
+      setfilepart({
+        0: 1,
+        1: 0,
+        2: 0,
+        3: 0,
+        4: 0,
+        5: 0
+      })
     }
   }, [selectedProfile])
 
@@ -157,7 +172,7 @@ export default function LeftSide({
               className={`category-part ${
                 filepart[5] == 1 ? 'bg-color1 rounded-t-lg ' : 'bg-color2'
               }`}
-              onClick={() => changesetpat(0)}>
+              onClick={() => changesetpat(5)}>
               اعضا
             </div>
           ) : (
@@ -201,10 +216,10 @@ export default function LeftSide({
           ) : filepart[4] == 1 ? (
             <Voices />
           ) : filepart[5] == 1 ? (  
-            <div>
-              {/* {members.map((member) => (
-                <SearchResult profile={member} text={member.status} />  
-              ))} */}
+            <div className='mt-3 mr-[-1]'>
+              {members.map((member, index) => (
+                <SearchResult key={index}  profile={member} text={member.status} />  
+              ))}
             </div>
           ) : (
             <></>
