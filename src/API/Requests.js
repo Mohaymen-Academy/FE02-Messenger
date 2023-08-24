@@ -267,8 +267,6 @@ export default function Requests(body) {
 
   async function deleteChat(chatid) {}
   async function sendFiles(endpoint, body) {
-    console.log('hello');
-    console.log(body);
     try {
       const res = await API().POST(`${endpoint}`, body, AutorizeHeader);
       console.log(res);
