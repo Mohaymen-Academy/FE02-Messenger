@@ -133,20 +133,20 @@
     @apply hover:text-gray-500 text-[12px] hover:cursor-pointer;
   }
   .strike {
-    @apply line-through;
+    @apply line-through whitespace-pre;
   }
   .bold {
-    @apply font-bold;
+    @apply font-bold whitespace-pre;
   }
   /* .monospace{
         @apply monos
     } */
 
   .spoiler {
-    @apply blur-sm cursor-pointer;
+    @apply blur-sm cursor-pointer whitespace-pre;
   }
   .spoiler_{
-    @apply cursor-pointer blur-0 !important;
+    @apply cursor-pointer blur-0 whitespace-pre !important ;
   }
   .hover-trigger .hover-target {
     @apply hidden;

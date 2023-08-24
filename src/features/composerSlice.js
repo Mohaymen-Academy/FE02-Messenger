@@ -12,7 +12,8 @@ const initialState = {
   replyID: '',
   editID: '',
   editvalue: '',
-  pinmessage: null
+  pinmessage: null,
+  styles: []
 };
 const GetPin = createAsyncThunk('composer/getpin', async (infos) => {
   const data = Requests().GetPin(infos.chatid);
@@ -39,10 +40,12 @@ const composerSlice = createSlice({
           state.composerValue = action.payload.text;
           break;
         case 'edit':
+          console.error(action.payload)
           state.isEditting = true;
-          state.editID = action.payload.messageID;
+          state.editID = action.payload.msgid;
           state.editvalue = action.payload.text;
           state.composerValue = action.payload.text;
+          state.styles = action.payload.styles;
           break;
       }
     },

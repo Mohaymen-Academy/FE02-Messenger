@@ -1,5 +1,12 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { UilSmile, UilMessage, UilPaperclip, UilTimes } from '@iconscout/react-unicons';
+import {
+  UilSmile,
+  UilMessage,
+  UilPaperclip,
+  UilTimes,
+  UilMicrophone,
+  UilPause
+} from '@iconscout/react-unicons';
 // import EmojiPicker from 'emoji-picker-react';
 import { useDispatch, useSelector } from 'react-redux';
 import { json } from 'react-router-dom';
@@ -14,6 +21,8 @@ import { Savenewmsg, editmsg } from '../../features/SelectedInfo';
 import PopUp from '../../ui/PopUp';
 import Poll from './Poll';
 import UploadFile from '../../ui/UploadFile';
+import useRecorder from '../../hooks/useRecorder';
+import VoiceControl from '../voice/VoiceControl';
 
 export default function ChatFooter({ id, chattype, isallowed }) {
   const {
@@ -30,22 +39,36 @@ export default function ChatFooter({ id, chattype, isallowed }) {
     openemoji,
     setopenemoji,
     handleKeyLeftRight,
-    ProcessorValues
+    ProcessorValues,
+    OutputEntity
   } = TextProcessor([]);
-  console.error('footer');
-
   const Isactive = useSelector((state) => state.composer);
   const [openPoll, setopenPoll] = useState(false);
   const [fileuploaded, setfileuploaded] = useState(null);
-
+  const { recorderState, ...handlers } = useRecorder(id);
+  const emoji = useState('');
   useEffect(() => {
     if (divref.current) {
       ProcessorValues.current.sorted = [];
       ProcessorValues.current.rawtext = '';
       divref.current.innerText = '';
-      setentitycontainers([]);
+      // setentitycontainers([]);
     }
   }, [id]);
+  console.error(divref);
+  useEffect(() => {
+    console.error(Isactive);
+    if (divref.current) {
+      ProcessorValues.current.sorted = [];
+      ProcessorValues.current.rawtext = '';
+      if (Isactive.isEditting) {
+        ProcessorValues.current.sorted = Isactive.styles;
+        ProcessorValues.current.rawtext = Isactive.editvalue;
+        let ents = OutputEntity(divref, Isactive.composerValue, ProcessorValues.current.sorted);
+        setentitycontainers(ents);
+      }
+    }
+  }, [Isactive]);
 
   function closeTextProcessor() {
     setOpenTextProcessor(false);
@@ -79,10 +102,21 @@ export default function ChatFooter({ id, chattype, isallowed }) {
   }
   async function SelectRequestType() {
     // IF IS EDITING
-    if (ProcessorValues.current.rawtext != '') {
+    console.error(Isactive, ProcessorValues.current.rawtext);
+    if (ProcessorValues.current.rawtext != '' || Isactive.isForwarding) {
       if (Isactive.isEditting) {
-        dispatch(editmsg({ msgId: Isactive.editID, newtext: ProcessorValues.current.rawtext }));
-        Requests().EditMessage(Isactive.editID, ProcessorValues.current.rawtext);
+        dispatch(
+          editmsg({
+            msgId: Isactive.editID,
+            newtext: ProcessorValues.current.rawtext,
+            styles: ProcessorValues.current.sorted
+          })
+        );
+        Requests().EditMessage(
+          Isactive.editID,
+          ProcessorValues.current.rawtext,
+          ProcessorValues.current.sorted
+        );
         ProcessorValues.current.rawtext = '';
         ProcessorValues.current.sorted = [];
         divref.current.innerText = '';
@@ -101,15 +135,17 @@ export default function ChatFooter({ id, chattype, isallowed }) {
           );
         }
         if (Isactive.isForwarding) {
-          dispatch(
-            Savenewmsg({
-              id: id,
-              rawtext: ProcessorValues.current.rawtext,
-              styles: JSON.stringify(ProcessorValues.current.sorted),
-              reply: null,
-              forward: null
-            })
-          );
+          if (ProcessorValues.current.rawtext != '') {
+            dispatch(
+              Savenewmsg({
+                id: id,
+                rawtext: ProcessorValues.current.rawtext,
+                styles: JSON.stringify(ProcessorValues.current.sorted),
+                reply: null,
+                forward: null
+              })
+            );
+          }
 
           dispatch(
             Savenewmsg({
@@ -123,6 +159,7 @@ export default function ChatFooter({ id, chattype, isallowed }) {
         }
         // !ONLY SEND A MESSAGE
         else if (!needActoin) {
+          console.error('zarperwerw');
           dispatch(
             Savenewmsg({
               id: id,
@@ -170,23 +207,32 @@ export default function ChatFooter({ id, chattype, isallowed }) {
             <UilMessage />
           </button>
           {/* </UilPaperclip> */}
-          <FileUploader openpull={setopenPoll} openfile={setfileuploaded} chattype={chattype} />
+          <FileUploader
+            openpull={setopenPoll}
+            openfile={setfileuploaded}
+            chattype={chattype}
+            id={id}
+          />
           {/* <input type="text" dir='auto' /> */}
-          <div
-            ref={divref}
-            dir="auto"
-            contentEditable
-            onKeyDown={handleKeyDown} // Attach the onKeyDown event handler
-            onClick={handleclick}
-            onSelectCapture={handleSelect}
-            onInput={handleonInput}
-            suppressContentEditableWarning={true}
-            className=" flex max-h-[150px] w-[90%] flex-row overflow-hidden overflow-y-auto
-            whitespace-pre-wrap text-text1 mx-5 bg-color1 py-2 px-3 rounded-xl
+          {recorderState.mediaStream ? (
+            <VoiceControl handlers={handlers} recorderState={recorderState} id={id} />
+          ) : (
+            <div
+              ref={divref}
+              dir="auto"
+              contentEditable
+              onKeyDown={handleKeyDown} // Attach the onKeyDown event handler
+              onClick={handleclick}
+              onSelectCapture={handleSelect}
+              onInput={handleonInput}
+              suppressContentEditableWarning={true}
+              className=" flex h-auto max-h-[50px] w-[90%] flex-row overflow-hidden
+            whitespace-pre-wrap
             break-all border-none shadow-none outline-none focus:shadow-none active:shadow-none">
-            {Isactive.editvalue ? Isactive.editvalue : ''}
-          </div>
-          <div>
+              {Isactive.editvalue ? Isactive.editvalue : ''}
+            </div>
+          )}
+          <div className="flex">
             <button
               onClick={(e) => {
                 e.stopPropagation();
@@ -195,6 +241,28 @@ export default function ChatFooter({ id, chattype, isallowed }) {
               className="mx-1 h-8 w-8 text-text1 ">
               <UilSmile />
             </button>
+            {recorderState.mediaStream ? (
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  const { cancelRecording } = handlers;
+                  cancelRecording();
+                }}
+                className="mx-1 h-8 w-8 text-text1 ">
+                <UilPause />
+              </button>
+            ) : (
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  const { startRecording } = handlers;
+                  console.error(startRecording);
+                  startRecording();
+                }}
+                className="mx-1 h-8 w-8 text-text1 ">
+                <UilMicrophone />
+              </button>
+            )}
             {openTextProcessor && <TextProcessorMenu ChangeEntities={ChangeEntities} />}
 
             {fileuploaded && (

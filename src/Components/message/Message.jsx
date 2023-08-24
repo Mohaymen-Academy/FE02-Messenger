@@ -43,6 +43,7 @@ const Message =
     const processor = TextProcessorObj([]);
     const userprofile = useSelector((state) => state.profile);
     const dispatch = useDispatch();
+    let styles;
     const handleReply = () => {
       GoHnalder().GoTo(
         messages,
@@ -53,11 +54,12 @@ const Message =
         chattype
       );
     };
+    console.error();
     useEffect(() => {
       if (textref.current) {
         if (entities != '') {
           try {
-            const styles = JSON.parse(entities);
+            styles = JSON.parse(entities);
             processor.OutputEntity(textref, text, styles);
           } catch (err) {
             // console.error(err);
@@ -120,6 +122,7 @@ const Message =
     }
     // console.log('werwerkwjriopup');
     // console.error(profile);
+    console.error(chattype == TYPE_GROUP);
     const Isforme = creator.profileID === userprofile.profileData.profileID;
     return (
       <div
@@ -137,7 +140,7 @@ const Message =
           />
           {media ? <MessageMedia src={media} handleClick={handleMediaMessage} /> : <></>}
           <div
-            className="flex break-words break-all whitespace-break-spaces font-semibold"
+            className="flex break-words break-all whitespace-pre-wrap flex-wrap font-normal"
             dir="auto"
             ref={textref}>
             {/* {text} */}
@@ -150,14 +153,14 @@ const Message =
             isEdited={isEdited}
           />
         </MessageBody>
-        <div className="hidden">
-          {chattype == TYPE_GROUP ? (
+        <div className={`${Isforme ? 'hidden' : ''} pt-[20px] pr-[5px]`}>
+          {chattype === TYPE_GROUP ? (
             <Avatar
-              size={100}
+              size={50}
               imagecolor={profile.defaultProfileColor}
               image={profile.lastProfilePicture}
               isOnline={'false'}
-              char={profile.profileName}
+              char={profile.profileName[0]}
             />
           ) : (
             <></>
@@ -170,6 +173,7 @@ const Message =
           positions={mousepositoin}
           setposition={setmousepositoin}
           setopenForward={setopenForward}
+          styles={entities && entities != '' ? JSON.parse(entities) : []}
         />
 
         {openForward ? (

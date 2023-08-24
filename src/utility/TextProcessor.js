@@ -94,7 +94,6 @@ export default function TextProcessorObj(containers) {
     e.stopPropagation();
     const result = findcursorPos();
     ProcessorValues.current.caretPosition = result[0];
-    // console.log(ProcessorValues.current.caretPosition);
     ProcessorValues.current.rawtext = RawText();
     if (ProcessorValues.current.rawtext == '') ProcessorValues.current.sorted = [];
     updateEnteties(result[1]);
@@ -263,7 +262,6 @@ export default function TextProcessorObj(containers) {
    * @returns
    */
   function generateEntity(ref, text, ents) {
-    console.error(ents);
     let list_of_renderableentities = [];
 
     if (ents.length == 0) {
@@ -300,30 +298,6 @@ export default function TextProcessorObj(containers) {
     }
 
     for (let i = 0; i < ents.length; i++) {
-      // if (i == 0 && ents[0].lower > 0) {
-      //   list_of_renderableentities.push({
-      //     lower: 0,
-      //     upper: ents[0].lower - 1
-      //   });
-      //   prevEnd = ents[0].upper;
-      // }
-      // if (i == 0 && ents[0].lower == 0) {
-      //   list_of_renderableentities.push({
-      //     lower: ents[0].upper + 1,
-      //     upper: ents.length == 1 ? text.length - 1 : ents[1].lower - 1
-      //   });
-      //   prevEnd = ents[0].upper;
-      // }
-
-      // const currentRange = ents[i];
-      // const gapStart = prevEnd + 1;
-      // const gapEnd = currentRange.lower - 1;
-      // if (gapStart <= gapEnd) {
-      //   list_of_renderableentities.push({ lower: gapStart, upper: gapEnd });
-      // }
-      // prevEnd = Math.max(prevEnd, currentRange.upper);
-
-      // the first one
       let lower, upper, lowertext;
       if (i == 0) {
         lower = 0;
@@ -344,11 +318,11 @@ export default function TextProcessorObj(containers) {
       } else {
         lower = ents[i].upper + 1;
         upper = text.length - 1;
-        lowertext = text.substring(lower, upper);
+        lowertext = text.substring(lower);
         if (lowertext != '') {
           list_of_renderableentities.push({ lower, upper });
         }
-        list_of_renderableentities.push({ lower, upper });
+        // list_of_renderableentities.push({ lower, upper });
       }
     }
 

@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { startRecording, saveRecording } from '../utility/recordings';
+import Requests from '../API/Requests';
 
 const initialState = {
   recordingMinutes: 0,
@@ -10,13 +11,13 @@ const initialState = {
   audio: null
 };
 
-export default function useRecorder() {
+export default function useRecorder(id) {
   const [recorderState, setRecorderState] = useState(initialState);
 
   useEffect(() => {
     const MAX_RECORDER_TIME = 5;
     let recordingInterval = null;
-
+    console.log('hello');
     if (recorderState.initRecording) {
       recordingInterval = setInterval(() => {
         setRecorderState((prevState) => {
@@ -73,6 +74,18 @@ export default function useRecorder() {
         const blob = new Blob(chunks, { type: 'audio/ogg; codecs=opus' });
         chunks = [];
 
+        const reader = new FileReader();
+        reader.readAsDataURL(blob);
+        reader.onloadend = () => {
+          const audioBase64 = reader.result.split(',')[1];
+          Requests().sendFiles(id, {
+            content: audioBase64,
+            text: '',
+            'media-type': 'audio/ogg',
+            fileName: 'the Audio',
+            size: 0
+          });
+        };
         setRecorderState((prevState) => {
           if (prevState.mediaRecorder) {
             return {

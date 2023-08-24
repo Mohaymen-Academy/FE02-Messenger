@@ -1,5 +1,6 @@
-function VoiceControl({ recorderState, startRecording, sendRecording, cancelRecording }) {
+function VoiceControl({ recorderState, handlers }) {
   const { recordingMinutes, recordingSeconds, initRecording } = recorderState;
+  const { startRecording, saveRecording, cancelRecording } = handlers;
   return (
     <div>
       <div>
@@ -10,15 +11,11 @@ function VoiceControl({ recorderState, startRecording, sendRecording, cancelReco
       <div>{initRecording && <button onClick={cancelRecording}>pause</button>}</div>
       <div>
         {initRecording ? (
-          <button
-            className="start-button"
-            title="Save recording"
-            disabled={recordingSeconds === 0}
-            onClick={sendRecording}>
+          <button title="Save recording" disabled={recordingSeconds === 0} onClick={saveRecording}>
             send
           </button>
         ) : (
-          <button className="start-button" title="Start recording" onClick={startRecording}>
+          <button title="Start recording" onClick={startRecording}>
             start
           </button>
         )}
