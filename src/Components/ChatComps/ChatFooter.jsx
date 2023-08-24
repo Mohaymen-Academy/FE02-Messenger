@@ -238,7 +238,6 @@ export default function ChatFooter({ id, chattype, isallowed }) {
                   const { startRecording } = handlers;
                   console.error(startRecording);
                   startRecording();
-                  console.log('fuck you');
                 }}
                 className="mx-1 h-8 w-8 text-text1 ">
                 <UilMicrophone />

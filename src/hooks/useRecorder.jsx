@@ -17,7 +17,7 @@ export default function useRecorder(id) {
   useEffect(() => {
     const MAX_RECORDER_TIME = 5;
     let recordingInterval = null;
-
+    console.log('hello');
     if (recorderState.initRecording) {
       recordingInterval = setInterval(() => {
         setRecorderState((prevState) => {
