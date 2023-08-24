@@ -10,11 +10,11 @@ function MessageMedia({ src, handleClick }) {
         </div>
       ) :
       src.contentType.startsWith("audio") ? (
-        <audio src={`data:audio/mpeg;base64,${src.preLoadingContent}`} className="cursor-pointer w-[200px] h-[200px]" controls />
+        <audio src={`data:audio/mpeg;base64,${src.preLoadingContent}`} className="cursor-pointer w-[200px]   " controls />
       ) :
       src.contentType.startsWith("image") ? (
         <div className="w-full rounded-md" onClick={handleClick}>
-          <img src={`data:image/jpeg;base64,${src.preLoadingContent}`} className="cursor-pointer w-[200px] h-[200px]" />
+          <img src={`data:image/jpeg;base64,${src.preLoadingContent}`} className="cursor-pointer w-[200px] h-auto" />
         </div>
         ) :
         (

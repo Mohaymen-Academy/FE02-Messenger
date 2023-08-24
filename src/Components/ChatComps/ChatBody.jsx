@@ -188,14 +188,14 @@ const ChatBody = memo(({ chatid, chattype, bodyref, messages, lastmassage }) => 
                   {message.sender.profileID == 1 ? (
                     message.messageID == 0 ? (
                       <div key={message.messageID} className="my-[1rem] w-full text-center">
-                        <span className="pointer-events-none sticky rounded-full bg-black bg-opacity-60 px-2 py-1 font-iRANSans text-white">
+                        <span className="pointer-events-none sticky rounded-full bg-bghovor bg-opacity-60 px-2 py-1 font-iRANSans text-text1">
                           {getRelativeDate(message.time)}
                         </span>
                         {/* {children} */}
                       </div>
                     ) : (
                       <div key={message.messageID} className="my-[1rem] w-full text-center">
-                        <span className=" rounded-full bg-black bg-opacity-60 p-1 px-3 text-text1 ">
+                        <span className=" rounded-full bg-bghovor bg-opacity-60 p-1 px-3 text-text1 ">
                           {message.text}
                         </span>
                       </div>

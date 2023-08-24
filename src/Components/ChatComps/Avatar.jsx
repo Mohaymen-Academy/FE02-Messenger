@@ -1,7 +1,7 @@
 import React from 'react';
 
 const Avatar = ({ image, isOnline, char, imagecolor, size }) => {
-  console.log(isOnline);
+  // console.log(isOnline);
   return (
     <div>
       <div
