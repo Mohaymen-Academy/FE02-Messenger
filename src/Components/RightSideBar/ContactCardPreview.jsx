@@ -19,7 +19,7 @@ export default function ContactCardPreview({
         // onClick={() =>
         //   // dispatch(GetMessages({ type: type, ID: chatid, profileinfo: profile, message_id: 0 }))
         // }
-        className="flex h-18 w-[97%] cursor-pointer m-1 mx-2 flex-row items-center justify-start rounded-lg hover:bg-bghovor">
+        className="flex h-18 w-[97%] cursor-pointer m-1 mx-2 flex-row items-center justify-start rounded-lg hover:bg-bghovor p-2">
         <div className="w-fit px-2 flex">
           {image ? (
             <img

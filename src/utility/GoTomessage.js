@@ -24,11 +24,6 @@ export default function GoHnalder() {
       // Loop through the child nodes of the parent element
       let selectedchild;
       // console.error(Listref.current.childNodes);
-
-      const firstchild = Listref.current.childNodes[0];
-      console.error(firstchild);
-      console.error(firstchild.scrollTop);
-      console.error(firstchild.clientHeight);
       for (let i = 0; i < Listref.current.childNodes.length; i++) {
         const childNode = Listref.current.childNodes[i];
         // console.error(Listref.current.scrollTop + childNode.getBoundingClientRect().top);
@@ -36,13 +31,10 @@ export default function GoHnalder() {
           selectedchild = childNode;
         }
       }
-      // console.error(selectedchild);
-      console.error(selectedchild);
-      console.error(selectedchild.scrollTop);
-      console.error(selectedchild.clientHeight);
       Listref.current.scrollTop =
         Listref.current.scrollTop + selectedchild.getBoundingClientRect().top - 300;
     } else {
+      console.error('werwer')
       dispatch(GetMessages({ type: chattype, ID: chatid, message_id: msgid }));
     }
   }

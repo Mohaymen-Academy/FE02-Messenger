@@ -24,8 +24,7 @@ import UploadFile from '../../ui/UploadFile';
 import useRecorder from '../../hooks/useRecorder';
 import VoiceControl from '../voice/VoiceControl';
 
-export default function ChatFooter({ id, chattype }) {
-  console.log(id);
+export default function ChatFooter({ id, chattype, isallowed }) {
   const {
     handleEmojiPicker,
     handleSelect,
@@ -42,13 +41,22 @@ export default function ChatFooter({ id, chattype }) {
     handleKeyLeftRight,
     ProcessorValues
   } = TextProcessor([]);
+  console.error('footer');
+
   const Isactive = useSelector((state) => state.composer);
-  const [openAttach, setOpenAttach] = useState(false);
   const [openPoll, setopenPoll] = useState(false);
   const [fileuploaded, setfileuploaded] = useState(null);
   const { recorderState, ...handlers } = useRecorder();
   const emoji = useState('');
-  console.log(recorderState);
+  useEffect(() => {
+    if (divref.current) {
+      ProcessorValues.current.sorted = [];
+      ProcessorValues.current.rawtext = '';
+      divref.current.innerText = '';
+      setentitycontainers([]);
+    }
+  }, [id]);
+
   function closeTextProcessor() {
     setOpenTextProcessor(false);
   }
@@ -103,6 +111,16 @@ export default function ChatFooter({ id, chattype }) {
             rawtext: ProcessorValues.current.rawtext,
             styles: JSON.stringify(ProcessorValues.current.sorted),
             reply: null,
+            forward: null
+          })
+        );
+
+        dispatch(
+          Savenewmsg({
+            id: id,
+            rawtext: null,
+            styles: null,
+            reply: null,
             forward: Isactive.forwardID
           })
         );
@@ -122,14 +140,16 @@ export default function ChatFooter({ id, chattype }) {
     }
 
     ProcessorValues.current.rawtext = '';
+    // ProcessorValues.current.sorted = [];
     divref.current.innerText = '';
     setentitycontainers([]);
     dispatch(composerActions.clear());
   }
+
   return (
     <div className=" sticky bottom-0 flex flex-col">
       {needActoin ? (
-        <div className="flex-row= flex h-[30px] w-[100%] bg-color2 pr-2 pt-1">
+        <div className="flex-row items-center flex h-[40px] w-[100%] bg-color2 pr-2 pt-1">
           <button onClick={() => dispatch(composerActions.clear())}>
             <UilTimes className={'text-color3'} />
           </button>
@@ -209,11 +229,10 @@ export default function ChatFooter({ id, chattype }) {
               </button>
             )}
             {openTextProcessor && <TextProcessorMenu ChangeEntities={ChangeEntities} />}
-            {/* {openAttach &&} */}
 
             {fileuploaded && (
               <PopUp title="انتخاب فایل" setIsModalOpen={setfileuploaded}>
-                <UploadFile id={id} fileuploaded={fileuploaded} />
+                <UploadFile id={id} fileuploaded={fileuploaded} setIsModalOpen={setfileuploaded} />
               </PopUp>
             )}
             {openPoll && (

@@ -12,17 +12,15 @@ import { useDispatch, useSelector } from 'react-redux';
 import Requests from '../../API/Requests';
 import { addcontact } from '../../features/SelectedInfo';
 export default function LeftSide({
-  isActive,
-  profile,
   setActive,
   setlayout,
   isGroupOrChannel,
   isgroup,
-  chatid
+  selectedProfile
 }) {
+  // console.error(selectedProfile);
   const dispatch = useDispatch();
   const pics = useSelector((state) => state.selectedProf.profPics);
-  const selectedProfile = useSelector((state) => state.selectedProf.profileinfo);
   // console.error(selectedProfile);
   const iscontact = useSelector((state) => state.selectedProf.isContact);
   // console.error(iscontact);
@@ -31,15 +29,22 @@ export default function LeftSide({
     1: 0,
     2: 0,
     3: 0,
-    4: 0
+    4: 0,
+    5: 0
   });
+  if (isgroup) {
+    filepart[0] = 0;
+    filepart[5] = 1;
+  }
+
   const changesetpat = (num) => {
     let newfilepart = {
       0: 0,
       1: 0,
       2: 0,
       3: 0,
-      4: 0
+      4: 0,
+      5: 0
     };
     newfilepart[num] = 1;
     setfilepart(newfilepart);
@@ -80,44 +85,47 @@ export default function LeftSide({
       <div className="relative w-full h-[350px] mb-0 md:h-[350px]">
         <div
           className={`flex flex-col justify-end place-items-end w-full h-[350px]  bg-cover  bg-center bg-no-repeat`}
-          style={{
-            backgroundImage: `${
-              selectedProfile?.lastProfilePicture &&
-              `url('data:image/jpeg;base64,${selectedProfile?.lastProfilePicture.preLoadingContent}')`
-            }`,
-            backgroundColor: `${selectedProfile?.defaultProfileColor}`,
-            backgroundRepeat: 'no-repeat',
-            backgroundSize: 'cover'
-          }}>
-          <div className="p-7 pb-0 text-white font-bold text-[25px] opacity-150">
-            {' '}
-            {selectedProfile?.profileName}{' '}
+          // style={{ backgroundColor: selectedProfile.defaultProfileColor }}
+        >
+          <div className="h-[350px] w-[100%] flex flex-col">
+            <img
+              className="h-[350px] "
+              src={`data:image/jpeg;base64,${selectedProfile.lastProfilePicture?.preLoadingContent}`}
+              style={{ backgroundColor: selectedProfile.defaultProfileColor }}
+              alt=""
+            />
+            <div
+              className="absolute w-[100%]
+            flex flex-col"
+            style={{bottom:0}}>
+              <div className=" pr-10  text-white font-bold text-[25px] opacity-150 absolute">
+                {selectedProfile?.profileName}
+              </div>
+              <div className="pr-10 pt-5 text-white text-[15px]">{selectedProfile?.status}</div>
+              {/* //should change with the member or subs number */}
+              <div className="w-full h-[155px] bg-gradient-to-b from-transparent to-black"></div>
+            </div>
           </div>
-          <div className="p-7 pt-0 text-white text-[15px]">{selectedProfile?.status}</div>
-          {/* //should change with the member or subs number */}
         </div>
-        <div className="absolute bottom-0 w-full h-1/3 bg-gradient-to-b from-transparent to-black"></div>
       </div>
 
       <div>
         {isgroup ? (
           <div className="w-[100%] flex flex-col gap-1 my-3">
             <button className="flex w-[95%] justify-evenly  mx-auto items-center hover:bg-opacity-5 rounded-lg hover:bg-color3">
-              <UilLink className={''} />
-              <div className="overflow-hidden flex flex-col text-right">
+              {/* <UilLink className={'text-text1'} /> */}
+              {/* <div className="overflow-hidden  flex flex-col text-right">
                 <p className="text-text1">https://splus.ir/joingroup/AG3_T_fw3E7bqinWv6nnlg</p>
                 <p className="text-opacity-30 text-text1">لینک</p>
-              </div>
+              </div> */}
             </button>
             <button className="flex w-[90%] justify-between mt-3 mx-auto items-center hover:bg-opacity-5 rounded-lg hover:bg-color3">
               <div
-                className="flex w-[100%] 
-                justify-evenly
-              items-center">
+                className="flex w-[100%] gap-4 items-center py-2">
                 {false ? (
-                  <UilBell className={'w-[50px] h-[50px] text-color3'}></UilBell>
+                  <UilBell className={'w-5 h-5 text-color3'}></UilBell>
                 ) : (
-                  <UilBellSlash className={'w-[50px] h-[50px] text-color3'}></UilBellSlash>
+                  <UilBellSlash className={'w-7 h-7 text-color3'}></UilBellSlash>
                 )}
                 <p className="w-fit text-text1">اعلان ها</p>
               </div>
@@ -132,7 +140,7 @@ export default function LeftSide({
           {isgroup ? (
             <div
               className={`category-part ${
-                filepart[0] == 1 ? 'bg-color1 rounded-t-lg ' : 'bg-color2'
+                filepart[5] == 1 ? 'bg-color1 rounded-t-lg ' : 'bg-color2'
               }`}
               onClick={() => changesetpat(0)}>
               اعضا

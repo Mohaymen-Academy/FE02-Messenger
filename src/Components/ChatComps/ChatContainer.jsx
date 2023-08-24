@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { ChatBody, ChatHeader, ChatFooter } from './';
 import LeftLayout from '../LeftSideBar/LeftLayout';
-import { TYPE_USER } from '../../utility/Constants';
+import { PERMISSION_TYPE_NOT_ALLOWED_, TYPE_USER } from '../../utility/Constants';
 import { resetChatId } from '../../features/SelectedInfo';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -9,10 +9,12 @@ export default function ChatContainer() {
   const [active, setActive] = useState(false);
   const chatType = useSelector((state) => state.selectedProf.chatType);
   const chatID = useSelector((state) => state.selectedProf.selectedChatID);
+  const selectedProfile = useSelector((state) => state.selectedProf.profileinfo);
+  const lastmassage = useSelector((state) => state.selectedProf.lastmsgId);
   const dispatch = useDispatch();
   const bodyref = useRef(null);
   const messages = useSelector((state) => state.selectedProf.Chatmessages);
-  console.error(chatID);
+  console.error(selectedProfile);
   useEffect(() => {
     document.addEventListener('keydown', (e) => {
       if (e.key == 'Escape') {
@@ -44,8 +46,18 @@ export default function ChatContainer() {
                 messages={messages}
               />
 
-              <ChatBody bodyref={bodyref} chattype={chatType} chatid={chatID} messages={messages} />
-              <ChatFooter chattype={chatType} id={chatID} />
+              <ChatBody
+                bodyref={bodyref}
+                chattype={chatType}
+                chatid={chatID}
+                messages={messages}
+                lastmassage={lastmassage}
+              />
+              {selectedProfile.accessPermission != PERMISSION_TYPE_NOT_ALLOWED_ ? (
+                <ChatFooter chattype={chatType} id={chatID} />
+              ) : (
+                <></>
+              )}
             </div>
             <LeftLayout chattype={chatType} chatid={chatID} active={active} setActive={setActive} />
           </>

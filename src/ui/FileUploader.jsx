@@ -18,11 +18,9 @@ export default function FileUploader({ openpull, openfile, chattype }) {
   const fileinput = useRef(null);
   const base64img = useRef(null);
   function openthediv() {
-    setopen(true);
+    setopen((prev) => !prev);
   }
-  function closediv() {
-    setopen(false);
-  }
+
   // function handlefileuplodview(e) {
   // }
   function handleFileuploaded(e) {
@@ -42,22 +40,23 @@ export default function FileUploader({ openpull, openfile, chattype }) {
       });
     };
     reader.readAsDataURL(uploadedFile.current);
+    openthediv()
   }
   return (
     <div
-      onMouseOver={openthediv}
+      onClick={openthediv}
       //   onMouseLeave={closediv}
       className="mx-1 h-8 w-8 text-text1 hover:cursor-pointer">
       <UilPaperclip />
 
       <div
-        onMouseLeave={closediv}
         className={`${
           open ? 'block' : 'hidden'
         } relative  top-[-145px]  w-[250px] rounded-lg bg-color1 text-color4 shadow-2xl`}>
         <button
           className="my-1 flex w-full flex-row items-center gap-2 rounded-lg px-4 hover:bg-gray-200"
-          onClick={(e) => setsection(menuId)}>
+          // onClick={(e) => setsection(menuId)}
+        >
           <div className="my-1 flex items-center gap-2">
             {/* <UilVolumeMute /> */}
             <UilMicrophone />
@@ -67,8 +66,9 @@ export default function FileUploader({ openpull, openfile, chattype }) {
         <button
           className=" my-1 flex w-full flex-row items-center gap-2 rounded-lg px-4 hover:bg-gray-200"
           onClick={(e) => {
+            setopen(false)
+            e.stopPropagation();
             fileinput.current.click();
-            console.log('here in uploaderrrrrrrrr button');
           }}>
           <input type="file" className="hidden" ref={fileinput} onInput={handleFileuploaded} />
 

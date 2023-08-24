@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import Requests from '../API/Requests';
+import { DOWN } from '../utility/Constants';
 
 function CustomsortInc(a, b) {
   // console.log(a.messageID,b.messageID)
@@ -13,14 +14,14 @@ const initialState = {
   chatType: null,
   selectedProfileView: null,
   Chatmessages: [],
-  // LastmsgId: 0,
+  lastmsgId: 0,
   upfinished: false,
   downfinished: false,
   minID: 0,
   maxID: 0,
   unreadcount: 0,
   needupdate: false,
-  dir: null,
+  dir: DOWN,
   profileinfo: null,
   leftprof: null,
   profPics: [],
@@ -62,6 +63,7 @@ const SetLeftProf = createAsyncThunk('selectedProf/setleftprof', async (infos) =
 const GetMessages = createAsyncThunk('selectedProf/getmessages', async (requestinfo) => {
   try {
     const data = await Requests().GetChat(requestinfo.profid, requestinfo.message_id);
+    console.error(data);
     return {
       data: data.data,
       profid: requestinfo.profid,
@@ -95,7 +97,7 @@ const SelectedProf = createSlice({
       state.selectedChatID = null;
     },
     editmsg: (state, action) => {
-      console.log(action.payload.msgId);
+      // console.log(action.payload.msgId);
       state.Chatmessages = state.Chatmessages.map((ele) => {
         if (ele.messageID == action.payload.msgId) {
           return {
@@ -113,7 +115,7 @@ const SelectedProf = createSlice({
       state.downfinished = action.payload.down;
     },
     setLastmsgId: (state, action) => {
-      state.LastmsgId = action.payload.msgid;
+      state.lastmsgId = action.payload.msgid;
     },
     deleteChat: (state, action) => {
       if (action.payload.chatid == state.selectedChatID) {
@@ -137,17 +139,20 @@ const SelectedProf = createSlice({
     },
     setUnreadCount: (state, action) => {
       state.unreadcount = action.payload.count;
+      if (action.payload.count != 0) {
+        state.downfinished = false;
+        console.error(state.downfinished);
+      }
     },
     ReplaceImage: (state, action) => {
       // state.messages; // Create a new array to avoid mutating the state directly
       state.Chatmessages = state.Chatmessages.map((message) => {
-        console.log(message);
         if (message.messageID === action.payload.massageId) {
           state.downloaded = [
             ...state.downloaded,
             { id: action.payload.massageId, image: action.payload.image }
           ];
-          console.log(state.downloaded);
+
           return {
             ...message,
             media: {
@@ -158,7 +163,6 @@ const SelectedProf = createSlice({
         }
         return message;
       });
-      console.log(state.Chatmessages);
     }
   },
   extraReducers: (builder) =>
@@ -168,6 +172,7 @@ const SelectedProf = createSlice({
         state.Chatmessages = action.payload?.data?.messages;
         state.downfinished = action.payload?.data?.downFinished;
         state.upfinished = action.payload?.data?.upFinished;
+        state.lastmsgId = action.payload?.data?.messageId;
         state.chatType = action.payload.type;
         state.selectedChatID = action.payload.profid;
         if (action.payload?.profileinfo) state.profileinfo = action.payload?.profileinfo;
@@ -179,15 +184,17 @@ const SelectedProf = createSlice({
         state.profPics = action.payload.profilePictures;
       })
       .addCase(GetMessagesUp.fulfilled, (state, action) => {
-        // console.log('up');
+        console.error(action.payload);
         state.Chatmessages = [].concat(action.payload.messages, state.Chatmessages);
-        state.upfinished = action.payload?.upFinished;
+        state.upfinished = action.payload.upFinished;
+        state.lastmsgId = action.payload?.data?.messageId;
         state.needupdate = false;
-        console.log();
       })
       .addCase(GetMessagesDown.fulfilled, (state, action) => {
+        console.error(action.payload);
         state.Chatmessages = [].concat(state.Chatmessages, action.payload.messages);
-        state.downfinished = action.payload?.downFinished;
+        state.downfinished = action.payload.downFinished;
+        state.lastmsgId = action.payload?.data?.messageId;
         state.needupdate = false;
       })
       .addCase(Savenewmsg.fulfilled, (state, action) => {
@@ -220,7 +227,7 @@ const SelectedProf = createSlice({
         });
       })
 });
-export { GetMessages, SetLeftProf, GetMessagesDown, GetMessagesUp, Savenewmsg,doupdates };
+export { GetMessages, SetLeftProf, GetMessagesDown, GetMessagesUp, Savenewmsg, doupdates };
 export const {
   resetChatId,
   editmsg,

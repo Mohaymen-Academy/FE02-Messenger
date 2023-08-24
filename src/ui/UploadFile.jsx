@@ -2,7 +2,7 @@ import React, { useRef } from 'react';
 import Requests from '../API/Requests';
 import FilePreviewer from './FilePreviewer';
 import { Files } from '../Components/LeftSideBar/ProfileParts';
-export default function UploadFile({ id, fileuploaded }) {
+export default function UploadFile({ id, fileuploaded , setIsModalOpen }) {
   const captionRef = useRef(null);
   function handleChange(event) {
     captionRef.current.value = event.target.value;
@@ -14,6 +14,7 @@ export default function UploadFile({ id, fileuploaded }) {
     } else {
       Requests().sendFiles(id, fileuploaded);
     }
+    setIsModalOpen(false);
   }
   return (
     <div className='flex flex-col justify-center'>
@@ -26,7 +27,13 @@ export default function UploadFile({ id, fileuploaded }) {
         )
       }
       {
-      fileuploaded["media-type"].startsWith('application/') && (
+      fileuploaded["media-type"].startsWith('video/') && (
+        <video src={`data:video/mp4;base64,${fileuploaded.content}`} 
+        className=" w-full rounded-lg place-content-center justify-center flex" autoPlay controls />)
+      }      
+      {
+      fileuploaded["media-type"].startsWith('application/')
+      ? (
         fileuploaded["media-type"].startsWith('application/pdf') ? (
           <embed
               src={`data:application/pdf;base64,${fileuploaded.content}`}
@@ -36,7 +43,9 @@ export default function UploadFile({ id, fileuploaded }) {
             />)
             :
             <Files file={fileuploaded} />
-        )
+            )
+            : 
+            fileuploaded["media-type"].startsWith('text/') && <Files file={fileuploaded} />
       }
       {/* <FilePreviewer file={fileuploaded} /> */}
       <label htmlFor="fileCaption" className="mt-3 block text-sm font-medium text-text1">

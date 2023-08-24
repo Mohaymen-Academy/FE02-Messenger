@@ -7,6 +7,15 @@ const NUM_SIDEBAR_DEFAULT = 1,
   NUM_SIDEBAR_CHAT = 7,
   NUM_SIDEBAR_SHOWCONTACT = 8;
 
+const PERMISSION_TYPE_NOT_ALLOWED_ = 0,
+  PERMISSION_TYPE_ALLOWED_ONYL_ITSELF = 1,
+  PERMISSION_TYPE_ALLOWED_EVERYBODY = 2;
+export {
+  PERMISSION_TYPE_ALLOWED_EVERYBODY,
+  PERMISSION_TYPE_ALLOWED_ONYL_ITSELF,
+  PERMISSION_TYPE_NOT_ALLOWED_
+};
+
 const SETTINGS_NOTIFS_MEN = 1,
   SETTINGS_PRIVACY_MEN = 2,
   SETTINGS_STORAGE_MEN = 3,
@@ -36,7 +45,8 @@ const TEXT_STYLES = {
   3: 'underline',
   4: 'italic',
   5: 'bold',
-  6: 'spoiler'
+  6: 'spoiler',
+  0:'link',
 };
 export { TEXT_STYLES };
 const TYPE_USER = 0,
@@ -95,7 +105,6 @@ export function getRelativeDate(inputDate) {
   }
   return `${inputDay} ${getPersianMonthName(inputMonth)}`;
 }
-
 
 function gregorianToJalali(gy, gm, gd) {
   const g_d_m = [0, 31, 59, 90, 120, 151, 181, 212, 243, 273, 304, 334];

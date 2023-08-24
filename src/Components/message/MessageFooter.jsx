@@ -21,7 +21,7 @@ function MessageFooter({ id, isSeen, Isforme, time, isEdited }) {
         ) : (
           <></>
         )}
-        {isEdited ? 'edited ' : <></>}
+        {isEdited ? 'ویرایش شده ' : <></>}
       </div>
     </div>
   );

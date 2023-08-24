@@ -213,13 +213,14 @@ export default function TextProcessorObj(containers) {
     }
   }
 
-  function ChangeEntities(choice) {
+  function ChangeEntities(choice, link) {
     ProcessorValues.current.counter = ProcessorValues.current.counter + 1;
     const NewEntity = {
       id: ProcessorValues.current.counter,
       lower: ProcessorValues.current.selectedlower,
       upper: ProcessorValues.current.selectedupper,
-      style: [TEXT_STYLES[choice]]
+      style: [TEXT_STYLES[choice]],
+      link: link
     };
     ProcessorValues.current.sorted.push(NewEntity);
     ProcessorValues.current.sorted = ProcessorValues.current.sorted.sort(customSort);
@@ -245,15 +246,14 @@ export default function TextProcessorObj(containers) {
     ProcessorValues.current.rawtext = RawText();
     const text = ProcessorValues.current.rawtext;
     const ents = ProcessorValues.current.sorted;
+    // console.error(ents);
     const list = generateEntity(divref, text, ents);
     setentitycontainers(list);
   }
 
   function OutputEntity(targetref, text, ents) {
-    console.log(typeof JSON.parse(JSON.stringify(ents)));
-    const list = generateEntity(targetref, text, []);
-    // console.log(list);
-    // setentitycontainers(list);
+    const list = generateEntity(targetref, text, ents);
+    return list;
   }
   function generateEntity(ref, text, ents) {
     let list_of_renderableentities = [];
@@ -268,8 +268,15 @@ export default function TextProcessorObj(containers) {
       });
       ref.current.innerText = '';
       list_of_renderableentities.forEach((element) => {
+        // console.error(element);
         if (element.style) {
-          const ptag = document.createElement('p');
+          let ptag;
+          if (element.link) {
+            ptag = document.createElement('a');
+            ptag.href = element.link;
+          } else {
+            ptag = document.createElement('p');
+          }
           element.style.forEach((stl) => ptag.classList.add(stl));
           ptag.textContent = element.content;
           ref.current.appendChild(ptag);
@@ -279,7 +286,7 @@ export default function TextProcessorObj(containers) {
       });
       return list_of_renderableentities;
     }
-    console.log(ents);
+    // console.log(ents);
     let prevEnd;
     for (let i = 0; i < ents.length; i++) {
       // if (ents.length == 1) {01
@@ -329,7 +336,17 @@ export default function TextProcessorObj(containers) {
     ref.current.innerText = '';
     list_of_renderableentities.forEach((element) => {
       if (element.style) {
-        const ptag = document.createElement('p');
+        let ptag;
+        if (element.link) {
+          ptag = document.createElement('a');
+          ptag.href = element.link;
+        } else {
+          ptag = document.createElement('p');
+          ptag.addEventListener('click', () => {
+            ptag.classList.toggle('spoiler');
+            ptag.classList.toggle('spoiler_');
+          });
+        }
         element.style.forEach((stl) => ptag.classList.add(stl));
         ptag.textContent = element.content;
         ref.current.appendChild(ptag);
