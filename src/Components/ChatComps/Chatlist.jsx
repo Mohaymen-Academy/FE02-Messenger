@@ -51,6 +51,7 @@ const Chatlist = () => {
       className=" mt-4 h-full w-full overflow-y-auto">
       {lists?.map((chatprev, index) => (
         <ChatCardPreview
+          isSelected = {selectedChat == chatprev.profile.profileID}
           key={index}
           pinned={chatprev.pinned}
           profid={chatprev.profile.profileID}
