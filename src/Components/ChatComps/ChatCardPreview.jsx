@@ -1,4 +1,4 @@
-import { useDispatch } from 'react-redux';
+import { useDispatch , useSelector} from 'react-redux';
 import { memo, useState } from 'react';
 import { UilLink } from '@iconscout/react-unicons';
 import Avatar from './Avatar';
@@ -106,11 +106,14 @@ const ChatCardPreview = memo(
   }) => {
     // console.log(profile?.lastProfilePicture?.preLoadingContent)
     const [openContext, setOpenContext] = useState(false);
+    const id = useSelector((state) => state.selectedProf.selectedChatID);
+
     const dispatch = useDispatch();
     const handleRightClick = (e) => {
       e.preventDefault();
       setOpenContext(true);
     };
+    const [selected , setSelected] = useState(true);
 
     return (
       <div
@@ -118,6 +121,8 @@ const ChatCardPreview = memo(
         onClick={async (e) => {
           // console.error(profile.type);
           // console.error(profile.profileID);
+          // console.error(id , profid)
+
           dispatch(
             GetMessages({
               type,
@@ -132,7 +137,7 @@ const ChatCardPreview = memo(
           dispatch(SetLeftProf({ profid: profid }));
           // await Requests().GetProfileMedium(profile.profileID);
         }}
-        className={`${isSelected && "bg-bghovor"}h-18 relative mx-2 flex w-[97%] cursor-pointer flex-row items-center justify-start rounded-lg p-3  hover:bg-bghovor`}>
+        className={`${id === profid && "bg-bghovor"}h-18 relative mx-2 flex w-[97%] cursor-pointer flex-row items-center justify-start rounded-lg p-3  hover:bg-bghovor`}>
         <div className="flex w-[100%] justify-between px-2">
           <div className="flex flex-row gap-2">
             <Avatar

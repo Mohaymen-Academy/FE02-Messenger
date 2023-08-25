@@ -22,6 +22,7 @@ const Chatlist = () => {
   const HandleScroller = HandleScroll();
   const lists = useSelector((store) => store.messageList.messages);
   const selectedChat = useSelector((store) => store.selectedProf.selectedChatID);
+  // console.log(selectedChat)
   console.error(lists)
   useEffect(() => {
     if (selectedChat) {
@@ -51,7 +52,6 @@ const Chatlist = () => {
       className=" mt-4 h-full w-full overflow-y-auto">
       {lists?.map((chatprev, index) => (
         <ChatCardPreview
-          isSelected = {selectedChat == chatprev.profile.profileID}
           key={index}
           pinned={chatprev.pinned}
           profid={chatprev.profile.profileID}
