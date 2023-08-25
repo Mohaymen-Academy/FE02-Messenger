@@ -4,7 +4,8 @@ import LeftLayout from '../LeftSideBar/LeftLayout';
 import { PERMISSION_TYPE_NOT_ALLOWED_, TYPE_USER } from '../../utility/Constants';
 import { resetChatId } from '../../features/SelectedInfo';
 import { useDispatch, useSelector } from 'react-redux';
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 export default function ChatContainer() {
   const [active, setActive] = useState(false);
   const chatType = useSelector((state) => state.selectedProf.chatType);
@@ -15,6 +16,7 @@ export default function ChatContainer() {
   const dispatch = useDispatch();
   const bodyref = useRef(null);
   const messages = useSelector((state) => state.selectedProf.Chatmessages);
+
   useEffect(() => {
     document.addEventListener('keydown', (e) => {
       if (e.key == 'Escape') {
@@ -24,7 +26,7 @@ export default function ChatContainer() {
   }, []);
   return (
     <>
-      <div className="flex flex-row">
+      <div className="flex flex-row flex-1">
         {chatID ? (
           <>
             <div
@@ -36,7 +38,7 @@ export default function ChatContainer() {
             mobile:w-[100%]
             tablet:w-[100%]
             ${active ? 'vsmmobile:w-0' : 'vsmmobile:w-full'}
-            
+            max-h-screen
             `}>
               <ChatHeader
                 bodyref={bodyref}
@@ -65,8 +67,8 @@ export default function ChatContainer() {
         ) : (
           <></>
         )}
+        <ToastContainer position="top-center" />
       </div>
-      {/* {active ?  : <></>} */}
     </>
   );
 }
