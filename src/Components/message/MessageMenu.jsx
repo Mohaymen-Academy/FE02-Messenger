@@ -16,6 +16,7 @@ import VerifyModal from '../../ui/VeifyModal';
 import { isAction } from '@reduxjs/toolkit';
 
 const MessageMenu = ({
+  messagePreview,
   positions,
   setposition,
   msgId,
@@ -25,6 +26,7 @@ const MessageMenu = ({
   isforme,
   styles
 }) => {
+  console.error(messagePreview)
   const [opendeltemenu, setopendeltemenu] = useState(false);
   const dispatch = useDispatch();
   const divref = useRef(null);
@@ -109,8 +111,14 @@ const MessageMenu = ({
                 className="flex flex-row items-center gap-2 px-5 w-full hover:bg-bghovor rounded-lg"
                 onClick={(e) => {
                   if (item?.action == 'reply') {
+                    console.error(messagePreview)
                     dispatch(
-                      composerActions.setaction({ type: item.action, text: text, messageID: msgId })
+                      composerActions.setaction({
+                        type: item.action,
+                        text: text,
+                        messageID: msgId,
+                        messagePreview
+                      })
                     );
                   } else if (item.action === 'delete') {
                     setopendeltemenu(true);

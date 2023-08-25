@@ -32,12 +32,7 @@ export default function Pin({ chatid, messages, bodyref, chattype }) {
             <div className=" pr-2 border-r-2  border-color3">
               <p className="text-color3 font-iRANSans text-sm">پیام سنجاق شده</p>
               <div className="text-text1">
-                {/* Message */}
-                {pinmessage.text != '' ? (
-                  pinmessage.text
-                ) : pinmessage.messagePreview ? (
-                  <ShowEmoji textwithemoji={pinmessage.messagePreview} />
-                ) : null}
+                <ShowEmoji text={pinmessage.text} textwithemoji={pinmessage.messagePreview} />
               </div>
             </div>
           </div>

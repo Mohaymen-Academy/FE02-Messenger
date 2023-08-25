@@ -148,14 +148,7 @@ const ChatCardPreview = memo(
             <div className="flex flex-col">
               <p className="font-semibold text-text1">{profileName}</p>
               <div className="line-clamp-1 pl-3 text-base text-text1 opacity-[50%]">
-                {
-                  lastMessage.text != '' ? (
-                    lastMessage.text
-                  ) : lastMessage.messagePreview ? (
-                    <ShowEmoji textwithemoji={lastMessage.messagePreview} />
-                  ) : null
-                  // String.fromCodePoint(lastMessage.messagePreview.split(';')[0])
-                }
+              <ShowEmoji text={lastMessage.text} textwithemoji={lastMessage.messagePreview} />
               </div>
             </div>
           </div>

@@ -2,24 +2,21 @@ import React, { useRef } from 'react';
 import Requests from '../API/Requests';
 import FilePreviewer from './FilePreviewer';
 import { Files } from '../Components/LeftSideBar/ProfileParts';
+import { useDispatch } from 'react-redux';
+import { savemsgMedia } from '../features/SelectedInfo';
 export default function UploadFile({ id, fileuploaded, setIsModalOpen }) {
   const captionRef = useRef(null);
   function handleChange(event) {
     captionRef.current.value = event.target.value;
   }
-  
+  const dispatch = useDispatch();
   function sendMedia() {
-    if (captionRef !== null) {
-      Requests()
-        .sendFiles(id, { ...fileuploaded, text: captionRef.current.value })
-        .then((res) => console.error(res.data,fileuploaded))
-        .catch((err) => console.error(err));
-    } else {
-      Requests()
-        .sendFiles(id, fileuploaded)
-        .then((res) => console.error(res.data))
-        .catch((err) => console.error(err));
-    }
+    // Requests()
+    //   .sendFiles(id, { ...fileuploaded, text: captionRef.current.value })
+    //   .then((res) => console.error(res.data, fileuploaded))
+    //   .catch((err) => console.error(err));
+
+    dispatch(savemsgMedia({ id, fileuploaded, value: captionRef.current.value }));
     setIsModalOpen(false);
   }
   return (

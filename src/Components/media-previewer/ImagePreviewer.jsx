@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { UilStepForward } from '@iconscout/react-unicons';
+  import { UilStepForward,UilArrowCircleDown  } from '@iconscout/react-unicons';
 import { useSelector, useDispatch } from 'react-redux';
 import Avatar from '../ChatComps/Avatar';
 import Requests from '../../API/Requests';
@@ -53,11 +53,14 @@ function ImagePreviewer({ massageId, imageshow }) {
         </button> */}
         {/* {images.map((image, index) => ( */}
         {imageshow.contentType.startsWith('image') && (
-          <img
-            src={`data:image/jpeg;base64,${image}`}
-            className={'block object-contain opacity-100 max-w-full'}
-            // key={index}
-          />
+          <div>
+
+            <img
+              src={`data:image/jpeg;base64,${image}`}
+              className={'block object-contain opacity-100 max-w-full'}
+              // key={index}
+            />
+          </div>
         )}
         {imageshow.contentType.startsWith('video') && (
           <video

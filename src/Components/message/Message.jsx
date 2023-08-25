@@ -32,9 +32,10 @@ const Message =
     entities,
     profile,
     replyinfo,
-    bodyref
+    bodyref,
+    messagePreview
   }) => {
-    // console.error(text)
+    // console.error(messagePreview,text)
     // console.error(forwardedfrom);
     const [mousepositoin, setmousepositoin] = useState({ x_mouse: 0, y_mouse: 0 });
     const [openForward, setopenForward] = useState(false);
@@ -170,6 +171,7 @@ const Message =
           isforme={Isforme}
           msgId={id}
           text={text}
+          messagePreview={messagePreview}
           positions={mousepositoin}
           setposition={setmousepositoin}
           setopenForward={setopenForward}

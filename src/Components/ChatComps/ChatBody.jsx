@@ -17,7 +17,7 @@ import MessageDateGroup from '../message/MessageDateGroup.jsx';
 import MessageVoice from '../message/MessageVoice.jsx';
 // import { NeededId } from '../../utility/FindneededID.js';
 import Requests from '../../API/Requests.js';
-import { ReplaceImage, SetIDs, setUpdate } from '../../features/SelectedInfo.js';
+import { SetIDs, setUpdate } from '../../features/SelectedInfo.js';
 import { GetSharedMedia, resetPreview, setPreview } from '../../features/SharedMediaSlice.js';
 import ShowUnread from './ShowUnread.jsx';
 import Pin from './Pin.jsx';
@@ -162,7 +162,7 @@ const ChatBody = memo(({ chatid, chattype, bodyref, messages, lastmassage }) => 
     requestAnimationFrame(scrollAnimation);
   }
 
-  console.error(messages)
+  console.error(messages);
   return (
     <>
       <Pin bodyref={bodyref} chatid={chatid} chattype={chattype} messages={messages} />
@@ -214,6 +214,7 @@ const ChatBody = memo(({ chatid, chattype, bodyref, messages, lastmassage }) => 
                       isEdited={message.isEdited}
                       text={message.text}
                       entities={message.textStyle}
+                      messagePreview={message.messagePreview}
                       handleMediaMessage={() =>
                         dispatch(
                           setPreview({

@@ -40,6 +40,14 @@ const Savenewmsg = createAsyncThunk('selectedProf/Savenewmsg', async (msginfo) =
   return { msgdata: data.data, media: msginfo.media };
 });
 
+const savemsgMedia = createAsyncThunk('selectedProf/savemsgMedia', async (infos) => {
+  const data = await Requests().sendFiles(infos.id, { ...infos.fileuploaded, text: infos.value });
+  return {
+    data: data.data,
+    content: infos.fileuploaded
+  };
+});
+
 const doupdates = createAsyncThunk('selectedProf/doupdates', async (updateinfos) => {
   const data = await Requests().UpdateResponse(updateinfos.upid, updateinfos.chatid);
   console.error(data);
@@ -115,7 +123,7 @@ const SelectedProf = createSlice({
       state.selectedChatID = null;
     },
     editmsg: (state, action) => {
-      console.error(action.payload)
+      console.error(action.payload);
       state.Chatmessages = state.Chatmessages.map((ele) => {
         if (ele.messageID == action.payload.msgId) {
           return {
@@ -163,6 +171,7 @@ const SelectedProf = createSlice({
         // console.error(state.downfinished);
       }
     },
+
     ReplaceImage: (state, action) => {
       // state.messages; // Create a new array to avoid mutating the state directly
       state.Chatmessages = state.Chatmessages.map((message) => {
@@ -176,6 +185,7 @@ const SelectedProf = createSlice({
             ...message,
             media: {
               ...message.media,
+              goodquality: true,
               preLoadingContent: action.payload.image
             }
           };
@@ -254,8 +264,25 @@ const SelectedProf = createSlice({
           }
         });
       })
+      .addCase(savemsgMedia.fulfilled, (state, action) => {
+        const goodmedia = action.payload.data;
+        let zarp = { 1: '2' };
+
+        goodmedia.media.preLoadingContent = action.payload.content.content;
+        goodmedia.media['goodquality'] = true;
+        console.error(goodmedia);
+        state.Chatmessages = state.Chatmessages.concat(goodmedia);
+      })
 });
-export { GetMessages, SetLeftProf, GetMessagesDown, GetMessagesUp, Savenewmsg, doupdates };
+export {
+  GetMessages,
+  SetLeftProf,
+  GetMessagesDown,
+  GetMessagesUp,
+  Savenewmsg,
+  doupdates,
+  savemsgMedia
+};
 export const {
   resetChatId,
   editmsg,

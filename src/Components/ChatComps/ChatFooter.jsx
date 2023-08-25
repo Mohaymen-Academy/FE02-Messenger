@@ -23,6 +23,7 @@ import Poll from './Poll';
 import UploadFile from '../../ui/UploadFile';
 import useRecorder from '../../hooks/useRecorder';
 import VoiceControl from '../voice/VoiceControl';
+import ShowEmoji from '../../ui/ShowEmoji';
 
 export default function ChatFooter({ id, chattype, isallowed }) {
   const {
@@ -140,7 +141,6 @@ export default function ChatFooter({ id, chattype, isallowed }) {
         }
         if (Isactive.isForwarding) {
           if (ProcessorValues.current.rawtext != '') {
-            
             dispatch(
               Savenewmsg({
                 id: id,
@@ -193,7 +193,7 @@ export default function ChatFooter({ id, chattype, isallowed }) {
             <UilTimes className={'text-color3'} />
           </button>
           <div className=" line-clamp-1 w-[30%] border-r-2 border-color3 pr-2 text-text1">
-            {Isactive.composerValue}
+            <ShowEmoji text={Isactive.composerValue} textwithemoji={Isactive.messagePreview} />
           </div>
         </div>
       ) : (
@@ -232,7 +232,6 @@ export default function ChatFooter({ id, chattype, isallowed }) {
               onInput={handleonInput}
               suppressContentEditableWarning={true}
               onKeyUp={() => setInputDivHeight(divref.current.clientHeight)} // Update the input div's height
-
               className=" flex h-auto max-h-[150px] w-[90%] flex-row overflow-y-scroll
             whitespace-pre-wrap bg-color1 rounded-xl mx-2 p-2 text-text1
             break-all border-none shadow-none outline-none focus:shadow-none active:shadow-none">
@@ -270,7 +269,9 @@ export default function ChatFooter({ id, chattype, isallowed }) {
                 <UilMicrophone />
               </button>
             )}
-            {openTextProcessor && <TextProcessorMenu ChangeEntities={ChangeEntities} h={inputDivHeight} />}
+            {openTextProcessor && (
+              <TextProcessorMenu ChangeEntities={ChangeEntities} h={inputDivHeight} />
+            )}
 
             {fileuploaded && (
               <PopUp title="انتخاب فایل" setIsModalOpen={setfileuploaded}>
