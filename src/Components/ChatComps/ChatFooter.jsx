@@ -226,7 +226,7 @@ export default function ChatFooter({ id, chattype, isallowed }) {
               onSelectCapture={handleSelect}
               onInput={handleonInput}
               suppressContentEditableWarning={true}
-              className=" flex h-auto max-h-[50px] w-[90%] flex-row overflow-auto resize-y
+              className=" flex h-auto max-h-[50px] w-[90%] flex-row overflow-auto 
             whitespace-pre-wrap
             break-all border-none shadow-none outline-none focus:shadow-none active:shadow-none">
               {Isactive.editvalue ? Isactive.editvalue : ''}
