@@ -106,13 +106,14 @@ export default function ChatFooter({ id, chattype, isallowed }) {
     // console.error(Isactive, ProcessorValues.current.rawtext);
     if (ProcessorValues.current.rawtext != '' || Isactive.isForwarding) {
       if (Isactive.isEditting) {
-        dispatch(
-          editmsg({
-            msgId: Isactive.editID,
-            newtext: ProcessorValues.current.rawtext,
-            styles: ProcessorValues.current.sorted
-          })
-        );
+        // dispatch(
+        //   editmsg({
+        //     msgId: Isactive.editID,
+        //     newtext: ProcessorValues.current.rawtext,
+        //     styles: ProcessorValues.current.sorted
+        //   })
+        // );
+
         Requests().EditMessage(
           Isactive.editID,
           ProcessorValues.current.rawtext,

@@ -92,7 +92,7 @@ const MessageMenu = ({
   ]);
 
   const handledelte = () => {
-    dispatch(deletemessage({ msgid: msgId }));
+    // dispatch(deletemessage({ msgid: msgId }));
     Requests().Deletemsg(msgId);
   };
   return (

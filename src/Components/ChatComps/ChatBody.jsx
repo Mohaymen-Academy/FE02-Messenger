@@ -26,8 +26,7 @@ import GoHnalder from '../../utility/GoTomessage.js';
 const ChatBody = memo(({ chatid, chattype, bodyref, messages, lastmassage }) => {
   const dispatch = useDispatch();
   const preview = useSelector((state) => state.SharedMedia.preview);
-  dispatch(GetSharedMedia(chatid));
-  // console.error(lastmassage);
+  // dispatch(GetSharedMedia(chatid));
 
   const seenObserver = new IntersectionObserver(
     (entries) => {

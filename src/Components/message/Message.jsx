@@ -178,7 +178,7 @@ const Message =
 
         {openForward ? (
           <PopUp title={'هدایت'} setIsModalOpen={setopenForward}>
-            <ForwardComponent text={text} messageid={id} />
+            <ForwardComponent text={text} messageid={id} setforward={setopenForward} />
           </PopUp>
         ) : (
           <></>

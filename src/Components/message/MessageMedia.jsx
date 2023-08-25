@@ -1,6 +1,5 @@
 import { Files } from '../LeftSideBar/ProfileParts';
 function MessageMedia({ src, handleClick }) {
-  //  console.log(src)
   return (
     <>
       {src.contentType.startsWith('video') ? (

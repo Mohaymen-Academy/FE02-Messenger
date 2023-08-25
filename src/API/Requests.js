@@ -278,7 +278,6 @@ export default function Requests(body) {
   async function sendFiles(endpoint, body) {
     try {
       const res = await API().POST(`${endpoint}`, body, AutorizeHeader);
-      console.log(res);
       return res;
     } catch (error) {
       console.error(error);

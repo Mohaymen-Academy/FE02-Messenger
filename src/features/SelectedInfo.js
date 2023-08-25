@@ -115,7 +115,7 @@ const SelectedProf = createSlice({
       state.selectedChatID = null;
     },
     editmsg: (state, action) => {
-      // console.log(action.payload.msgId);
+      console.error(action.payload)
       state.Chatmessages = state.Chatmessages.map((ele) => {
         if (ele.messageID == action.payload.msgId) {
           return {
@@ -221,19 +221,19 @@ const SelectedProf = createSlice({
       })
       .addCase(Savenewmsg.fulfilled, (state, action) => {
         console.error(action.payload);
-        const message = state.Chatmessages.findIndex(
-          (msg) => msg.messageID == action.payload.msgdata.messageID
-        );
-        console.error(message);
-        if (message !== -1) {
-          state.Chatmessages.map((msg) => {
-            if (msg.messageID == action.payload.msgdata.messageID) {
-              return action.payload.msgdata;
-            } else return msg;
-          });
-        } else {
-          state.Chatmessages = state.Chatmessages.concat(action.payload.msgdata);
-        }
+        // const message = state.Chatmessages.findIndex(
+        //   (msg) => msg.messageID == action.payload.msgdata.messageID
+        // );
+        // console.error(message);
+        // if (message !== -1) {
+        //   state.Chatmessages.map((msg) => {
+        //     if (msg.messageID == action.payload.msgdata.messageID) {
+        //       return action.payload.msgdata;
+        //     } else return msg;
+        //   });
+        // } else {
+        // }
+        state.Chatmessages = state.Chatmessages.concat(action.payload.msgdata);
       })
       .addCase(doupdates.fulfilled, (state, action) => {
         action.payload.updates.forEach((command) => {

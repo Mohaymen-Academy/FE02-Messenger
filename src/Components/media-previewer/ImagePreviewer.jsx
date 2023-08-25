@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import Avatar from '../ChatComps/Avatar';
 import Requests from '../../API/Requests';
 import { ReplaceImage } from '../../features/SelectedInfo';
-import { GetSharedMedia, resetPreview, setPreview } from '../../features/SharedMediaSlice.js';
+import { resetPreview } from '../../features/SharedMediaSlice.js';
 import { UilTimes } from '@iconscout/react-unicons';
 function ImagePreviewer({ massageId, imageshow }) {
   const [image, setImage] = useState([]);
