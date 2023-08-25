@@ -66,9 +66,9 @@ const GetMessagesDown = createAsyncThunk('selectedProf/getmessagesdown', async (
 });
 
 const SetLeftProf = createAsyncThunk('selectedProf/setleftprof', async (infos) => {
-  console.log(infos.profid);
   const data = await Requests().getleftProf(infos.profid);
-  return data.data;
+  console.error(data);
+  return data;
 });
 const GetMessages = createAsyncThunk('selectedProf/getmessages', async (requestinfo) => {
   try {
@@ -153,6 +153,11 @@ const SelectedProf = createSlice({
     addcontact: (state, action) => {
       state.isContact = true;
     },
+
+    deletecontact: (state, action) => {
+      state.isContact = false;
+    },
+
     deletemessage: (state, action) => {
       state.Chatmessages = deletemsg(state.Chatmessages, action.payload.msgid);
     },
@@ -207,10 +212,10 @@ const SelectedProf = createSlice({
         if (action.payload?.profileinfo) state.profileinfo = action.payload?.profileinfo;
       })
       .addCase(SetLeftProf.fulfilled, (state, action) => {
-        console.log(action.payload);
-        state.isContact = action.payload.isContact;
-        state.leftprof = action.payload.profile;
-        state.profPics = action.payload.profilePictures;
+        console.error(action.payload);
+        state.isContact = action.payload?.data.isContact;
+        state.leftprof = action.payload?.data.profile;
+        state.profPics = action.payload?.data.profilePictures;
       })
       .addCase(GetMessagesUp.fulfilled, (state, action) => {
         console.error(action.payload);
@@ -294,7 +299,8 @@ export const {
   setUnreadCount,
   SetIDs,
   setFinished,
-  setUpdate
+  setUpdate,
+  deletecontact
 } = SelectedProf.actions;
 // export const { resetChatId, editmsg, addcontact, deletemessage,ReplaceImage } = SelectedProf.actions;
 // export const { setChat, setChatType } = SelectedProf.actions;

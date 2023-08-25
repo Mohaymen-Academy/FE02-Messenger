@@ -27,7 +27,7 @@ const ChatCardContext = memo(({ setOpenContext, type, chatid, pinned }) => {
     console.log('delete');
     dispatch(deleteChat({ chatid }));
     Requests().DeleteChat(chatid);
-  }
+    }
   function handlMute() {}
   const chatItems = [
     {

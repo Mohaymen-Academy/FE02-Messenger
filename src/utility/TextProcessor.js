@@ -94,6 +94,7 @@ export default function TextProcessorObj(containers) {
   }
   function handleonInput(e) {
     e.stopPropagation();
+    setOpenTextProcessor(false);
     const result = findcursorPos();
     ProcessorValues.current.caretPosition = result[0];
     ProcessorValues.current.rawtext = RawText();
@@ -348,7 +349,7 @@ export default function TextProcessorObj(containers) {
         if (element.style) {
           let ptag;
           if (element.link) {
-            ptag = document.createElement('a  ');
+            ptag = document.createElement('a');
             ptag.href = element.link;
           } else {
             ptag = document.createElement('span');
@@ -412,7 +413,7 @@ export default function TextProcessorObj(containers) {
           ptag = document.createElement('a');
           ptag.href = element.link;
         } else {
-          ptag = document.createElement('p');
+          ptag = document.createElement('span');
           ptag.addEventListener('click', () => {
             if (ptag.classList.contains('spoiler')) {
               ptag.classList.toggle('spoiler_');

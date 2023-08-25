@@ -1,9 +1,20 @@
 import React, { useState } from 'react';
 // import { UilTrash } from '@iconscout/react-unicons'
 import { UilEllipsisV, UilVolumeMute, UilCheckCircle, UilTrash } from '@iconscout/react-unicons';
+import VerifyModal from '../../ui/VeifyModal';
+import { useDispatch } from 'react-redux';
+import Requests from '../../API/Requests';
+import { deleteChat } from '../../features/SelectedInfo';
 // import {  } from '@iconscout/react-unicons'
 // import { } from '@iconscout/react-unicons'
-export default function ChatHeaderSettings({ active, icon, title, setsection, menuId }) {
+export default function ChatHeaderSettings({ active, icon, title, menuId, chatid, setActive }) {
+  const [opendeltemenu, setopendeltemenu] = useState(false);
+  const dispatch = useDispatch();
+
+  function handledelte(e) {
+    dispatch(deleteChat({ chatid }));
+    Requests().DeleteChat(chatid);
+  }
   const [isopen, setisopen] = useState(false);
   return (
     <>
@@ -25,7 +36,10 @@ export default function ChatHeaderSettings({ active, icon, title, setsection, me
               <div className="fixed top-[60px]  shadow-2xl w-[150px] bg-color1 text-color4 rounded-lg">
                 <button
                   className="flex flex-row items-center gap-2 px-4 my-1 w-full hover:bg-gray-200 rounded-lg"
-                  onClick={(e) => setsection(menuId)}>
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setsection(menuId);
+                  }}>
                   <div className="flex items-center gap-2 my-1">
                     <UilVolumeMute />
                   </div>
@@ -33,7 +47,9 @@ export default function ChatHeaderSettings({ active, icon, title, setsection, me
                 </button>
                 <button
                   className=" flex flex-row items-center gap-2 px-4 my-1 w-full hover:bg-gray-200 rounded-lg"
-                  onClick={(e) => setsection(menuId)}>
+                  onClick={(e) => {
+                    e.stopPropagation();
+                  }}>
                   <div className="flex items-center gap-2 my-1">
                     <UilCheckCircle />
                   </div>
@@ -41,11 +57,20 @@ export default function ChatHeaderSettings({ active, icon, title, setsection, me
                 </button>
                 <button
                   className=" flex flex-row items-center gap-2 px-4 my-1 w-full hover:bg-gray-200 rounded-lg text-red-600"
-                  onClick={(e) => setsection(menuId)}>
+                  onClick={(e) => {
+                    e.stopPropagation();
+                  }}>
                   <div className="flex items-center gap-2 my-1">
                     <UilTrash />
                   </div>
-                  <p className=" text-xs">حذف گفتگو</p>
+                  <p
+                    className=" text-xs"
+                    onClick={(e) => {
+                      setopendeltemenu(true);
+                      setisopen(false);
+                    }}>
+                    حذف گفتگو
+                  </p>
                 </button>
               </div>
             ) : (
@@ -53,7 +78,17 @@ export default function ChatHeaderSettings({ active, icon, title, setsection, me
             )}
           </div>
         </div>
-      )}{' '}
+      )}
+      <>
+        {opendeltemenu ? (
+          <VerifyModal
+            title={'حذف چت'}
+            describe={'در صورت تایید تمامی پیام های این چت پاک میشوند'}
+            dispatch={handledelte}
+            setmodal={setopendeltemenu}
+          />
+        ) : null}
+      </>
     </>
   );
 }

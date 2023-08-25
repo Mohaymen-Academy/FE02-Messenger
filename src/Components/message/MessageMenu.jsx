@@ -26,7 +26,7 @@ const MessageMenu = ({
   isforme,
   styles
 }) => {
-  console.error(messagePreview)
+  // console.error(messagePreview)
   const [opendeltemenu, setopendeltemenu] = useState(false);
   const dispatch = useDispatch();
   const divref = useRef(null);
@@ -94,7 +94,6 @@ const MessageMenu = ({
   ]);
 
   const handledelte = () => {
-    // dispatch(deletemessage({ msgid: msgId }));
     Requests().Deletemsg(msgId);
   };
   return (

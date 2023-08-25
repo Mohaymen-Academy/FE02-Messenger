@@ -1,13 +1,6 @@
-import {
-  DOWN,
-  TYPE_GROUP,
-  UP
-} from '../utility/Constants';
+import { DOWN, TYPE_GROUP, UP } from '../utility/Constants';
 import API from './API';
-import {
-  BASE_URL,
-  HEADER
-} from './consts';
+import { BASE_URL, HEADER } from './consts';
 // import { useSelector } from 'react-redux';
 
 export default function Requests(body) {
@@ -241,7 +234,7 @@ export default function Requests(body) {
       body['media-type'] = img['media-type'];
       body.fileName = img.fileName;
     }
-    console.log(body)
+    console.log(body);
     await API()
       .POST('create-chat', body, AutorizeHeader)
       .then((res) => res.json())
@@ -251,18 +244,22 @@ export default function Requests(body) {
     console.log(profid);
     try {
       const res = await API().GET(`profile/info/${profid}`, {}, AutorizeHeader);
-      console.log(res)
+      console.error(res);
       return res;
     } catch (err) {
       console.log(err);
     }
   }
   async function AddContact(contactId) {
-    await API()
-      .POST(`contacts/${contactId}`, {}, AutorizeHeader)
-      .then((res) => res.json())
-      .then((data) => console.log(data))
-      .catch((err) => console.log(err));
+    try {
+      const res = await API().POST(`contacts/${contactId}`, {}, AutorizeHeader);
+      // .then((res) => res.json())
+      // .then((data) => console.log(data))
+      // .catch((err) => console.log(err));
+      return res;
+    } catch (err) {
+      console.error(err);
+    }
   }
   async function Deletemsg(msgID) {
     await API()
@@ -287,7 +284,6 @@ export default function Requests(body) {
       .catch((err) => console.log(err));
   }
 
-  async function deleteChat(chatid) {}
   async function sendFiles(endpoint, body) {
     try {
       const res = await API().POST(`${endpoint}`, body, AutorizeHeader);
@@ -366,7 +362,15 @@ export default function Requests(body) {
   async function GetMembers(chatid) {
     return await API().GET(`${chatid}/members`, {}, AutorizeHeader);
   }
+  async function EditContact(profid, newname) {
+    const body = {
+      custom_name: newname
+    };
+    // /contacts/edit-custom-name/{id}
+    return API().PUT(`contacts/edit-custom-name/${profid}`, body, AutorizeHeader);
+  }
   return {
+    EditContact,
     DeleteContact,
     GetMembers,
     DeleteChat,

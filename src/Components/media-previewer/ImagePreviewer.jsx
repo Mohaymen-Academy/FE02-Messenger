@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-  import { UilStepForward,UilArrowCircleDown  } from '@iconscout/react-unicons';
+import { UilStepForward, UilArrowCircleDown } from '@iconscout/react-unicons';
 import { useSelector, useDispatch } from 'react-redux';
 import Avatar from '../ChatComps/Avatar';
 import Requests from '../../API/Requests';
@@ -40,25 +40,19 @@ function ImagePreviewer({ massageId, imageshow }) {
   }, []);
   // const [imagToShow, setImageToShow] = useState(imageId);
   return (
-    <div className="absolute z-20 left-0 top-0 flex h-full w-full flex-col bg-black bg-opacity-60 text-white">
+    <div className="absolute z-20 left-0 top-0 flex h-full w-[100%] flex-col bg-black bg-opacity-60 text-white">
       <div className="flex w-full justify-between items-center px-2 py-3 opacity-100 bg-black">
         <button onClick={handleClose}>
           <UilTimes />
         </button>
       </div>
 
-      <div className="flex h-2/3 w-full justify-center opacity-100">
-        {/* <button onClick={() => setImageToShow((perv) => (perv + 1) % images.length)}>
-          <UilStepForward />
-        </button> */}
-        {/* {images.map((image, index) => ( */}
+      <div className="flex h-[100%] w-[100%] justify-center opacity-100">
         {imageshow.contentType.startsWith('image') && (
-          <div>
-
+          <div className="flex">
             <img
               src={`data:image/jpeg;base64,${image}`}
-              className={'block object-contain opacity-100 max-w-full'}
-              // key={index}
+              className={'block object-contain opacity-100 w-[800px] '}
             />
           </div>
         )}

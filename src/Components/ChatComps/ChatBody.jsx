@@ -1,5 +1,4 @@
 import React, { useEffect, useRef, useState, memo } from 'react';
-import { createPortal } from 'react-dom';
 import { UilArrowDown } from '@iconscout/react-unicons';
 import { useDispatch, useSelector } from 'react-redux';
 import ChatFooter from './ChatFooter.jsx';
@@ -22,11 +21,10 @@ import { GetSharedMedia, resetPreview, setPreview } from '../../features/SharedM
 import ShowUnread from './ShowUnread.jsx';
 import Pin from './Pin.jsx';
 import GoHnalder from '../../utility/GoTomessage.js';
+import PreviewrContainer from './previewrContainer.jsx';
 
 const ChatBody = memo(({ chatid, chattype, bodyref, messages, lastmassage }) => {
   const dispatch = useDispatch();
-  const preview = useSelector((state) => state.SharedMedia.preview);
-  // dispatch(GetSharedMedia(chatid));
 
   const seenObserver = new IntersectionObserver(
     (entries) => {
@@ -47,13 +45,7 @@ const ChatBody = memo(({ chatid, chattype, bodyref, messages, lastmassage }) => 
   const MSGes = useRef({
     upper: 0
   });
-  console.error('zarp');
 
-  const [buttonhidden, setbuttonhidden] = useState(true);
-  const dir = useRef(null);
-  /**
-   * @param {Array} messages
-   * */
   function SetMaxMin(messages) {
     const max = Math.max(...messages.map((ele) => parseInt(ele.messageID)));
     const minwithout_0 = messages.filter((ele) => ele.messageID != 0);
@@ -96,7 +88,7 @@ const ChatBody = memo(({ chatid, chattype, bodyref, messages, lastmassage }) => 
       if (lastmassage != 0) {
         GoHnalder().GoTo(messages, lastmassage, bodyref, dispatch, chatid, chattype);
       } else {
-        GoHnalder().GoTo(messages, SetMaxMin(messages).max, bodyref, dispatch, chatid, chattype);
+        GoHnalder().GoTo(messages, SetMaxMin(messages).min, bodyref, dispatch, chatid, chattype);
       }
     }
   }, [chatid, messages]);
@@ -174,13 +166,13 @@ const ChatBody = memo(({ chatid, chattype, bodyref, messages, lastmassage }) => 
             className="mb-[5rem] h-[90vh] w-[100%]  overflow-auto px-5 pt-3"
             onScroll={handleonScroll}
             ref={bodyref}>
-            <button
+            {/* <button
               onClick={scrolltobottom}
               className={`${
                 buttonhidden ? 'hidden' : ''
               } absolute right-[50%] top-[70%] z-10 rounded-full border border-text1 bg-color2 p-3`}>
               <UilArrowDown className="text-text1" />
-            </button>
+            </button> */}
             {messages?.length ? (
               messages?.map((message, index) => (
                 <>
@@ -265,16 +257,7 @@ const ChatBody = memo(({ chatid, chattype, bodyref, messages, lastmassage }) => 
           </div>
         )} */}
         <ShowUnread />
-        {preview.open
-          ? createPortal(
-              <ImagePreviewer
-                // handleClose={() => dispatch(resetPreview)}
-                imageshow={preview.media} // Pass media content to the component
-                massageId={preview.messageID}
-              />,
-              document.getElementById('app-holder')
-            )
-          : null}
+        <PreviewrContainer />
       </div>
     </>
   );

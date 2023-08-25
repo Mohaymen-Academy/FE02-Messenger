@@ -5,7 +5,7 @@ export default function ShowEmoji({ text, textwithemoji }) {
   if (text == '') {
     emoji = textwithemoji.split(';')[0];
     type = textwithemoji.split(';')[1];
-    console.error(textwithemoji);
+    // console.error(textwithemoji);
   }
   return (
     <>

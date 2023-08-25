@@ -1,7 +1,4 @@
-import {
-  createAsyncThunk,
-  createSlice
-} from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import Requests from '../API/Requests';
 
 const initialState = {
@@ -19,6 +16,10 @@ const GetContacts = createAsyncThunk('messageList/getcontacts', async () => {
     console.log(err);
   }
 });
+const AddContact = createAsyncThunk('messageList/addcontact', async ({ info }) => {
+  const data = Requests().AddContact(info.profileID);
+  return data;
+});
 const chatCardPreviewSlice = createSlice({
   name: 'messageList',
   initialState,
@@ -31,22 +32,18 @@ const chatCardPreviewSlice = createSlice({
     },
     removeActiveMessage: (state) => {
       state.activeMessage = null;
-    },
-
-
+    }
   },
   extraReducers: (builder) =>
-    builder.addCase(GetContacts.fulfilled, (state, action) => {
-      console.log(action.payload.data);
-      state.contacts = action.payload.data;
-    })
+    builder
+      .addCase(GetContacts.fulfilled, (state, action) => {
+        console.log(action.payload.data);
+        state.contacts = action.payload.data;
+      })
+      .addCase(AddContact.fulfilled, (state, action) => {
+        console.error(action.payload);
+      })
 });
-export {
-  GetContacts
-};
-export const {
-  setMessages,
-  setActiveMessage,
-  removeActiveMessage,
-} = chatCardPreviewSlice.actions;
+export { GetContacts, AddContact };
+export const { setMessages, setActiveMessage, removeActiveMessage } = chatCardPreviewSlice.actions;
 export default chatCardPreviewSlice.reducer;

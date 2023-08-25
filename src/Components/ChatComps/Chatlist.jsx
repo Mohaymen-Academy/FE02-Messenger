@@ -34,7 +34,7 @@ const Chatlist = () => {
           }
           const maxid = Math.max(...profile.updates.map((command) => command.id));
           console.error(profile.updates);
-          dispatch(doupdates({ updates: profile.updates ,upid:maxid,chatid:selectedChat}));
+          dispatch(doupdates({ updates: profile.updates, upid: maxid, chatid: selectedChat }));
         }
         dispatch(setUnreadCount({ count: profile.unreadMessageCount }));
       }
@@ -47,7 +47,7 @@ const Chatlist = () => {
       className=" mt-4 h-full w-full overflow-y-auto">
       {lists?.map((chatprev, index) => (
         <ChatCardPreview
-          isSelected = {selectedChat == chatprev.profile.profileID}
+          isSelected={selectedChat == chatprev.profile.profileID}
           key={index}
           pinned={chatprev.pinned}
           profid={chatprev.profile.profileID}

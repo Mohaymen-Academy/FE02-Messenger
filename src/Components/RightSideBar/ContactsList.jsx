@@ -12,6 +12,7 @@ export default function ContactsList() {
     <div className="mt-4 w-full h-full overflow-y-auto bg-color1">
       {contacts.map((cont) => (
         <ContactCardPreview
+        key={cont.profileID}
           profile={cont}
           name={cont.profileName}
           image={cont.lastProfilePicture}
