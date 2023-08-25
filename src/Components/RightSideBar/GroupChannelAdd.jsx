@@ -1,18 +1,31 @@
 import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import ContactAddTo from './ContactAddTo';
 import ContactSmall from './ContactSmall';
 import PopUp from '../../ui/PopUp';
 import GroupSettings from './GroupSettings';
 import ChannelSettings from './ChannelSetting';
-
+import { UilArrowRight } from '@iconscout/react-unicons';
+import { UilArrowLeft } from '@iconscout/react-unicons';
+import { setParentDefault } from '../../features/rightSideSlice';
 export default function GroupChannelAdd({ type }) {
   const [selected, setselected] = useState([]);
   const [openModel, setOpenModel] = useState(false);
   const contacts = useSelector((state) => state.messageList.contacts);
+  const dispatch = useDispatch();
 
   return (
     <div className="h-full w-full overflow-y-auto bg-color1">
+      <div className="flex flex-row justify-between px-5 py-3 w-[100%] border-b-2">
+        {type == 'group' ? 'ساخت گروه' : 'ساخت کانال'}
+        <button
+          onClick={() => {
+            dispatch(setParentDefault());
+          }}>
+          <UilArrowLeft className={'text-xl'} />
+        </button>
+      </div>
+
       <div className="flex max-h-[200px] flex-row flex-wrap overflow-y-scroll text-text1">
         {
           // for over selected and show contactsmall for each

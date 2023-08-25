@@ -14,35 +14,30 @@ import {
   UilMegaphone,
   UilPhone,
   UilVuejs,
-  UilSun
+  UilSun,
+  UilArrowRight
 } from '@iconscout/react-unicons';
-import { setsidebarState, setParent } from '../../../features/rightSideSlice';
+import { setsidebarState, setParent, BackHandler } from '../../../features/rightSideSlice';
 import { useDispatch } from 'react-redux';
 import { GetContacts } from '../../../features/chatCardPreviewSlice.js';
 
-export default function Default({ menuSetter, setopen }) {
+export default function Default() {
   const dispatch = useDispatch();
+
   function handleonchange() {
     const div = document.getElementById('zarp');
     div.dataset.theme === 'dark' ? (div.dataset.theme = 'light') : (div.dataset.theme = 'dark');
     setTheme(div.dataset.theme);
   }
-  // dispatch(GetContacts());
-
-
   return (
     <div className="flex flex-col w-[100%]  ">
       <SidebarCard
-        setsection={menuSetter}
-        setopen={setopen}
         icon={<UilSetting className="text-text1 w-8 h-8 mx-1 " />}
         title={'تنظیمات'}
         menuId={NUM_SIDEBAR_SETTINGS}
       />
 
       <SidebarCard
-        setsection={menuSetter}
-        setopen={setopen}
         icon={<UilUser className="text-text1 w-8 h-8 mx-1 " />}
         title={'مخاطبین'}
         menuId={NUM_SIDEBAR_CONTACTS}
@@ -50,24 +45,18 @@ export default function Default({ menuSetter, setopen }) {
       />
 
       <SidebarCard
-        setsection={menuSetter}
-        setopen={setopen}
         icon={<UilUsersAlt className="text-text1 w-8 h-8 mx-1 " />}
         title={'ساخت گروه جدید'}
         menuId={NUM_SIDEBAR_GROUP}
       />
 
       <SidebarCard
-        setsection={menuSetter}
-        setopen={setopen}
         icon={<UilMegaphone className="text-text1 w-8 h-8 mx-1 " />}
         title={'ساخت کانال جدید'}
         menuId={NUM_SIDEBAR_CHANNEL}
       />
 
       <SidebarCard
-        setsection={menuSetter}
-        setopen={setopen}
         icon={<UilPhone className="text-text1 w-8 h-8 mx-1 " />}
         title={'تماس'}
         menuId={NUM_SIDEBAR_CALL}
@@ -81,7 +70,6 @@ export default function Default({ menuSetter, setopen }) {
         </div>
       </button>
       <div className="flex items-center  gap-2 my-1 p-3 px-5">
-        {/* <img src={'images/darktheme.png'} className="w-[40px] h-[40px]" alt="" /> */}
         <UilSun className="text-text1 w-8 h-8 mx-1 " />
         <div className="flex flec-col justify-between w-full ">
           <p
@@ -98,6 +86,15 @@ export default function Default({ menuSetter, setopen }) {
             />
             <div className="w-11 h-6 bg-gray-500 accent-color4 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-color4"></div>
           </label>
+        </div>
+      </div>
+      <div
+        className="flex cursor-pointer items-center  gap-2 my-1 p-3 px-5"
+        onClick={() => dispatch(BackHandler())}>
+        <UilArrowRight className="text-text1 w-8 h-8 mx-1 " />
+        <div className="flex flec-col justify-between w-full ">
+          <p className="cardP whitespace-nowrap">بازگشت</p>
+          <label className="relative inline-flex items-center cursor-pointer"></label>
         </div>
       </div>
     </div>

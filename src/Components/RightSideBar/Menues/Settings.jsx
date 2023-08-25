@@ -5,7 +5,8 @@ import {
   UilCloudCheck,
   UilComment,
   UilUser,
-  UilSignout
+  UilSignout,
+  UilArrowRight
 } from '@iconscout/react-unicons';
 
 import { useDispatch, useSelector } from 'react-redux';
@@ -15,9 +16,10 @@ import {
   SETTINGS_PRIVACY_MEN,
   SETTINGS_STORAGE_MEN,
   SETTINGS_CHAT_MEN,
-  SETTINGS_PRIVATE_INFO
+  SETTINGS_PRIVATE_INFO,
+  NUM_SIDEBAR_DEFAULT
 } from '../../../utility/Constants';
-import { setChild } from '../../../features/rightSideSlice';
+import { setChild, setParent } from '../../../features/rightSideSlice';
 import { Avatar } from '../../ChatComps';
 import { clearLogin } from '../../../features/profileSlice';
 
@@ -104,9 +106,15 @@ export default function Settings() {
           }
           <div
             onClick={() => dispatch(clearLogin())}
-            className="flex h-[70px] w-[100%] flex-row items-center gap-5 px-8 text-red-600 hover:cursor-pointer hover:bg-bghovor ">
+            className="flex h-[70px] w-[100%] flex-row items-center gap-5 border-b border-bghovor px-8 text-red-600 hover:cursor-pointer hover:bg-bghovor ">
             <UilSignout className="mx-1 h-8 w-8 text-red-600 " />
             <div>خروج از حساب کاربری</div>
+          </div>
+          <div
+            onClick={() => dispatch(setParent({ parent: NUM_SIDEBAR_DEFAULT }))}
+            className="flex h-[70px] w-[100%] flex-row items-center gap-5 border-b border-bghovor px-8 hover:cursor-pointer hover:bg-bghovor ">
+            <UilArrowRight className="mx-1 h-8 w-8 " />
+            <div>بازگشت</div>
           </div>
         </div>
       ) : (

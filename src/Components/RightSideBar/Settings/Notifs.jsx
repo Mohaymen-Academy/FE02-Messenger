@@ -2,16 +2,23 @@ import React, { useState, useRef } from 'react';
 import { UilBell } from '@iconscout/react-unicons';
 import CheckBoxParag from '../../../ui/CheckBoxParag';
 import InputSlider from '../../../ui/InputSlider';
-
+import { UilArrowRight } from '@iconscout/react-unicons';
+import { useDispatch } from 'react-redux';
+import { setChild } from '../../../features/rightSideSlice';
 export default function Notifs() {
-  const [open, setopen] = useState(false);
-  const inputslider = useRef(null);
+  const dispatch = useDispatch();
+
   return (
     <div className="flex w-[100%] flex-col items-center justify-center overflow-y-hidden opacity-90">
-      <span className="mt-2 w-[100%] border-b-2 border-bghovor p-5 pt-0 text-center text-[17px] font-extrabold text-text1">
-        اعلان‌ها و صداها
-      </span>
-
+      <div className="flex flex-row justify-between px-5 mt-5 w-[100%]">
+        <button
+          onClick={() => {
+            dispatch(setChild({ child: 0 }));
+          }}>
+          <UilArrowRight className={'text-xl'} />
+        </button>
+        <span className="text-center text-[17px] font-extrabold text-text1">اعلان‌ها و صداها</span>
+      </div>
       <div
         className={
           'flex w-[100%] flex-wrap gap-[10px] overflow-x-hidden pr-2 transition-all duration-300 ease-in-out '
