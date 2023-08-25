@@ -3,22 +3,23 @@ import { useDispatch, useSelector } from 'react-redux';
 import { ChatCardPreview } from '../Components/ChatComps';
 import { composerActions } from '../features/composerSlice';
 // import compose from '../features/composerSlice';
-export default function ForwardComponent({ text, messageid }) {
+export default function ForwardComponent({ text, messageid, setforward }) {
   const dispatch = useDispatch();
   const lists = useSelector((store) => store.messageList.messages);
-  console.error(lists);
   return (
     <div className="flex flex-col justify-center">
       {lists?.map((chatprev, index) => (
         <div
-          onClick={() =>
+          key={chatprev.profile.profileID}
+          onClick={() => {
             dispatch(
               composerActions.forwardMessage({
                 id: messageid,
                 text: text
               })
-            )
-          }>
+            );
+            setforward(false);
+          }}>
           {chatprev.profile.accessPermission && (
             <ChatCardPreview
               key={index}

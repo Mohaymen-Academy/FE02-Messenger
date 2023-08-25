@@ -13,6 +13,7 @@ const initialState = {
   editID: '',
   editvalue: '',
   pinmessage: null,
+  messagePreview: null,
   styles: []
 };
 const GetPin = createAsyncThunk('composer/getpin', async (infos) => {
@@ -35,12 +36,15 @@ const composerSlice = createSlice({
     setaction: (state, action) => {
       switch (action.payload.type) {
         case 'reply':
+          console.error(action.payload);
           state.isReplying = true;
           state.replyID = action.payload.messageID;
           state.composerValue = action.payload.text;
+          state.messagePreview = action.payload.messagePreview;
+          console.error(state.messagePreview);
           break;
         case 'edit':
-          console.error(action.payload)
+          console.error(action.payload);
           state.isEditting = true;
           state.editID = action.payload.msgid;
           state.editvalue = action.payload.text;

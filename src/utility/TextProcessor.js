@@ -27,6 +27,7 @@ export default function TextProcessorObj(containers) {
       (obj) => obj.id == modifiedobject.id
     );
     if (Originalindex != -1) {
+      console.error(modifiedobject);
       ProcessorValues.current.sorted[Originalindex] = modifiedobject;
     } else {
       ProcessorValues.current.sorted.push(modifiedobject);
@@ -44,6 +45,7 @@ export default function TextProcessorObj(containers) {
 
   function updateEnteties() {
     let charcounter = 0;
+    // console.error(divref.current.childNodes)
     if (divref.current.childNodes.length == 0) {
       ProcessorValues.current.sorted = [];
     }
@@ -92,9 +94,12 @@ export default function TextProcessorObj(containers) {
   }
   function handleonInput(e) {
     e.stopPropagation();
+    setOpenTextProcessor(false);
     const result = findcursorPos();
     ProcessorValues.current.caretPosition = result[0];
     ProcessorValues.current.rawtext = RawText();
+    // console.error(result)
+    // console.error(ProcessorValues.current.rawtext)
     if (ProcessorValues.current.rawtext == '') ProcessorValues.current.sorted = [];
     updateEnteties(result[1]);
   }
@@ -168,13 +173,16 @@ export default function TextProcessorObj(containers) {
     rangeSet.sort((a, b) => a - b);
     switch (rangeSet.length) {
       case 2:
+        console.error('both are 1');
         HeadContainer.style = HeadContainer.style.concat(selectedContainer.style);
         replaceInArray(HeadContainer);
         Removetheselected(selectedContainer);
         break;
       case 3:
+        console.error('need two');
         if (HeadContainer.lower == selectedContainer.lower) {
           if (HeadContainer.upper > selectedContainer.upper) {
+            ('inja ham miaya ?');
             selectedContainer.style = HeadContainer.style;
           }
           HeadContainer.lower = rangeSet[0];
@@ -195,20 +203,82 @@ export default function TextProcessorObj(containers) {
         }
         break;
       case 4:
-        HeadContainer.lower = rangeSet[0];
-        HeadContainer.upper = rangeSet[1] - 1;
-        replaceInArray(HeadContainer);
-        ProcessorValues.current.counter += 1;
-        const objmiddle = {
-          id: ProcessorValues.current.counter,
-          lower: rangeSet[1],
-          upper: rangeSet[2],
-          style: HeadContainer.style.concat(selectedContainer.style)
-        };
-        replaceInArray(objmiddle);
-        selectedContainer.lower = rangeSet[2] + 1;
-        selectedContainer.upper = rangeSet[3];
-        replaceInArray(selectedContainer);
+        console.error(HeadContainer, selectedContainer);
+        console.error('need thre contina');
+        console.error(rangeSet);
+        if (
+          (HeadContainer.lower < selectedContainer.lower &&
+            HeadContainer.upper > selectedContainer.upper) ||
+          (HeadContainer.lower > selectedContainer.lower &&
+            HeadContainer.upper < selectedContainer.upper)
+        ) {
+          HeadContainer.lower = rangeSet[0];
+          HeadContainer.upper = rangeSet[1] - 1;
+          if (HeadContainer.lower > selectedContainer.lower) {
+            HeadContainer.style = selectedContainer.style;
+          }
+          replaceInArray(HeadContainer);
+          ProcessorValues.current.counter += 1;
+          const objmiddle = {
+            id: ProcessorValues.current.counter,
+            lower: rangeSet[1],
+            upper: rangeSet[2],
+            style: [].concat(HeadContainer.style, selectedContainer.style)
+          };
+
+          replaceInArray(objmiddle);
+          selectedContainer.lower = rangeSet[2] + 1;
+          selectedContainer.upper = rangeSet[3];
+          if (HeadContainer.lower < selectedContainer.lower) {
+            selectedContainer.style = HeadContainer.style;
+            // HeadContainer.style = selectedContainer.style;
+          }
+          replaceInArray(selectedContainer);
+          console.error(HeadContainer, objmiddle, selectedContainer);
+        } else if (
+          HeadContainer.lower > selectedContainer.upper &&
+          HeadContainer.lower < selectedContainer.upper &&
+          HeadContainer.upper > selectedContainer.upper
+        ) {
+          selectedContainer.lower = rangeSet[0];
+          selectedContainer.upper = rangeSet[1] - 1;
+          replaceInArray(selectedContainer);
+          ProcessorValues.current.counter += 1;
+          const objmiddle = {
+            id: ProcessorValues.current.counter,
+            lower: rangeSet[1],
+            upper: rangeSet[2],
+            style: [].concat(HeadContainer.style, selectedContainer.style)
+          };
+
+          replaceInArray(objmiddle);
+          HeadContainer.lower = rangeSet[2] + 1;
+          HeadContainer.upper = rangeSet[3];
+          replaceInArray(HeadContainer);
+          console.error(HeadContainer, objmiddle, selectedContainer);
+        } else if (
+          HeadContainer.lower < selectedContainer.lower &&
+          HeadContainer.upper > selectedContainer.lower &&
+          HeadContainer.upper < selectedContainer.upper
+        ) {
+          HeadContainer.lower = rangeSet[0];
+          HeadContainer.upper = rangeSet[1] - 1;
+          replaceInArray(HeadContainer);
+          ProcessorValues.current.counter += 1;
+          const objmiddle = {
+            id: ProcessorValues.current.counter,
+            lower: rangeSet[1],
+            upper: rangeSet[2],
+            style: [].concat(HeadContainer.style, selectedContainer.style)
+          };
+
+          replaceInArray(objmiddle);
+          selectedContainer.lower = rangeSet[2] + 1;
+          selectedContainer.upper = rangeSet[3];
+          replaceInArray(selectedContainer);
+          console.error(HeadContainer, objmiddle, selectedContainer);
+        }
+
         break;
     }
   }
@@ -247,6 +317,7 @@ export default function TextProcessorObj(containers) {
     const text = ProcessorValues.current.rawtext;
     const ents = ProcessorValues.current.sorted;
     const list = generateEntity(divref, text, ents);
+    // console.error(list)
     setentitycontainers(list);
   }
 
@@ -281,7 +352,7 @@ export default function TextProcessorObj(containers) {
             ptag = document.createElement('a');
             ptag.href = element.link;
           } else {
-            ptag = document.createElement('p');
+            ptag = document.createElement('span');
             ptag.addEventListener('click', () => {
               if (ptag.classList.contains('spoiler')) {
                 ptag.classList.toggle('spoiler_');
@@ -342,7 +413,7 @@ export default function TextProcessorObj(containers) {
           ptag = document.createElement('a');
           ptag.href = element.link;
         } else {
-          ptag = document.createElement('p');
+          ptag = document.createElement('span');
           ptag.addEventListener('click', () => {
             if (ptag.classList.contains('spoiler')) {
               ptag.classList.toggle('spoiler_');

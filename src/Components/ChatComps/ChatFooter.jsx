@@ -23,6 +23,7 @@ import Poll from './Poll';
 import UploadFile from '../../ui/UploadFile';
 import useRecorder from '../../hooks/useRecorder';
 import VoiceControl from '../voice/VoiceControl';
+import ShowEmoji from '../../ui/ShowEmoji';
 
 export default function ChatFooter({ id, chattype, isallowed }) {
   const {
@@ -59,11 +60,12 @@ export default function ChatFooter({ id, chattype, isallowed }) {
   }, [id]);
   console.error(divref);
   useEffect(() => {
-    console.error(Isactive);
+    // console.error(Isactive);
     if (divref.current) {
       ProcessorValues.current.sorted = [];
       ProcessorValues.current.rawtext = '';
       if (Isactive.isEditting) {
+        // console.error(Isactive)
         ProcessorValues.current.sorted = Isactive.styles;
         ProcessorValues.current.rawtext = Isactive.editvalue;
         let ents = OutputEntity(divref, Isactive.composerValue, ProcessorValues.current.sorted);
@@ -104,16 +106,17 @@ export default function ChatFooter({ id, chattype, isallowed }) {
   }
   async function SelectRequestType() {
     // IF IS EDITING
-    console.error(Isactive, ProcessorValues.current.rawtext);
+    // console.error(Isactive, ProcessorValues.current.rawtext);
     if (ProcessorValues.current.rawtext != '' || Isactive.isForwarding) {
       if (Isactive.isEditting) {
-        dispatch(
-          editmsg({
-            msgId: Isactive.editID,
-            newtext: ProcessorValues.current.rawtext,
-            styles: ProcessorValues.current.sorted
-          })
-        );
+        // dispatch(
+        //   editmsg({
+        //     msgId: Isactive.editID,
+        //     newtext: ProcessorValues.current.rawtext,
+        //     styles: ProcessorValues.current.sorted
+        //   })
+        // );
+
         Requests().EditMessage(
           Isactive.editID,
           ProcessorValues.current.rawtext,
@@ -183,14 +186,14 @@ export default function ChatFooter({ id, chattype, isallowed }) {
   }
 
   return (
-    <div className=" sticky bottom-0 flex flex-col">
+    <div className="sticky bottom-0 left-0 flex flex-col w-full">
       {needActoin ? (
         <div className="flex-row items-center flex h-[40px] w-[100%] bg-color2 pr-2 pt-1">
           <button onClick={() => dispatch(composerActions.clear())}>
             <UilTimes className={'text-color3'} />
           </button>
           <div className=" line-clamp-1 w-[30%] border-r-2 border-color3 pr-2 text-text1">
-            {Isactive.composerValue}
+            <ShowEmoji text={Isactive.composerValue} textwithemoji={Isactive.messagePreview} />
           </div>
         </div>
       ) : (
@@ -229,9 +232,10 @@ export default function ChatFooter({ id, chattype, isallowed }) {
               onInput={handleonInput}
               suppressContentEditableWarning={true}
               onKeyUp={() => setInputDivHeight(divref.current.clientHeight)} // Update the input div's height
-
-              className=" flex h-auto max-h-[150px] w-[90%] flex-row overflow-y-scroll
-            whitespace-pre-wrap bg-color1 rounded-xl mx-2 p-2 text-text1
+              className=" 
+             bg-color1 rounded-xl mx-2 p-2 text-text1
+               flex h-auto max-h-[50px] w-[90%] flex-row overflow-auto resize-y
+            whitespace-pre-wrap
             break-all border-none shadow-none outline-none focus:shadow-none active:shadow-none">
               {Isactive.editvalue ? Isactive.editvalue : ''}
             </div>
@@ -267,7 +271,9 @@ export default function ChatFooter({ id, chattype, isallowed }) {
                 <UilMicrophone />
               </button>
             )}
-            {openTextProcessor && <TextProcessorMenu ChangeEntities={ChangeEntities} h={inputDivHeight} />}
+            {openTextProcessor && (
+              <TextProcessorMenu ChangeEntities={ChangeEntities} h={inputDivHeight} />
+            )}
 
             {fileuploaded && (
               <PopUp title="انتخاب فایل" setIsModalOpen={setfileuploaded}>

@@ -133,14 +133,22 @@
     @apply hover:text-gray-500 text-[12px] hover:cursor-pointer;
   }
   .strike {
-    @apply line-through whitespace-pre;
+    @apply line-through ;
   }
   .bold {
-    @apply font-bold whitespace-pre;
+    @apply font-bold ;
   }
   /* .monospace{
         @apply monos
     } */
+    .media{
+      @apply cursor-pointer w-[100%] max-w-none max-h-[200px];
+    }
+    
+    .media-img{
+      @apply cursor-pointer w-[250px] max-w-none max-w-[250px];
+    }
+
 
   .spoiler {
     @apply blur-sm cursor-pointer whitespace-pre;

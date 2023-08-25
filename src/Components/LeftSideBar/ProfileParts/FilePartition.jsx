@@ -1,6 +1,5 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { GetSharedMedia, setPreview , resetPreview } from '../../../features/SharedMediaSlice.js';
 import Files from './Files.jsx';
 import { useDispatch } from 'react-redux';
 export default function FilePartition() {

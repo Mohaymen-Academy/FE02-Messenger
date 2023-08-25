@@ -1,4 +1,4 @@
-import React , {useEffect} from 'react';
+import React, { useEffect } from 'react';
 import {
   UilTimes,
   UilPen,
@@ -10,20 +10,29 @@ import {
 import { Files, Links, Medias, Musics, Voices, FilePartition } from './ProfileParts';
 import { useDispatch, useSelector } from 'react-redux';
 import Requests from '../../API/Requests';
-import { addcontact } from '../../features/SelectedInfo';
+import { SetLeftProf, addcontact } from '../../features/SelectedInfo';
 import SearchResult from '../SearchBar/SearchResult';
+import { AddContact, GetContacts } from '../../features/chatCardPreviewSlice';
+import { GetSharedMedia } from '../../features/SharedMediaSlice';
 export default function LeftSide({
+  chatid,
   setActive,
   setlayout,
   isGroupOrChannel,
   isgroup,
   selectedProfile
+  // chatid
 }) {
   // console.error(selectedProfile);
   const dispatch = useDispatch();
   const pics = useSelector((state) => state.selectedProf.profPics);
-  // console.error(selectedProfile);
   const iscontact = useSelector((state) => state.selectedProf.isContact);
+  useEffect(() => {
+    console.error(chatid);
+    dispatch(GetSharedMedia(chatid));
+    dispatch(SetLeftProf({ profid: chatid }));
+  }, [chatid]);
+  console.error(selectedProfile);
   // console.error(iscontact);
   const [filepart, setfilepart] = React.useState({
     0: 1,
@@ -33,7 +42,7 @@ export default function LeftSide({
     4: 0,
     5: 0
   });
- 
+
   const changesetpat = (num) => {
     let newfilepart = {
       0: 0,
@@ -46,34 +55,32 @@ export default function LeftSide({
     newfilepart[num] = 1;
     setfilepart(newfilepart);
   };
-  function handleAdd() {
-    console.log(selectedProfile.profileID);
-    Requests().AddContact(selectedProfile.profileID);
-    Requests().GetContacts();
+  async function handleAdd() {
+    console.error(selectedProfile.profileID);
+    await Requests().AddContact(selectedProfile.profileID);
+    dispatch(GetContacts());
     dispatch(addcontact());
   }
-  const [members , setmembers] = React.useState([])
+  const [members, setmembers] = React.useState([]);
   useEffect(() => {
-
-    if(isgroup){
-      Requests().GetMembers(selectedProfile.profileID)
-      .then((res) => res.data)
-      .then(data=>{
-        console.error(data)
-        setfilepart({
-          0: 0,
-          1: 0,
-          2: 0,
-          3: 0,
-          4: 0,
-          5: 1
+    if (isgroup) {
+      Requests()
+        .GetMembers(selectedProfile.profileID)
+        .then((res) => res.data)
+        .then((data) => {
+          console.error(data);
+          setfilepart({
+            0: 0,
+            1: 0,
+            2: 0,
+            3: 0,
+            4: 0,
+            5: 1
+          });
+          setmembers(data);
         })
-        setmembers(data)}
-        )
-        .catch(err=>console.error(err))
-      
-    }
-    else{
+        .catch((err) => console.error(err));
+    } else {
       setfilepart({
         0: 1,
         1: 0,
@@ -81,9 +88,9 @@ export default function LeftSide({
         3: 0,
         4: 0,
         5: 0
-      })
+      });
     }
-  }, [selectedProfile])
+  }, [selectedProfile]);
 
   return (
     <div
@@ -127,7 +134,7 @@ export default function LeftSide({
             <div
               className="absolute w-[100%]
             flex flex-col"
-            style={{bottom:0}}>
+              style={{ bottom: 0 }}>
               <div className=" pr-10  text-white font-bold text-[25px] opacity-150 absolute">
                 {selectedProfile?.profileName}
               </div>
@@ -150,8 +157,7 @@ export default function LeftSide({
               </div> */}
             </button>
             <button className="flex w-[90%] justify-between mt-3 mx-auto items-center hover:bg-opacity-5 rounded-lg hover:bg-color3">
-              <div
-                className="flex w-[100%] gap-4 items-center py-2">
+              <div className="flex w-[100%] gap-4 items-center py-2">
                 {false ? (
                   <UilBell className={'w-5 h-5 text-color3'}></UilBell>
                 ) : (
@@ -215,10 +221,10 @@ export default function LeftSide({
             <Musics />
           ) : filepart[4] == 1 ? (
             <Voices />
-          ) : filepart[5] == 1 ? (  
-            <div className='mt-3 mr-[-1]'>
+          ) : filepart[5] == 1 ? (
+            <div className="mt-3 mr-[-1]">
               {members.map((member, index) => (
-                <SearchResult key={index}  profile={member} text={member.status} />  
+                <SearchResult key={index} profile={member} text={member.status} />
               ))}
             </div>
           ) : (

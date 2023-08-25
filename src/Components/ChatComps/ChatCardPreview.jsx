@@ -6,6 +6,7 @@ import { GetMessages, SetLeftProf } from '../../features/SelectedInfo';
 import Requests from '../../API/Requests';
 import ChatCardContext from './ChatCardContext';
 import { GetPin } from '../../features/composerSlice';
+import ShowEmoji from '../../ui/ShowEmoji';
 // import
 function bytesToBase64(bytes) {
   const binString = Array.from(bytes, (x) => String.fromCodePoint(x)).join('');
@@ -113,8 +114,9 @@ const ChatCardPreview = memo(
       e.preventDefault();
       setOpenContext(true);
     };
-    const [selected , setSelected] = useState(true);
-
+    if (lastMessage.messagePreview) {
+      console.error();
+    }
     return (
       <div
         onContextMenu={handleRightClick}
@@ -132,13 +134,17 @@ const ChatCardPreview = memo(
             })
             // dispatch(GetPin())
           );
-          
           dispatch(GetPin({ chatid: profid }));
           dispatch(SetLeftProf({ profid: profid }));
           // await Requests().GetProfileMedium(profile.profileID);
         }}
+<<<<<<< HEAD
         className={`${id === profid && "bg-bghovor"}h-18 relative mx-2 flex w-[97%] cursor-pointer flex-row items-center justify-start rounded-lg p-3  hover:bg-bghovor`}>
         <div className="flex w-[100%] justify-between px-2">
+=======
+        className={`${isSelected && "bg-bghovor"}h-18 relative flex w-[97%] cursor-pointer flex-row items-center justify-start rounded-lg p-3  hover:bg-bghovor`}>
+        <div className="flex w-[100%] justify-between ">
+>>>>>>> 42884d4eabf44098fdfeb7e21fc36dc4c8bef598
           <div className="flex flex-row gap-2">
             <Avatar
               image={image}
@@ -151,7 +157,7 @@ const ChatCardPreview = memo(
             <div className="flex flex-col">
               <p className="font-semibold text-text1">{profileName}</p>
               <div className="line-clamp-1 pl-3 text-base text-text1 opacity-[50%]">
-                {lastMessage?.text }  
+              <ShowEmoji text={lastMessage.text} textwithemoji={lastMessage.messagePreview} />
               </div>
             </div>
           </div>

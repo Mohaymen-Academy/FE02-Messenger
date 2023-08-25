@@ -1,7 +1,9 @@
 import { UilCornerUpRightAlt } from '@iconscout/react-unicons';
+import ShowEmoji from '../../ui/ShowEmoji';
 
 const MessageHeader = ({ sender, isReciver, forewardedFrom, repliedTo, handlerreply }) => {
   // console.error(handlerreply)
+
   return (
     <div>
       {sender ? <p className="pb-3 text-blue-500">{sender}</p> : <></>}
@@ -24,7 +26,7 @@ const MessageHeader = ({ sender, isReciver, forewardedFrom, repliedTo, handlerre
           onClick={handlerreply}
           dir="auto"
           className="line-clamp-1 cursor-pointer text-xs p-1 border-r-2 border-white bg-color3 bg-opacity-25 ">
-          {repliedTo.text}
+          {<ShowEmoji text={repliedTo.text} textwithemoji={repliedTo.messagePreview} />}
         </div>
       ) : null}
     </div>

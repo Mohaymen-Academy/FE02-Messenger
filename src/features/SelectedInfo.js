@@ -40,6 +40,14 @@ const Savenewmsg = createAsyncThunk('selectedProf/Savenewmsg', async (msginfo) =
   return { msgdata: data.data, media: msginfo.media };
 });
 
+const savemsgMedia = createAsyncThunk('selectedProf/savemsgMedia', async (infos) => {
+  const data = await Requests().sendFiles(infos.id, { ...infos.fileuploaded, text: infos.value });
+  return {
+    data: data.data,
+    content: infos.fileuploaded
+  };
+});
+
 const doupdates = createAsyncThunk('selectedProf/doupdates', async (updateinfos) => {
   const data = await Requests().UpdateResponse(updateinfos.upid, updateinfos.chatid);
   console.error(data);
@@ -58,9 +66,9 @@ const GetMessagesDown = createAsyncThunk('selectedProf/getmessagesdown', async (
 });
 
 const SetLeftProf = createAsyncThunk('selectedProf/setleftprof', async (infos) => {
-  console.log(infos.profid);
   const data = await Requests().getleftProf(infos.profid);
-  return data.data;
+  console.error(data);
+  return data;
 });
 const GetMessages = createAsyncThunk('selectedProf/getmessages', async (requestinfo) => {
   try {
@@ -115,7 +123,7 @@ const SelectedProf = createSlice({
       state.selectedChatID = null;
     },
     editmsg: (state, action) => {
-      // console.log(action.payload.msgId);
+      console.error(action.payload);
       state.Chatmessages = state.Chatmessages.map((ele) => {
         if (ele.messageID == action.payload.msgId) {
           return {
@@ -145,6 +153,11 @@ const SelectedProf = createSlice({
     addcontact: (state, action) => {
       state.isContact = true;
     },
+
+    deletecontact: (state, action) => {
+      state.isContact = false;
+    },
+
     deletemessage: (state, action) => {
       state.Chatmessages = deletemsg(state.Chatmessages, action.payload.msgid);
     },
@@ -163,6 +176,7 @@ const SelectedProf = createSlice({
         // console.error(state.downfinished);
       }
     },
+
     ReplaceImage: (state, action) => {
       // state.messages; // Create a new array to avoid mutating the state directly
       state.Chatmessages = state.Chatmessages.map((message) => {
@@ -176,6 +190,7 @@ const SelectedProf = createSlice({
             ...message,
             media: {
               ...message.media,
+              goodquality: true,
               preLoadingContent: action.payload.image
             }
           };
@@ -197,10 +212,10 @@ const SelectedProf = createSlice({
         if (action.payload?.profileinfo) state.profileinfo = action.payload?.profileinfo;
       })
       .addCase(SetLeftProf.fulfilled, (state, action) => {
-        console.log(action.payload);
-        state.isContact = action.payload.isContact;
-        state.leftprof = action.payload.profile;
-        state.profPics = action.payload.profilePictures;
+        console.error(action.payload);
+        state.isContact = action.payload?.data.isContact;
+        state.leftprof = action.payload?.data.profile;
+        state.profPics = action.payload?.data.profilePictures;
       })
       .addCase(GetMessagesUp.fulfilled, (state, action) => {
         console.error(action.payload);
@@ -221,19 +236,19 @@ const SelectedProf = createSlice({
       })
       .addCase(Savenewmsg.fulfilled, (state, action) => {
         console.error(action.payload);
-        const message = state.Chatmessages.findIndex(
-          (msg) => msg.messageID == action.payload.msgdata.messageID
-        );
-        console.error(message);
-        if (message !== -1) {
-          state.Chatmessages.map((msg) => {
-            if (msg.messageID == action.payload.msgdata.messageID) {
-              return action.payload.msgdata;
-            } else return msg;
-          });
-        } else {
-          state.Chatmessages = state.Chatmessages.concat(action.payload.msgdata);
-        }
+        // const message = state.Chatmessages.findIndex(
+        //   (msg) => msg.messageID == action.payload.msgdata.messageID
+        // );
+        // console.error(message);
+        // if (message !== -1) {
+        //   state.Chatmessages.map((msg) => {
+        //     if (msg.messageID == action.payload.msgdata.messageID) {
+        //       return action.payload.msgdata;
+        //     } else return msg;
+        //   });
+        // } else {
+        // }
+        state.Chatmessages = state.Chatmessages.concat(action.payload.msgdata);
       })
       .addCase(doupdates.fulfilled, (state, action) => {
         action.payload.updates.forEach((command) => {
@@ -254,8 +269,25 @@ const SelectedProf = createSlice({
           }
         });
       })
+      .addCase(savemsgMedia.fulfilled, (state, action) => {
+        const goodmedia = action.payload.data;
+        let zarp = { 1: '2' };
+
+        goodmedia.media.preLoadingContent = action.payload.content.content;
+        goodmedia.media['goodquality'] = true;
+        console.error(goodmedia);
+        state.Chatmessages = state.Chatmessages.concat(goodmedia);
+      })
 });
-export { GetMessages, SetLeftProf, GetMessagesDown, GetMessagesUp, Savenewmsg, doupdates };
+export {
+  GetMessages,
+  SetLeftProf,
+  GetMessagesDown,
+  GetMessagesUp,
+  Savenewmsg,
+  doupdates,
+  savemsgMedia
+};
 export const {
   resetChatId,
   editmsg,
@@ -267,7 +299,8 @@ export const {
   setUnreadCount,
   SetIDs,
   setFinished,
-  setUpdate
+  setUpdate,
+  deletecontact
 } = SelectedProf.actions;
 // export const { resetChatId, editmsg, addcontact, deletemessage,ReplaceImage } = SelectedProf.actions;
 // export const { setChat, setChatType } = SelectedProf.actions;

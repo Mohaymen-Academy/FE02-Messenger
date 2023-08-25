@@ -32,9 +32,10 @@ const Message =
     entities,
     profile,
     replyinfo,
-    bodyref
+    bodyref,
+    messagePreview
   }) => {
-    // console.error(text)
+    // console.error(messagePreview,text)
     // console.error(forwardedfrom);
     const [mousepositoin, setmousepositoin] = useState({ x_mouse: 0, y_mouse: 0 });
     const [openForward, setopenForward] = useState(false);
@@ -140,7 +141,7 @@ const Message =
           />
           {media ? <MessageMedia src={media} handleClick={handleMediaMessage} /> : <></>}
           <div
-            className="flex break-words break-all whitespace-pre-wrap flex-wrap font-normal"
+            className=""
             dir="auto"
             ref={textref}>
             {/* {text} */}
@@ -170,6 +171,7 @@ const Message =
           isforme={Isforme}
           msgId={id}
           text={text}
+          messagePreview={messagePreview}
           positions={mousepositoin}
           setposition={setmousepositoin}
           setopenForward={setopenForward}
@@ -178,7 +180,7 @@ const Message =
 
         {openForward ? (
           <PopUp title={'هدایت'} setIsModalOpen={setopenForward}>
-            <ForwardComponent text={text} messageid={id} />
+            <ForwardComponent text={text} messageid={id} setforward={setopenForward} />
           </PopUp>
         ) : (
           <></>

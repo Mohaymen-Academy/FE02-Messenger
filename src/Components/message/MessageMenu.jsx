@@ -16,6 +16,7 @@ import VerifyModal from '../../ui/VeifyModal';
 import { isAction } from '@reduxjs/toolkit';
 
 const MessageMenu = ({
+  messagePreview,
   positions,
   setposition,
   msgId,
@@ -25,6 +26,7 @@ const MessageMenu = ({
   isforme,
   styles
 }) => {
+  // console.error(messagePreview)
   const [opendeltemenu, setopendeltemenu] = useState(false);
   const dispatch = useDispatch();
   const divref = useRef(null);
@@ -92,7 +94,6 @@ const MessageMenu = ({
   ]);
 
   const handledelte = () => {
-    dispatch(deletemessage({ msgid: msgId }));
     Requests().Deletemsg(msgId);
   };
   return (
@@ -100,7 +101,7 @@ const MessageMenu = ({
       {positions.x_mouse != 0 ? (
         <ul
           ref={divref}
-          style={{ top: `${positions.y_mouse / 4}`, left: `${positions.x_mouse}` }}
+          style={{ top: `${positions.y_mouse / 4}`, left: `${positions.x_mouse}`, bottom: 0 }}
           className="absolute z-10 shadow-2xl w-[150px] bg-color1 text-color4 rounded-lg opacity-90">
           {items.map((item, index) => {
             return item.allowed ? (
@@ -109,8 +110,14 @@ const MessageMenu = ({
                 className="flex flex-row items-center gap-2 px-5 w-full hover:bg-bghovor rounded-lg"
                 onClick={(e) => {
                   if (item?.action == 'reply') {
+                    console.error(messagePreview)
                     dispatch(
-                      composerActions.setaction({ type: item.action, text: text, messageID: msgId })
+                      composerActions.setaction({
+                        type: item.action,
+                        text: text,
+                        messageID: msgId,
+                        messagePreview
+                      })
                     );
                   } else if (item.action === 'delete') {
                     setopendeltemenu(true);
