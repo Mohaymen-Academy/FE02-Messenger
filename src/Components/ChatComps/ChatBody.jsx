@@ -21,7 +21,7 @@ import { GetSharedMedia, resetPreview, setPreview } from '../../features/SharedM
 import ShowUnread from './ShowUnread.jsx';
 import Pin from './Pin.jsx';
 import GoHnalder from '../../utility/GoTomessage.js';
-import PreviewrContainer from './previewrContainer.jsx';
+import PreviewrContainer from './PreviewrContainer.jsx';
 
 const ChatBody = memo(({ chatid, chattype, bodyref, messages, lastmassage }) => {
   const dispatch = useDispatch();
