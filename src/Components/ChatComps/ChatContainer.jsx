@@ -4,17 +4,19 @@ import LeftLayout from '../LeftSideBar/LeftLayout';
 import { PERMISSION_TYPE_NOT_ALLOWED_, TYPE_USER } from '../../utility/Constants';
 import { resetChatId } from '../../features/SelectedInfo';
 import { useDispatch, useSelector } from 'react-redux';
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 export default function ChatContainer() {
   const [active, setActive] = useState(false);
   const chatType = useSelector((state) => state.selectedProf.chatType);
   const chatID = useSelector((state) => state.selectedProf.selectedChatID);
   const selectedProfile = useSelector((state) => state.selectedProf.profileinfo);
   const lastmassage = useSelector((state) => state.selectedProf.lastmsgId);
-  console.error(lastmassage)
+  console.error(lastmassage);
   const dispatch = useDispatch();
   const bodyref = useRef(null);
   const messages = useSelector((state) => state.selectedProf.Chatmessages);
+
   useEffect(() => {
     document.addEventListener('keydown', (e) => {
       if (e.key == 'Escape') {
@@ -64,8 +66,8 @@ export default function ChatContainer() {
         ) : (
           <></>
         )}
+        <ToastContainer position="top-center" />
       </div>
-      {/* {active ?  : <></>} */}
     </>
   );
 }

@@ -160,7 +160,7 @@ const ChatBody = memo(({ chatid, chattype, bodyref, messages, lastmassage }) => 
       <Pin bodyref={bodyref} chatid={chatid} chattype={chattype} messages={messages} />
       <div
         // dir="rtl"
-        className={'flex h-[100%] flex-col items-center'}>
+        className={'flex h-full flex-col items-center w-full relative'}>
         <div className="flex h-[72%]  w-full flex-col items-center overflow-hidden">
           <div
             className="mb-[5rem] h-[90vh] w-[100%]  overflow-auto px-5 pt-3"

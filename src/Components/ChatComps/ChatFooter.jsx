@@ -186,7 +186,7 @@ export default function ChatFooter({ id, chattype, isallowed }) {
   }
 
   return (
-    <div className=" sticky bottom-0 flex flex-col">
+    <div className="sticky bottom-0 left-0 flex flex-col w-full">
       {needActoin ? (
         <div className="flex-row items-center flex h-[40px] w-[100%] bg-color2 pr-2 pt-1">
           <button onClick={() => dispatch(composerActions.clear())}>
@@ -232,8 +232,10 @@ export default function ChatFooter({ id, chattype, isallowed }) {
               onInput={handleonInput}
               suppressContentEditableWarning={true}
               onKeyUp={() => setInputDivHeight(divref.current.clientHeight)} // Update the input div's height
-              className=" flex h-auto max-h-[150px] w-[90%] flex-row overflow-y-scroll
-            whitespace-pre-wrap bg-color1 rounded-xl mx-2 p-2 text-text1
+              className=" 
+             bg-color1 rounded-xl mx-2 p-2 text-text1
+               flex h-auto max-h-[50px] w-[90%] flex-row overflow-auto resize-y
+            whitespace-pre-wrap
             break-all border-none shadow-none outline-none focus:shadow-none active:shadow-none">
               {Isactive.editvalue ? Isactive.editvalue : ''}
             </div>

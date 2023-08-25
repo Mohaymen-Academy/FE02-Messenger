@@ -1,3 +1,4 @@
+import { toast } from 'react-toastify';
 import { DOWN, TYPE_GROUP, UP } from '../utility/Constants';
 import API from './API';
 import { BASE_URL, HEADER } from './consts';
@@ -48,7 +49,12 @@ export default function Requests(body) {
     console.log(body);
     try {
       // console.log('Sending request to login...');
-      const res = await API().POST('access/login', body, HEADER);
+      const loginPromis = API().POST('access/login', body, HEADER);
+      const res = await loginPromis;
+      toast.success('ورود با موفقیت انجام شد');
+      if (res.status == 200) {
+        toast.success('welcome');
+      }
       localStorage.setItem('token', res.data.jwt);
       return res;
     } catch (err) {
@@ -358,6 +364,7 @@ export default function Requests(body) {
       chatId: String(chatid)
     };
     API().DEL(`delete-chat`, body, AutorizeHeader);
+    toast('چت حذف شد');
   }
   async function GetMembers(chatid) {
     return await API().GET(`${chatid}/members`, {}, AutorizeHeader);
