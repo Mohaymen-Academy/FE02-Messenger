@@ -38,7 +38,6 @@ export default function ChatContainer() {
             mobile:w-[100%]
             tablet:w-[100%]
             ${active ? 'vsmmobile:w-0' : 'vsmmobile:w-full'}
-            max-h-screen
             `}>
               <ChatHeader
                 bodyref={bodyref}
