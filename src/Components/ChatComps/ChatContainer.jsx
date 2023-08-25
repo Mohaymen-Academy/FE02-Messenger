@@ -66,7 +66,13 @@ export default function ChatContainer() {
         ) : (
           <></>
         )}
-        <ToastContainer position="top-center" />
+        <ToastContainer
+          position="top-center"
+          theme="colored"
+          autoClose={3000}
+          hideProgressBar
+          rtl
+        />
       </div>
     </>
   );

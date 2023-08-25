@@ -51,10 +51,6 @@ export default function Requests(body) {
       // console.log('Sending request to login...');
       const loginPromis = API().POST('access/login', body, HEADER);
       const res = await loginPromis;
-      toast.success('ورود با موفقیت انجام شد');
-      if (res.status == 200) {
-        toast.success('welcome');
-      }
       localStorage.setItem('token', res.data.jwt);
       return res;
     } catch (err) {
@@ -364,7 +360,6 @@ export default function Requests(body) {
       chatId: String(chatid)
     };
     API().DEL(`delete-chat`, body, AutorizeHeader);
-    toast('چت حذف شد');
   }
   async function GetMembers(chatid) {
     return await API().GET(`${chatid}/members`, {}, AutorizeHeader);
