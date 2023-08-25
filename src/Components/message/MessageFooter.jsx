@@ -11,7 +11,7 @@ function MessageFooter({ id, isSeen, Isforme, time, isEdited }) {
       <div className="text-bluetext1 flex flex-row-reverse">
         {Isforme ? (
           isSeen ? (
-            <div className="flex flex-row">
+            <div className="flex flex-row w-15">
               <UilCheck className={'relative left-[-18px]'} />
               <UilCheck />
             </div>
@@ -21,7 +21,7 @@ function MessageFooter({ id, isSeen, Isforme, time, isEdited }) {
         ) : (
           <></>
         )}
-        {isEdited ? 'ویرایش شده ' : <></>}
+        {isEdited ? 'ویرایش شده' : <></>}
       </div>
     </div>
   );

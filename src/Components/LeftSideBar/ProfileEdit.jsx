@@ -5,6 +5,7 @@ import CheckBoxParag from '../../ui/CheckBoxParag';
 import Requests from '../../API/Requests';
 import { Avatar } from '../ChatComps';
 import { useDispatch } from 'react-redux';
+import { GetContacts } from '../../features/chatCardPreviewSlice';
 
 export default function ProfileEdit({ setlayout, selectedProfile, chatid }) {
   const name = useRef(null);

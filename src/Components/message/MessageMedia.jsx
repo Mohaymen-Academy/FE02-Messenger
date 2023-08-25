@@ -1,5 +1,7 @@
 import { Files } from '../LeftSideBar/ProfileParts';
 import MessageVoice from './MessageVoice';
+import { UilArrowCircleDown } from '@iconscout/react-unicons';
+
 function MessageMedia({ src, handleClick }) {
   //  console.log(src)
   return (
@@ -17,12 +19,12 @@ function MessageMedia({ src, handleClick }) {
         <MessageVoice />
       ) : src.contentType.startsWith('image') ? (
         <div
-          className="flex flex-nowrap justify-center items-center rounded-md media-img"
+          className="flex w-[100%] flex-nowrap justify-center items-center rounded-md media-img"
           onClick={handleClick}>
           {src.goodquality ? null : <UilArrowCircleDown className={'absolute text-color4'} />}
           <img
             src={`data:image/jpeg;base64,${src.preLoadingContent}`}
-            className="cursor-pointer w-[200px] h-[200px]"
+            className="cursor-pointer w-[200px] h-[200px] mb-3"
           />
         </div>
       ) : (

@@ -11,6 +11,7 @@ const initialState = {
 const GetContacts = createAsyncThunk('messageList/getcontacts', async () => {
   try {
     const data = await Requests().GetContacts();
+    console.error(data)
     return data;
   } catch (err) {
     console.log(err);

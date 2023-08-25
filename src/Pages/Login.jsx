@@ -46,7 +46,8 @@ export default function Login() {
 
     }}
     >
-      <div className="main-div">
+      <div className="main-div
+      m-auto relative">
         <div className="flex flex-col my-5 items-center justify-center">
           <a href="/">
             <img width={150} src="images/rasa.png" />

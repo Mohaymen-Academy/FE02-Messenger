@@ -52,7 +52,7 @@ function ImagePreviewer({ massageId, imageshow }) {
           <div className="flex">
             <img
               src={`data:image/jpeg;base64,${image}`}
-              className={'block object-contain opacity-100 w-[800px] '}
+              className={'block object-contain opacity-100 w-[400px] h-[600px] '}
             />
           </div>
         )}

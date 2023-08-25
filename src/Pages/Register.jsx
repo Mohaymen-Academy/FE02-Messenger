@@ -90,7 +90,7 @@ export default function Register() {
 
     }}
     >
-      <div className="main-div">
+      <div className="main-div h-[675px] relative m-auto">
         <div className="mb-5 flex flex-col items-center justify-center">
           <a href="/">
             <img width={150} src="images/rasa.png" />
@@ -182,7 +182,7 @@ export default function Register() {
               </a>
             </span>
           </div>
-          <div className="my-4 flex w-full items-center">
+          {/* <div className="my-4 flex w-full items-center">
             <hr className="w-full" />
             <p className="px-3 text-text1">یا</p>
             <hr className="w-full" />
@@ -200,7 +200,7 @@ export default function Register() {
               </svg>
               <p className="text-text1">ورود با حساب گوگل</p>
             </button>
-          </div>
+          </div> */}
         </div>
       </div>
     </div>
