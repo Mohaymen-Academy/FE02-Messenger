@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { UilPlay, UilRedo, UilPause, UilImport } from '@iconscout/react-unicons';
+import { UilPlay, UilRedo, UilPause, UilImport, UilHeadphonesAlt } from '@iconscout/react-unicons';
 import MessageBody from './MessageBody.jsx';
 
 function MessageVoice({ audioUrl, id, audioID, animState }) {
@@ -150,7 +150,7 @@ function MessageVoice({ audioUrl, id, audioID, animState }) {
   let buttonStateComponent;
 
   if (!mediaLoaded && !error) {
-    buttonStateComponent = <div>loading...</div>;
+    buttonStateComponent = <UilHeadphonesAlt onClick={play} />;
   } else if (isPlaying && !error) {
     buttonStateComponent = <UilPause onClick={pause} />;
   } else if (!isPlaying && !error) {
@@ -159,11 +159,8 @@ function MessageVoice({ audioUrl, id, audioID, animState }) {
     buttonStateComponent = <UilRedo onClick={loadAudioAgain} />;
   }
   return (
-    <MessageBody id={id}>
+    <>
       <div className="flex h-10 w-full items-center justify-between gap-3">
-        <div className="cursor-pointer rounded-full bg-blue-500 p-3 text-white">
-          {buttonStateComponent}
-        </div>
         <div className="relative flex h-4 w-full items-center">
           <span
             style={{
@@ -186,9 +183,12 @@ function MessageVoice({ audioUrl, id, audioID, animState }) {
             className="absolute -top-0 left-0 z-[5] h-4 w-4 cursor-pointer rounded-full border-none bg-blue-300"
             style={{ left: `${sliderPlayedWidth}` }}></span>
         </div>
+        <div className="cursor-pointer rounded-full bg-blue-500 p-3 text-white">
+          {buttonStateComponent}
+        </div>
       </div>
       <span className="ml-[2px] mr-2 inline-block min-w-[35px] text-sm">{duration}</span>
-    </MessageBody>
+    </>
   );
 }
 
