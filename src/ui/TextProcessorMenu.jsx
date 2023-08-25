@@ -13,7 +13,7 @@ import {
   UilPlusCircle
 } from '@iconscout/react-unicons';
 
-const TextProcessorMenu = ({ x_pos, y_pos, positions, setPosotion, ChangeEntities }) => {
+const TextProcessorMenu = ({ x_pos, y_pos, positions, setPosotion, ChangeEntities , h }) => {
   const [choice, setChoice] = useState({
     0: 0,
     1: 0,
@@ -95,7 +95,7 @@ const TextProcessorMenu = ({ x_pos, y_pos, positions, setPosotion, ChangeEntitie
       className="flex flex-row absolute z-10 shadow-2xl bg-color1 text-color4 rounded-lg opacity-90 p-1 w-fit"
       ref={divref}
       style={{
-        bottom: `${70}px`,
+        bottom: `${h+30}px`,
         left: '10px'
       }}>
       {!link ? (

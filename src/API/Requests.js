@@ -223,12 +223,25 @@ export default function Requests(body) {
       console.log(err);
     }
   }
-  async function CreateChat(name, members, type) {
+  async function CreateChat(name, members, img, type) {
     const body = {
       type,
       members,
       name
     };
+    // const body = {
+    //   content: base64string,
+    //   size: selectedFile.size,
+    //   'media-type': selectedFile.type,
+    //   fileName: selectedFile.name
+    // };
+    if (img) {
+      body.content = img.content;
+      body.size = img.size;
+      body['media-type'] = img['media-type'];
+      body.fileName = img.fileName;
+    }
+    console.log(body)
     await API()
       .POST('create-chat', body, AutorizeHeader)
       .then((res) => res.json())

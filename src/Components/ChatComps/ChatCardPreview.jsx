@@ -91,6 +91,7 @@ function getRelativeDate(inputDate) {
 //  NEED TO ADD TIME TO IT
 const ChatCardPreview = memo(
   ({
+    isSelected,
     profile,
     profileName,
     profid,
@@ -133,7 +134,7 @@ const ChatCardPreview = memo(
           dispatch(SetLeftProf({ profid: profid }));
           // await Requests().GetProfileMedium(profile.profileID);
         }}
-        className="h-18 relative mx-2 flex w-[97%] cursor-pointer flex-row items-center justify-start rounded-lg p-3  hover:bg-bghovor">
+        className={`${isSelected && "bg-bghovor"}h-18 relative mx-2 flex w-[97%] cursor-pointer flex-row items-center justify-start rounded-lg p-3  hover:bg-bghovor`}>
         <div className="flex w-[100%] justify-between px-2">
           <div className="flex flex-row gap-2">
             <Avatar
