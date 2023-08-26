@@ -12,13 +12,13 @@ export default function ContactsList() {
   }, []);
   return (
     <div className="mt-4 w-full h-full overflow-y-auto bg-color1">
-      <div className="flex flex-row justify-between px-5 py-3 w-[100%] border-b-2 ">
+      <div className="flex flex-row justify-between text-text1 px-5 py-3 w-[100%] border-b-2 ">
         مخاطبین
         <button
           onClick={() => {
             dispatch(setParentDefault());
           }}>
-          <UilArrowLeft className={'text-xl'} />
+          <UilArrowLeft className={'text-xl text-text1'} />
         </button>
       </div>
 

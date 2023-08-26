@@ -25,7 +25,7 @@ export default function LeftSide({
 }) {
   // console.error(selectedProfile);
   const dispatch = useDispatch();
-  const pics = useSelector((state) => state.selectedProf.profPics);
+  const account = useSelector((state) => state.selectedProf.profileinfo);
   const iscontact = useSelector((state) => state.selectedProf.isContact);
   useEffect(() => {
     console.error(chatid);
@@ -91,6 +91,7 @@ export default function LeftSide({
       });
     }
   }, [selectedProfile]);
+  console.log(selectedProfile.lastProfilePicture?.preLoadingContent)
 
   return (
     <div
@@ -132,13 +133,12 @@ export default function LeftSide({
               alt=""
             />
             <div
-              className="absolute w-[100%]
-            flex flex-col"
+              className="absolute w-[100%] flex flex-col justify-end gap-2  "
               style={{ bottom: 0 }}>
-              <div className=" pr-10  text-white font-bold text-[25px] opacity-150 absolute">
+              <div className=" p-10  text-white font-bold text-[25px] opacity-150 absolute">
                 {selectedProfile?.profileName}
               </div>
-              <div className="pr-10 pt-5 text-white text-[15px]">{selectedProfile?.status}</div>
+              <div className="p-5 pr-10  text-white text-[15px] absolute">{account?.status}</div>
               {/* //should change with the member or subs number */}
               <div className="w-full h-[155px] bg-gradient-to-b from-transparent to-black"></div>
             </div>
