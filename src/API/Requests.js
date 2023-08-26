@@ -371,6 +371,30 @@ export default function Requests(body) {
     // /contacts/edit-custom-name/{id}
     return API().PUT(`contacts/edit-custom-name/${profid}`, body, AutorizeHeader);
   }
+  async function forgotMessage(body) {
+    const response = API().PUT('/access/forgot-password', body, AutorizeHeader);
+    toast.info('درخواست ارسال شد');
+    return response;
+  }
+  async function verifyEmail(body) {
+    try {
+      const res = await API().POST('access/signup', body, HEADER);
+      toast.success('درخواست با موفقیت ارسال شد');
+      return res;
+    } catch (err) {
+      toast.error('خطایی رخ داده است');
+    }
+  }
+  // async function Register(body) {
+  //   try {
+  //     // console.log('Sending request to sign up...');
+  //     const res = await API().POST('access/verify-signup', body, HEADER);
+  //     localStorage.setItem('token', res.data.jwt);
+  //     return res;
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // }
   return {
     EditContact,
     DeleteContact,
@@ -404,6 +428,8 @@ export default function Requests(body) {
     UpdateProfile,
     sendFiles,
     GetOriginalImage,
-    GetSharedMedia
+    GetSharedMedia,
+    verifyEmail,
+    forgotMessage
   };
 }

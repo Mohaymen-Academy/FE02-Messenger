@@ -39,7 +39,7 @@ export default function FileUploader({ openpull, openfile, chattype }) {
       });
     };
     reader.readAsDataURL(uploadedFile.current);
-    openthediv()
+    openthediv();
   }
   return (
     <div
@@ -51,9 +51,9 @@ export default function FileUploader({ openpull, openfile, chattype }) {
       <div
         className={`${
           open ? 'block' : 'hidden'
-        } relative  top-[-145px]  w-[250px] rounded-lg bg-color1 text-color4 shadow-2xl`}>
+        } relative  top-[-145px]  w-[250px] rounded-lg bg-color1 text-color4 shadow-2xl `}>
         <button
-          className="my-1 flex w-full flex-row items-center gap-2 rounded-lg px-4 hover:bg-gray-200"
+          className=" my-1 flex w-full flex-row items-center gap-2 rounded-lg px-4 hover:bg-gray-200"
           // onClick={(e) => setsection(menuId)}
         >
           <div className="my-1 flex items-center gap-2">
@@ -65,7 +65,7 @@ export default function FileUploader({ openpull, openfile, chattype }) {
         <button
           className=" my-1 flex w-full flex-row items-center gap-2 rounded-lg px-4 hover:bg-gray-200"
           onClick={(e) => {
-            setopen(false)
+            setopen(false);
             e.stopPropagation();
             fileinput.current.click();
           }}>

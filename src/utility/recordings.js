@@ -13,13 +13,6 @@ export async function startRecording(setRecorderState) {
     console.log(err);
   }
 }
-export function saveRecording(recorder, blob) {
+export function saveRecording(recorder) {
   if (recorder.state !== 'inactive') recorder.stop();
-  const reader = new FileReader();
-  reader.readAsDataURL(blob);
-  reader.onloadend = () => {
-    const audioBase64 = reader.result.split(',')[1];
-    // call the api here
-    const body = {};
-  };
 }

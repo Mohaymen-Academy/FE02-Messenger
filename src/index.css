@@ -164,7 +164,7 @@
     @apply block;
   }
   .AudioSlider {
-    @apply relative right-0 z-[1] h-[5px] w-full appearance-none rounded-sm bg-zinc-700 focus:outline-none;
+    @apply relative right-0 h-[5px] w-full appearance-none rounded-sm bg-zinc-700 focus:outline-none;
   }
   .AudioSlider::-webkit-slider-thumb {
     @apply appearance-none;

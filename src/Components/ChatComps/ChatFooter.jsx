@@ -5,7 +5,8 @@ import {
   UilPaperclip,
   UilTimes,
   UilMicrophone,
-  UilPause
+  UilPause,
+  UilChat
 } from '@iconscout/react-unicons';
 // import EmojiPicker from 'emoji-picker-react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -48,7 +49,7 @@ export default function ChatFooter({ id, chattype, isallowed }) {
   const [fileuploaded, setfileuploaded] = useState(null);
   const { recorderState, ...handlers } = useRecorder(id);
   const [inputDivHeight, setInputDivHeight] = useState(0);
-
+  console.log(recorderState);
   const emoji = useState('');
   useEffect(() => {
     if (divref.current) {
@@ -207,85 +208,93 @@ export default function ChatFooter({ id, chattype, isallowed }) {
           }`}>
         <div
           className={` flex  w-[100%] flex-row items-center justify-between sticky bottom-0
-          ${needActoin ? '' : ''} bg-color2  p-2 text-color4`}>
-          <button className="mx-1 h-8 w-8 text-text1 " onClick={SelectRequestType}>
-            <UilMessage />
-          </button>
-          {/* </UilPaperclip> */}
-          <FileUploader
-            openpull={setopenPoll}
-            openfile={setfileuploaded}
-            chattype={chattype}
-            id={id}
-          />
-          {/* <input type="text" dir='auto' /> */}
+               ${needActoin ? '' : ''} bg-color2  p-2 text-color4`}>
           {recorderState.mediaStream ? (
             <VoiceControl handlers={handlers} recorderState={recorderState} id={id} />
           ) : (
-            <div
-              ref={divref}
-              dir="auto"
-              contentEditable
-              onKeyDown={handleKeyDown} // Attach the onKeyDown event handler
-              onClick={handleclick}
-              onSelectCapture={handleSelect}
-              onInput={handleonInput}
-              suppressContentEditableWarning={true}
-              onKeyUp={() => setInputDivHeight(divref.current.clientHeight)} // Update the input div's height
-              className=" 
+            <>
+              <button className="mx-1 h-8 w-8 text-text1 " onClick={SelectRequestType}>
+                <UilMessage />
+              </button>
+              {/* </UilPaperclip> */}
+              <FileUploader
+                openpull={setopenPoll}
+                openfile={setfileuploaded}
+                chattype={chattype}
+                id={id}
+              />
+              {/* <input type="text" dir='auto' /> */}
+              <div
+                ref={divref}
+                dir="auto"
+                contentEditable
+                onKeyDown={handleKeyDown} // Attach the onKeyDown event handler
+                onClick={handleclick}
+                onSelectCapture={handleSelect}
+                onInput={handleonInput}
+                suppressContentEditableWarning={true}
+                onKeyUp={() => setInputDivHeight(divref.current.clientHeight)} // Update the input div's height
+                className=" 
              bg-color1 rounded-xl mx-2 p-2 text-text1
                flex h-auto max-h-[50px] w-[90%] flex-row overflow-auto resize-y
-            whitespace-pre-wrap
-            break-all border-none shadow-none outline-none focus:shadow-none active:shadow-none">
-              {Isactive.editvalue ? Isactive.editvalue : ''}
-            </div>
+              whitespace-pre-wrap
+              break-all border-none shadow-none outline-none focus:shadow-none active:shadow-none">
+                {Isactive.editvalue ? Isactive.editvalue : ''}
+              </div>
+
+              <div className="flex">
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setopenemoji(!openemoji);
+                  }}
+                  className="mx-1 h-8 w-8 text-text1 ">
+                  <UilSmile />
+                </button>
+
+                {openTextProcessor && (
+                  <TextProcessorMenu ChangeEntities={ChangeEntities} h={inputDivHeight} />
+                )}
+
+                {fileuploaded && (
+                  <PopUp title="انتخاب فایل" setIsModalOpen={setfileuploaded}>
+                    <UploadFile
+                      id={id}
+                      fileuploaded={fileuploaded}
+                      setIsModalOpen={setfileuploaded}
+                    />
+                  </PopUp>
+                )}
+                {openPoll && (
+                  <PopUp title="ایجاد نظرسنجی" setIsModalOpen={setopenPoll}>
+                    <Poll />
+                  </PopUp>
+                )}
+              </div>
+            </>
           )}
-          <div className="flex">
+          {recorderState.mediaStream ? (
             <button
               onClick={(e) => {
                 e.stopPropagation();
-                setopenemoji(!openemoji);
+                const { cancelRecording } = handlers;
+                cancelRecording();
               }}
               className="mx-1 h-8 w-8 text-text1 ">
-              <UilSmile />
+              <UilChat />
             </button>
-            {recorderState.mediaStream ? (
-              <button
-                onClick={(e) => {
-                  e.stopPropagation();
-                  const { cancelRecording } = handlers;
-                  cancelRecording();
-                }}
-                className="mx-1 h-8 w-8 text-text1 ">
-                <UilPause />
-              </button>
-            ) : (
-              <button
-                onClick={(e) => {
-                  e.stopPropagation();
-                  const { startRecording } = handlers;
-                  console.error(startRecording);
-                  startRecording();
-                }}
-                className="mx-1 h-8 w-8 text-text1 ">
-                <UilMicrophone />
-              </button>
-            )}
-            {openTextProcessor && (
-              <TextProcessorMenu ChangeEntities={ChangeEntities} h={inputDivHeight} />
-            )}
-
-            {fileuploaded && (
-              <PopUp title="انتخاب فایل" setIsModalOpen={setfileuploaded}>
-                <UploadFile id={id} fileuploaded={fileuploaded} setIsModalOpen={setfileuploaded} />
-              </PopUp>
-            )}
-            {openPoll && (
-              <PopUp title="ایجاد نظرسنجی" setIsModalOpen={setopenPoll}>
-                <Poll />
-              </PopUp>
-            )}
-          </div>
+          ) : (
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                const { startRecording } = handlers;
+                console.error(startRecording);
+                startRecording();
+              }}
+              className="mx-1 h-8 w-8 text-text1 ">
+              <UilMicrophone />
+            </button>
+          )}
         </div>
         {openemoji && (
           <>
