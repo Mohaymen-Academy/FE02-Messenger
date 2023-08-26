@@ -26,6 +26,7 @@ export default function LeftSide({
   // console.error(selectedProfile);
   const dispatch = useDispatch();
   const account = useSelector((state) => state.selectedProf.leftProf);
+  // console.err(account)
   const iscontact = useSelector((state) => state.selectedProf.isContact);
   useEffect(() => {
     console.error(chatid);
@@ -56,8 +57,8 @@ export default function LeftSide({
     setfilepart(newfilepart);
   };
   async function handleAdd() {
-    console.error(selectedProfile.profileID);
-    await Requests().AddContact(selectedProfile.profileID);
+    console.error(account.profileID);
+    await Requests().AddContact(account.profileID);
     dispatch(GetContacts());
     dispatch(addcontact());
   }
@@ -65,7 +66,7 @@ export default function LeftSide({
   useEffect(() => {
     if (isgroup) {
       Requests()
-        .GetMembers(selectedProfile.profileID)
+        .GetMembers(account.profileID)
         .then((res) => res.data)
         .then((data) => {
           console.error(data);
@@ -90,7 +91,7 @@ export default function LeftSide({
         5: 0
       });
     }
-  }, [selectedProfile]);
+  }, [chatid]);
   // console.log(selectedProfile.lastProfilePicture?.preLoadingContent)
 
   return (
@@ -128,15 +129,15 @@ export default function LeftSide({
           <div className="h-[350px] w-[100%] flex flex-col">
             <img
               className="h-[350px] w-auto aspect-[1/1] "
-              src={`data:image/jpeg;base64,${selectedProfile.lastProfilePicture?.preLoadingContent}`}
-              style={{ backgroundColor: selectedProfile.defaultProfileColor }}
+              src={`data:image/jpeg;base64,${selectedProfile?.lastProfilePicture?.preLoadingContent}`}
+              style={{ backgroundColor: selectedProfile?.defaultProfileColor }}
               alt=""
             />
             <div
               className="absolute w-[100%] flex flex-col justify-end gap-2  "
               style={{ bottom: 0 }}>
               <div className=" p-10  text-white font-bold text-[25px] opacity-150 absolute">
-                {selectedProfile?.profileName}
+                {account?.profileName}
               </div>
               <div className="p-5 pr-10  text-white text-[15px] absolute">{account?.status}</div>
               {/* //should change with the member or subs number */}

@@ -62,6 +62,13 @@ export default function Search({ menu }) {
           </div>
         </div>
       </form>
+      {
+        isOpen && channels.length > 0 && (
+          <div className="flex flex-col p-2">
+            <p className="text-text1">کانال‌ها   </p>
+          </div>
+        )
+      }
       {isOpen &&
         channels.length > 0 &&
         channels.map((channel) => (
@@ -71,6 +78,13 @@ export default function Search({ menu }) {
             massage_id={channel.massage_id}
           />
         ))}
+              {
+        isOpen && massages.length > 0 && (
+          <div className="flex flex-col p-2">
+            <p className="text-text1">پیام‌ها   </p>
+          </div>
+        )
+      }
       {isOpen &&
         massages.length > 0 &&
         massages.map((massage) => (
@@ -80,6 +94,13 @@ export default function Search({ menu }) {
             massage_id={massage.massage_id}
           />
         ))}
+              {
+        isOpen && members.length > 0 && (
+          <div className="flex flex-col p-2">
+            <p className="text-text1">افراد   </p>
+          </div>
+        )
+      }
       {isOpen &&
         members.length > 0 &&
         members.map((member) => (

@@ -37,7 +37,7 @@ const ChatHeader = ({ active, setActive, chattype, chatid, messages, bodyref }) 
                 size={50}
                 imagecolor={selectedProfile?.defaultProfileColor}
                 char={selectedProfile?.profileName[0]}
-                isOnline={selectedProfile.status}
+                isOnline={ChatInfo}
               />
             </div>
             <div className="">

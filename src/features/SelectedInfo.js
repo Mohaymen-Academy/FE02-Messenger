@@ -212,10 +212,10 @@ const SelectedProf = createSlice({
         if (action.payload?.profileinfo) state.profileinfo = action.payload?.profileinfo;
       })
       .addCase(SetLeftProf.fulfilled, (state, action) => {
-        console.error(action.payload);
+        console.log(action.payload);
         state.isContact = action.payload?.data.isContact;
         state.leftprof = action.payload?.data.profile;
-        state.profPics = action.payload?.data.profilePictures;
+        // state.profPics = action.payload?.data.profilePictures;
       })
       .addCase(GetMessagesUp.fulfilled, (state, action) => {
         console.error(action.payload);
