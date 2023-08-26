@@ -30,7 +30,8 @@ export default function API() {
   // PUT function
   async function PUT(endpoint, body, header) {
     const res = await axios.put(`${BASE_URL}/${endpoint}`, body, {
-      headers: header
+      headers: header,
+
     });
     // console.log(res);
     return res;

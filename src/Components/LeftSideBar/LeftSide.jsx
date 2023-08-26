@@ -58,7 +58,7 @@ export default function LeftSide({
   async function handleAdd() {
     console.error(selectedProfile.profileID);
     await Requests().AddContact(selectedProfile.profileID);
-    dispatch(GetContacts());
+    // dispatch(GetContacts());
     dispatch(addcontact());
   }
   const [members, setmembers] = React.useState([]);

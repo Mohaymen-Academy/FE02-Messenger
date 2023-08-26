@@ -6,6 +6,7 @@ import Requests from '../../API/Requests';
 import { Avatar } from '../ChatComps';
 import { useDispatch } from 'react-redux';
 import { GetContacts } from '../../features/chatCardPreviewSlice';
+import { SetLeftProf } from '../../features/SelectedInfo';
 
 export default function ProfileEdit({ setlayout, selectedProfile, chatid }) {
   const name = useRef(null);
@@ -17,8 +18,12 @@ export default function ProfileEdit({ setlayout, selectedProfile, chatid }) {
     }
   });
   async function handleEdit() {
+    console.error(name.current.value);
     await Requests().EditContact(selectedProfile.profileID, name.current.value);
     dispatch(GetContacts());
+    dispatch(SetLeftProf({ profid: chatid }));
+    console.error('zarp')
+    setlayout(0);
   }
   return (
     <div

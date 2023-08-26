@@ -2,6 +2,7 @@ import { toast } from 'react-toastify';
 import { DOWN, TYPE_GROUP, UP } from '../utility/Constants';
 import API from './API';
 import { BASE_URL, HEADER } from './consts';
+import axios from 'axios';
 // import { useSelector } from 'react-redux';
 
 export default function Requests(body) {
@@ -366,8 +367,9 @@ export default function Requests(body) {
   }
   async function EditContact(profid, newname) {
     const body = {
-      custom_name: newname
+      'custom-name': newname
     };
+    console.error(body);
     // /contacts/edit-custom-name/{id}
     return API().PUT(`contacts/edit-custom-name/${profid}`, body, AutorizeHeader);
   }
