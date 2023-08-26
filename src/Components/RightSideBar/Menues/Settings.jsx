@@ -113,8 +113,8 @@ export default function Settings() {
           <div
             onClick={() => dispatch(setParent({ parent: NUM_SIDEBAR_DEFAULT }))}
             className="flex h-[70px] w-[100%] flex-row items-center gap-5 border-b border-bghovor px-8 hover:cursor-pointer hover:bg-bghovor ">
-            <UilArrowRight className="mx-1 h-8 w-8 " />
-            <div>بازگشت</div>
+            <UilArrowRight className="mx-1 h-8 w-8 text-text1" />
+            <div className='text-text1'>بازگشت</div>
           </div>
         </div>
       ) : (
