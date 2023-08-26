@@ -7,7 +7,7 @@ export default function LeftLayout({ active, setActive, chatid, chattype }) {
   //   const [active, ] = useState(false);
   //   console.log(setlayout)
 
-  const selectedProfile = useSelector((state) => state.selectedProf.leftprof);
+  const selectedProfile = useSelector((state) => state.selectedProf.profileinfo);
   const Pages = [
     <LeftSide
       chatid={chatid}

@@ -1,19 +1,28 @@
 import React, { useState, useRef } from 'react';
 // import CheckBoxChatSetting from '../CheckBoxChatSetting';
-import { UilImage } from '@iconscout/react-unicons';
+import { UilImage , UilArrowRight } from '@iconscout/react-unicons';
 import InputSlider from '../../../ui/InputSlider';
 import InpuSliderTextStep from '../../../ui/InpuSliderTextStep';
 import Radioinput from '../../../ui/Radioinput';
 import RadioinputTimeFormat from '../../../ui/RadioinputTimeFormat';
-
+import { useDispatch } from 'react-redux';
+import { setChild } from '../../../features/rightSideSlice';
 export default function ChatSetting() {
   const [open, setopen] = useState(false);
+  const dispatch = useDispatch();
+
   const inputslider = useRef(null);
   return (
     <div className="flex w-[100%] flex-col items-center justify-center overflow-y-hidden opacity-90">
-      <span className="mt-2 w-[100%] border-b-2 border-bghovor p-5 pt-0 text-center text-[17px] font-extrabold text-text1">
-        تنظیمات گفتگو
-      </span>
+      <div className="flex flex-row justify-between px-5 mt-5 w-[100%]">
+        <button
+          onClick={() => {
+            dispatch(setChild({ child: 0 }));
+          }}>
+          <UilArrowRight className={'text-xl text-text1'} />
+        </button>
+        <span className="text-center text-[17px] font-extrabold text-text1"> تنظظیمات گفتگو</span>
+      </div>
       <div
         className={
           'flex w-[100%] flex-wrap gap-[20px] overflow-y-auto overflow-x-hidden pr-2 transition-all duration-300 ease-in-out'

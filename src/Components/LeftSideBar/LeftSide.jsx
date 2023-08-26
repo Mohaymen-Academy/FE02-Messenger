@@ -25,7 +25,7 @@ export default function LeftSide({
 }) {
   // console.error(selectedProfile);
   const dispatch = useDispatch();
-  const account = useSelector((state) => state.selectedProf.profileinfo);
+  const account = useSelector((state) => state.selectedProf.leftProf);
   const iscontact = useSelector((state) => state.selectedProf.isContact);
   useEffect(() => {
     console.error(chatid);

@@ -4,6 +4,7 @@ import FilePreviewer from './FilePreviewer';
 import { Files } from '../Components/LeftSideBar/ProfileParts';
 import { useDispatch } from 'react-redux';
 import { savemsgMedia } from '../features/SelectedInfo';
+import MessageVoice from '../Components/message/MessageVoice'
 export default function UploadFile({ id, fileuploaded, setIsModalOpen }) {
   const captionRef = useRef(null);
   function handleChange(event) {
@@ -35,6 +36,10 @@ export default function UploadFile({ id, fileuploaded, setIsModalOpen }) {
           controls
         />
       )}
+      {
+        fileuploaded['media-type'].startsWith('audio') && (
+          <MessageVoice />)
+      }
       {fileuploaded['media-type'].startsWith('application/') ? (
         fileuploaded['media-type'].startsWith('application/pdf') ? (
           <embed

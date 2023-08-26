@@ -6,7 +6,7 @@ import { useRef } from 'react';
 import { useEffect } from 'react';
 import Requests from '../../../API/Requests';
 import { UpdateImage, UpdateProfile } from '../../../features/profileSlice';
-import { setParentDefault } from '../../../features/rightSideSlice';
+import { setChild, setParentDefault } from '../../../features/rightSideSlice';
 
 import { current } from '@reduxjs/toolkit';
 export default function PersonalMenu() {
@@ -83,10 +83,12 @@ export default function PersonalMenu() {
     <div
       className={`flex flex-col bg-color1 h-screen transition-all  duration-100 ease-in   border-r border-bghovor shadow-md`}>
       <div className="flex flex-row justify-between text-text1 px-5 py-3 w-[100%] border-b-2 ">
-        مخاطبین
+        اطلاعات شخصی
         <button
           onClick={() => {
             // dispatch(setParentDefault());
+            
+            dispatch(setChild({ child: 0 }));
           }}>
           <UilArrowLeft className={'text-xl text-text1'} />
         </button>
