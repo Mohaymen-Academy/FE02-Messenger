@@ -16,7 +16,7 @@ function MessageMedia({ src, handleClick }) {
           />
         </div>
       ) : src.contentType.startsWith('audio') ? (
-        <MessageVoice />
+        <MessageVoice audioUrl={`data:audio/ogg;base64${src.preLoadingContent}`} />
       ) : src.contentType.startsWith('image') ? (
         <div
           className="flex w-[100%] flex-nowrap justify-center items-center rounded-md media-img"
