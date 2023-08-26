@@ -4,10 +4,9 @@ import Login from '../../Pages/Login';
 import Verifymail from '../../Pages/Verifymail';
 // import VerifyEmail from '../../Pages/verifyEmail';
 
-
 const routes = [
   {
-    path: '',
+    path: '/',
     component: App,
     Private: true
   },

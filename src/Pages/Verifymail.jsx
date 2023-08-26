@@ -6,14 +6,14 @@ import { verifyemail } from '../features/profileSlice';
 export default function Verifymail() {
   const dispatch = useDispatch();
   const ref = useRef(null);
-  const signupInfo = useSelector((state) => state.profile);
+  const signupInfo = useSelector((state) => state.profile.signupdata);
   console.error(signupInfo);
   async function handleRegister() {
     // console.error(ref.);
     console.error(signupInfo.signupdata);
     try {
-      dispatch(verifyemail({ ...signupInfo.signupdata, code: ref.current.value }));
-      // window.location.href = '/';
+      dispatch(verifyemail({ ...signupInfo, code: ref.current.value }));
+      window.location.href = '/';
     } catch (error) {
       console.error(error);
     }

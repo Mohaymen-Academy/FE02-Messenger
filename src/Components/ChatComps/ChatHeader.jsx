@@ -9,9 +9,9 @@ import Pin from './Pin.jsx';
 
 const ChatHeader = ({ active, setActive, chattype, chatid, messages, bodyref }) => {
   const dispatch = useDispatch();
-  const selectedProfile = useSelector((state) => state.selectedProf.leftprof);
+  const selectedProfile = useSelector((state) => state.selectedProf.profileinfo);
   const ChatInfo = selectedProfile?.status;
-  console.error(selectedProfile)
+  console.error(selectedProfile);
   return (
     <>
       <div className="flex h-[70px] w-full cursor-pointer items-center justify-between bg-color2 px-1 font-iRANSans shadow-inner">

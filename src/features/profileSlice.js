@@ -66,7 +66,7 @@ const profileSlice = createSlice({
       })
       .addCase(verifyemail.fulfilled, (state, action) => {
         console.error(action.payload);
-        if (action.payload.jwt) {
+        if (action.payload.jwt != '') {
           state.jwt = action.payload.jwt;
           state.profileData = action.payload.profile;
         } else {
