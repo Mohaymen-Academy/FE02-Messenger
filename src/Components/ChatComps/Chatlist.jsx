@@ -25,11 +25,8 @@ const Chatlist = ({ isopen }) => {
   const dispatch = useDispatch();
   const lists = useSelector((store) => store.messageList.messages);
   const selectedChat = useSelector((store) => store.selectedProf.selectedChatID);
-<<<<<<< HEAD
   // console.log(selectedChat)
   console.error(lists)
-=======
->>>>>>> 42884d4eabf44098fdfeb7e21fc36dc4c8bef598
   useEffect(() => {
     if (selectedChat) {
       const profile = lists.filter((ele) => ele.profile.profileID == selectedChat)[0];
