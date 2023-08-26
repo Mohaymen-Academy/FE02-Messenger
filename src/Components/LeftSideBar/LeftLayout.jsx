@@ -34,7 +34,7 @@ export default function LeftLayout({ active, setActive, chatid, chattype }) {
     <div
       className={`flex flex-col relative h-screen transition-all duration-200 ease-in ${
         active
-          ? 'desktop:w-[50%] laptop:w-[100%] left-0 mobile:w-[150%] tablet:w-[150%] smmobile:w-[150%] vsmmobile:w-[100%]'
+          ? 'desktop:w-[40%] laptop:w-[100%] left-0 mobile:w-[150%] tablet:w-[150%] smmobile:w-[150%] vsmmobile:w-[100%]'
           : 'w-0 left-[-150%]'
       }`}>
       {Pages[layout]}

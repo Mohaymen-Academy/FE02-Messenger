@@ -6,7 +6,7 @@ export default (e) => {
       interval = setInterval(async () => {
         fetch(
           `http://185.60.136.206:8080?` +
-          // `http://192.168.70.223:8080?` +
+          // `http://192.168.70.218:8080?` +
             new URLSearchParams({
               active_chat: 0
             }),
