@@ -12,6 +12,8 @@ export default function Login() {
     email: '',
     password: ''
   });
+  const [LoginError, setLoginError] = useState('');
+
   useEffect(() => {
     const div = document.getElementById('zarp');
     div.dataset.theme = getTheme() ? getTheme() : 'light';
@@ -19,6 +21,7 @@ export default function Login() {
   }, []);
 
   async function handleRegisterClick(event) {
+    setLoginError(null)
     event.preventDefault();
     // Check for empty fields
     if (!values.current.email || !values.current.password) {
@@ -28,6 +31,7 @@ export default function Login() {
         await dispatch(loginUserProfile(values.current));
         window.location.href = '/';
       } catch (err) {
+        setLoginError("اشتباهی رخ داد، مجددا امتحان کنید.")
         console.log(err);
       }
     }
@@ -89,12 +93,14 @@ export default function Login() {
             <a href="#" className="text-xs text-[rgb(0,132,105)] hover:underline">
               رمز عبور خود را فراموش کرده اید؟
             </a>
-            <div className="mt-4 flex items-center">
+            <div className="mt-4 flex flex-col items-center">
               <button
                 onClick={handleRegisterClick}
                 className="w-full rounded-md bg-[rgb(0,92,75)] px-4 py-2 tracking-wide text-white transition-colors duration-200 hover:bg-[#7fc2cf] focus:bg-[#135461] focus:outline-none">
                 ورود
               </button>
+              {LoginError && <p className="text-xs text-red-500 mt-5">{LoginError}</p>}
+
             </div>
           </form>
           <div className="mt-4 text-text1">

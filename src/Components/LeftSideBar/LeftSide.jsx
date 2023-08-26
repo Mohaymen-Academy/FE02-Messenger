@@ -25,7 +25,7 @@ export default function LeftSide({
 }) {
   // console.error(selectedProfile);
   const dispatch = useDispatch();
-  const account = useSelector((state) => state.selectedProf.profileinfo);
+  const account = useSelector((state) => state.selectedProf.leftProf);
   const iscontact = useSelector((state) => state.selectedProf.isContact);
   useEffect(() => {
     console.error(chatid);
@@ -91,7 +91,7 @@ export default function LeftSide({
       });
     }
   }, [selectedProfile]);
-  console.log(selectedProfile.lastProfilePicture?.preLoadingContent)
+  // console.log(selectedProfile.lastProfilePicture?.preLoadingContent)
 
   return (
     <div
@@ -127,7 +127,7 @@ export default function LeftSide({
         >
           <div className="h-[350px] w-[100%] flex flex-col">
             <img
-              className="h-[350px] "
+              className="h-[350px] w-auto aspect-[1/1] "
               src={`data:image/jpeg;base64,${selectedProfile.lastProfilePicture?.preLoadingContent}`}
               style={{ backgroundColor: selectedProfile.defaultProfileColor }}
               alt=""

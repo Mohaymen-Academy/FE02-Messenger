@@ -15,7 +15,7 @@ export default function Notifs() {
           onClick={() => {
             dispatch(setChild({ child: 0 }));
           }}>
-          <UilArrowRight className={'text-xl'} />
+          <UilArrowRight className={'text-xl text-text1'} />
         </button>
         <span className="text-center text-[17px] font-extrabold text-text1">اعلان‌ها و صداها</span>
       </div>

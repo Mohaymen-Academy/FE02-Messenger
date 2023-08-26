@@ -1,11 +1,13 @@
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { UilUser, UilCameraPlus, UilArrowRight } from '@iconscout/react-unicons';
+import { UilUser, UilCameraPlus, UilArrowRight, UilArrowLeft  } from '@iconscout/react-unicons';
 import { useRef } from 'react';
 import { useEffect } from 'react';
 import Requests from '../../../API/Requests';
 import { UpdateImage, UpdateProfile } from '../../../features/profileSlice';
+import { setChild, setParentDefault } from '../../../features/rightSideSlice';
+
 import { current } from '@reduxjs/toolkit';
 export default function PersonalMenu() {
   const [open, setopen] = useState(false);
@@ -80,8 +82,16 @@ export default function PersonalMenu() {
   return (
     <div
       className={`flex flex-col bg-color1 h-screen transition-all  duration-100 ease-in   border-r border-bghovor shadow-md`}>
-      <div className="flex flex-row w-full h-[70px] m-5 mt-2 mb-0 place-items-center justify-center">
-        <div className="p-1 pt-0 cardP">ویرایش پروفایل</div>
+      <div className="flex flex-row justify-between text-text1 px-5 py-3 w-[100%] border-b-2 ">
+        اطلاعات شخصی
+        <button
+          onClick={() => {
+            // dispatch(setParentDefault());
+            
+            dispatch(setChild({ child: 0 }));
+          }}>
+          <UilArrowLeft className={'text-xl text-text1'} />
+        </button>
       </div>
       <div className="flex flex-col  justify-start items-center gap-3 w-full p-5">
         <input
