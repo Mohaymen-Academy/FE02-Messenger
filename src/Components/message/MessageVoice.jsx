@@ -166,7 +166,7 @@ function MessageVoice({ audioUrl, id, audioID, animState }) {
             style={{
               width: sliderPlayedWidth
             }}
-            className="absolute left-0 z-[2] h-1 rounded-sm rounded-r-none bg-blue-500"></span>
+            className="absolute left-0 h-1 rounded-sm rounded-r-none bg-blue-500"></span>
           <input
             type="range"
             min="1"

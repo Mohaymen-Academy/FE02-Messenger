@@ -9,7 +9,7 @@ import Pin from './Pin.jsx';
 
 const ChatHeader = ({ active, setActive, chattype, chatid, messages, bodyref }) => {
   const dispatch = useDispatch();
-  const selectedProfile = useSelector((state) => state.selectedProf.profileinfo);
+  const selectedProfile = useSelector((state) => state.selectedProf.leftprof);
   const ChatInfo = selectedProfile?.status;
   console.error(selectedProfile)
   return (
