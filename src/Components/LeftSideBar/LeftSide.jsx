@@ -91,7 +91,7 @@ export default function LeftSide({
       });
     }
   }, [selectedProfile]);
-  // console.log(selectedProfile.lastProfilePicture?.preLoadingContent)
+  console.error(account);
 
   return (
     <div
@@ -130,7 +130,6 @@ export default function LeftSide({
               className="h-[350px] w-auto aspect-[1/1] "
               src={`data:image/jpeg;base64,${selectedProfile.lastProfilePicture?.preLoadingContent}`}
               style={{ backgroundColor: selectedProfile.defaultProfileColor }}
-              alt=""
             />
             <div
               className="absolute w-[100%] flex flex-col justify-end gap-2  "
@@ -222,7 +221,7 @@ export default function LeftSide({
           ) : filepart[4] == 1 ? (
             <Voices />
           ) : filepart[5] == 1 ? (
-            <div className="mt-3 mr-[-1]">
+            <div className="mt-3 mr-[-1] overflow-y-scroll w-[325px] h-[130px]">
               {members.map((member, index) => (
                 <SearchResult key={index} profile={member} text={member.status} />
               ))}

@@ -384,6 +384,7 @@ export default function Requests(body) {
     try {
       // console.log('Sending request to sign up...');
       const res = await API().POST('access/verify-signup', body, HEADER);
+
       console.error(res);
       localStorage.setItem('token', res.data.jwt);
       return res;

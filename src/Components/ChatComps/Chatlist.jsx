@@ -26,7 +26,7 @@ const Chatlist = ({ isopen }) => {
   const lists = useSelector((store) => store.messageList.messages);
   const selectedChat = useSelector((store) => store.selectedProf.selectedChatID);
   // console.log(selectedChat)
-  console.error(lists)
+  console.error(lists);
   useEffect(() => {
     if (selectedChat) {
       const profile = lists.filter((ele) => ele.profile.profileID == selectedChat)[0];
@@ -52,9 +52,7 @@ const Chatlist = ({ isopen }) => {
       <div className="flex flex-row">
         <div>
           {menu === NUM_SIDEBAR_CHAT ? (
-            <button
-              className="relative"
-              onClick={() => dispatch(setsidebarState())}>
+            <button className="relative" onClick={() => dispatch(setsidebarState())}>
               <UilBars className="text-text1 w-10 h-10 mx-1 m-1  " />
             </button>
           ) : (
@@ -68,7 +66,7 @@ const Chatlist = ({ isopen }) => {
       <div
         ref={listRef}
         // onScroll={() => handleScroll(listRef)}
-        className=" mt-4 h-full w-full overflow-y-auto overflow-x-hidden">
+        className=" mt-4 h-full w-full overflow-y-scroll overflow-x-hidden">
         {lists?.map((chatprev, index) => (
           <ChatCardPreview
             isSelected={selectedChat == chatprev.profile.profileID}

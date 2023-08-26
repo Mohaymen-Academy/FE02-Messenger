@@ -61,19 +61,19 @@ const profileSlice = createSlice({
   extraReducers: (builder) =>
     builder
       .addCase(registerUserProfile.fulfilled, (state, action) => {
-        console.error(action.payload);
         state.signupdata = action.payload.body;
       })
       .addCase(verifyemail.fulfilled, (state, action) => {
         console.error(action.payload);
+        state.jwt = action.payload.jwt;
+        state.profileData = action.payload.profile;
         if (action.payload.jwt != '') {
-          state.jwt = action.payload.jwt;
-          state.profileData = action.payload.profile;
         } else {
           throw { error: 'wrong infos' };
         }
       })
       .addCase(loginUserProfile.fulfilled, (state, action) => {
+        console.error(action.payload)
         if (action.payload.jwt) {
           state.jwt = action.payload.jwt;
           state.profileData = action.payload.profile;

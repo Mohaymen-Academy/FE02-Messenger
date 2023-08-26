@@ -13,7 +13,7 @@ export default function Verifymail() {
     console.error(signupInfo.signupdata);
     try {
       dispatch(verifyemail({ ...signupInfo, code: ref.current.value }));
-      window.location.href = '/';
+      window.location.href = '/login';
     } catch (error) {
       console.error(error);
     }
@@ -21,7 +21,7 @@ export default function Verifymail() {
   return (
     <div
       dir="rtl"
-      className=" bg-complete bg-background bg-opacity-90 bg-url[images/pattern.png] bg-cover bg-center"
+      className="text-text1 bg-complete bg-background bg-opacity-90 bg-url[images/pattern.png] bg-cover bg-center"
       style={{
         backgroundImage: 'url(images/pattern.png)',
         backgroundBlendMode: 'soft-light',
@@ -40,8 +40,8 @@ export default function Verifymail() {
         <div className="">
           <div class="flex min-h-[100%] flex-col items-center overflow-hidden bg-color2">
             <div class="max-w-xl px-5 text-center">
-              <h2 class="mb-2 py-12 text-[42px] font-bold text-zinc-800">ایمیل خود را چک کنید</h2>
-              <p class="mb-2 text-lg text-zinc-500">
+              <h2 class="mb-2 py-12 text-[42px] text-text1 font-bold ">ایمیل خود را چک کنید</h2>
+              <p class="text-text1 mb-2 text-lg ">
                 برای اتمام ثبت نام نیاز است که ایمیل خود را تایید کنید کدی 4 رقمی به ایمیل شما
                 فرستاده شده است آن را تایید کنید
               </p>
