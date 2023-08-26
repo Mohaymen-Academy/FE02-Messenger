@@ -6,6 +6,7 @@ import { getTheme } from '../utility/useLoclStorage';
 import CheckBoxData from '../ui/CheckBoxData';
 import Requests from '../API/Requests';
 import { registerUserProfile } from '../features/profileSlice';
+import { setInfo } from '../features/SignUpInfo';
 
 export default function Register() {
   console.log('werp');
@@ -58,7 +59,15 @@ export default function Register() {
             password: values.current.password
           })
         );
-        window.location.href = '/';
+      
+        // dispatch(
+        //   setInfo({
+        //     name: values.current.username,
+        //     email: values.current.email,
+        //     password: values.current.password
+        //   })
+        // );
+        window.location.href = '/verify';
       } catch (err) {
         console.log(err);
       }
@@ -81,15 +90,15 @@ export default function Register() {
     values.current[name] = value;
   };
   return (
-    <div dir="rtl" className="bg-complete bg-background bg-opacity-90 bg-url[images/pattern.png] bg-cover bg-center"
-    style={{
-      backgroundImage: 'url(images/pattern.png)',
-      backgroundBlendMode: 'soft-light',
-      backgroundRepeat: 'repeat',
-      backgroundSize: '600px',
-
-    }}
-    >
+    <div
+      dir="rtl"
+      className="bg-complete bg-background bg-opacity-90 bg-url[images/pattern.png] bg-cover bg-center"
+      style={{
+        backgroundImage: 'url(images/pattern.png)',
+        backgroundBlendMode: 'soft-light',
+        backgroundRepeat: 'repeat',
+        backgroundSize: '600px'
+      }}>
       <div className="main-div h-[675px] relative m-auto">
         <div className="mb-5 flex flex-col items-center justify-center">
           <a href="/">

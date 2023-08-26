@@ -40,6 +40,7 @@ export default function Requests(body) {
       // console.log('Sending request to sign up...');
       const res = await API().POST('access/signup', body, HEADER);
       localStorage.setItem('token', res.data.jwt);
+      console.error(res);
       return res;
     } catch (err) {
       console.log(err);
@@ -379,23 +380,19 @@ export default function Requests(body) {
     return response;
   }
   async function verifyEmail(body) {
+    console.error(body);
     try {
-      const res = await API().POST('access/signup', body, HEADER);
-      toast.success('درخواست با موفقیت ارسال شد');
+      // console.log('Sending request to sign up...');
+      const res = await API().POST('access/verify-signup', body, HEADER);
+      console.error(res);
+      localStorage.setItem('token', res.data.jwt);
       return res;
     } catch (err) {
-      toast.error('خطایی رخ داده است');
+      console.log(err);
     }
   }
   // async function Register(body) {
-  //   try {
-  //     // console.log('Sending request to sign up...');
-  //     const res = await API().POST('access/verify-signup', body, HEADER);
-  //     localStorage.setItem('token', res.data.jwt);
-  //     return res;
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
+
   // }
   return {
     EditContact,

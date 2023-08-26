@@ -3,15 +3,21 @@ import Requests from '../API/Requests';
 
 const initialState = {
   jwt: '',
-  profileData: {}
+  profileData: {},
+  signupdata: null
 };
 const registerUserProfile = createAsyncThunk('profile/sendRegisterData', async (body) => {
   try {
     const data = await Requests().Register(body);
-    return data.data;
+    return { data: data, body: body };
   } catch (error) {
     console.log(error);
   }
+});
+const verifyemail = createAsyncThunk('profile/verifyemail', async (body) => {
+  console.error(body);
+  const data = await Requests().verifyEmail(body);
+  return data.data;
 });
 
 const loginUserProfile = createAsyncThunk('profile/sendLoginData', async (body) => {
@@ -43,18 +49,23 @@ const profileSlice = createSlice({
           lastModified: 0
         };
       }
-        state.profileData.lastProfilePicture.preLoadingContent = action.payload
-    } ,
-    UpdateProfile: (state , action) => {
-      state.profileData.profileName = action.payload.name,
-      state.profileData.handle = action.payload.handle,
-      state.profileData.biography = action.payload.biography
+      state.profileData.lastProfilePicture.preLoadingContent = action.payload;
+    },
+    UpdateProfile: (state, action) => {
+      (state.profileData.profileName = action.payload.name),
+        (state.profileData.handle = action.payload.handle),
+        (state.profileData.biography = action.payload.biography);
     }
   },
 
   extraReducers: (builder) =>
     builder
       .addCase(registerUserProfile.fulfilled, (state, action) => {
+        console.error(action.payload);
+        state.signupdata = action.payload.body;
+      })
+      .addCase(verifyemail.fulfilled, (state, action) => {
+        console.error(action.payload);
         if (action.payload.jwt) {
           state.jwt = action.payload.jwt;
           state.profileData = action.payload.profile;
@@ -71,6 +82,6 @@ const profileSlice = createSlice({
         }
       })
 });
-export const { clearLogin , UpdateImage , UpdateProfile } = profileSlice.actions;
-export { registerUserProfile, loginUserProfile };
+export const { clearLogin, UpdateImage, UpdateProfile } = profileSlice.actions;
+export { registerUserProfile, loginUserProfile, verifyemail };
 export default profileSlice.reducer;
